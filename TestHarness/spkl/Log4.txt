@@ -1,0 +1,14 @@
+2:27:30 PM	CrmSvcUtil : CRM Service Utility [Version 8.2.1.8676]
+2:27:30 PM	c 2015 Microsoft Corporation. All rights reserved
+2:27:30 PM	
+2:27:30 PM	CrmSvcUtil Error: 2 : Exiting program with exit code 2 due to exception : System.IO.FileLoadException: Could not load file or assembly 'CrmSvcUtil, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35' or one of its dependencies. The located assembly's manifest definition does not match the assembly reference. (Exception from HRESULT: 0x80131040)
+2:27:30 PM	File name: 'CrmSvcUtil, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35'
+2:27:30 PM	   at System.RuntimeTypeHandle.GetTypeByName(String name, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMarkHandle stackMark, IntPtr pPrivHostBinder, Boolean loadTypeFromPartialName, ObjectHandleOnStack type)
+2:27:30 PM	   at System.RuntimeTypeHandle.GetTypeByName(String name, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean loadTypeFromPartialName)
+2:27:30 PM	   at System.Type.GetType(String typeName, Boolean throwOnError)
+4:16:52 PM	CrmSvcUtil : CRM Service Utility [Version 8.2.1.8676]
+4:16:52 PM	c 2015 Microsoft Corporation. All rights reserved
+4:16:52 PM	
+4:16:52 PM	CrmSvcUtil Error: 2 : Exiting program with exit code 2 due to exception : System.IO.FileLoadException: Could not load file or assembly 'CrmSvcUtil, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35' or one of its dependencies. The located assembly's manifest definition does not match the assembly reference. (Exception from HRESULT: 0x80131040)
+4:16:52 PM	File name: 'CrmSvcUtil, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35'
+4:16:52 PM	   at System.RuntimeTypeHandle.GetTypeByName(String name, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMarkHandle stackMark, IntPtr pPrivHostBinder, Boolean loadTypeFromPartialName, ObjectHandleOnStack type)

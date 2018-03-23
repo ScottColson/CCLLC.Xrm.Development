@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Xrm.Sdk;
 
-namespace D365.XrmPluginExtensions.Context
+namespace CCLCC.XrmPluginExtensions.Context
 {
-    public interface ILocalPluginContext : ILocalContext
+
+    using Telemetry;
+
+    public interface ILocalPluginContext<E, T> : ILocalContext<E,T> where E : Entity where T : ITelemetryService
     {
     }
 }

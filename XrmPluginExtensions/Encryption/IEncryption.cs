@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace D365.XrmPluginExtensions.Encryption
+namespace CCLCC.XrmPluginExtensions.Encryption
 {
     public interface IEncryption
     {

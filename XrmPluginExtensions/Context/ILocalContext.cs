@@ -6,14 +6,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace D365.XrmPluginExtensions.Context
+namespace CCLCC.XrmPluginExtensions.Context
 {
     using Caching;
     using Configuration;
     using Diagnostics;
+    using Telemetry;
 
 
-    public interface ILocalContext
+    public interface ILocalContext<E,T> : IDisposable where E : Entity where T : ITelemetryService
     {
         IServiceProvider ServiceProvider { get; }
         IOrganizationServiceFactory OrganizationServiceFactory { get; }
@@ -22,7 +23,7 @@ namespace D365.XrmPluginExtensions.Context
         IOrganizationService ElevatedOrganizationService { get; }
 
         IPluginExecutionContext PluginExecutionContext { get;  }
-        IDiagnosticService DiagnosticService { get; }
+        IDiagnosticService<T> DiagnosticService { get; }
         ePluginStage Stage { get; }
         int Depth { get; }
         string MessageName { get; }

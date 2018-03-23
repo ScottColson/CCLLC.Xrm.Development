@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 
-namespace D365.XrmPluginExtensions.Utilities
+namespace CCLCC.XrmPluginExtensions.Utilities
 {
     public class MergedEntities
     {

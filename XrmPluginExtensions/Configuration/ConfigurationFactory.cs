@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using D365.XrmPluginExtensions.Caching;
-using D365.XrmPluginExtensions.Encryption;
+using CCLCC.XrmPluginExtensions.Caching;
+using CCLCC.XrmPluginExtensions.Encryption;
 using Microsoft.Xrm.Sdk;
 
-namespace D365.XrmPluginExtensions.Configuration
+namespace CCLCC.XrmPluginExtensions.Configuration
 {
     public class ConfigurationFactory : IConfigurationFactory
     {

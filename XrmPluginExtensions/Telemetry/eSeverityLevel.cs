@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace D365.XrmPluginExtensions.Diagnostics
+namespace CCLCC.XrmPluginExtensions.Telemetry
 {
     public enum eSeverityLevel
     {
         Information,
         Warning,
-        Error
+        Error,
+        Exception
     }
 }

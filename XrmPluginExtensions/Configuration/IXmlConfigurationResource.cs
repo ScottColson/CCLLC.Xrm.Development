@@ -1,6 +1,6 @@
 ﻿using System.Xml.Linq;
 
-namespace D365.XrmPluginExtensions.Configuration
+namespace CCLCC.XrmPluginExtensions.Configuration
 {
     public interface IXmlConfigurationResource
     {

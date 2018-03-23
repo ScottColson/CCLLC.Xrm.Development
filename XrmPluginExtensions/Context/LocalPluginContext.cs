@@ -5,19 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xrm.Sdk;
 
-namespace D365.XrmPluginExtensions.Context
+namespace CCLCC.XrmPluginExtensions.Context
 {
     using Caching;
     using Configuration;
     using Diagnostics;
     using Encryption;
+    using Telemetry;
     using Utilities;
 
-    public class LocalPluginContext<T> : ILocalPluginContext where T : Entity
+    public class LocalPluginContext<E,T> : ILocalPluginContext<E,T> where E : Entity where T : ITelemetryService
     {
         public IServiceProvider ServiceProvider { get; private set; }
         public IPluginExecutionContext PluginExecutionContext { get; private set; }
-        public IDiagnosticService DiagnosticService { get; private set; }
+        public IDiagnosticService<T> DiagnosticService { get; private set; }
 
         public ePluginStage Stage { get { return (ePluginStage)this.PluginExecutionContext.Stage; } }
         public int Depth { get { return this.PluginExecutionContext.Depth; } }
@@ -129,7 +130,7 @@ namespace D365.XrmPluginExtensions.Context
 
 
 
-        public LocalPluginContext(IServiceProvider serviceProvider, IPluginExecutionContext executionContext, IDiagnosticService diagnosticService)
+        public LocalPluginContext(IServiceProvider serviceProvider, IPluginExecutionContext executionContext, IDiagnosticService<T> diagnosticService)
         {
             if (serviceProvider == null) throw new ArgumentNullException("serviceProvider");
             this.ServiceProvider = serviceProvider;
@@ -150,7 +151,7 @@ namespace D365.XrmPluginExtensions.Context
         /// <summary>
         /// Returns the first registered 'Pre' image for the pipeline execution
         /// </summary>
-        public T PreImage
+        public E PreImage
         {
             get
             {
@@ -164,7 +165,7 @@ namespace D365.XrmPluginExtensions.Context
         /// <summary>
         /// Returns the first registered 'Post' image for the pipeline execution
         /// </summary>
-        public T PostImage
+        public E PostImage
         {
             get
             {
@@ -205,12 +206,12 @@ namespace D365.XrmPluginExtensions.Context
         }
 
 
-        private T GetEntityAsType(Entity entity)
+        private E GetEntityAsType(Entity entity)
         {
-            if (typeof(T) == entity.GetType())
-                return entity as T;
+            if (typeof(E) == entity.GetType())
+                return entity as E;
             else
-                return entity.ToEntity<T>();
+                return entity.ToEntity<E>();
         }
 
 

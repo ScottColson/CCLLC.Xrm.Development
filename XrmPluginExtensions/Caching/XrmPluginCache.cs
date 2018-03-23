@@ -8,7 +8,7 @@ using System.Runtime.Caching;
 
 
 
-namespace D365.XrmPluginExtensions.Caching
+namespace CCLCC.XrmPluginExtensions.Caching
 {
     internal class CacheItem
     {

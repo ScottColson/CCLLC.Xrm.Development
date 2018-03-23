@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace D365.XrmPluginExtensions.Caching
+namespace CCLCC.XrmPluginExtensions.Caching
 {
     public interface ICacheFactory
     {

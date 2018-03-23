@@ -5,7 +5,7 @@ using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using System.Xml.Linq;
 
-namespace D365.XrmPluginExtensions.Configuration
+namespace CCLCC.XrmPluginExtensions.Configuration
 {
     using Caching;
 

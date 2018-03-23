@@ -1,11 +1,12 @@
 ﻿using System;
 using Microsoft.Xrm.Sdk;
 
-namespace D365.XrmPluginExtensions
+namespace CCLCC.XrmPluginExtensions
 {
-    using Diagnostics;
+    using Context;
+    using Telemetry;
 
-    public class PluginEvent
+    public class PluginEvent<E,T> where E : Entity where T : ITelemetryService
     {
         /// <summary>
         /// Execution pipeline stage that the plugin should be registered against.
@@ -22,6 +23,6 @@ namespace D365.XrmPluginExtensions
         /// <summary>
         /// Method that should be executed when the conditions of the Plugin Event have been met.
         /// </summary>
-        public Action<IServiceProvider, IPluginExecutionContext, IDiagnosticService> PluginAction { get; set; }
-    }
+        public Action<ILocalPluginContext<E,T>> PluginAction  { get; set; }
+}
 }

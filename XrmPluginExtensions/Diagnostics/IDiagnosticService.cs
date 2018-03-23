@@ -1,18 +1,23 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+using Microsoft.Xrm.Sdk;
 
-namespace D365.XrmPluginExtensions.Diagnostics
+namespace CCLCC.XrmPluginExtensions.Diagnostics
 {
-    public interface IDiagnosticService : IDisposable
-    {
-        string ProcessName { get; }
-        bool EnableDebugLogging { get; set; }
+    using Telemetry;
+
+    public interface IDiagnosticService<T> : IDisposable where T : ITelemetryService
+    { 
         void EnterMethod([CallerMemberName]string methodname = "");
+
         void ExitMethod(string message = null);
-        //void Save(ITraceLogWriter writer, bool saveInfoMessages);
-        //void Save(ITraceLogWriter writer);
-        
-        void Trace(string message, eSeverityLevel severity, params object[] args);
+      
         void Trace(string message, params object[] args);
+
+        void TracePluginException(InvalidPluginExecutionException ex);
+
+        void TraceGeneralException(Exception ex);
+
+        T Telemetry { get; }
     }
 }

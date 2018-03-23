@@ -3,7 +3,7 @@ using System.Linq;
 using Microsoft.Xrm.Sdk;
 
 
-namespace D365.XrmPluginExtensions.Utilities
+namespace CCLCC.XrmPluginExtensions.Utilities
 {    
     
     /// <summary>

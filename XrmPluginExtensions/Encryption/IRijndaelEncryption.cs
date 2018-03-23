@@ -1,5 +1,5 @@
 ﻿
-namespace D365.XrmPluginExtensions.Encryption
+namespace CCLCC.XrmPluginExtensions.Encryption
 {
     public interface IRijndaelEncryption : IEncryption
     {

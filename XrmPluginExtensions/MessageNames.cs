@@ -1,5 +1,5 @@
 ﻿
-namespace D365.XrmPluginExtensions
+namespace CCLCC.XrmPluginExtensions
 {
     public class MessageNames
     {

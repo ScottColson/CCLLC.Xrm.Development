@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace D365.XrmPluginExtensions.Utilities
+namespace CCLCC.XrmPluginExtensions.Utilities
 {
     public class AnnotationsAndAttachments
     {

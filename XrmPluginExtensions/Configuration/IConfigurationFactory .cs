@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace D365.XrmPluginExtensions.Configuration
+namespace CCLCC.XrmPluginExtensions.Configuration
 {
     using Caching;
     using Encryption;

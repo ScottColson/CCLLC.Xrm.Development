@@ -2,10 +2,12 @@
 using Microsoft.Xrm.Sdk;
 using System;
 
-namespace D365.XrmPluginExtensions.Diagnostics
+namespace CCLCC.XrmPluginExtensions.Diagnostics
 {
-    public interface IDiagnosticServiceFactory
+    using Telemetry;
+
+    public interface IDiagnosticServiceFactory<T> where T : ITelemetryService
     {
-        IDiagnosticService CreateDiagnosticService(Type plugin, ITracingService tracingService, IExecutionContext executionContext);
+        IDiagnosticService<T> CreateDiagnosticService(string pluginClassName, IExecutionContext executionContext, ITracingService tracingService, ITelemetryProvider<T> TelemetryProvider);
     }
 }

@@ -1,53 +1,94 @@
-﻿using Microsoft.Xrm.Sdk;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Xrm.Sdk;
 
-namespace D365.XrmPluginExtensions.Diagnostics
+namespace CCLCC.XrmPluginExtensions.Diagnostics
 {
-    public class DiagnosticService : IDiagnosticService
+    using Telemetry;
+
+    public class DiagnosticService<T> : IDiagnosticService<T> where T : ITelemetryService, IDisposable
     {
-        internal DiagnosticService(ITracingService traceService)
+        private ITracingService tracingService;
+        private ITelemetryProvider<T> telemetryProvider;
+        private IExecutionContext executionContext;
+        private T telemetryService;
+        private string pluginClassName;
+
+        internal DiagnosticService(string pluginClassName, IExecutionContext executionContext, ITracingService tracingService, ITelemetryProvider<T> telemetryProvider)
         {
-
-
-
-
+            this.tracingService = tracingService;
+            this.telemetryProvider = telemetryProvider;
+            this.executionContext = executionContext;
+            this.pluginClassName = pluginClassName;
+        }     
+       
+        public T Telemetry
+        {
+            get
+            {
+                if(telemetryService == null)
+                {
+                    telemetryService = telemetryProvider.CreateTelemetryService(pluginClassName, telemetryProvider, tracingService, executionContext);
+                }
+                return telemetryService;
+            }
         }
 
-        public string ProcessName => throw new NotImplementedException();
-
-        public bool EnableDebugLogging { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
         public void Dispose()
-        {
-            throw new NotImplementedException();
+        {            
+            if(telemetryService != null)
+            {
+                telemetryService.Dispose();
+            }
         }
 
         public void EnterMethod([CallerMemberName] string methodname = "")
         {
-            throw new NotImplementedException();
+            Trace("Entered: {0}", methodname);
         }
 
         public void ExitMethod(string message = null)
         {
-            throw new NotImplementedException();
+            Trace("Exiting method");
         }
-
-       
-
 
         public void Trace(string format, params object[] args)
         {
-            throw new NotImplementedException();
+            if (Telemetry.IsInitialized)
+            {
+                Telemetry.TrackTrace(eSeverityLevel.Information, format, args);
+            }
+           
+            if(!Telemetry.IsInitialized || !Telemetry.WritesToPluginTracLog)
+            {
+                tracingService.Trace(format, args);
+            }
         }
 
-        public void Trace(string message, eSeverityLevel severity, params object[] args)
+        public void TraceGeneralException(Exception ex)
         {
-            throw new NotImplementedException();
+            if (Telemetry.IsInitialized)
+            {
+                Telemetry.TrackException(ex);
+            }
+
+            if (!Telemetry.IsInitialized || !Telemetry.WritesToPluginTracLog)
+            {
+                tracingService.Trace("Unhandled Exception: {0}", ex.Message);
+            }
+        }
+
+        public void TracePluginException(InvalidPluginExecutionException ex)
+        {
+            if (Telemetry.IsInitialized)
+            {
+                Telemetry.TrackTrace(eSeverityLevel.Error, "Plugin Exception: {0}", ex.Message);
+            }
+
+            if (!Telemetry.IsInitialized || !Telemetry.WritesToPluginTracLog)
+            {
+                tracingService.Trace("Plugin Exception: {0}", ex.Message);
+            }
         }
     }
 }

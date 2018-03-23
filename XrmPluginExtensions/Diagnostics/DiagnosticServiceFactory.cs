@@ -1,15 +1,16 @@
 ﻿using System;
 using Microsoft.Xrm.Sdk;
 
-namespace D365.XrmPluginExtensions.Diagnostics
+namespace CCLCC.XrmPluginExtensions.Diagnostics
 {
-    public class DiagnosticServiceFactory : IDiagnosticServiceFactory
-    {
-       
+    using Telemetry;
 
-        public IDiagnosticService CreateDiagnosticService(Type plugin, ITracingService tracingService, IExecutionContext executionContext)
+    public class DiagnosticServiceFactory<T> : IDiagnosticServiceFactory<T> where T : ITelemetryService
+    {      
+
+        public IDiagnosticService<T> CreateDiagnosticService(string pluginClassName, IExecutionContext executionContext, ITracingService tracingService, ITelemetryProvider<T> telemetryProvider) 
         {
-            throw new NotImplementedException();
+            return new DiagnosticService<T>(pluginClassName, executionContext, tracingService, telemetryProvider);
         }
     }
 }

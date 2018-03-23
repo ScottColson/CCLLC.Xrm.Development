@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace D365.XrmPluginExtensions.Configuration
+namespace CCLCC.XrmPluginExtensions.Configuration
 {
     public interface IExtensionSettings
     {

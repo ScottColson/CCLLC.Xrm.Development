@@ -8,7 +8,7 @@ using Microsoft.Xrm.Sdk;
 using Microsoft.Crm.Sdk.Messages;
 using System.Collections.Specialized;
 
-namespace D365.XrmPluginExtensions.Caching
+namespace CCLCC.XrmPluginExtensions.Caching
 {
 
     /// <summary>

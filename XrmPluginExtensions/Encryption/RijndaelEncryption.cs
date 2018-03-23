@@ -3,7 +3,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace D365.XrmPluginExtensions.Encryption
+namespace CCLCC.XrmPluginExtensions.Encryption
 {
     public class RijndaelEncryption :IEncryption
     {
