@@ -28,7 +28,7 @@ namespace CCLCC.XrmPluginExtensions.Telemetry
 
 
 
-        public TracingTelemetryService(string pluginClassName, ITelemetryProvider<ITelemetryService> telemetryProvider, ITracingService tracingService, IExecutionContext executionContext) 
+        public TracingTelemetryService(string pluginClassName, ITelemetryProvider telemetryProvider, ITracingService tracingService, IExecutionContext executionContext) 
             : base(pluginClassName,telemetryProvider,tracingService, executionContext)
         {           
         }

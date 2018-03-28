@@ -26,11 +26,11 @@ namespace CCLCC.XrmPluginExtensions.Telemetry
             get { return properties; }
         }
 
-        public virtual ITelemetryProvider<ITelemetryService> TelemetryProvider { get; private set; }
+        public virtual ITelemetryProvider TelemetryProvider { get; private set; } 
         
         public virtual ITracingService TracingService { get; private set; }
 
-        protected TelemetryServiceBase(string pluginClassName, ITelemetryProvider<ITelemetryService> telemetryProvider, ITracingService tracingService, IExecutionContext executionContext)
+        protected TelemetryServiceBase(string pluginClassName, ITelemetryProvider telemetryProvider, ITracingService tracingService, IExecutionContext executionContext)
         {
             this.TracingService = tracingService;
             this.TelemetryProvider = telemetryProvider;
@@ -68,6 +68,11 @@ namespace CCLCC.XrmPluginExtensions.Telemetry
         {
             var telemetry = new TraceTelemetry(string.Format(message, args), severityLevel, this.properties);
             TelemetryProvider.Track(telemetry);
+        }
+
+        public virtual void TrackEvent(string EventName, IDictionary<string, double> metrics = null, IDictionary<string, string> additionalProperties = null)
+        {
+            throw new NotImplementedException();
         }
     }
 }

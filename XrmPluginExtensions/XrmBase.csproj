@@ -37,6 +37,9 @@
     <AssemblyOriginatorKeyFile>XrmBase.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.6.2.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.6.2\lib\net45\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Crm.Sdk.Proxy, Version=8.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CrmSdk.CoreAssemblies.8.2.0.2\lib\net452\Microsoft.Crm.Sdk.Proxy.dll</HintPath>
     </Reference>
@@ -50,7 +53,10 @@
     <Reference Include="System.Core" />
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.IdentityModel" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -74,10 +80,13 @@
     <Compile Include="Configuration\XmlConfigurationResource.cs" />
     <Compile Include="Configuration\ExtensionSettings.cs" />
     <Compile Include="Configuration\IConfigurationFactory .cs" />
+    <Compile Include="Container\Container.cs" />
+    <Compile Include="Container\IContainer.cs" />
+    <Compile Include="Container\ImplementationParameters.cs" />
     <Compile Include="Context\ILocalContextFactory.cs" />
     <Compile Include="Context\LocalContextFactory.cs" />
-    <Compile Include="IServiceProvider.cs" />
     <Compile Include="Plugin.cs" />
+    <Compile Include="Telemetry\ConfigureTelemtryProviderDelegate.cs" />
     <Compile Include="Telemetry\eSeverityLevel.cs" />
     <Compile Include="Telemetry\ITelemetry.cs" />
     <Compile Include="Telemetry\ITelemetryService.cs" />
@@ -106,7 +115,6 @@
     <Compile Include="PluginBase.cs" />
     <Compile Include="PluginEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceProvider.cs" />
     <Compile Include="Utilities\XrmEntityExtensions.cs" />
   </ItemGroup>
   <ItemGroup>

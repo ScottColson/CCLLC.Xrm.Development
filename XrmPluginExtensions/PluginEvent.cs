@@ -6,7 +6,7 @@ namespace CCLCC.XrmPluginExtensions
     using Context;
     using Telemetry;
 
-    public class PluginEvent<E,T> where E : Entity where T : ITelemetryService
+    public class PluginEvent<E> where E : Entity
     {
         /// <summary>
         /// Execution pipeline stage that the plugin should be registered against.
@@ -23,6 +23,6 @@ namespace CCLCC.XrmPluginExtensions
         /// <summary>
         /// Method that should be executed when the conditions of the Plugin Event have been met.
         /// </summary>
-        public Action<ILocalPluginContext<E,T>> PluginAction  { get; set; }
+        public Action<ILocalPluginContext<E>> PluginAction  { get; set; }
 }
 }

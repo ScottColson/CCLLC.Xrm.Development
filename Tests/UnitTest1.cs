@@ -15,7 +15,7 @@ namespace Tests
             var fakedContext = new XrmFakedContext();
 
             var target = new Entity("account") { Id = Guid.NewGuid() };
-
+                       
             var fakedPlugin = fakedContext.ExecutePluginWithTarget<TestHarness.BasePluginTestHarness>(target);
 
 

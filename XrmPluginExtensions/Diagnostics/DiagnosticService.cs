@@ -6,15 +6,15 @@ namespace CCLCC.XrmPluginExtensions.Diagnostics
 {
     using Telemetry;
 
-    public class DiagnosticService<T> : IDiagnosticService<T> where T : ITelemetryService, IDisposable
+    public class DiagnosticService : IDiagnosticService, IDisposable
     {
         private ITracingService tracingService;
-        private ITelemetryProvider<T> telemetryProvider;
+        private ITelemetryProvider telemetryProvider;
         private IExecutionContext executionContext;
-        private T telemetryService;
+        private ITelemetryService telemetryService;
         private string pluginClassName;
 
-        internal DiagnosticService(string pluginClassName, IExecutionContext executionContext, ITracingService tracingService, ITelemetryProvider<T> telemetryProvider)
+        internal DiagnosticService(string pluginClassName, IExecutionContext executionContext, ITracingService tracingService, ITelemetryProvider telemetryProvider)
         {
             this.tracingService = tracingService;
             this.telemetryProvider = telemetryProvider;
@@ -22,7 +22,7 @@ namespace CCLCC.XrmPluginExtensions.Diagnostics
             this.pluginClassName = pluginClassName;
         }     
        
-        public T Telemetry
+        public ITelemetryService Telemetry
         {
             get
             {

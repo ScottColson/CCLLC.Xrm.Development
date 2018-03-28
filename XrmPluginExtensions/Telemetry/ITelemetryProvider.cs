@@ -6,14 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CCLCC.XrmPluginExtensions.Telemetry
-{
-    public interface ITelemetryProvider<T> where T : ITelemetryService
+{  
+    public interface ITelemetryProvider
     {
-        Func<Dictionary<string, string>> ServiceProviderSettings { set; }
+        void SetConfigurationCallback(ConfigureTelemtryProvider callback);
 
         bool IsInitialized { get; }
 
-        T CreateTelemetryService(string pluginClassName, ITelemetryProvider<T> TelemetryProvider, ITracingService tracingService, IExecutionContext executionContext);
+        ITelemetryService CreateTelemetryService(string pluginClassName, ITelemetryProvider TelemetryProvider, ITracingService tracingService, IExecutionContext executionContext);
 
         void Track(ITelemetry telemetry);
     }

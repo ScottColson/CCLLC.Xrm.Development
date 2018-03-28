@@ -7,19 +7,20 @@ using CCLCC.XrmPluginExtensions.Context;
 
 namespace TestHarness
 {
-    [CrmPluginRegistration(MessageNameEnum.Update, "account", StageEnum.PostOperation, ExecutionModeEnum.Synchronous, null, "sample step",1, IsolationModeEnum.Sandbox)]
+    [CrmPluginRegistration(MessageNameEnum.Create, "account", StageEnum.PostOperation, ExecutionModeEnum.Synchronous, null, "sample step",1, IsolationModeEnum.Sandbox)]
     public class BasePluginTestHarness : Plugin<Entity>, IPlugin
     {
         public BasePluginTestHarness() : base()
         {
-            RegisterMessageHandler("account", MessageNames.Update, ePluginStage.PostOperation, ExecuteLocal);
-            
+            RegisterMessageHandler("account", MessageNames.Create, ePluginStage.PostOperation, ExecuteLocal);            
         }
 
-        public void ExecuteLocal(ILocalContext<Entity,ITelemetryService> localContext) 
+        public void ExecuteLocal(ILocalContext<Entity> localContext) 
         {
             try
             {
+                localContext.PluginCache.Add<string>("akey", "avalue", 15);
+                localContext.DiagnosticService.Trace(localContext.PluginCache.Get<string>("akey"));
                 localContext.DiagnosticService.Trace("{0} entered plugin", "some value");
                 localContext.DiagnosticService.Telemetry.TrackTrace(eSeverityLevel.Information, "{0} telemetry", "somevalue");                
             }

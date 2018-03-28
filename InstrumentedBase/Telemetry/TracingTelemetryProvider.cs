@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CCLCC.XrmPluginExtensions.Telemetry
 {
-    internal class EventTelemetryProvider : ITelemetryProvider<IEventTelemetryService> 
+    internal class EventTelemetryProvider : ITelemetryProvider 
     {        
         public bool IsInitialized
         {
@@ -17,11 +17,13 @@ namespace CCLCC.XrmPluginExtensions.Telemetry
 
         public Func<Dictionary<string, string>> ServiceProviderSettings { private get; set; }
 
-       
 
-       
+        public ITelemetryService CreateTelemetryService(string pluginClassName, ITelemetryProvider TelemetryProvider, ITracingService tracingService, IExecutionContext executionContext)
+        {
+            throw new NotImplementedException();
+        }
 
-        public IEventTelemetryService CreateTelemetryService(string pluginClassName, ITelemetryProvider<IEventTelemetryService> TelemetryProvider, ITracingService tracingService, IExecutionContext executionContext)
+        public void SetConfigurationCallback(ConfigureTelemtryProvider callback)
         {
             throw new NotImplementedException();
         }
@@ -30,6 +32,6 @@ namespace CCLCC.XrmPluginExtensions.Telemetry
         {
         }
 
-     
+       
     }
 }

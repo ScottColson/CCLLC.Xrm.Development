@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace CCLCC.XrmPluginExtensions.Telemetry
 {
-    public class EventTelemetryService : IEventTelemetryService
+    public class EventTelemetryService : ITelemetryService
     {
         public bool WritesToPluginTracLog => throw new NotImplementedException();
 
         public bool IsInitialized => throw new NotImplementedException();
 
-        public ITelemetryProvider<ITelemetryService> TelemetryProvider => throw new NotImplementedException();
+        public ITelemetryProvider TelemetryProvider => throw new NotImplementedException();
 
         public IReadOnlyDictionary<string, string> Properties => throw new NotImplementedException();
 

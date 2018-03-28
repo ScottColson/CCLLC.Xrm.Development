@@ -6,16 +6,21 @@ using System.Linq;
 using Microsoft.Xrm.Sdk;
 
 
+
 namespace CCLCC.XrmPluginExtensions
-{ 
+{
+    using Caching;
+    using Configuration;
+    using Container;
     using Context;
+    using Encryption;
     using Diagnostics;
     using Telemetry;
 
-    public abstract class PluginBase<E,T> : IPlugin<E,T> where E : Entity where T : ITelemetryService
+    public abstract class PluginBase<E> : IPlugin<E> where E : Entity
     {
-        private Collection<PluginEvent<E,T>> events = new Collection<PluginEvent<E, T>>();
-        public IReadOnlyList<PluginEvent<E,T>> PluginEventHandlers 
+        private Collection<PluginEvent<E>> events = new Collection<PluginEvent<E>>();
+        public IReadOnlyList<PluginEvent<E>> PluginEventHandlers 
         {
             get
             {                
@@ -23,7 +28,20 @@ namespace CCLCC.XrmPluginExtensions
             }
         }
 
-        public ITelemetryProvider<T> TelemetryProvider { get; private set; }
+        private IContainer container;
+        public IContainer Container
+        {
+            get {
+                if (container == null)
+                {
+                    container = new Container.Container();
+                    RegisterContainerServices(container);
+                }
+                return container;
+            }
+        }
+
+        public ITelemetryProvider TelemetryProvider { get; private set; }
         public Dictionary<string,string> TelemetryServiceFactorySettings { get; private set; }
 
         /// <summary>
@@ -48,9 +66,9 @@ namespace CCLCC.XrmPluginExtensions
 
         public PluginBase() { }
 
-        public void RegisterMessageHandler(string entityName, string messageName, ePluginStage stage, Action<ILocalContext<E, T>> handler)
+        public void RegisterMessageHandler(string entityName, string messageName, ePluginStage stage, Action<ILocalContext<E>> handler)
         {
-            events.Add(new PluginEvent<E, T>
+            events.Add(new PluginEvent<E>
             {
                 EntityName = entityName,
                 MessageName = messageName,
@@ -59,13 +77,17 @@ namespace CCLCC.XrmPluginExtensions
             });
         }
 
-
-        public virtual IServiceProvider<T> DecorateServiceProvider(IServiceProvider provider)
+        public virtual void RegisterContainerServices(IContainer container)
         {
-            return new ServiceProvider<T>(provider);
+            container.RegisterAsSingleInstance<ITelemetryProvider, TracingTelemetryProvider>();
+            container.RegisterAsSingleInstance<ICacheFactory, CacheFactory>();   
+            container.RegisterAsSingleInstance<IConfigurationFactory, ConfigurationFactory>();
+            container.RegisterAsSingleInstance<IDiagnosticServiceFactory, DiagnosticServiceFactory>();
+            container.RegisterAsSingleInstance<ILocalContextFactory, LocalContextFactory>();
+            container.RegisterAsSingleInstance<IRijndaelEncryption, RijndaelEncryption>();
         }
 
-        
+        public virtual void ConfigureTelemetryProvider(ITelemetryProvider telemetryProvider) { }
 
         /// <summary>
         /// Executes the plug-in.
@@ -78,8 +100,6 @@ namespace CCLCC.XrmPluginExtensions
         {
             if (serviceProvider == null)
                 throw new ArgumentNullException("serviceProvider");
-
-            serviceProvider = DecorateServiceProvider(serviceProvider);
            
             var tracingService = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
             tracingService.Trace(string.Format(CultureInfo.InvariantCulture, "Entered {0}.Execute()", this.GetType().ToString()));
@@ -90,11 +110,11 @@ namespace CCLCC.XrmPluginExtensions
             //with respect to an individual plugin Execute event. 
             if(TelemetryProvider == null)
             {
-                TelemetryProvider = (ITelemetryProvider<T>)serviceProvider.GetService(typeof(ITelemetryProvider<T>));
-                TelemetryProvider.ServiceProviderSettings = () => { return (TelemetryServiceFactorySettings != null) ? TelemetryServiceFactorySettings : new Dictionary<string, string>(); };
-            }            
-           
-            var diagnosticServiceFactory = (IDiagnosticServiceFactory<T>)serviceProvider.GetService(typeof(IDiagnosticServiceFactory<T>));
+                TelemetryProvider = Container.Resolve<ITelemetryProvider>();
+                //TODO: Manage telemetry configuration
+            }
+            
+            var diagnosticServiceFactory = Container.Resolve<IDiagnosticServiceFactory>();
 
             using (var diagnosticService = diagnosticServiceFactory.CreateDiagnosticService(this.GetType().ToString(), executionContext, tracingService, this.TelemetryProvider))
             {
@@ -107,8 +127,9 @@ namespace CCLCC.XrmPluginExtensions
 
                     if (matchinHandlers.Any())
                     {
-                        var localContextFactory = (ILocalContextFactory<T>)serviceProvider.GetService(typeof(ILocalContextFactory<T>));
-                        using (var localContext = localContextFactory.CreateLocalPluginContext<E>(executionContext, serviceProvider, diagnosticService))
+                        var localContextFactory = Container.Resolve<ILocalContextFactory>();
+                       
+                        using (var localContext = localContextFactory.CreateLocalPluginContext<E>(executionContext, this.Container, serviceProvider, diagnosticService))
                         {                            
                             foreach (var handler in matchinHandlers)
                             {

@@ -16,11 +16,13 @@ namespace CCLCC.XrmPluginExtensions.Telemetry
 
         void AddProperty(string name, string value);
 
-        ITelemetryProvider<ITelemetryService> TelemetryProvider { get; }
+        ITelemetryProvider TelemetryProvider { get; }
 
         void TrackTrace(eSeverityLevel severityLevel, string message, params object[] args);
 
         void TrackException(Exception exception);
+
+        void TrackEvent(string EventName, IDictionary<string, double> metrics = null, IDictionary<string, string> additionalProperties = null);
 
     }
 }

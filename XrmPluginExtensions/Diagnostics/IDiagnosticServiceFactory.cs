@@ -6,8 +6,8 @@ namespace CCLCC.XrmPluginExtensions.Diagnostics
 {
     using Telemetry;
 
-    public interface IDiagnosticServiceFactory<T> where T : ITelemetryService
+    public interface IDiagnosticServiceFactory
     {
-        IDiagnosticService<T> CreateDiagnosticService(string pluginClassName, IExecutionContext executionContext, ITracingService tracingService, ITelemetryProvider<T> TelemetryProvider);
+        IDiagnosticService CreateDiagnosticService(string pluginClassName, IExecutionContext executionContext, ITracingService tracingService, ITelemetryProvider TelemetryProvider);
     }
 }

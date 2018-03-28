@@ -6,7 +6,7 @@ namespace CCLCC.XrmPluginExtensions.Diagnostics
 {
     using Telemetry;
 
-    public interface IDiagnosticService<T> : IDisposable where T : ITelemetryService
+    public interface IDiagnosticService : IDisposable 
     { 
         void EnterMethod([CallerMemberName]string methodname = "");
 
@@ -18,6 +18,6 @@ namespace CCLCC.XrmPluginExtensions.Diagnostics
 
         void TraceGeneralException(Exception ex);
 
-        T Telemetry { get; }
+        ITelemetryService Telemetry { get; }
     }
 }

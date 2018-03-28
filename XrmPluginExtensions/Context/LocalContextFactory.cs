@@ -3,14 +3,15 @@ using Microsoft.Xrm.Sdk;
 
 namespace CCLCC.XrmPluginExtensions.Context
 {
+    using Container;
     using Diagnostics;
     using Telemetry;
 
-    public class LocalContextFactory<T> : ILocalContextFactory<T> where T : ITelemetryService
+    public class LocalContextFactory : ILocalContextFactory
     {      
-        public ILocalPluginContext<E,T> CreateLocalPluginContext<E>(IPluginExecutionContext pluginExecutionContext, IServiceProvider serviceProvider, IDiagnosticService<T> diagnosticService) where E : Entity 
+        public ILocalPluginContext<E> CreateLocalPluginContext<E>(IPluginExecutionContext pluginExecutionContext, IContainer container, IServiceProvider serviceProvider, IDiagnosticService diagnosticService) where E : Entity 
         {
-            return new LocalPluginContext<E, T>(serviceProvider, pluginExecutionContext, diagnosticService);
+            return new LocalPluginContext<E>(container, serviceProvider, pluginExecutionContext, diagnosticService);
         }
     }
 }

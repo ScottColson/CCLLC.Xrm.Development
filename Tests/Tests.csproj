@@ -103,10 +103,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\InstrumentedBase\XrmTelemtryBase.csproj">
-      <Project>{7622586a-dfa4-41db-9795-5f29059b3996}</Project>
-      <Name>XrmTelemtryBase</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TestHarness\TestHarness.csproj">
       <Project>{6bd83bfd-164f-4a16-b65a-680564373411}</Project>
       <Name>TestHarness</Name>

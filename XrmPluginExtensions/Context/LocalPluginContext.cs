@@ -9,16 +9,18 @@ namespace CCLCC.XrmPluginExtensions.Context
 {
     using Caching;
     using Configuration;
+    using Container;
     using Diagnostics;
     using Encryption;
     using Telemetry;
     using Utilities;
 
-    public class LocalPluginContext<E,T> : ILocalPluginContext<E,T> where E : Entity where T : ITelemetryService
+    public class LocalPluginContext<E> : ILocalPluginContext<E> where E : Entity
     {
         public IServiceProvider ServiceProvider { get; private set; }
+        public IContainer Container { get; private set; }
         public IPluginExecutionContext PluginExecutionContext { get; private set; }
-        public IDiagnosticService<T> DiagnosticService { get; private set; }
+        public IDiagnosticService DiagnosticService { get; private set; }
 
         public ePluginStage Stage { get { return (ePluginStage)this.PluginExecutionContext.Stage; } }
         public int Depth { get { return this.PluginExecutionContext.Depth; } }
@@ -96,8 +98,8 @@ namespace CCLCC.XrmPluginExtensions.Context
             {
                 if (extensionSettings == null)
                 {
-                    var factory = (IConfigurationFactory)this.ServiceProvider.GetService(typeof(IConfigurationFactory));
-                    var encryption = (IRijndaelEncryption)this.ServiceProvider.GetService(typeof(IRijndaelEncryption));
+                    var factory = Container.Resolve<IConfigurationFactory>();
+                    var encryption = Container.Resolve<IRijndaelEncryption>();                   
                     extensionSettings = factory.CreateExtensionSettings(this.ElevatedOrganizationService, this.OrganizationCache, encryption);
                 }
 
@@ -115,7 +117,7 @@ namespace CCLCC.XrmPluginExtensions.Context
             {
                 if (xmlConfigurationResources == null)
                 {
-                    var factory = (IConfigurationFactory)ServiceProvider.GetService(typeof(IConfigurationFactory));
+                    var factory = Container.Resolve<IConfigurationFactory>();
                     xmlConfigurationResources = factory.CreateConfigurationResources(this.ElevatedOrganizationService, this.OrganizationCache);
                 }
 
@@ -123,15 +125,11 @@ namespace CCLCC.XrmPluginExtensions.Context
             }
         }
 
-
-
-
-       
-
-
-
-        public LocalPluginContext(IServiceProvider serviceProvider, IPluginExecutionContext executionContext, IDiagnosticService<T> diagnosticService)
+        public LocalPluginContext(IContainer container, IServiceProvider serviceProvider, IPluginExecutionContext executionContext, IDiagnosticService diagnosticService)
         {
+            if (container == null) throw new ArgumentNullException("container");
+            this.Container = container;
+
             if (serviceProvider == null) throw new ArgumentNullException("serviceProvider");
             this.ServiceProvider = serviceProvider;
 
@@ -140,7 +138,16 @@ namespace CCLCC.XrmPluginExtensions.Context
 
             if (diagnosticService == null) throw new ArgumentNullException("diagnosticService");
             this.DiagnosticService = diagnosticService;
+
+            this.DiagnosticService.Telemetry.TelemetryProvider.SetConfigurationCallback(ConfigureTelemetryProvider);
         }
+
+        private void ConfigureTelemetryProvider(ITelemetryProvider telemetryProvider)
+        {
+            throw new NotImplementedException();
+        }
+
+       
 
         public void Dispose()
         {
@@ -245,7 +252,7 @@ namespace CCLCC.XrmPluginExtensions.Context
             {
                 if(pluginCache == null)
                 {
-                    var factory = (ICacheFactory)this.ServiceProvider.GetService(typeof(ICacheFactory));
+                    var factory = Container.Resolve<ICacheFactory>();
                     pluginCache = factory.CreatePluginCache();
                 }
                 return pluginCache;
@@ -259,12 +266,14 @@ namespace CCLCC.XrmPluginExtensions.Context
             {
                 if (organizationCache == null)
                 {
-                    var factory = (ICacheFactory)this.ServiceProvider.GetService(typeof(ICacheFactory));
+                    var factory = Container.Resolve<ICacheFactory>();
                     organizationCache = factory.CreateOrganizationCache(this.PluginExecutionContext.OrganizationId);
                 }
                 return organizationCache;
             }
         }
+
+        
     }
 
 }

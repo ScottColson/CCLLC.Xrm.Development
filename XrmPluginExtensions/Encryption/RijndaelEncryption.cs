@@ -5,14 +5,12 @@ using System.Text;
 
 namespace CCLCC.XrmPluginExtensions.Encryption
 {
-    public class RijndaelEncryption :IEncryption
+    public class RijndaelEncryption : IRijndaelEncryption
     {
-
         private readonly string defaultKey = "7a5a64brEgaceqenuyegac7era3Ape6aWatrewegeka94waqegayathudrebuc7t";
         private readonly byte[] salt = { 73, 118, 97, 110, 32, 77, 101, 100, 118, 101, 100, 101, 118 };
 
-
-       public string DefaultKey
+        public string DefaultKey
         {
             get { return defaultKey; }
         }
@@ -68,12 +66,5 @@ namespace CCLCC.XrmPluginExtensions.Encryption
             byte[] numArray = array;
             return numArray;
         }
-
-       
-       
-
-       
-
-       
     }
 }

@@ -8,25 +8,31 @@ using System.Threading.Tasks;
 
 namespace CCLCC.XrmPluginExtensions.Telemetry
 {
-    internal class TracingTelemetryProvider : ITelemetryProvider<ITelemetryService> 
-    {        
-        public bool IsInitialized
-        {
-            get { return false; }
-        }
+    internal class TracingTelemetryProvider : ITelemetryProvider 
+    {
+        private ConfigureTelemtryProvider configurationCallback;      
 
-        public Func<Dictionary<string, string>> ServiceProviderSettings { private get; set; }
+        public bool IsInitialized { get; private set; }        
 
-        public ITelemetryService CreateTelemetryService(string pluginClassName, ITelemetryProvider<ITelemetryService> telemetryProvider, ITracingService tracingService, IExecutionContext executionContext)
+        public ITelemetryService CreateTelemetryService(string pluginClassName, ITelemetryProvider telemetryProvider, ITracingService tracingService, IExecutionContext executionContext)
         {
             return new TracingTelemetryService(pluginClassName, telemetryProvider, tracingService, executionContext);
         }
 
-        public void Track(ITelemetry telemetry)
+        public void SetConfigurationCallback(ConfigureTelemtryProvider callback)
         {
-            throw new NotImplementedException("Tracing Telemetry Provider Track function is not implemented.");
+            configurationCallback = callback;
         }
 
-     
+        public void Track(ITelemetry telemetry)
+        {
+            if (IsInitialized == false && configurationCallback != null)
+            {
+                configurationCallback(this);
+                IsInitialized = true;
+            }
+           
+            throw new NotImplementedException("Tracing Telemetry Provider Track function is not implemented.");
+        }       
     }
 }

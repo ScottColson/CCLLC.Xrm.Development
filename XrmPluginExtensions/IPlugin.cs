@@ -8,23 +8,25 @@ using System.Threading.Tasks;
 
 namespace CCLCC.XrmPluginExtensions
 {
+    using Container;
     using Context;
     using Telemetry;
 
-    public interface IPlugin<E,T> : Microsoft.Xrm.Sdk.IPlugin where E : Entity where T : ITelemetryService
+    public interface IPlugin<E> : Microsoft.Xrm.Sdk.IPlugin where E : Entity
     {
-        IReadOnlyList<PluginEvent<E,T>> PluginEventHandlers { get; }
+        IContainer Container { get; }
+        IReadOnlyList<PluginEvent<E>> PluginEventHandlers { get; }
         string UnsecureConfig { get; }
         string SecureConfig { get; }
 
-        ITelemetryProvider<T> TelemetryProvider { get; }
+        ITelemetryProvider TelemetryProvider { get; }
 
         Dictionary<string,string> TelemetryServiceFactorySettings { get; }
 
-        void RegisterMessageHandler(string entityName, string messageName, ePluginStage stage, Action<ILocalContext<E, T>> handler);
+        void RegisterMessageHandler(string entityName, string messageName, ePluginStage stage, Action<ILocalContext<E>> handler);
 
-        IServiceProvider<T> DecorateServiceProvider(IServiceProvider provider);
+        void RegisterContainerServices(IContainer container);
 
-        
+        void ConfigureTelemetryProvider(ITelemetryProvider telemetryProvider);
     }
 }

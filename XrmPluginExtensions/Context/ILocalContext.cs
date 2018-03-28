@@ -10,20 +10,22 @@ namespace CCLCC.XrmPluginExtensions.Context
 {
     using Caching;
     using Configuration;
+    using Container;
     using Diagnostics;
     using Telemetry;
 
 
-    public interface ILocalContext<E,T> : IDisposable where E : Entity where T : ITelemetryService
+    public interface ILocalContext<E> : IDisposable where E : Entity
     {
         IServiceProvider ServiceProvider { get; }
+        IContainer Container { get; }
         IOrganizationServiceFactory OrganizationServiceFactory { get; }
         IOrganizationService OrganizationService { get; }
 
         IOrganizationService ElevatedOrganizationService { get; }
 
         IPluginExecutionContext PluginExecutionContext { get;  }
-        IDiagnosticService<T> DiagnosticService { get; }
+        IDiagnosticService DiagnosticService { get; }
         ePluginStage Stage { get; }
         int Depth { get; }
         string MessageName { get; }
