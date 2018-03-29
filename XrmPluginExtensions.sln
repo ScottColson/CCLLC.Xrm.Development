@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestHarness", "TestHarness\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{F225433F-04DB-436C-AFEA-E9AAC7F5A407}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XrmBaseWorkflowActivity", "XrmBaseWorkflowActivity\XrmBaseWorkflowActivity.csproj", "{70C017EE-01DA-48BF-B29F-26134E2D4E79}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{F225433F-04DB-436C-AFEA-E9AAC7F5A407}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F225433F-04DB-436C-AFEA-E9AAC7F5A407}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F225433F-04DB-436C-AFEA-E9AAC7F5A407}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70C017EE-01DA-48BF-B29F-26134E2D4E79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70C017EE-01DA-48BF-B29F-26134E2D4E79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70C017EE-01DA-48BF-B29F-26134E2D4E79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70C017EE-01DA-48BF-B29F-26134E2D4E79}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

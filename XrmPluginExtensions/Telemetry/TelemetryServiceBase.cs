@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xrm.Sdk;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace CCLCC.XrmPluginExtensions.Telemetry
+namespace CCLCC.XrmBase.Telemetry
 {
     public abstract class TelemetryServiceBase : ITelemetryService
     {

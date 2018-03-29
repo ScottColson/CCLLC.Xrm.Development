@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Activities;
 using System.Runtime.CompilerServices;
 using Microsoft.Xrm.Sdk;
 
-namespace CCLCC.XrmPluginExtensions.Diagnostics
+namespace CCLCC.XrmBase.Diagnostics
 {
     using Telemetry;
 
@@ -88,6 +89,19 @@ namespace CCLCC.XrmPluginExtensions.Diagnostics
             if (!Telemetry.IsInitialized || !Telemetry.WritesToPluginTracLog)
             {
                 tracingService.Trace("Plugin Exception: {0}", ex.Message);
+            }
+        }
+
+        public void TraceWorkflowException(InvalidWorkflowException ex)
+        {
+            if (Telemetry.IsInitialized)
+            {
+                Telemetry.TrackTrace(eSeverityLevel.Error, "Workflow Exception: {0}", ex.Message);
+            }
+
+            if (!Telemetry.IsInitialized || !Telemetry.WritesToPluginTracLog)
+            {
+                tracingService.Trace("Workflow Exception: {0}", ex.Message);
             }
         }
     }

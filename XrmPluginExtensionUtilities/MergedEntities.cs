@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 
-namespace CCLCC.XrmPluginExtensions.Utilities
+namespace CCLCC.XrmBase.Utilities
 {
     public class MergedEntities
     {

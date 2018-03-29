@@ -5,9 +5,7 @@ using System.Globalization;
 using System.Linq;
 using Microsoft.Xrm.Sdk;
 
-
-
-namespace CCLCC.XrmPluginExtensions
+namespace CCLCC.XrmBase
 {
     using Caching;
     using Configuration;
@@ -39,10 +37,7 @@ namespace CCLCC.XrmPluginExtensions
                 }
                 return container;
             }
-        }
-
-        public ITelemetryProvider TelemetryProvider { get; private set; }
-        public Dictionary<string,string> TelemetryServiceFactorySettings { get; private set; }
+        }       
 
         /// <summary>
         /// Unsecure configuration specified during the registration of the plugin step
@@ -83,11 +78,14 @@ namespace CCLCC.XrmPluginExtensions
             container.RegisterAsSingleInstance<ICacheFactory, CacheFactory>();   
             container.RegisterAsSingleInstance<IConfigurationFactory, ConfigurationFactory>();
             container.RegisterAsSingleInstance<IDiagnosticServiceFactory, DiagnosticServiceFactory>();
-            container.RegisterAsSingleInstance<ILocalContextFactory, LocalContextFactory>();
+            container.RegisterAsSingleInstance<ILocalPluginContextFactory, LocalPluginContextFactory>();
             container.RegisterAsSingleInstance<IRijndaelEncryption, RijndaelEncryption>();
         }
 
-        public virtual void ConfigureTelemetryProvider(ITelemetryProvider telemetryProvider) { }
+        public virtual ConfigureTelemtryProvider GetConfigureTelemetryProviderCallback(ILocalContext<E> localContext)
+        {
+            return null;
+        }
 
         /// <summary>
         /// Executes the plug-in.
@@ -101,22 +99,14 @@ namespace CCLCC.XrmPluginExtensions
             if (serviceProvider == null)
                 throw new ArgumentNullException("serviceProvider");
            
-            var tracingService = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
-            tracingService.Trace(string.Format(CultureInfo.InvariantCulture, "Entered {0}.Execute()", this.GetType().ToString()));
+            var tracingService = (ITracingService)serviceProvider.GetService(typeof(ITracingService));           
 
             var executionContext = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
 
-            //Setup the plugin telemetry provider. Because this is a plugin instance the telemetry provider must be stateless
-            //with respect to an individual plugin Execute event. 
-            if(TelemetryProvider == null)
-            {
-                TelemetryProvider = Container.Resolve<ITelemetryProvider>();
-                //TODO: Manage telemetry configuration
-            }
-            
+            var telemetryProvider = Container.Resolve<ITelemetryProvider>();
             var diagnosticServiceFactory = Container.Resolve<IDiagnosticServiceFactory>();
 
-            using (var diagnosticService = diagnosticServiceFactory.CreateDiagnosticService(this.GetType().ToString(), executionContext, tracingService, this.TelemetryProvider))
+            using (var diagnosticService = diagnosticServiceFactory.CreateDiagnosticService(this.GetType().ToString(), executionContext, tracingService, telemetryProvider))
             {
                 try
                 {
@@ -127,17 +117,15 @@ namespace CCLCC.XrmPluginExtensions
 
                     if (matchinHandlers.Any())
                     {
-                        var localContextFactory = Container.Resolve<ILocalContextFactory>();
+                        var localContextFactory = Container.Resolve<ILocalPluginContextFactory>();
                        
                         using (var localContext = localContextFactory.CreateLocalPluginContext<E>(executionContext, this.Container, serviceProvider, diagnosticService))
-                        {                            
+                        {
+                            localContext.SetConfigureTelemetryProviderCallback(GetConfigureTelemetryProviderCallback(localContext));
+
                             foreach (var handler in matchinHandlers)
                             {
-                                diagnosticService.EnterMethod(handler.PluginAction.Method.Name);
-
                                 handler.PluginAction.Invoke(localContext);
-
-                                diagnosticService.ExitMethod();
                             }
                         }
                     }

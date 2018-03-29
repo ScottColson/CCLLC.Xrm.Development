@@ -1,5 +1,5 @@
 ﻿
-namespace CCLCC.XrmPluginExtensions.Container
+namespace CCLCC.XrmBase.Container
 {
     public interface IContainer
     {

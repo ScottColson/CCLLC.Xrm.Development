@@ -1,9 +1,7 @@
-
 using System.Linq;
 using Microsoft.Xrm.Sdk;
 
-
-namespace CCLCC.XrmPluginExtensions.Utilities
+namespace CCLCC.XrmBase.Utilities
 {    
     
     /// <summary>

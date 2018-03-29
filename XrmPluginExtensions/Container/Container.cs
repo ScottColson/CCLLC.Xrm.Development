@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace CCLCC.XrmPluginExtensions.Container
+namespace CCLCC.XrmBase.Container
 {
     /// <summary>
     /// Provides a light weight IOC container implementation for configuring services used by 

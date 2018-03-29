@@ -1,14 +1,9 @@
-﻿
-using System;
-using System.Collections.Generic;
+﻿using System;
 using Microsoft.Xrm.Sdk;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace CCLCC.XrmPluginExtensions.Telemetry
+namespace CCLCC.XrmBase.Telemetry
 {
-    internal class TracingTelemetryProvider : ITelemetryProvider 
+    public class TracingTelemetryProvider : ITelemetryProvider 
     {
         private ConfigureTelemtryProvider configurationCallback;      
 

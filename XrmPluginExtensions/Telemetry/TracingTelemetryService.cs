@@ -1,12 +1,7 @@
 ﻿using System;
 using Microsoft.Xrm.Sdk;
 
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CCLCC.XrmPluginExtensions.Telemetry
+namespace CCLCC.XrmBase.Telemetry
 {
     public class TracingTelemetryService : TelemetryServiceBase
     { 

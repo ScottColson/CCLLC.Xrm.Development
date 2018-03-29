@@ -1,159 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xrm.Sdk;
 
-namespace CCLCC.XrmPluginExtensions.Context
+namespace CCLCC.XrmBase.Context
 {
-    using Caching;
-    using Configuration;
     using Container;
     using Diagnostics;
-    using Encryption;
-    using Telemetry;
     using Utilities;
 
-    public class LocalPluginContext<E> : ILocalPluginContext<E> where E : Entity
+    public class LocalPluginContext<E> : LocalContext<E>, IDisposable, ILocalPluginContext<E> where E : Entity
     {
         public IServiceProvider ServiceProvider { get; private set; }
-        public IContainer Container { get; private set; }
-        public IPluginExecutionContext PluginExecutionContext { get; private set; }
-        public IDiagnosticService DiagnosticService { get; private set; }
+
+        public IPluginExecutionContext PluginExecutionContext { get { return (IPluginExecutionContext)base.ExecutionContext; } }
 
         public ePluginStage Stage { get { return (ePluginStage)this.PluginExecutionContext.Stage; } }
-        public int Depth { get { return this.PluginExecutionContext.Depth; } }
-        public string MessageName { get { return this.PluginExecutionContext.MessageName; } }
-
-        private IOrganizationServiceFactory organizationServiceFactory;
-        public IOrganizationServiceFactory OrganizationServiceFactory
-        {
-            get
-            {
-                if (organizationServiceFactory == null)
-                {
-                    organizationServiceFactory = (IOrganizationServiceFactory)this.ServiceProvider.GetService(typeof(IOrganizationServiceFactory));
-                }
-
-                return organizationServiceFactory;
-            }
-        }
-
-        private IOrganizationService organizationService;
-        public IOrganizationService OrganizationService
-        {
-            get
-            {
-                if (organizationService == null)
-                {
-                    organizationService = this.OrganizationServiceFactory.CreateOrganizationService(this.PluginExecutionContext.UserId);
-                }
-
-                return organizationService;
-            }
-        }
-
-        private IOrganizationService elevatedOrganizationService = null;
-        /// <summary>
-        /// Access to an organization service that runs with elevated access credentials under 
-        /// the SYSTEM user identity.
-        /// </summary>
-        public IOrganizationService ElevatedOrganizationService
-        {
-            get
-            {
-                if (elevatedOrganizationService == null)
-                {
-                    elevatedOrganizationService = this.OrganizationServiceFactory.CreateOrganizationService(null);
-                }
-
-                return elevatedOrganizationService;
-            }
-        }
-
-        private Microsoft.Xrm.Sdk.Client.OrganizationServiceContext _crmContext = null;
-        /// <summary>
-        /// CrmContext to use with LINQ etc.
-        /// </summary>
-        public Microsoft.Xrm.Sdk.Client.OrganizationServiceContext CrmContext
-        {
-            get
-            {
-                if (_crmContext == null)
-                {
-                    _crmContext = new Microsoft.Xrm.Sdk.Client.OrganizationServiceContext(this.OrganizationService);
-                }
-                return _crmContext;
-            }
-        }
-
-        private IExtensionSettings extensionSettings = null;
-        /// <summary>
-        /// Access to name/value settings stored in the Extension Settings entity.
-        /// </summary>
-        public IExtensionSettings ExtensionSettings
-        {
-            get
-            {
-                if (extensionSettings == null)
-                {
-                    var factory = Container.Resolve<IConfigurationFactory>();
-                    var encryption = Container.Resolve<IRijndaelEncryption>();                   
-                    extensionSettings = factory.CreateExtensionSettings(this.ElevatedOrganizationService, this.OrganizationCache, encryption);
-                }
-
-                return extensionSettings;
-            }
-        }
-
-        private IXmlConfigurationResource xmlConfigurationResources = null;
-        /// <summary>
-        /// Access to configuration resources stored in CRM Xml Data Web Resources.
-        /// </summary>
-        public IXmlConfigurationResource XmlConfigurationResources
-        {
-            get
-            {
-                if (xmlConfigurationResources == null)
-                {
-                    var factory = Container.Resolve<IConfigurationFactory>();
-                    xmlConfigurationResources = factory.CreateConfigurationResources(this.ElevatedOrganizationService, this.OrganizationCache);
-                }
-
-                return xmlConfigurationResources;
-            }
-        }
-
-        public LocalPluginContext(IContainer container, IServiceProvider serviceProvider, IPluginExecutionContext executionContext, IDiagnosticService diagnosticService)
-        {
-            if (container == null) throw new ArgumentNullException("container");
-            this.Container = container;
-
-            if (serviceProvider == null) throw new ArgumentNullException("serviceProvider");
-            this.ServiceProvider = serviceProvider;
-
-            if (executionContext == null) throw new ArgumentNullException("executionContext");
-            this.PluginExecutionContext = executionContext;
-
-            if (diagnosticService == null) throw new ArgumentNullException("diagnosticService");
-            this.DiagnosticService = diagnosticService;
-
-            this.DiagnosticService.Telemetry.TelemetryProvider.SetConfigurationCallback(ConfigureTelemetryProvider);
-        }
-
-        private void ConfigureTelemetryProvider(ITelemetryProvider telemetryProvider)
-        {
-            throw new NotImplementedException();
-        }
-
-       
-
-        public void Dispose()
-        {
-            if (this._crmContext != null)
-                this._crmContext.Dispose();
-        }
 
         /// <summary>
         /// Returns the first registered 'Pre' image for the pipeline execution
@@ -169,6 +30,7 @@ namespace CCLCC.XrmPluginExtensions.Context
                 return null;
             }
         }
+
         /// <summary>
         /// Returns the first registered 'Post' image for the pipeline execution
         /// </summary>
@@ -183,44 +45,6 @@ namespace CCLCC.XrmPluginExtensions.Context
                 return null;
             }
         }
-        /// <summary>
-        /// Returns the 'Target' of the message if available
-        /// This is an 'Entity' instead of the specified type in order to retain the same instance of the 'Entity' object. This allows for updates to the target in a 'Pre' stage that
-        /// will get persisted during the transaction.
-        /// </summary>
-        public Entity TargetEntity
-        {
-            get
-            {
-                if (this.PluginExecutionContext.InputParameters.Contains("Target"))
-                    return this.PluginExecutionContext.InputParameters["Target"] as Entity;
-
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// Returns the 'Target' of the message as an EntityReference if available
-        /// </summary>
-        public EntityReference TargetEntityReference
-        {
-            get
-            {
-                if (this.PluginExecutionContext.InputParameters.Contains("Target"))
-                    return this.PluginExecutionContext.InputParameters["Target"] as EntityReference;
-                return null;
-            }
-        }
-
-
-        private E GetEntityAsType(Entity entity)
-        {
-            if (typeof(E) == entity.GetType())
-                return entity as E;
-            else
-                return entity.ToEntity<E>();
-        }
-
 
         private Entity _preMergedTarget = null;
         /// <summary>
@@ -229,7 +53,7 @@ namespace CCLCC.XrmPluginExtensions.Context
         /// return the same entity object and will not reflect changes made to that Target since initial
         /// request.
         /// </summary>
-        public Entity PreMergedTarget
+        public E PreMergedTarget
         {
             get
             {
@@ -241,39 +65,22 @@ namespace CCLCC.XrmPluginExtensions.Context
                     _preMergedTarget.MergeWith(this.PreImage);
                 }
 
-                return _preMergedTarget;
+                return GetEntityAsType(_preMergedTarget);
             }
         }
 
-        private IXrmCache pluginCache;
-        public IXrmCache PluginCache
+        public LocalPluginContext(IContainer container, IServiceProvider serviceProvider, IPluginExecutionContext executionContext, IDiagnosticService diagnosticService)
+            : base(container, executionContext, diagnosticService)
         {
-            get
-            {
-                if(pluginCache == null)
-                {
-                    var factory = Container.Resolve<ICacheFactory>();
-                    pluginCache = factory.CreatePluginCache();
-                }
-                return pluginCache;
-            }
+            this.ServiceProvider = serviceProvider;
         }
 
-        IXrmCache organizationCache;
-        public IXrmCache OrganizationCache
+        protected override IOrganizationServiceFactory CreateOrganizationServiceFactory()
         {
-            get
-            {
-                if (organizationCache == null)
-                {
-                    var factory = Container.Resolve<ICacheFactory>();
-                    organizationCache = factory.CreateOrganizationCache(this.PluginExecutionContext.OrganizationId);
-                }
-                return organizationCache;
-            }
+            return (IOrganizationServiceFactory)this.ServiceProvider.GetService(typeof(IOrganizationServiceFactory));
         }
 
-        
+
     }
 
 }

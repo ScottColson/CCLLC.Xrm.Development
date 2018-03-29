@@ -1,11 +1,17 @@
-﻿using Microsoft.Xrm.Sdk;
+﻿using System;
+using Microsoft.Xrm.Sdk;
 
-namespace CCLCC.XrmPluginExtensions.Context
+namespace CCLCC.XrmBase.Context
 {
-
-    using Telemetry;
 
     public interface ILocalPluginContext<E> : ILocalContext<E> where E : Entity 
     {
+
+        IServiceProvider ServiceProvider { get; }      
+        ePluginStage Stage { get; }
+        IPluginExecutionContext PluginExecutionContext { get; }
+        E PreImage { get; }
+        E PostImage { get; }
+        E PreMergedTarget { get; }
     }
 }

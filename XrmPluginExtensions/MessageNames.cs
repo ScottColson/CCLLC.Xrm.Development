@@ -1,5 +1,5 @@
 ﻿
-namespace CCLCC.XrmPluginExtensions
+namespace CCLCC.XrmBase
 {
     public class MessageNames
     {

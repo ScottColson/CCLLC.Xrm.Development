@@ -5,7 +5,7 @@ using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using System.Xml.Linq;
 
-namespace CCLCC.XrmPluginExtensions.Configuration
+namespace CCLCC.XrmBase.Configuration
 {
     using Caching;
 

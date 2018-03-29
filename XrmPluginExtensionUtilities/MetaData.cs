@@ -1,13 +1,9 @@
-﻿using Microsoft.Xrm.Sdk;
+﻿using System.Collections.Generic;
+using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Metadata;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace CCLCC.XrmPluginExtensions.Utilities
+namespace CCLCC.XrmBase.Utilities
 {
     public class MetaData
     {

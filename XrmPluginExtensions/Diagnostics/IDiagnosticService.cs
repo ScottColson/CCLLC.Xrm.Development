@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Activities;
 using System.Runtime.CompilerServices;
 using Microsoft.Xrm.Sdk;
 
-namespace CCLCC.XrmPluginExtensions.Diagnostics
+namespace CCLCC.XrmBase.Diagnostics
 {
     using Telemetry;
 
@@ -15,6 +16,8 @@ namespace CCLCC.XrmPluginExtensions.Diagnostics
         void Trace(string message, params object[] args);
 
         void TracePluginException(InvalidPluginExecutionException ex);
+
+        void TraceWorkflowException(InvalidWorkflowException ex);
 
         void TraceGeneralException(Exception ex);
 

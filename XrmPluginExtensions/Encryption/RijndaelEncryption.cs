@@ -3,7 +3,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace CCLCC.XrmPluginExtensions.Encryption
+namespace CCLCC.XrmBase.Encryption
 {
     public class RijndaelEncryption : IRijndaelEncryption
     {

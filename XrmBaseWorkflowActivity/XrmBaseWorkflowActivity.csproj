@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{359C8C95-0FB1-4F18-8B49-A4A287D80DF4}</ProjectGuid>
+    <ProjectGuid>{70C017EE-01DA-48BF-B29F-26134E2D4E79}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CCLCC.XrmBase</RootNamespace>
-    <AssemblyName>CCLCCXrmBase</AssemblyName>
+    <AssemblyName>XrmBaseWorkflowActivity</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -20,7 +20,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <LangVersion>5</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,12 +28,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>XrmBase.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Crm.Sdk.Proxy, Version=8.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -46,6 +39,9 @@
     <Reference Include="Microsoft.Xrm.Sdk, Version=8.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CrmSdk.CoreAssemblies.8.0.0\lib\net45\Microsoft.Xrm.Sdk.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Xrm.Sdk.Workflow, Version=8.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CrmSdk.Workflow.8.0.0\lib\net45\Microsoft.Xrm.Sdk.Workflow.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Activities" />
@@ -53,11 +49,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.DirectoryServices.AccountManagement" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.IdentityModel" />
-    <Reference Include="System.IO.Compression.FileSystem" />
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
@@ -74,55 +66,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Caching\CacheFactory.cs" />
-    <Compile Include="Caching\ICacheFactory.cs" />
-    <Compile Include="Caching\IXrmCache.cs" />
-    <Compile Include="Caching\XrmPluginCache.cs" />
-    <Compile Include="Caching\XrmOrganizationCache.cs" />
-    <Compile Include="Configuration\ConfigurationFactory.cs" />
-    <Compile Include="Configuration\XmlConfigurationResource.cs" />
-    <Compile Include="Configuration\ExtensionSettings.cs" />
-    <Compile Include="Configuration\IConfigurationFactory .cs" />
-    <Compile Include="Container\Container.cs" />
-    <Compile Include="Container\IContainer.cs" />
-    <Compile Include="Container\ImplementationParameters.cs" />
-    <Compile Include="Context\ILocalPluginContextFactory.cs" />
-    <Compile Include="Context\LocalContext.cs" />
-    <Compile Include="Context\LocalPluginContextFactory.cs" />
-    <Compile Include="Telemetry\ConfigureTelemtryProviderDelegate.cs" />
-    <Compile Include="Telemetry\eSeverityLevel.cs" />
-    <Compile Include="Telemetry\ITelemetry.cs" />
-    <Compile Include="Telemetry\ITelemetryService.cs" />
-    <Compile Include="Telemetry\ITelemetryProvider.cs" />
-    <Compile Include="Telemetry\ITraceTelemetry.cs" />
-    <Compile Include="Telemetry\TelemetryServiceBase.cs" />
-    <Compile Include="Telemetry\TraceTelemetry.cs" />
-    <Compile Include="Telemetry\TracingTelemetryService.cs" />
-    <Compile Include="Telemetry\TracingTelemetryProvider.cs" />
-    <Compile Include="Encryption\RijndaelEncryption.cs" />
-    <Compile Include="Encryption\IEncryption.cs" />
-    <Compile Include="Encryption\IRijndaelEncryption.cs" />
-    <Compile Include="ePluginStage.cs" />
-    <Compile Include="Configuration\IExtensionSettings.cs" />
-    <Compile Include="Configuration\IXmlConfigurationResource.cs" />
-    <Compile Include="Context\ILocalContext.cs" />
-    <Compile Include="Context\ILocalPluginContext.cs" />
-    <Compile Include="Context\LocalPluginContext.cs" />
-    <Compile Include="Diagnostics\DiagnosticService.cs" />
-    <Compile Include="Diagnostics\DiagnosticServiceFactory.cs" />
-    <Compile Include="Diagnostics\IDiagnosticService.cs" />
-    <Compile Include="Diagnostics\IDiagnosticServiceFactory.cs" />
-    <Compile Include="IPlugin.cs" />
-    <Compile Include="MessageNames.cs" />
-    <Compile Include="PluginBase.cs" />
-    <Compile Include="PluginEvent.cs" />
+    <Compile Include="Context\ILocalWorkflowActivityContextFactory.cs" />
+    <Compile Include="Context\ILocalWorkflowActivityContext.cs" />
+    <Compile Include="Context\LocalWorkflowActivityContextFactory.cs" />
+    <Compile Include="Context\LocalWorkflowActivityContext.cs" />
+    <Compile Include="IWorkflowActivity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utilities\XrmEntityExtensions.cs" />
+    <Compile Include="WorkflowActivityBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="XrmBase.snk" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\XrmPluginExtensions\XrmBase.csproj">
+      <Project>{359c8c95-0fb1-4f18-8b49-a4a287d80df4}</Project>
+      <Name>XrmBase</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

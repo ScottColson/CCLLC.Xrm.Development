@@ -1,12 +1,7 @@
-﻿
-using System;
+﻿using System;
 using Microsoft.Xrm.Sdk;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace CCLCC.XrmPluginExtensions.Context
+namespace CCLCC.XrmBase.Context
 {
     using Caching;
     using Configuration;
@@ -17,16 +12,17 @@ namespace CCLCC.XrmPluginExtensions.Context
 
     public interface ILocalContext<E> : IDisposable where E : Entity
     {
-        IServiceProvider ServiceProvider { get; }
+      
         IContainer Container { get; }
+        IExecutionContext ExecutionContext {get;}
         IOrganizationServiceFactory OrganizationServiceFactory { get; }
         IOrganizationService OrganizationService { get; }
 
         IOrganizationService ElevatedOrganizationService { get; }
 
-        IPluginExecutionContext PluginExecutionContext { get;  }
+       
         IDiagnosticService DiagnosticService { get; }
-        ePluginStage Stage { get; }
+        
         int Depth { get; }
         string MessageName { get; }
         IXrmCache OrganizationCache { get; }
@@ -35,5 +31,12 @@ namespace CCLCC.XrmPluginExtensions.Context
 
         IExtensionSettings ExtensionSettings { get; }
         IXmlConfigurationResource XmlConfigurationResources { get; }
-    }
+
+        E TargetEntity { get; }
+
+        EntityReference TargetReference { get; }
+
+        void SetConfigureTelemetryProviderCallback(ConfigureTelemtryProvider callback);
+
+}
 }

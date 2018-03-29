@@ -1,5 +1,5 @@
 ﻿
-namespace CCLCC.XrmPluginExtensions.Telemetry
+namespace CCLCC.XrmBase.Telemetry
 {
     public interface ITraceTelemetry : ITelemetry
     {

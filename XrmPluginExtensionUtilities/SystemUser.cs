@@ -1,11 +1,6 @@
 ﻿using Microsoft.Xrm.Sdk;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace CCLCC.XrmPluginExtensions.Utilities
+namespace CCLCC.XrmBase.Utilities
 {
     using Caching;
     using Microsoft.Xrm.Sdk.Query;
@@ -29,7 +24,7 @@ namespace CCLCC.XrmPluginExtensions.Utilities
 
         public EntityReference GetSystemUserId()
         {
-            const string CACHEKEY = "CCLCC.XrmPluginExtensions.Utilities.SystemUser.Id";
+            const string CACHEKEY = "CCLCC.XrmBase.Utilities.SystemUser.Id";
 
             var id = Cache.Get(CACHEKEY) as EntityReference;
 

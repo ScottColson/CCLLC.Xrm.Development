@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-
-namespace CCLCC.XrmPluginExtensions.Configuration
+﻿
+namespace CCLCC.XrmBase.Configuration
 {
     public interface IExtensionSettings
     {

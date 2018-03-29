@@ -1,11 +1,5 @@
 ﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CCLCC.XrmPluginExtensions.Encryption
+namespace CCLCC.XrmBase.Encryption
 {
     public interface IEncryption
     {

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CCLCC.XrmPluginExtensions.Caching;
-using CCLCC.XrmPluginExtensions.Encryption;
+using CCLCC.XrmBase.Caching;
+using CCLCC.XrmBase.Encryption;
 using Microsoft.Xrm.Sdk;
 
-namespace CCLCC.XrmPluginExtensions.Configuration
+namespace CCLCC.XrmBase.Configuration
 {
     public class ConfigurationFactory : IConfigurationFactory
     {

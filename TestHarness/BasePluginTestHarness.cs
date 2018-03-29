@@ -1,14 +1,14 @@
 ﻿using System;
 using Microsoft.Xrm.Sdk;
-using CCLCC.XrmPluginExtensions;
-using CCLCC.XrmPluginExtensions.Telemetry;
-using CCLCC.XrmPluginExtensions.Context;
+using CCLCC.XrmBase;
+using CCLCC.XrmBase.Telemetry;
+using CCLCC.XrmBase.Context;
 
 
 namespace TestHarness
 {
     [CrmPluginRegistration(MessageNameEnum.Create, "account", StageEnum.PostOperation, ExecutionModeEnum.Synchronous, null, "sample step",1, IsolationModeEnum.Sandbox)]
-    public class BasePluginTestHarness : Plugin<Entity>, IPlugin
+    public class BasePluginTestHarness : PluginBase<Entity>, IPlugin
     {
         public BasePluginTestHarness() : base()
         {

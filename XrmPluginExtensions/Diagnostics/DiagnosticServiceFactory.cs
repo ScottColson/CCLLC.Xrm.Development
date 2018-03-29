@@ -1,7 +1,6 @@
-﻿using System;
-using Microsoft.Xrm.Sdk;
+﻿using Microsoft.Xrm.Sdk;
 
-namespace CCLCC.XrmPluginExtensions.Diagnostics
+namespace CCLCC.XrmBase.Diagnostics
 {
     using Telemetry;
 
