@@ -110,7 +110,11 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-</PostBuildEvent>
+    <PostBuildEvent>"C:\Program Files (x86)\Microsoft\ILMerge\ILMerge.exe" /lib:$(ProjectDir)$(OutDir) /keyfile:$(ProjectDir)plugin.snk /copyattrs /target:library /targetplatform:v4,"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2" /out:$(ProjectDir)$(OutDir)MergedTestHarness.dll testharness.dll CCLCCXrmBase.dll
+
+del $(ProjectDir)$(OutDir)testharness.dll
+del $(ProjectDir)$(OutDir)testharness.pdb
+rename $(ProjectDir)$(OutDir)MergedTestHarness.dll TestHarness.dll
+rename $(ProjectDir)$(OutDir)MergedTestHarness.pdb TestHarness.pdb</PostBuildEvent>
   </PropertyGroup>
 </Project>

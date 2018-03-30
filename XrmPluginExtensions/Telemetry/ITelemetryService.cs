@@ -5,7 +5,7 @@ namespace CCLCC.XrmBase.Telemetry
 {
     public interface ITelemetryService : IDisposable
     {
-        IReadOnlyDictionary<string,string> Properties { get; }
+        IReadOnlyDictionary<string, string> Properties { get; }
 
         bool WritesToPluginTracLog { get; }
 
@@ -19,7 +19,9 @@ namespace CCLCC.XrmBase.Telemetry
 
         void TrackException(Exception exception);
 
-        void TrackEvent(string EventName, IDictionary<string, double> metrics = null, IDictionary<string, string> additionalProperties = null);
+        void TrackEvent(string eventName, IDictionary<string, string> eventProperties = null, IDictionary<string, double> eventMetrics = null);
 
+        void TrackOperation(string operationName, TimeSpan duration, bool? success, IDictionary<string, string> operationProperties, IDictionary<string, double> operationMetrics);
+        IOperationTelemetryInstance StartOperation(string operationName);
     }
 }

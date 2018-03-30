@@ -58,7 +58,7 @@ namespace CCLCC.XrmBase.Telemetry
 
         public virtual void TrackException(Exception exception)
         {
-            throw new NotImplementedException();
+            var telemetry = new ExceptionTelemetry(exception, this.properties);
         }
 
         public virtual void TrackTrace(eSeverityLevel severityLevel, string message, params object[] args)
@@ -67,9 +67,62 @@ namespace CCLCC.XrmBase.Telemetry
             TelemetryProvider.Track(telemetry);
         }
 
-        public virtual void TrackEvent(string EventName, IDictionary<string, double> metrics = null, IDictionary<string, string> additionalProperties = null)
+        public virtual void TrackEvent(string eventName, IDictionary<string, string> eventProperties = null, IDictionary<string, double> eventMetrics = null)
         {
-            throw new NotImplementedException();
+
+            IEventTelemetry telemetry;
+            
+            if(eventProperties == null || eventProperties.Count == 0)
+            {
+                telemetry = new EventTelemetry(eventName, this.properties, eventMetrics);
+            }
+            else
+            {
+                var props = new Dictionary<string, string>(this.properties);
+
+                //copy over event properties but don't overwrite existing properties.
+                foreach (var p in eventProperties)
+                {
+                    if (!props.ContainsKey(p.Key))
+                    {
+                        props.Add(p.Key, p.Value);
+                    }
+                }
+                telemetry = new EventTelemetry(eventName, props, eventMetrics);
+            }
+            
+            TelemetryProvider.Track(telemetry);
         }
+
+
+        public virtual void TrackOperation(string operationName, TimeSpan duration, bool? success, IDictionary<string, string> operationProperties, IDictionary<string, double> operationMetrics)
+        {
+            IOperationTelemetry telemetry;
+
+            if (operationProperties == null || operationProperties.Count == 0)
+            {
+                telemetry = new OperationTelemetry(operationName, duration, success, this.properties, operationMetrics);
+            }
+            else
+            {
+                var props = new Dictionary<string, string>(this.properties);
+
+                //copy over operation properties but don't overwrite existing properties.
+                foreach (var p in operationProperties)
+                {
+                    if (!props.ContainsKey(p.Key))
+                    {
+                        props.Add(p.Key, p.Value);
+                    }
+                }
+                telemetry = new OperationTelemetry(operationName, duration, success, props, operationMetrics);
+            }
+
+            TelemetryProvider.Track(telemetry);
+        }
+
+
+        public abstract IOperationTelemetryInstance StartOperation(string operationName);
+       
     }
 }

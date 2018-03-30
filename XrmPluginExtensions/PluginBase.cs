@@ -99,7 +99,8 @@ namespace CCLCC.XrmBase
             if (serviceProvider == null)
                 throw new ArgumentNullException("serviceProvider");
            
-            var tracingService = (ITracingService)serviceProvider.GetService(typeof(ITracingService));           
+            var tracingService = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
+            tracingService.Trace(string.Format(CultureInfo.InvariantCulture, "Entering {0}.Execute()", this.GetType().ToString()));
 
             var executionContext = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
 

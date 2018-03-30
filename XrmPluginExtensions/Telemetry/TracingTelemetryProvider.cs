@@ -26,8 +26,8 @@ namespace CCLCC.XrmBase.Telemetry
                 configurationCallback(this);
                 IsInitialized = true;
             }
-           
-            throw new NotImplementedException("Tracing Telemetry Provider Track function is not implemented.");
+
+            //noop
         }       
     }
 }

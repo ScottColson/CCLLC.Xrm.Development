@@ -181,3 +181,25 @@
 4:48:16 PM	Registering Type 'TestHarness.BasePluginTestHarness'
 4:48:18 PM	Registering Step 'sample step'
 4:48:18 PM	Processed 1 config(s)
+4:15:49 PM	Deploying Plugins
+4:15:49 PM	Searching for plugin config in 'C:\Source\GitHub\D365.XrmPlugin.Extensions\TestHarness\spkl\..'
+4:15:49 PM	Using Config 'C:\Source\GitHub\D365.XrmPlugin.Extensions\TestHarness'
+4:15:49 PM	Checking assembly 'CCLCCXrmBase.dll' for plugins
+4:15:49 PM	2 plugin(s) found!
+4:15:49 PM	Checking assembly 'TestHarness.dll' for plugins
+4:15:49 PM	3 plugin(s) found!
+4:15:52 PM	Updating Plugin 'MergedTestHarness' from 'C:\Source\GitHub\D365.XrmPlugin.Extensions\TestHarness\bin\Debug\TestHarness.dll'
+4:15:56 PM	Updating Type 'TestHarness.BasePluginTestHarness'
+4:16:00 PM	Registering Step 'sample step'
+4:16:03 PM	Processed 1 config(s)
+4:22:01 PM	Deploying Plugins
+4:22:01 PM	Searching for plugin config in 'C:\Source\GitHub\D365.XrmPlugin.Extensions\TestHarness\spkl\..'
+4:22:02 PM	Using Config 'C:\Source\GitHub\D365.XrmPlugin.Extensions\TestHarness'
+4:22:02 PM	Checking assembly 'CCLCCXrmBase.dll' for plugins
+4:22:02 PM	2 plugin(s) found!
+4:22:02 PM	Checking assembly 'TestHarness.dll' for plugins
+4:22:02 PM	3 plugin(s) found!
+4:22:02 PM	Updating Plugin 'MergedTestHarness' from 'C:\Source\GitHub\D365.XrmPlugin.Extensions\TestHarness\bin\Debug\TestHarness.dll'
+4:22:03 PM	Updating Type 'TestHarness.BasePluginTestHarness'
+4:22:06 PM	Updating Step 'sample step'
+4:22:06 PM	Processed 1 config(s)
