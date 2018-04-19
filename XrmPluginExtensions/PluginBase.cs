@@ -12,12 +12,13 @@ namespace CCLCC.XrmBase
     using Container;
     using Context;
     using Encryption;
-    using Diagnostics;
     using Telemetry;
+    using Telemetry.Providers;
 
     public abstract class PluginBase<E> : IPlugin<E> where E : Entity
     {
         private Collection<PluginEvent<E>> events = new Collection<PluginEvent<E>>();
+       
         public IReadOnlyList<PluginEvent<E>> PluginEventHandlers 
         {
             get
@@ -74,17 +75,16 @@ namespace CCLCC.XrmBase
 
         public virtual void RegisterContainerServices(IContainer container)
         {
-            container.RegisterAsSingleInstance<ITelemetryProvider, TracingTelemetryProvider>();
+            container.RegisterAsSingleInstance<ITelemetryProvider, DefaultTelemetryProvider>();
             container.RegisterAsSingleInstance<ICacheFactory, CacheFactory>();   
             container.RegisterAsSingleInstance<IConfigurationFactory, ConfigurationFactory>();
-            container.RegisterAsSingleInstance<IDiagnosticServiceFactory, DiagnosticServiceFactory>();
             container.RegisterAsSingleInstance<ILocalPluginContextFactory, LocalPluginContextFactory>();
             container.RegisterAsSingleInstance<IRijndaelEncryption, RijndaelEncryption>();
         }
 
         public virtual ConfigureTelemtryProvider GetConfigureTelemetryProviderCallback(ILocalContext<E> localContext)
         {
-            return null;
+            return (p) => p.Configure(null);
         }
 
         /// <summary>
@@ -105,40 +105,34 @@ namespace CCLCC.XrmBase
             var executionContext = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
 
             var telemetryProvider = Container.Resolve<ITelemetryProvider>();
-            var diagnosticServiceFactory = Container.Resolve<IDiagnosticServiceFactory>();
 
-            using (var diagnosticService = diagnosticServiceFactory.CreateDiagnosticService(this.GetType().ToString(), executionContext, tracingService, telemetryProvider))
+            using (var telemetryService = telemetryProvider.CreateTelemetryService(this.GetType().ToString(), tracingService, telemetryProvider, executionContext))
             {
                 try
                 {
-                    var matchinHandlers = this.PluginEventHandlers
+                    var matchingHandlers = this.PluginEventHandlers
                         .Where(a => (int)a.Stage == executionContext.Stage
                             && (string.IsNullOrWhiteSpace(a.MessageName) || string.Compare(a.MessageName, executionContext.MessageName, StringComparison.InvariantCultureIgnoreCase) == 0)
                             && (string.IsNullOrWhiteSpace(a.EntityName) || string.Compare(a.EntityName, executionContext.PrimaryEntityName, StringComparison.InvariantCultureIgnoreCase) == 0));
 
-                    if (matchinHandlers.Any())
+                    if (matchingHandlers.Any())
                     {
                         var localContextFactory = Container.Resolve<ILocalPluginContextFactory>();
                        
-                        using (var localContext = localContextFactory.CreateLocalPluginContext<E>(executionContext, this.Container, serviceProvider, diagnosticService))
+                        using (var localContext = localContextFactory.CreateLocalPluginContext<E>(executionContext, Container, serviceProvider, telemetryService))
                         {
                             localContext.SetConfigureTelemetryProviderCallback(GetConfigureTelemetryProviderCallback(localContext));
 
-                            foreach (var handler in matchinHandlers)
+                            foreach (var handler in matchingHandlers)
                             {
                                 handler.PluginAction.Invoke(localContext);
                             }
                         }
                     }
                 }
-                catch(InvalidPluginExecutionException ex)
-                {
-                    diagnosticService.TracePluginException(ex);
-                    throw;
-                }
                 catch (Exception ex)
                 {
-                    diagnosticService.TraceGeneralException(ex);
+                    telemetryService.TraceException(ex);
                     throw;
                 }
                 

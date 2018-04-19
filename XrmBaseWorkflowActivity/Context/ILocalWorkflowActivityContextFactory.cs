@@ -6,11 +6,11 @@ using Microsoft.Xrm.Sdk.Workflow;
 namespace CCLCC.XrmBase.Context
 {
     using Container;
-    using Diagnostics;   
+    using Telemetry;
 
     public interface ILocalWorkflowActivityContextFactory     {
       
-        ILocalWorkflowActivityContext<E> CreateLocalWorkflowActivityContext<E>(IWorkflowContext executionContext, IContainer container, CodeActivityContext codeActivityContext, IDiagnosticService diagnosticService) where E : Entity;
+        ILocalWorkflowActivityContext<E> CreateLocalWorkflowActivityContext<E>(IWorkflowContext executionContext, IContainer container, CodeActivityContext codeActivityContext, ITelemetryService telemetryService) where E : Entity;
 
     }
 }

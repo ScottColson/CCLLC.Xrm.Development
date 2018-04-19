@@ -29,7 +29,7 @@ namespace CCLCC.XrmBase.Diagnostics
             {
                 if(telemetryService == null)
                 {
-                    telemetryService = telemetryProvider.CreateTelemetryService(pluginClassName, telemetryProvider, tracingService, executionContext);
+                    telemetryService = telemetryProvider.CreateTelemetryService(pluginClassName, telemetryProvider, executionContext);
                 }
                 return telemetryService;
             }
@@ -57,7 +57,7 @@ namespace CCLCC.XrmBase.Diagnostics
         {
             if (Telemetry.IsInitialized)
             {
-                Telemetry.TrackTrace(eSeverityLevel.Information, format, args);
+                Telemetry.Trace(eSeverityLevel.Information, format, args);
             }
            
             if(!Telemetry.IsInitialized || !Telemetry.WritesToPluginTracLog)
@@ -70,7 +70,7 @@ namespace CCLCC.XrmBase.Diagnostics
         {
             if (Telemetry.IsInitialized)
             {
-                Telemetry.TrackException(ex);
+                Telemetry.TraceException(ex);
             }
 
             if (!Telemetry.IsInitialized || !Telemetry.WritesToPluginTracLog)
@@ -83,7 +83,7 @@ namespace CCLCC.XrmBase.Diagnostics
         {
             if (Telemetry.IsInitialized)
             {
-                Telemetry.TrackTrace(eSeverityLevel.Error, "Plugin Exception: {0}", ex.Message);
+                Telemetry.Trace(eSeverityLevel.Error, "Plugin Exception: {0}", ex.Message);
             }
 
             if (!Telemetry.IsInitialized || !Telemetry.WritesToPluginTracLog)
@@ -96,7 +96,7 @@ namespace CCLCC.XrmBase.Diagnostics
         {
             if (Telemetry.IsInitialized)
             {
-                Telemetry.TrackTrace(eSeverityLevel.Error, "Workflow Exception: {0}", ex.Message);
+                Telemetry.Trace(eSeverityLevel.Error, "Workflow Exception: {0}", ex.Message);
             }
 
             if (!Telemetry.IsInitialized || !Telemetry.WritesToPluginTracLog)

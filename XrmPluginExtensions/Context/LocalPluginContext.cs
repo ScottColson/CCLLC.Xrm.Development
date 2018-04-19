@@ -5,7 +5,7 @@ using Microsoft.Xrm.Sdk;
 namespace CCLCC.XrmBase.Context
 {
     using Container;
-    using Diagnostics;
+    using Telemetry;
     using Utilities;
 
     public class LocalPluginContext<E> : LocalContext<E>, IDisposable, ILocalPluginContext<E> where E : Entity
@@ -69,8 +69,8 @@ namespace CCLCC.XrmBase.Context
             }
         }
 
-        public LocalPluginContext(IContainer container, IServiceProvider serviceProvider, IPluginExecutionContext executionContext, IDiagnosticService diagnosticService)
-            : base(container, executionContext, diagnosticService)
+        public LocalPluginContext(IServiceProvider serviceProvider, IContainer container, IPluginExecutionContext executionContext, ITelemetryService telemetryService)
+            : base(executionContext, container, telemetryService)
         {
             this.ServiceProvider = serviceProvider;
         }

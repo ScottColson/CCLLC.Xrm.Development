@@ -5,7 +5,7 @@ using Microsoft.Xrm.Sdk.Workflow;
 namespace CCLCC.XrmBase.Context
 {
     using Container;
-    using Diagnostics;
+    using Telemetry;
 
     public class LocalWorkflowActivityContext<E> : LocalContext<E>, ILocalWorkflowActivityContext<E> where E : Entity
     {
@@ -19,8 +19,8 @@ namespace CCLCC.XrmBase.Context
             }
         }
 
-        public LocalWorkflowActivityContext(IContainer container, CodeActivityContext codeActivityContext, IWorkflowContext executionContext, IDiagnosticService diagnosticService)
-          : base(container,  executionContext, diagnosticService)
+        public LocalWorkflowActivityContext(CodeActivityContext codeActivityContext, IContainer container, IWorkflowContext executionContext, ITelemetryService telemetryService)
+          : base(executionContext, container, telemetryService)
         {
             this.CodeActivityContext = codeActivityContext;
         }

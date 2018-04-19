@@ -6,17 +6,13 @@ namespace CCLCC.XrmBase.Context
     using Caching;
     using Configuration;
     using Container;
-    using Diagnostics;
     using Encryption;
     using Telemetry;
 
     public abstract class LocalContext<E> : ILocalContext<E> where E : Entity
     {
         private ConfigureTelemtryProvider configureTelemetryProviderCallback;
-
-
         public IContainer Container { get; private set; }
-
         public IExecutionContext ExecutionContext { get; private set; }
 
         private IOrganizationServiceFactory organizationServiceFactory;
@@ -65,7 +61,7 @@ namespace CCLCC.XrmBase.Context
             }
         }
 
-        public IDiagnosticService DiagnosticService { get; private set; }
+        public ITelemetryService TelemetryService { get; private set; }
 
         public int Depth { get { return this.ExecutionContext.Depth; } }
 
@@ -164,18 +160,18 @@ namespace CCLCC.XrmBase.Context
             }
         }
 
-        public LocalContext(IContainer container, IExecutionContext executionContext, IDiagnosticService diagnosticService)
+        public LocalContext(IExecutionContext executionContext, IContainer container, ITelemetryService telemetryService)
         {
             if (container == null) throw new ArgumentNullException("container");
             this.Container = container;
-
+           
             if (executionContext == null) throw new ArgumentNullException("executionContext");
             this.ExecutionContext = executionContext;
 
-            if (diagnosticService == null) throw new ArgumentNullException("diagnosticService");
-            this.DiagnosticService = diagnosticService;
+            if (telemetryService == null) throw new ArgumentNullException("telemetryService");
+            this.TelemetryService = telemetryService;
 
-            this.DiagnosticService.Telemetry.TelemetryProvider
+            this.TelemetryService.TelemetryProvider
                 .SetConfigurationCallback((p) => 
                 {
                     if (this.configureTelemetryProviderCallback != null)

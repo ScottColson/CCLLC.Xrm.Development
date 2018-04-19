@@ -11,8 +11,8 @@ namespace CCLCC.XrmBase
     using Container;
     using Context;
     using Encryption;
-    using Diagnostics;
     using Telemetry;
+    using Telemetry.Providers;
 
     public abstract class WorkflowActivityBase<E> : CodeActivity, IWorkflowActivity<E> where E : Entity
     {
@@ -32,10 +32,9 @@ namespace CCLCC.XrmBase
 
         public virtual void RegisterContainerServices(IContainer container)
         {
-            container.RegisterAsSingleInstance<ITelemetryProvider, TracingTelemetryProvider>();
+            container.Register<ITelemetryProvider, DefaultTelemetryProvider>();
             container.RegisterAsSingleInstance<ICacheFactory, CacheFactory>();
             container.RegisterAsSingleInstance<IConfigurationFactory, ConfigurationFactory>();
-            container.RegisterAsSingleInstance<IDiagnosticServiceFactory, DiagnosticServiceFactory>();
             container.RegisterAsSingleInstance<ILocalWorkflowActivityContextFactory, LocalWorkflowActivityContextFactory>();
             container.RegisterAsSingleInstance<IRijndaelEncryption, RijndaelEncryption>();
         }
@@ -56,36 +55,25 @@ namespace CCLCC.XrmBase
             tracingService.Trace(string.Format(CultureInfo.InvariantCulture, "Entered {0}.Execute()", this.GetType().ToString()));
 
             var telemetryProvider = Container.Resolve<ITelemetryProvider>();
-            var diagnosticServiceFactory = Container.Resolve<IDiagnosticServiceFactory>();
-
+            
             var executionContext = codeActivityContext.GetExtension<IWorkflowContext>();
 
-            using (var diagnosticService = diagnosticServiceFactory.CreateDiagnosticService(this.GetType().ToString(), executionContext, tracingService, telemetryProvider))
+            using (var telemetryService = telemetryProvider.CreateTelemetryService(this.GetType().ToString(), tracingService, telemetryProvider, executionContext))
             {
                 try
                 {
                     var localContextFactory = Container.Resolve<ILocalWorkflowActivityContextFactory>();
 
-                    using (var localContext = localContextFactory.CreateLocalWorkflowActivityContext<E>(executionContext, this.Container, codeActivityContext, diagnosticService))
+                    using (var localContext = localContextFactory.CreateLocalWorkflowActivityContext<E>(executionContext, Container, codeActivityContext, telemetryService))
                     {
                         localContext.SetConfigureTelemetryProviderCallback(GetConfigureTelemetryProviderCallback(localContext));
 
                         ExecuteInternal(localContext);
                     }
-                }
-                catch (InvalidWorkflowException ex)
-                {
-                    diagnosticService.TraceWorkflowException(ex);
-                    throw;
-                }
-                catch (InvalidPluginExecutionException ex)
-                {
-                    diagnosticService.TracePluginException(ex);
-                    throw;
-                }
+                }          
                 catch (Exception ex)
                 {
-                    diagnosticService.TraceGeneralException(ex);
+                    telemetryService.TraceException(ex);
                     throw;
                 }
             }

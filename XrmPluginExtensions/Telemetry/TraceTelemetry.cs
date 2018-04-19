@@ -6,7 +6,7 @@ namespace CCLCC.XrmBase.Telemetry
     {
         public eSeverityLevel SeverityLevel { get; private set; }
 
-        internal TraceTelemetry(string message, eSeverityLevel severityLevel, Dictionary<string,string> properties) 
+        internal TraceTelemetry(string message, eSeverityLevel severityLevel, IDictionary<string,string> properties) 
             : base("Trace", properties, null)
         {
             this.Message = message;

@@ -9,8 +9,7 @@ namespace CCLCC.XrmBase.Telemetry
         DateTimeOffset Timestamp { get; set; }
         string TelemetryType { get; }
         string Message { get; }
-        IReadOnlyDictionary<string, string> Properties { get; }
-        IReadOnlyDictionary<string, double> Metrics { get; }
-
+        IDictionary<string, string> Properties { get; }
+        IDictionary<string, double> Metrics { get; }
     }
 }

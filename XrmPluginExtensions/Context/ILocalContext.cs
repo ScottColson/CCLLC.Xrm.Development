@@ -6,22 +6,19 @@ namespace CCLCC.XrmBase.Context
     using Caching;
     using Configuration;
     using Container;
-    using Diagnostics;
     using Telemetry;
 
 
     public interface ILocalContext<E> : IDisposable where E : Entity
     {
       
-        IContainer Container { get; }
         IExecutionContext ExecutionContext {get;}
         IOrganizationServiceFactory OrganizationServiceFactory { get; }
         IOrganizationService OrganizationService { get; }
 
         IOrganizationService ElevatedOrganizationService { get; }
-
-       
-        IDiagnosticService DiagnosticService { get; }
+        IContainer Container { get; }    
+        ITelemetryService TelemetryService { get; }
         
         int Depth { get; }
         string MessageName { get; }
