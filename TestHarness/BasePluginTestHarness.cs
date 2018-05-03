@@ -1,8 +1,10 @@
 ﻿using System;
 using Microsoft.Xrm.Sdk;
-using CCLCC.XrmBase;
-using CCLCC.XrmBase.Telemetry;
-using CCLCC.XrmBase.Context;
+using CCLCC.Core;
+using CCLCC.Telemetry.Interfaces;
+using CCLCC.Xrm;
+using CCLCC.Xrm.Context;
+
 using System.Collections.Generic;
 
 namespace TestHarness
@@ -15,31 +17,22 @@ namespace TestHarness
             RegisterMessageHandler("account", MessageNames.Create, ePluginStage.PostOperation, ExecuteLocal);            
         }
 
+        public override void RegisterContainerServices(IIocContainer container)
+        {
+            base.RegisterContainerServices(container);
+            //add additional services to container
+
+        }
+
         public void ExecuteLocal(ILocalContext<Entity> localContext) 
         {
-            try
-            {
-                localContext.TelemetryService.AddProperty("a new property", "a new value");
+            var x = this.Container.Resolve<IBlockTelemetry>();
+
+                localContext.TelemetryClient.Properties.Add("a new property", "a new value");
                 localContext.PluginCache.Add<string>("akey", "avalue", 15);
 
-                using (var op = localContext.TelemetryService.StartOperation("an op name"))
-                {
-                    op.AddProperty("op-prop1", "op-value1");
-                    
-                    op.Trace(eSeverityLevel.Information, localContext.PluginCache.Get<string>("akey"));
-
-                    //localContext.DiagnosticService.Trace("{0} entered plugin", "some value");
-                    //localContext.DiagnosticService.Telemetry.TrackTrace(eSeverityLevel.Information, "{0} telemetry", "somevalue");
-                    //localContext.DiagnosticService.Telemetry.TrackEvent("some event name");
-                    //localContext.DiagnosticService.Telemetry.TrackEvent("some event with metrics and properites", new Dictionary<string, string>() { { "prop1", "value1" } }, new Dictionary<string, double>() { { "metric1", 1.3456 } });
-                    throw new InvalidPluginExecutionException("This is an exception");
-                }
-            }
-            catch (Exception ex)
-            {
-                localContext.TelemetryService.TraceException(ex);
-                
-            }
+               
+            
             
         }
     }

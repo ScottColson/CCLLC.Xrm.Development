@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{43635423-C56A-48FE-A2FF-7857F3625A69}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CCLCC.Telemetry.AI</RootNamespace>
+    <AssemblyName>CCLCCLightAITelemetry</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Client\ApplicationTelemetryClientFactory.cs" />
+    <Compile Include="Interfaces\Client\IApplicationTelemetryClient.cs" />
+    <Compile Include="Interfaces\Client\IApplicationTelemetryClientFactory.cs" />
+    <Compile Include="Interfaces\Client\IOperationalTelemetryClient.cs" />
+    <Compile Include="Interfaces\Client\ITelemetryClient.cs" />
+    <Compile Include="Interfaces\Serialization\IJsonWriter.cs" />
+    <Compile Include="Interfaces\Serialization\ITelemetrySerializer.cs" />
+    <Compile Include="Interfaces\Sink\ITelemetryBuffer.cs" />
+    <Compile Include="Interfaces\Sink\ITelemetryChannel.cs" />
+    <Compile Include="Interfaces\Sink\ITelemetryProcessChain.cs" />
+    <Compile Include="Interfaces\Sink\ITelemetryProcessor.cs" />
+    <Compile Include="Interfaces\Sink\ITelemetrySink.cs" />
+    <Compile Include="Interfaces\Sink\ITelemetryTransmitter.cs" />
+    <Compile Include="Interfaces\Telemetry\Context\ICloudContext.cs" />
+    <Compile Include="Interfaces\Telemetry\Context\IComponentContext.cs" />
+    <Compile Include="Interfaces\Telemetry\Context\IDataContext.cs" />
+    <Compile Include="Interfaces\Telemetry\Context\IDeviceContext.cs" />
+    <Compile Include="Interfaces\Telemetry\Context\ILocationContext.cs" />
+    <Compile Include="Interfaces\Telemetry\Context\IOperationContext.cs" />
+    <Compile Include="Interfaces\Telemetry\Context\ISessionContext.cs" />
+    <Compile Include="Interfaces\Telemetry\Context\ITelemetryContext.cs" />
+    <Compile Include="Interfaces\Telemetry\Context\IUserContext.cs" />
+    <Compile Include="Interfaces\Telemetry\IAvailabilityDataModel.cs" />
+    <Compile Include="Interfaces\Telemetry\IAvailabilityTelemetry.cs" />
+    <Compile Include="Interfaces\Telemetry\IBlockDataModel.cs" />
+    <Compile Include="Interfaces\Telemetry\IBlockTelemetry.cs" />
+    <Compile Include="Interfaces\Telemetry\IDataModel.cs" />
+    <Compile Include="Interfaces\Telemetry\IDataModelTelemetry.cs" />
+    <Compile Include="Interfaces\Telemetry\IDependencyDataModel.cs" />
+    <Compile Include="Interfaces\Telemetry\IDependencyTelemetry.cs" />
+    <Compile Include="Interfaces\Telemetry\IEventDataModel.cs" />
+    <Compile Include="Interfaces\Telemetry\IEventTelemetry.cs" />
+    <Compile Include="Interfaces\Telemetry\IExceptionDataModel.cs" />
+    <Compile Include="Interfaces\Telemetry\IExceptionDetails.cs" />
+    <Compile Include="Interfaces\Telemetry\IExceptionTelemetry.cs" />
+    <Compile Include="Interfaces\Telemetry\IMessageDataModel.cs" />
+    <Compile Include="Interfaces\Telemetry\IMessageTelemetry.cs" />
+    <Compile Include="Interfaces\Telemetry\IMetricDataModel.cs" />
+    <Compile Include="Interfaces\Telemetry\IMetricTelemetry.cs" />
+    <Compile Include="Interfaces\Telemetry\IOperationalTelemetry.cs" />
+    <Compile Include="Interfaces\Telemetry\IPageViewDataModel.cs" />
+    <Compile Include="Interfaces\Telemetry\IPageViewTelemetry.cs" />
+    <Compile Include="Interfaces\Telemetry\IRequestDataModel.cs" />
+    <Compile Include="Interfaces\Telemetry\IRequestTelemetry.cs" />
+    <Compile Include="Interfaces\Telemetry\IStackFrame.cs" />
+    <Compile Include="Interfaces\Telemetry\ISupportMetrics.cs" />
+    <Compile Include="Interfaces\Telemetry\ISupportProperties.cs" />
+    <Compile Include="Interfaces\Telemetry\ISupportSampling.cs" />
+    <Compile Include="Interfaces\Telemetry\ITelemetry.cs" />
+    <Compile Include="Interfaces\Telemetry\ITelemetryFactory.cs" />
+    <Compile Include="Interfaces\Telemetry\SeverityLevel.cs" />
+    <Compile Include="Serializer\TelemetrySerializer.cs" />
+    <Compile Include="Sink\InMemoryChannel.cs" />
+    <Compile Include="Sink\TelemetryBuffer.cs" />
+    <Compile Include="Sink\TelemetrySink.cs" />
+    <Compile Include="Sink\TelemetryTransmitter.cs" />
+    <Compile Include="Sink\Transmission.cs" />
+    <Compile Include="AIConstants.cs" />
+    <Compile Include="Implementation\ContextTagKeys.cs" />
+    <Compile Include="Implementation\ContextTagKeys_types.cs" />
+    <Compile Include="Implementation\Property.cs" />
+    <Compile Include="Implementation\Tags.cs" />
+    <Compile Include="Telemetry\Context\ComponentContext.cs" />
+    <Compile Include="Telemetry\EventDataModel.cs" />
+    <Compile Include="Telemetry\EventTelemetry.cs" />
+    <Compile Include="Telemetry\ExceptionDataModel.cs" />
+    <Compile Include="Telemetry\ExceptionDetails.cs" />
+    <Compile Include="Telemetry\ExceptionTelemetry.cs" />
+    <Compile Include="Telemetry\Context\OperationContext.cs" />
+    <Compile Include="Telemetry\StackFrame.cs" />
+    <Compile Include="Telemetry\Context\TelemetryContext.cs" />
+    <Compile Include="Telemetry\TelemetryFactory.cs" />
+    <Compile Include="Telemetry\MessageDataModel.cs" />
+    <Compile Include="Implementation\HttpWebResponseWrapper.cs" />
+    <Compile Include="Serializer\JsonWriter.cs" />
+    <Compile Include="Telemetry\OperationalTelemetryBase.cs" />
+    <Compile Include="Implementation\IRandomNumberBatchGenerator.cs" />
+    <Compile Include="Implementation\Utils.cs" />
+    <Compile Include="Implementation\WeakConcurrentRandom.cs" />
+    <Compile Include="Implementation\XorshiftRandomBatchGenerator.cs" />
+    <Compile Include="Client\OperationTelemetryClient.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Telemetry\TelemetryBase.cs" />
+    <Compile Include="Client\ApplicationTelemetryClient.cs" />
+    <Compile Include="Client\TelemetryClientBase.cs" />
+    <Compile Include="Client\ApplicationTelemetryClientBase.cs" />
+    <Compile Include="Telemetry\MessageTelemetry.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Interfaces\readme.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
