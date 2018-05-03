@@ -6,22 +6,23 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using CCLCC.Telemetry.Implementation;
+using CCLCC.Telemetry.Interfaces;
 
 namespace CCLCC.Telemetry.Client
-{
-    using Interfaces;
-   
-
+{ 
     public class OperationTelemetryClient<T> : TelemetryClientBase, IOperationalTelemetryClient<T> where T : IOperationalTelemetry
     {    
         private Stopwatch stopwatch;        
         private bool completed = false;
         private T telemetryItem;
 
-        public string OperationName { get; set; }       
+        public string OperationName { get; set; }
+
+        public IDictionary<string, string> Properties { get; set; }
 
         internal OperationTelemetryClient(ITelemetryClient parentClient, T telemetryItem)
-            : base(parentClient, null)
+            : base(parentClient)
         {
             this.telemetryItem = telemetryItem;                      
             stopwatch = new Stopwatch();
@@ -49,17 +50,20 @@ namespace CCLCC.Telemetry.Client
             stopwatch = null;
             OperationName = null;
             base.Dispose();
+            GC.SuppressFinalize(this);
         }
 
         public override void Track(ITelemetry telemetry)
         {
+            //initialize the telemetry based on the context of this client and then push it to 
+            //the next immediate ancestor to complete processing.
             this.Initialize(telemetry);
             ParentClient.Track(telemetry);
         }
 
         public override void Initialize(ITelemetry telemetry)
         {
-            throw new NotImplementedException();
+           
         }
     }
 }

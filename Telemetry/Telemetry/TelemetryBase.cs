@@ -11,9 +11,9 @@ namespace CCLCC.Telemetry.Telemetry
         public string BaseType { get; private set; }
         public TData Data { get; private set; }
         
-        public DateTimeOffset Timestamp { get; internal protected set; }
-        public string Sequence { get; internal protected set; }
-        public string InstrumentationKey { get; internal protected set; }
+        public DateTimeOffset Timestamp { get; set; }
+        public string Sequence { get; set; }
+        public string InstrumentationKey { get; set; }
 
         public ITelemetryContext Context { get; private set; }
 

@@ -9,9 +9,16 @@ namespace CCLCC.Telemetry.Client
 {
     public class ApplicationTelemetryClientFactory : IApplicationTelemetryClientFactory
     {
-        public IApplicationTelemetryClient BuildClient(string applicationName, ITelemetrySink telemetrySink, IDictionary<string, string> contextProperties)
+        ITelemetryContext telemetryContext;
+
+        ApplicationTelemetryClientFactory(ITelemetryContext context)
         {
-            return new ApplicationTelemetryClient(applicationName, telemetrySink, contextProperties);
+            this.telemetryContext = context;
+        }
+
+        public IApplicationTelemetryClient BuildClient(string applicationName, ITelemetrySink telemetrySink, IDictionary<string, string> contextProperties = null)
+        {
+            return new ApplicationTelemetryClient(applicationName, telemetrySink, telemetryContext, contextProperties);
         }
     }
 }

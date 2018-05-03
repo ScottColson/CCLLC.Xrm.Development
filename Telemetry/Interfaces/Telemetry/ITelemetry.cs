@@ -8,10 +8,10 @@ namespace CCLCC.Telemetry.Interfaces
 {
     public interface ITelemetry
     {
-        string InstrumentationKey { get; }
-        string Sequence { get; }
+        string InstrumentationKey { get; set; }
+        string Sequence { get; set; }
         ITelemetryContext Context { get; }
-        DateTimeOffset Timestamp { get; }
+        DateTimeOffset Timestamp { get; set; }
         string TelemetryName { get; }
         void Sanitize();
     }

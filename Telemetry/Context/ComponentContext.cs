@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using CCLCC.Telemetry.Interfaces;
 
-namespace CCLCC.Telemetry.Telemetry.Context
+namespace CCLCC.Telemetry.Context
 {
     using Implementation;
 

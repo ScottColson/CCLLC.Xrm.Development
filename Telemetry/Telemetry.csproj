@@ -46,6 +46,7 @@
     <Compile Include="Interfaces\Client\IApplicationTelemetryClientFactory.cs" />
     <Compile Include="Interfaces\Client\IOperationalTelemetryClient.cs" />
     <Compile Include="Interfaces\Client\ITelemetryClient.cs" />
+    <Compile Include="Interfaces\Context\IInternalContext.cs" />
     <Compile Include="Interfaces\Serialization\IJsonWriter.cs" />
     <Compile Include="Interfaces\Serialization\ITelemetrySerializer.cs" />
     <Compile Include="Interfaces\Sink\ITelemetryBuffer.cs" />
@@ -54,15 +55,15 @@
     <Compile Include="Interfaces\Sink\ITelemetryProcessor.cs" />
     <Compile Include="Interfaces\Sink\ITelemetrySink.cs" />
     <Compile Include="Interfaces\Sink\ITelemetryTransmitter.cs" />
-    <Compile Include="Interfaces\Telemetry\Context\ICloudContext.cs" />
-    <Compile Include="Interfaces\Telemetry\Context\IComponentContext.cs" />
-    <Compile Include="Interfaces\Telemetry\Context\IDataContext.cs" />
-    <Compile Include="Interfaces\Telemetry\Context\IDeviceContext.cs" />
-    <Compile Include="Interfaces\Telemetry\Context\ILocationContext.cs" />
-    <Compile Include="Interfaces\Telemetry\Context\IOperationContext.cs" />
-    <Compile Include="Interfaces\Telemetry\Context\ISessionContext.cs" />
-    <Compile Include="Interfaces\Telemetry\Context\ITelemetryContext.cs" />
-    <Compile Include="Interfaces\Telemetry\Context\IUserContext.cs" />
+    <Compile Include="Interfaces\Context\ICloudContext.cs" />
+    <Compile Include="Interfaces\Context\IComponentContext.cs" />
+    <Compile Include="Interfaces\Context\IDataContext.cs" />
+    <Compile Include="Interfaces\Context\IDeviceContext.cs" />
+    <Compile Include="Interfaces\Context\ILocationContext.cs" />
+    <Compile Include="Interfaces\Context\IOperationContext.cs" />
+    <Compile Include="Interfaces\Context\ISessionContext.cs" />
+    <Compile Include="Interfaces\Context\ITelemetryContext.cs" />
+    <Compile Include="Interfaces\Context\IUserContext.cs" />
     <Compile Include="Interfaces\Telemetry\IAvailabilityDataModel.cs" />
     <Compile Include="Interfaces\Telemetry\IAvailabilityTelemetry.cs" />
     <Compile Include="Interfaces\Telemetry\IBlockDataModel.cs" />
@@ -103,15 +104,15 @@
     <Compile Include="Implementation\ContextTagKeys_types.cs" />
     <Compile Include="Implementation\Property.cs" />
     <Compile Include="Implementation\Tags.cs" />
-    <Compile Include="Telemetry\Context\ComponentContext.cs" />
+    <Compile Include="Context\ComponentContext.cs" />
     <Compile Include="Telemetry\EventDataModel.cs" />
     <Compile Include="Telemetry\EventTelemetry.cs" />
     <Compile Include="Telemetry\ExceptionDataModel.cs" />
     <Compile Include="Telemetry\ExceptionDetails.cs" />
     <Compile Include="Telemetry\ExceptionTelemetry.cs" />
-    <Compile Include="Telemetry\Context\OperationContext.cs" />
+    <Compile Include="Context\OperationContext.cs" />
     <Compile Include="Telemetry\StackFrame.cs" />
-    <Compile Include="Telemetry\Context\TelemetryContext.cs" />
+    <Compile Include="Context\TelemetryContext.cs" />
     <Compile Include="Telemetry\TelemetryFactory.cs" />
     <Compile Include="Telemetry\MessageDataModel.cs" />
     <Compile Include="Implementation\HttpWebResponseWrapper.cs" />
@@ -124,9 +125,8 @@
     <Compile Include="Client\OperationTelemetryClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Telemetry\TelemetryBase.cs" />
-    <Compile Include="Client\ApplicationTelemetryClient.cs" />
     <Compile Include="Client\TelemetryClientBase.cs" />
-    <Compile Include="Client\ApplicationTelemetryClientBase.cs" />
+    <Compile Include="Client\ApplicationTelemetryClient.cs" />
     <Compile Include="Telemetry\MessageTelemetry.cs" />
   </ItemGroup>
   <ItemGroup>

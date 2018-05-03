@@ -9,7 +9,7 @@ namespace CCLCC.Telemetry.Interfaces
     {
         
 
-        IDictionary<string, string> Properties { get; }
+       
        
         ITelemetryClient ParentClient { get; }
 

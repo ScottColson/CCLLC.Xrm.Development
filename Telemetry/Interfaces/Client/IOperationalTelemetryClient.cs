@@ -9,6 +9,6 @@ namespace CCLCC.Telemetry.Interfaces
     public interface IOperationalTelemetryClient<T>: ITelemetryClient, IDisposable where T : IOperationalTelemetry
     {       
         string OperationName { get; set; }
-       
+        IDictionary<string, string> Properties { get; }
     }
 }
