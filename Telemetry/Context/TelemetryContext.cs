@@ -76,14 +76,14 @@ namespace CCLCC.Telemetry.Context
         public virtual IDictionary<string, string> ToContextTags(IContextTagKeys keys)
         {
             var result = new Dictionary<string, string>();
-            this.component?.UpdateTags(result, keys);            
-            this.device?.UpdateTags(result, keys);
             this.cloud?.UpdateTags(result, keys);
-            this.session?.UpdateTags(result, keys);
-            this.user?.UpdateTags(result, keys);
-            this.operation?.UpdateTags(result, keys);
+            this.component?.UpdateTags(result, keys);
+            this.device?.UpdateTags(result, keys);
+            this.Internal.UpdateTags(result, keys);            
             this.location?.UpdateTags(result, keys);
-            this.Internal.UpdateTags(result, keys);
+            this.operation?.UpdateTags(result, keys);
+            this.session?.UpdateTags(result, keys);
+            this.user?.UpdateTags(result, keys);   
 
             return result;
         }

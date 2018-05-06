@@ -10,8 +10,8 @@ namespace CCLCC.Telemetry.Context
     public class AIContextTagKeys : IContextTagKeys
     {
         public IReadOnlyDictionary<string,int> TagSizeLimits { get; private set; }
-
-        public string ApplicationVersion { get; set; }
+        public string ComponentName { get; set; }
+        public string ComponentVersion { get; set; }
         public string DataRecordId { get; set; }
         public string DataRecordType { get; set; }
         public string DeviceId { get; set; }
@@ -43,7 +43,7 @@ namespace CCLCC.Telemetry.Context
 
         public AIContextTagKeys()
         {
-            ApplicationVersion = "ai.application.ver";
+            ComponentVersion = "ai.application.ver";
             DeviceId = "ai.device.id";
             DeviceLocale = "ai.device.locale";
             DeviceModel = "ai.device.model";
@@ -71,7 +71,7 @@ namespace CCLCC.Telemetry.Context
             InternalNodeName = "ai.internal.nodeName";
 
             this.TagSizeLimits = new Dictionary<string, int>(){
-                { ApplicationVersion, 1024 },
+                { ComponentVersion, 1024 },
                 { DeviceId, 1024 },
                 { DeviceModel, 256 },
                 { DeviceOEMName, 256 },

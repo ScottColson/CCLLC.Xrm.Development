@@ -63,7 +63,7 @@ namespace TelemetryTests
             context.Cloud.RoleName = "cloud.rolename";
 
             context.Component.Name = "component.name";
-            context.Component.Version = "component.version";           
+            context.Component.Version = "component.version";
 
             context.Device.Id = "device.id";
             context.Device.Model = "device.model";
@@ -110,7 +110,7 @@ namespace TelemetryTests
 
             //does not implement ISupportDataKeyContext
             Assert.IsNotInstanceOfType(context, typeof(ISupportDataKeyContext));
-            
+
         }
 
         [TestMethod]
@@ -128,7 +128,7 @@ namespace TelemetryTests
             Assert.IsInstanceOfType(context, typeof(ISupportDataKeyContext));
         }
 
-       
+
         [TestMethod]
         public void NewTelemetryContextIsNotInitialized()
         {
@@ -139,7 +139,7 @@ namespace TelemetryTests
 
             Assert.IsNull(context.Component.Name);
             Assert.IsNull(context.Component.Version);
-                     
+
             Assert.IsNull(context.Device.Id);
             Assert.IsNull(context.Device.Model);
             Assert.IsNull(context.Device.OemName);
@@ -225,7 +225,7 @@ namespace TelemetryTests
             Assert.IsInstanceOfType(clone, typeof(TelemetryContext));
             Assert.AreNotSame(context, clone);
             Assert.AreNotSame(context.Cloud, clone.Cloud);
-            Assert.AreNotSame(context.Component, clone.Component);           
+            Assert.AreNotSame(context.Component, clone.Component);
             Assert.AreNotSame(context.Device, clone.Device);
             Assert.AreNotSame(context.Internal, clone.Internal);
             Assert.AreNotSame(context.Location, clone.Location);
@@ -258,9 +258,9 @@ namespace TelemetryTests
             Assert.AreNotSame(context.Session, clone.Session);
             Assert.AreNotSame(context.User, clone.User);
 
-           
+
         }
-        
+
 
         [TestMethod]
         public void CanCloneTelemetryContext()
@@ -378,10 +378,12 @@ namespace TelemetryTests
         }
 
 
-
-
-
-      
-
+        [TestMethod]
+        public void CanGenerateAITelemetryContextTags()
+        {
+            var context = generateInitiatedTelemetryContext();
+            var tags = context.ToContextTags(new AIContextTagKeys());
+        }
+        
     }
 }

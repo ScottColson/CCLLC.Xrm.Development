@@ -5,7 +5,8 @@ namespace CCLCC.Telemetry.Interfaces
     public interface IContextTagKeys
     {
         IReadOnlyDictionary<string,int> TagSizeLimits { get; }
-        string ApplicationVersion { get; set; }
+        string ComponentName { get; set; }
+        string ComponentVersion { get; set; }
         string DataRecordId { get; set; }
         string DataRecordType { get; set; }
         string DeviceId { get; set; }

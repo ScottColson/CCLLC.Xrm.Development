@@ -18,7 +18,9 @@ namespace CCLCC.Telemetry.Context
 
         public void UpdateTags(IDictionary<string, string> tags, IContextTagKeys keys)
         {
-            tags.UpdateTagValue(keys.ApplicationVersion, this.Version, keys.TagSizeLimits);
+            tags.UpdateTagValue(keys.ComponentName, this.Name, keys.TagSizeLimits);
+            tags.UpdateTagValue(keys.ComponentVersion, this.Version, keys.TagSizeLimits);
+            
         }
         
     }
