@@ -11,7 +11,7 @@ namespace CCLCC.Telemetry.Interfaces
         string Name { get; set; }
         string Version { get; set; }
 
-        void UpdateTags(IDictionary<string, string> tags);
+        void UpdateTags(IDictionary<string, string> tags, IContextTagKeys keys);
 
         void CopyTo(IComponentContext target);
     }

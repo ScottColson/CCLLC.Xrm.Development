@@ -13,7 +13,7 @@ namespace CCLCC.Telemetry.Interfaces
         string Name { get; set; }
         string CorrelationVector { get; set; }
 
-        void UpdateTags(IDictionary<string, string> tags);
+        void UpdateTags(IDictionary<string, string> tags, IContextTagKeys keys);
 
         void CopyTo(IOperationContext target);
     }

@@ -19,7 +19,11 @@ namespace CCLCC.Telemetry.Sink
         private bool enabled = true;
 
         public ITelemetryBuffer Buffer { get; private set; }
-        public TimeSpan SendingInterval { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public TimeSpan SendingInterval
+        {
+            get { return sendingInterval; }
+            set { sendingInterval = value; }
+        }
         public ITelemetryTransmitter Transmitter { get; private set; }
 
         public InMemoryChannel(ITelemetryBuffer buffer, ITelemetryTransmitter tranmitter)

@@ -1,15 +1,14 @@
-﻿using System.Collections.Concurrent;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using CCLCC.Telemetry.Implementation;
 using CCLCC.Telemetry.Interfaces;
-
 
 namespace CCLCC.Telemetry.Telemetry
 {    
-    using Implementation;
-
+        
     public class EventTelemetry : TelemetryBase<IEventDataModel>, IEventTelemetry
     {
-        
+        public const int MaxEventNameLength = 512;
+
         public string Name
         {
             get { return this.Data.name; }
@@ -51,7 +50,10 @@ namespace CCLCC.Telemetry.Telemetry
 
         public override void Sanitize()
         {
-            throw new System.NotImplementedException();
+            this.Name = this.Name.TrimAndTruncate(MaxEventNameLength);
+            this.Name = Utils.PopulateRequiredStringValue(this.Name);
+            this.Properties.SanitizeProperties();
+            this.Metrics.SanitizeMeasurements();
         }
 
         public override void SerializeData(ITelemetrySerializer serializer, IJsonWriter writer)

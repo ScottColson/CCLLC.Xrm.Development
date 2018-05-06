@@ -8,6 +8,6 @@ namespace CCLCC.Telemetry.Interfaces
         string AgentVersion { get; set; }
         string NodeName { get; set; }
         void CopyTo(IInternalContext target);
-        void UpdateTags(IDictionary<string, string> tags);       
+        void UpdateTags(IDictionary<string, string> tags, IContextTagKeys keys);
     }
 }

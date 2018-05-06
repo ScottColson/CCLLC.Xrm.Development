@@ -26,7 +26,7 @@ namespace CCLCC.Telemetry.Client
             set { this.Context.InstrumentationKey = value; }
         }
 
-        public ApplicationTelemetryClient(string applicationName, ITelemetrySink telemetrySink, ITelemetryContext telemetryContext, IDictionary<string,string> contextProperties = null)
+        internal protected ApplicationTelemetryClient(string applicationName, ITelemetrySink telemetrySink, ITelemetryContext telemetryContext, IDictionary<string,string> contextProperties = null)
             : base(null)
         {            
             this.TelemetrySink = telemetrySink;

@@ -20,39 +20,16 @@ namespace CCLCC.Telemetry.Implementation
         public const int MaxDependencyTypeLength = 1024;
         public const int MaxValueLength = 8 * 1024;
         public const int MaxResultCodeLength = 1024;
-        public const int MaxEventNameLength = 512;
+        //public const int MaxEventNameLength = 512;
         public const int MaxNameLength = 1024;
-        public const int MaxMessageLength = 32768;
+        //public const int MaxMessageLength = 32768;
         public const int MaxUrlLength = 2048;
         public const int MaxDataLength = 8 * 1024;
         public const int MaxTestNameLength = 1024;
         public const int MaxRunLocationLength = 2024;
         public const int MaxAvailabilityMessageLength = 8192;
 
-        public static readonly IDictionary<string, int> TagSizeLimits = new Dictionary<string, int>()
-        {
-            { ContextTagKeys.Keys.ApplicationVersion, 1024 },
-            { ContextTagKeys.Keys.DeviceId, 1024 },
-            { ContextTagKeys.Keys.DeviceModel, 256 },
-            { ContextTagKeys.Keys.DeviceOEMName, 256 },
-            { ContextTagKeys.Keys.DeviceOSVersion, 256 },
-            { ContextTagKeys.Keys.DeviceType, 64 },
-            { ContextTagKeys.Keys.LocationIp, 45 },
-            { ContextTagKeys.Keys.OperationId, 128 },
-            { ContextTagKeys.Keys.OperationName, 1024 },
-            { ContextTagKeys.Keys.OperationParentId, 128 },
-            { ContextTagKeys.Keys.OperationSyntheticSource, 1024 },
-            { ContextTagKeys.Keys.OperationCorrelationVector, 64 },
-            { ContextTagKeys.Keys.SessionId, 64 },
-            { ContextTagKeys.Keys.UserId, 128 },
-            { ContextTagKeys.Keys.UserAccountId, 1024 },
-            { ContextTagKeys.Keys.UserAuthUserId, 1024 },
-            { ContextTagKeys.Keys.CloudRole, 256 },
-            { ContextTagKeys.Keys.CloudRoleInstance, 256 },
-            { ContextTagKeys.Keys.InternalSdkVersion, 64 },
-            { ContextTagKeys.Keys.InternalAgentVersion, 64 },
-            { ContextTagKeys.Keys.InternalNodeName, 256 }
-        };
+       
 
         public static void Set<T>(ref T property, T value) where T : class
         {
@@ -80,34 +57,26 @@ namespace CCLCC.Telemetry.Implementation
             }
         }
 
-        public static string SanitizeEventName(this string name)
-        {
-            return TrimAndTruncate(name, Property.MaxEventNameLength);
-        }
+        //public static string SanitizeEventName(this string name)
+        //{
+        //    return TrimAndTruncate(name, Property.MaxEventNameLength);
+        //}
 
-        public static string SanitizeName(this string name)
-        {
-            return TrimAndTruncate(name, Property.MaxNameLength);
-        }
+       
 
-        public static string SanitizeDependencyType(this string value)
-        {
-            return TrimAndTruncate(value, Property.MaxDependencyTypeLength);
-        }
+        //public static string SanitizeDependencyType(this string value)
+        //{
+        //    return TrimAndTruncate(value, Property.MaxDependencyTypeLength);
+        //}
 
-        public static string SanitizeResultCode(this string value)
-        {
-            return TrimAndTruncate(value, Property.MaxResultCodeLength);
-        }
+        //public static string SanitizeResultCode(this string value)
+        //{
+        //    return TrimAndTruncate(value, Property.MaxResultCodeLength);
+        //}
 
         public static string SanitizeValue(this string value)
         {
             return TrimAndTruncate(value, Property.MaxValueLength);
-        }
-
-        public static string SanitizeMessage(this string message)
-        {
-            return TrimAndTruncate(message, Property.MaxMessageLength);
         }
 
         public static string SanitizeData(this string message)
@@ -138,20 +107,20 @@ namespace CCLCC.Telemetry.Implementation
             return uri;
         }
 
-        public static string SanitizeTestName(this string value)
-        {
-            return TrimAndTruncate(value, Property.MaxTestNameLength);
-        }
+        //public static string SanitizeTestName(this string value)
+        //{
+        //    return TrimAndTruncate(value, Property.MaxTestNameLength);
+        //}
 
-        public static string SanitizeRunLocation(this string value)
-        {
-            return TrimAndTruncate(value, Property.MaxRunLocationLength);
-        }
+        //public static string SanitizeRunLocation(this string value)
+        //{
+        //    return TrimAndTruncate(value, Property.MaxRunLocationLength);
+        //}
 
-        public static string SanitizeAvailabilityMessage(this string value)
-        {
-            return TrimAndTruncate(value, Property.MaxAvailabilityMessageLength);
-        }
+        //public static string SanitizeAvailabilityMessage(this string value)
+        //{
+        //    return TrimAndTruncate(value, Property.MaxAvailabilityMessageLength);
+        //}
 
         public static void SanitizeProperties(this IDictionary<string, string> dictionary)
         {

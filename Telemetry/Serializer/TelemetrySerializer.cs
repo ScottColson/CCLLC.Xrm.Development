@@ -16,6 +16,7 @@ namespace CCLCC.Telemetry.Serializer
 
     public class TelemetrySerializer : ITelemetrySerializer
     {
+        private IContextTagKeys contextTagKeys;
         private readonly UTF8Encoding transmissionEncoding = new UTF8Encoding(false);
         public virtual UTF8Encoding TransmissionEncoding { get { return this.transmissionEncoding; } }
 
@@ -41,6 +42,11 @@ namespace CCLCC.Telemetry.Serializer
             }
         }
 
+        public TelemetrySerializer(IContextTagKeys contextTagKeys)
+        {
+            if(contextTagKeys == null) { throw new ArgumentNullException("contextTagKeys"); }
+            this.contextTagKeys = contextTagKeys;
+        }
 
         /// <summary>
         /// Serializes and compress the telemetry items into a JSON string. Each JSON object is separated by a new line. 
@@ -88,7 +94,7 @@ namespace CCLCC.Telemetry.Serializer
             writer.WriteStartObject();
 
             WriteTelemetryName(item, writer);
-            WriteEnvelopeProperties(item, writer);
+            WriteEnvelopeProperties(item, writer, contextTagKeys);
             writer.WritePropertyName("data");
             {
                 writer.WriteStartObject();
@@ -142,7 +148,7 @@ namespace CCLCC.Telemetry.Serializer
             json.WriteProperty("name", eventName);
         }
 
-        protected virtual void WriteEnvelopeProperties(ITelemetry telemetry, IJsonWriter json)
+        protected virtual void WriteEnvelopeProperties(ITelemetry telemetry, IJsonWriter json, IContextTagKeys keys)
         {
             json.WriteProperty("time", telemetry.Timestamp.UtcDateTime.ToString("o", CultureInfo.InvariantCulture));
 
@@ -157,15 +163,15 @@ namespace CCLCC.Telemetry.Serializer
             }
 
             json.WriteProperty("seq", telemetry.Sequence);
-            WriteTelemetryContext(json, telemetry.Context);
+            WriteTelemetryContext(json, telemetry.Context, keys);
         }
 
-        protected virtual void WriteTelemetryContext(IJsonWriter json, ITelemetryContext context)
+        protected virtual void WriteTelemetryContext(IJsonWriter json, ITelemetryContext context, IContextTagKeys keys)
         {
             if (context != null)
             {
                 json.WriteProperty("iKey", context.InstrumentationKey);
-                json.WriteProperty("tags", context.SanitizedTags);
+                json.WriteProperty("tags", context.ToContextTags(keys));
             }
         }
 

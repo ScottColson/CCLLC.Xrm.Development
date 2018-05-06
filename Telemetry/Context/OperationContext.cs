@@ -14,18 +14,18 @@ namespace CCLCC.Telemetry.Context
 
         public void CopyTo(IOperationContext target)
         {
-            Tags.CopyTagValue(this.Id, target.Id);
-            Tags.CopyTagValue(this.ParentId, target.ParentId);
-            Tags.CopyTagValue(this.CorrelationVector, target.CorrelationVector);
-            Tags.CopyTagValue(this.Name, target.Name);           
+            Id = target.Id;
+            ParentId = target.ParentId;
+            CorrelationVector = target.CorrelationVector;
+            Name = target.Name;           
         }
 
-        public void UpdateTags(IDictionary<string, string> tags)
+        public void UpdateTags(IDictionary<string, string> tags, IContextTagKeys keys)
         {
-            tags.UpdateTagValue(ContextTagKeys.Keys.OperationId, this.Id);
-            tags.UpdateTagValue(ContextTagKeys.Keys.OperationParentId, this.ParentId);
-            tags.UpdateTagValue(ContextTagKeys.Keys.OperationCorrelationVector, this.CorrelationVector);
-            tags.UpdateTagValue(ContextTagKeys.Keys.OperationName, this.Name);     
+            tags.UpdateTagValue(keys.OperationId, this.Id, keys.TagSizeLimits);
+            tags.UpdateTagValue(keys.OperationParentId, this.ParentId, keys.TagSizeLimits);
+            tags.UpdateTagValue(keys.OperationCorrelationVector, this.CorrelationVector, keys.TagSizeLimits);
+            tags.UpdateTagValue(keys.OperationName, this.Name, keys.TagSizeLimits);
         }
     }
 }

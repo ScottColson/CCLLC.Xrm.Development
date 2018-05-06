@@ -8,7 +8,9 @@ namespace CCLCC.Telemetry.Interfaces
 {
     public interface ILocationContext 
     {
-        void UpdateTags(IDictionary<string, string> tags);
+        string Ip { get; set; }
+
+        void UpdateTags(IDictionary<string, string> tags, IContextTagKeys keys);
 
         void CopyTo(ILocationContext target);
     }

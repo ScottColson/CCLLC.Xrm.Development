@@ -42,11 +42,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client\ApplicationTelemetryClientFactory.cs" />
+    <Compile Include="Context\CloudContext.cs" />
+    <Compile Include="Context\AIContextTagKeys.cs" />
+    <Compile Include="Context\DataKeyContext.cs" />
+    <Compile Include="Context\DeviceContext.cs" />
+    <Compile Include="Context\InternalContext.cs" />
+    <Compile Include="Context\LocationContext.cs" />
+    <Compile Include="Context\SessionContext.cs" />
+    <Compile Include="Context\TelemetryContext.cs" />
+    <Compile Include="Context\UserContext.cs" />
+    <Compile Include="Implementation\StingExtensionMethods.cs" />
     <Compile Include="Interfaces\Client\IApplicationTelemetryClient.cs" />
     <Compile Include="Interfaces\Client\IApplicationTelemetryClientFactory.cs" />
     <Compile Include="Interfaces\Client\IOperationalTelemetryClient.cs" />
     <Compile Include="Interfaces\Client\ITelemetryClient.cs" />
+    <Compile Include="Interfaces\Context\IContextTagKeys.cs" />
     <Compile Include="Interfaces\Context\IInternalContext.cs" />
+    <Compile Include="Interfaces\Context\ISupportDataKeyContext.cs" />
     <Compile Include="Interfaces\Serialization\IJsonWriter.cs" />
     <Compile Include="Interfaces\Serialization\ITelemetrySerializer.cs" />
     <Compile Include="Interfaces\Sink\ITelemetryBuffer.cs" />
@@ -57,7 +69,7 @@
     <Compile Include="Interfaces\Sink\ITelemetryTransmitter.cs" />
     <Compile Include="Interfaces\Context\ICloudContext.cs" />
     <Compile Include="Interfaces\Context\IComponentContext.cs" />
-    <Compile Include="Interfaces\Context\IDataContext.cs" />
+    <Compile Include="Interfaces\Context\IDataKeyContext.cs" />
     <Compile Include="Interfaces\Context\IDeviceContext.cs" />
     <Compile Include="Interfaces\Context\ILocationContext.cs" />
     <Compile Include="Interfaces\Context\IOperationContext.cs" />
@@ -100,10 +112,8 @@
     <Compile Include="Sink\TelemetryTransmitter.cs" />
     <Compile Include="Sink\Transmission.cs" />
     <Compile Include="AIConstants.cs" />
-    <Compile Include="Implementation\ContextTagKeys.cs" />
-    <Compile Include="Implementation\ContextTagKeys_types.cs" />
     <Compile Include="Implementation\Property.cs" />
-    <Compile Include="Implementation\Tags.cs" />
+    <Compile Include="Context\TagManager.cs" />
     <Compile Include="Context\ComponentContext.cs" />
     <Compile Include="Telemetry\EventDataModel.cs" />
     <Compile Include="Telemetry\EventTelemetry.cs" />
@@ -112,7 +122,7 @@
     <Compile Include="Telemetry\ExceptionTelemetry.cs" />
     <Compile Include="Context\OperationContext.cs" />
     <Compile Include="Telemetry\StackFrame.cs" />
-    <Compile Include="Context\TelemetryContext.cs" />
+    <Compile Include="Context\DataKeyTelemetryContext.cs" />
     <Compile Include="Telemetry\TelemetryFactory.cs" />
     <Compile Include="Telemetry\MessageDataModel.cs" />
     <Compile Include="Implementation\HttpWebResponseWrapper.cs" />

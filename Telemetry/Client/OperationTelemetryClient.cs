@@ -63,7 +63,12 @@ namespace CCLCC.Telemetry.Client
 
         public override void Initialize(ITelemetry telemetry)
         {
-           
+            //copy any properties from the context if the telemetry support properties.
+            var telemetryWithProperties = telemetry as ISupportProperties;
+            if (telemetryWithProperties != null)
+            {
+                Utils.CopyDictionary(this.Properties, telemetryWithProperties.Properties);
+            }
         }
     }
 }

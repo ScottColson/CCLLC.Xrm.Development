@@ -3,25 +3,23 @@ using CCLCC.Telemetry.Interfaces;
 
 namespace CCLCC.Telemetry.Context
 {
-    using Implementation;
-
     public class ComponentContext : IComponentContext
-    {
-        private string version;
-
+    {      
         public string Name { get; set; }
         public string Version { get; set; }
+
+        internal protected ComponentContext() { }
+
+        public void CopyTo(IComponentContext target)
+        {
+            Name = target.Name;
+            Version = target.Version;
+        }
+
+        public void UpdateTags(IDictionary<string, string> tags, IContextTagKeys keys)
+        {
+            tags.UpdateTagValue(keys.ApplicationVersion, this.Version, keys.TagSizeLimits);
+        }
         
-        public void UpdateTags(IDictionary<string, string> tags)
-        {
-            tags.UpdateTagValue(ContextTagKeys.Keys.ApplicationVersion, this.Version);
-        }
-
-        public void CopyTo(IComponentContext target) 
-        {
-            Tags.CopyTagValue(this.Version, target.Version);
-        }
-
-      
     }
 }

@@ -12,9 +12,8 @@ namespace CCLCC.Telemetry.Interfaces
         string AccountId { get; set; }
         string UserAgent { get; set; }
         string AuthenticatedUserId { get; set; }
-
-        void UpdateTags(IDictionary<string, string> tags);
-
         void CopyTo(IUserContext target);
+        void UpdateTags(IDictionary<string, string> tags, IContextTagKeys keys);
+       
     }
 }

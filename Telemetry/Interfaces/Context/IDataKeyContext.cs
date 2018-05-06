@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace CCLCC.Telemetry.Interfaces
 {
-    public interface IDataContext
+    public interface IDataKeyContext
     {
         string RecordType { get; set; }
         string RecordId { get; set; }
 
-        void UpdateTags(IDictionary<string, string> tags);
+        void UpdateTags(IDictionary<string, string> tags, IContextTagKeys keys);
 
-        void CopyTo(IDataContext target);
+        void CopyTo(IDataKeyContext target);
     }
 }

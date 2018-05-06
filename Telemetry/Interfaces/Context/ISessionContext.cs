@@ -8,7 +8,10 @@ namespace CCLCC.Telemetry.Interfaces
 {
     public interface ISessionContext 
     {
-        void UpdateTags(IDictionary<string, string> tags);
+        string Id { get; set; }
+        bool? IsFirst { get; set; }
+
+        void UpdateTags(IDictionary<string, string> tags, IContextTagKeys keys);
 
         void CopyTo(ISessionContext target);
     }

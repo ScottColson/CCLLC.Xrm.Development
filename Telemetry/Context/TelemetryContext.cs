@@ -2,66 +2,90 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
+using CCLCC.Telemetry.Implementation;
 using CCLCC.Telemetry.Interfaces;
 
 namespace CCLCC.Telemetry.Context
 {
     public class TelemetryContext : ITelemetryContext
     {
-        private IComponentContext component;
-        private IOperationContext operation;
+        private readonly IDictionary<string, string> properties;
 
-        public IDictionary<string, string> Properties { get; private set; }
+        private IComponentContext component;
+        private IDeviceContext device;
+        private ICloudContext cloud;
+        private ISessionContext session;
+        private IUserContext user;
+        private IOperationContext operation;
+        private ILocationContext location;
+        private IInternalContext internalContext = new InternalContext();
+        
+        public ICloudContext Cloud { get { return LazyInitializer.EnsureInitialized(ref this.cloud, () => new CloudContext()); } }
+        
+        public IComponentContext Component { get { return LazyInitializer.EnsureInitialized(ref this.component, () => new ComponentContext()); } }
                
-        public IOperationContext Operation { get { return LazyInitializer.EnsureInitialized(ref this.operation, () => new OperationContext()); } }
+        public IDeviceContext Device { get { return LazyInitializer.EnsureInitialized(ref this.device, () => new DeviceContext()); } }
 
         public string InstrumentationKey { get; set; }
 
-        public IDictionary<string, string> SanitizedTags => throw new NotImplementedException();
+        public IInternalContext Internal { get { return this.internalContext; } }
 
-        public ICloudContext Cloud => throw new NotImplementedException();
+        public ILocationContext Location { get { return LazyInitializer.EnsureInitialized(ref this.location, () => new LocationContext()); } }
 
-        public IComponentContext Component => throw new NotImplementedException();
+        public IOperationContext Operation { get { return LazyInitializer.EnsureInitialized(ref this.operation, () => new OperationContext()); } }
 
-        public IDataContext Data => throw new NotImplementedException();
-        
-        public IDeviceContext Device => throw new NotImplementedException();
+        public IDictionary<string, string> Properties { get => this.properties; }
 
-        public ILocationContext Location => throw new NotImplementedException();
+        public ISessionContext Session { get { return LazyInitializer.EnsureInitialized(ref this.session, () => new SessionContext()); } }
 
-        public ISessionContext Session => throw new NotImplementedException();
+        public IUserContext User { get { return LazyInitializer.EnsureInitialized(ref this.user, () => new UserContext()); } }
 
-        public IUserContext User => throw new NotImplementedException();
-
-        string ITelemetryContext.InstrumentationKey { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-        public IInternalContext Internal => throw new NotImplementedException();
-
-        public TelemetryContext():this(new ConcurrentDictionary<string, string>()) { }
+        public TelemetryContext() : this(new ConcurrentDictionary<string, string>()) { }
 
         internal TelemetryContext(IDictionary<string, string> properties)
         {
-            this.Properties = properties == null ? new ConcurrentDictionary<string, string>() : properties ;
+            this.properties = properties == null ? new ConcurrentDictionary<string, string>() : properties;
         }
 
-        public ITelemetryContext DeepClone()
+        public virtual ITelemetryContext DeepClone()
         {
-            throw new NotImplementedException();
+            var clone = new TelemetryContext(new ConcurrentDictionary<string, string>());
+            clone.InstrumentationKey = this.InstrumentationKey;
+            clone.CopyFrom(this);
+            if (this.Properties != null && this.Properties.Count > 0)
+            {
+                Utils.CopyDictionary<string>(this.Properties, clone.Properties);
+            }
+            return clone;
         }
 
-        public void CopyFrom(ITelemetryContext source)
+        public virtual void CopyFrom(ITelemetryContext source)
         {
             this.InstrumentationKey = source.InstrumentationKey;
 
             source.Component?.CopyTo(this.Component);
-            source.Data?.CopyTo(this.Data);
             source.Device?.CopyTo(this.Device);
             source.Cloud?.CopyTo(this.Cloud);
             source.Session?.CopyTo(this.Session);
             source.User?.CopyTo(this.User);
             source.Operation?.CopyTo(this.Operation);
             source.Location?.CopyTo(this.Location);
-            source.Internal.CopyTo(this.Internal);
+            source.Internal.CopyTo(this.Internal);                       
+        }
+
+        public virtual IDictionary<string, string> ToContextTags(IContextTagKeys keys)
+        {
+            var result = new Dictionary<string, string>();
+            this.component?.UpdateTags(result, keys);            
+            this.device?.UpdateTags(result, keys);
+            this.cloud?.UpdateTags(result, keys);
+            this.session?.UpdateTags(result, keys);
+            this.user?.UpdateTags(result, keys);
+            this.operation?.UpdateTags(result, keys);
+            this.location?.UpdateTags(result, keys);
+            this.Internal.UpdateTags(result, keys);
+
+            return result;
         }
     }
 }

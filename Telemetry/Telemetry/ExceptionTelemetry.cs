@@ -53,7 +53,9 @@ namespace CCLCC.Telemetry.Telemetry
 
         public override void Sanitize()
         {
-            throw new NotImplementedException();
+            // Sanitize on the ExceptionDetails stack information for raw stack and parsed stack is done while creating the object in ExceptionConverter.cs
+            this.Properties.SanitizeProperties();
+            this.Metrics.SanitizeMeasurements();
         }
 
         public override void SerializeData(ITelemetrySerializer serializer, IJsonWriter writer)

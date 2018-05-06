@@ -8,6 +8,8 @@ namespace CCLCC.Telemetry.Telemetry
 
     public class MessageTelemetry : TelemetryBase<IMessageDataModel>, IMessageTelemetry
     {
+        public const int MaxMessageLength = 32768;
+
         public SeverityLevel? SeverityLevel
         {
             get { return this.Data.severityLevel; }
@@ -22,7 +24,7 @@ namespace CCLCC.Telemetry.Telemetry
 
         public IDictionary<string, string> Properties { get { return this.Data.properties; } }
                
-        public MessageTelemetry(string message, SeverityLevel severityLevel, ITelemetryContext context, IMessageDataModel data, IDictionary<string,string> telemetryProperties = null) 
+        public MessageTelemetry(string message, SeverityLevel? severityLevel, ITelemetryContext context, IMessageDataModel data, IDictionary<string,string> telemetryProperties = null) 
             : base("Message", context, data)
         {
             this.Message = message;
@@ -33,14 +35,21 @@ namespace CCLCC.Telemetry.Telemetry
             }   
         }
 
+        private MessageTelemetry(IMessageTelemetry source) : this(source.Message, source.SeverityLevel, source.Context.DeepClone(), source.Data.DeepClone<IMessageDataModel>())
+        {
+            this.Sequence = source.Sequence;
+            this.Timestamp = source.Timestamp;           
+        }
         public override IDataModelTelemetry<IMessageDataModel> DeepClone()
         {
-            throw new System.NotImplementedException();
+            return new MessageTelemetry(this);
         }
 
         public override void Sanitize()
         {
-            throw new System.NotImplementedException();
+            this.Data.message = this.Data.message.TrimAndTruncate(MaxMessageLength);
+            this.Data.message = Utils.PopulateRequiredStringValue(this.Data.message);
+            this.Data.properties.SanitizeProperties();
         }
 
         public override void SerializeData(ITelemetrySerializer serializer, IJsonWriter writer)

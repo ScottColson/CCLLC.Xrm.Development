@@ -8,8 +8,11 @@ namespace CCLCC.Telemetry.Interfaces
 {
     public interface ICloudContext 
     {
-        void UpdateTags(IDictionary<string, string> tags);
-
+        string RoleName { get; set; }
+        string RoleInstance { get; set; }
+        
         void CopyTo(ICloudContext target);
+        void UpdateTags(IDictionary<string, string> tags, IContextTagKeys keys);
+
     }
 }

@@ -11,7 +11,7 @@ namespace CCLCC.Telemetry.Client
     {
         ITelemetryContext telemetryContext;
 
-        ApplicationTelemetryClientFactory(ITelemetryContext context)
+        public ApplicationTelemetryClientFactory(ITelemetryContext context)
         {
             this.telemetryContext = context;
         }

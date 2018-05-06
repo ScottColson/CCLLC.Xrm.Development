@@ -1,17 +1,12 @@
-﻿// <copyright file="Tags.cs" company="Microsoft">
-// Copyright © Microsoft. All Rights Reserved.
-// </copyright>
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using CCLCC.Telemetry.Implementation;
 
-namespace CCLCC.Telemetry.Implementation
+namespace CCLCC.Telemetry.Context
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Globalization;
-
-    /// <summary>
-    /// Base class for tags backed context.
-    /// </summary>
-    internal static class Tags
+   
+    internal static class TagManager
     {
         internal static void SetStringValueOrRemove(this IDictionary<string, string> tags, string tagKey, string tagValue)
         {
@@ -42,12 +37,12 @@ namespace CCLCC.Telemetry.Implementation
             return null;
         }
 
-        internal static void UpdateTagValue(this IDictionary<string, string> tags, string tagKey, string tagValue)
+        internal static void UpdateTagValue(this IDictionary<string, string> tags, string tagKey, string tagValue, IReadOnlyDictionary<string, int> tagSizeLimits)
         {
-            if (!string.IsNullOrEmpty(tagValue))
+            if (!string.IsNullOrEmpty(tagValue) && !string.IsNullOrEmpty(tagKey))
             {
                 int limit;
-                if (Property.TagSizeLimits.TryGetValue(tagKey, out limit) && tagValue.Length > limit)
+                if (tagSizeLimits != null && tagSizeLimits.TryGetValue(tagKey, out limit) && tagValue.Length > limit)
                 {
                     tagValue = Property.TrimAndTruncate(tagValue, limit);
                 }
@@ -56,21 +51,23 @@ namespace CCLCC.Telemetry.Implementation
             }
         }
 
+        internal static void UpdateTagValue(this IDictionary<string, string> tags, string tagKey, bool? tagValue)
+        {
+            if (tagValue.HasValue && !string.IsNullOrEmpty(tagKey))
+            {
+                tags.Add(tagKey, tagValue.Value.ToString());
+            }
+        }
+
         internal static void CopyTagValue(string sourceValue, string targetValue)
         {
-            if (!string.IsNullOrEmpty(sourceValue) && string.IsNullOrEmpty(targetValue))
+            if (!string.IsNullOrEmpty(sourceValue))
             {
                 targetValue = sourceValue;
             }
         }
 
-        internal static void UpdateTagValue(this IDictionary<string, string> tags, string tagKey, bool? tagValue)
-        {
-            if (tagValue.HasValue)
-            {
-                tags.Add(tagKey, tagValue.Value.ToString());
-            }
-        }
+        
 
         private static void SetTagValueOrRemove(this IDictionary<string, string> tags, string tagKey, string tagValue)
         {
