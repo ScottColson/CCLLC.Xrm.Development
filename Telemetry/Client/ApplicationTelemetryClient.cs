@@ -12,8 +12,10 @@ namespace CCLCC.Telemetry.Client
     {        
         public ITelemetryContext Context { get; private set; }
 
-        public ITelemetrySink TelemetrySink { get; private set; }         
-                    
+        public ITelemetrySink TelemetrySink { get; private set; }
+
+        public ITelemetryInitializerChain Initializers { get; private set; }
+
         public string ApplicationName
         {
             get { return this.Context.Component.Name; }
@@ -24,13 +26,14 @@ namespace CCLCC.Telemetry.Client
         {
             get { return this.Context.InstrumentationKey; }
             set { this.Context.InstrumentationKey = value; }
-        }
+        }              
 
-        internal protected ApplicationTelemetryClient(string applicationName, ITelemetrySink telemetrySink, ITelemetryContext telemetryContext, IDictionary<string,string> contextProperties = null)
+        internal protected ApplicationTelemetryClient(string applicationName, ITelemetrySink telemetrySink, ITelemetryContext telemetryContext, ITelemetryInitializerChain initializers, IDictionary<string,string> contextProperties = null)
             : base(null)
         {            
             this.TelemetrySink = telemetrySink;
             this.Context = telemetryContext;
+            this.Initializers = initializers;
             this.ApplicationName = applicationName;
 
             if(contextProperties != null && contextProperties.Count > 0)
@@ -49,18 +52,19 @@ namespace CCLCC.Telemetry.Client
 
         public override void Initialize(ITelemetry telemetry)
         {
-                        
+            //copy the context from the client.
+            telemetry.Context.CopyFrom(this.Context);
+
             //copy any properties from the context if the telemetry support properties.
             var telemetryWithProperties = telemetry as ISupportProperties;
             if (telemetryWithProperties != null)
             {
                 Utils.CopyDictionary(this.Context.Properties, telemetryWithProperties.Properties);
-            }
+            }          
 
-            telemetry.Context.CopyFrom(this.Context);
-
-            
-
+            //process telemetry through the initializer chain
+            if(this.Initializers != null) { this.Initializers.Initialize(telemetry); }
+                        
             if (telemetry.Timestamp == default(DateTimeOffset))
             {
                 telemetry.Timestamp = DateTimeOffset.UtcNow;
@@ -83,6 +87,9 @@ namespace CCLCC.Telemetry.Client
             }
         }
 
-        
+        void IDisposable.Dispose()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

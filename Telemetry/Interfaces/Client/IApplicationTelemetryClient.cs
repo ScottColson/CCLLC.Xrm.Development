@@ -9,5 +9,6 @@ namespace CCLCC.Telemetry.Interfaces
         string InstrumentationKey { get; set; }
         ITelemetrySink TelemetrySink { get; }   
         ITelemetryContext Context { get; }
+        ITelemetryInitializerChain Initializers { get; }
     }
 }

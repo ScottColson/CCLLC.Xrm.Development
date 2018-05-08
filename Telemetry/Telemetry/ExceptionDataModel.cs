@@ -8,6 +8,7 @@ using CCLCC.Telemetry.Interfaces;
 namespace CCLCC.Telemetry.Telemetry
 {
     using Implementation;
+    using System.Collections.Concurrent;
 
     public class ExceptionDataModel : IExceptionDataModel
     {
@@ -18,6 +19,15 @@ namespace CCLCC.Telemetry.Telemetry
         
         public IDictionary<string, string> properties { get; set; }
         public IList<IExceptionDetails> exceptions { get; set; }
+
+        internal ExceptionDataModel()
+        {
+            ver = 2;
+            exceptions = new List<IExceptionDetails>();
+            problemId = "";
+            properties = new ConcurrentDictionary<string, string>();
+            measurements = new ConcurrentDictionary<string, double>();
+        }
 
         T IDataModel.DeepClone<T>()
         {

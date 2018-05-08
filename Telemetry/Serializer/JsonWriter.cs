@@ -7,13 +7,13 @@ namespace CCLCC.Telemetry.Serializer
 {
     using Interfaces;
 
-    internal class JsonWriter : IJsonWriter
+    public class JsonWriter : IJsonWriter
     {
         private readonly EmptyObjectDetector emptyObjectDetector;
         private readonly TextWriter textWriter;
         private bool currentObjectHasProperties;
 
-        internal JsonWriter(TextWriter textWriter)
+        public JsonWriter(TextWriter textWriter)
         {
             this.emptyObjectDetector = new EmptyObjectDetector();
             this.textWriter = textWriter;

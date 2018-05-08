@@ -49,8 +49,7 @@ namespace CCLCC.Telemetry.Context
 
         public virtual ITelemetryContext DeepClone()
         {
-            var clone = new TelemetryContext(new ConcurrentDictionary<string, string>());
-            clone.InstrumentationKey = this.InstrumentationKey;
+            var clone = new TelemetryContext(new ConcurrentDictionary<string, string>());            
             clone.CopyFrom(this);
             if (this.Properties != null && this.Properties.Count > 0)
             {

@@ -56,6 +56,15 @@ namespace CCLCC.Telemetry.Telemetry
         {
             writer.WriteProperty("ver", this.Data.ver);
             writer.WriteProperty("message", this.Message);
+            if (this.Data.severityLevel.HasValue)
+            {
+                writer.WriteProperty("severityLevel", this.Data.severityLevel.Value.ToString());
+            }
+            if(this.Data.properties != null && this.Data.properties.Count> 0)
+            {
+                writer.WriteProperty("properties", this.Data.properties);
+            }
+            
         }           
     }
 }

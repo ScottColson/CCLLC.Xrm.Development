@@ -14,6 +14,11 @@ namespace CCLCC.Telemetry.Sink
 
         public ITelemetrySerializer Serializer { get; private set; }
 
+        public TelemetryTransmitter(ITelemetrySerializer serializer)
+        {
+            this.Serializer = serializer;
+
+        }
         public void Dispose()
         {
             this.Serializer = null;

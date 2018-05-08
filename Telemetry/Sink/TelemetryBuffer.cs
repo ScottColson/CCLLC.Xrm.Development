@@ -69,7 +69,7 @@ namespace CCLCC.Telemetry.Sink
             }
         }
 
-        internal TelemetryBuffer()
+        public TelemetryBuffer()
         {
             this.items = new List<ITelemetry>(this.Capacity);
         }

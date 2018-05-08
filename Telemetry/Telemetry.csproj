@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client\ApplicationTelemetryClientFactory.cs" />
+    <Compile Include="Client\SequencePropertyInitializer.cs" />
+    <Compile Include="Client\TelemetryInitializerChain.cs" />
     <Compile Include="Context\CloudContext.cs" />
     <Compile Include="Context\AIContextTagKeys.cs" />
     <Compile Include="Context\DataKeyContext.cs" />
@@ -56,6 +58,7 @@
     <Compile Include="Interfaces\Client\IApplicationTelemetryClientFactory.cs" />
     <Compile Include="Interfaces\Client\IOperationalTelemetryClient.cs" />
     <Compile Include="Interfaces\Client\ITelemetryClient.cs" />
+    <Compile Include="Interfaces\Client\ITelemetryInitializerChain.cs" />
     <Compile Include="Interfaces\Context\IContextTagKeys.cs" />
     <Compile Include="Interfaces\Context\IInternalContext.cs" />
     <Compile Include="Interfaces\Context\ISupportDataKeyContext.cs" />
@@ -104,10 +107,12 @@
     <Compile Include="Interfaces\Telemetry\ISupportSampling.cs" />
     <Compile Include="Interfaces\Telemetry\ITelemetry.cs" />
     <Compile Include="Interfaces\Telemetry\ITelemetryFactory.cs" />
+    <Compile Include="Interfaces\Client\ITelemetryInitializer.cs" />
     <Compile Include="Interfaces\Telemetry\SeverityLevel.cs" />
     <Compile Include="Serializer\TelemetrySerializer.cs" />
     <Compile Include="Sink\InMemoryChannel.cs" />
     <Compile Include="Sink\TelemetryBuffer.cs" />
+    <Compile Include="Sink\TelemetryProcessChain.cs" />
     <Compile Include="Sink\TelemetrySink.cs" />
     <Compile Include="Sink\TelemetryTransmitter.cs" />
     <Compile Include="Sink\Transmission.cs" />

@@ -12,7 +12,7 @@ namespace CCLCC.Telemetry.Sink
     public class InMemoryChannel : ITelemetryChannel
     {
         private TimeSpan sendingInterval = new TimeSpan(0, 0, 30); //default sending interval is 30 seconds. 
-        private TimeSpan timeout = new TimeSpan(0, 0, 15); //default transmission timeout is 15 seconds.
+        private TimeSpan timeout = new TimeSpan(0, 0, 25); //default transmission timeout is 25 seconds.
         private int disposeCount = 0;
         private Uri endPointAddress = new Uri(AIConstants.TelemetryServiceEndpoint); //default endpiont address is Microsoft Application Insights.
         private AutoResetEvent startRunnerEvent;
@@ -29,6 +29,7 @@ namespace CCLCC.Telemetry.Sink
         public InMemoryChannel(ITelemetryBuffer buffer, ITelemetryTransmitter tranmitter)
         {
             this.Transmitter = tranmitter;
+            this.Transmitter.EndpointAddress = endPointAddress; //default
             this.Buffer = buffer;              
             this.Buffer.OnFull = () => { this.Flush(); };
         }

@@ -19,7 +19,7 @@ namespace CCLCC.Telemetry.Telemetry
 
         protected TelemetryBase(string telememtryName, ITelemetryContext context, TData data)
         {
-            
+            this.TelemetryName = telememtryName;
             this.BaseType = data.GetType().ToString();
             this.Data = data;
             this.Context = context;

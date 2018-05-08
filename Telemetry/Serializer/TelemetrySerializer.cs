@@ -89,7 +89,7 @@ namespace CCLCC.Telemetry.Serializer
         }
 
 
-        protected virtual void Serialize(ITelemetry item, IJsonWriter writer)
+        protected virtual void Serialize(ITelemetry item, IJsonWriter writer) 
         {
             writer.WriteStartObject();
 
@@ -99,7 +99,7 @@ namespace CCLCC.Telemetry.Serializer
             {
                 writer.WriteStartObject();
 
-                var dataModelItem = item as IDataModelTelemetry<IDataModel>;
+                var dataModelItem = item as IDataModelTelemetry;
                 if (dataModelItem != null)
                 {
                     writer.WriteProperty("baseType", dataModelItem.BaseType);
