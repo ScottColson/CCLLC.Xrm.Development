@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading;
-using CCLCC.Telemetry.Interfaces;
 
 namespace CCLCC.Telemetry.Client
 {        

@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace CCLCC.Telemetry.Sink
 {
-    using Interfaces;
     using System.Threading;
 
     public class InMemoryChannel : ITelemetryChannel

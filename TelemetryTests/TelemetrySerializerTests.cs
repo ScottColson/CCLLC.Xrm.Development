@@ -2,9 +2,9 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CCLCC.Telemetry.Client;
 using CCLCC.Telemetry.Context;
-using CCLCC.Telemetry.Interfaces;
+using CCLCC.Telemetry;
 using CCLCC.Telemetry.Serializer;
-using CCLCC.Telemetry.Telemetry;
+using CCLCC.Telemetry.DataContract;
 using System.Collections.Generic;
 using System.Text;
 
@@ -18,21 +18,25 @@ namespace TelemetryTests
         {
             var props = new Dictionary<string, string>();
             props.Add("key1", "value1");
-
+            var items = new List<ITelemetry>();
+            
             var context = new TelemetryContext();
             context.InstrumentationKey = "instkey";
-            context.Component.Name = "compname";
-            var data = new MessageDataModel();
-            var telemetry = new MessageTelemetry("message text", SeverityLevel.Warning, context, data, props);
-            telemetry.Sanitize();
-
+            context.Component.Version = "compname.version";
+            context.Cloud.RoleInstance = "role.intance";
             var initializer = new SequencePropertyInitializer();
-            initializer.Initialize(telemetry);
-            var items = new List<ITelemetry>();
-            items.Add(telemetry);
+            for (int i = 0; i < 5; i++)
+            {
+                var data = new MessageDataModel();
+                var telemetry = new MessageTelemetry("message text", SeverityLevel.Warning, context, data, props);
+                initializer.Initialize(telemetry);
+                telemetry.Sanitize();
+                items.Add(telemetry);
+            }
+            
             
 
-            var serializer = new TelemetrySerializer(new AIContextTagKeys());
+            var serializer = new AITelemetrySerializer(new AIContextTagKeys());
             var json = Encoding.UTF8.GetString(serializer.Serialize(items,false));
 
     

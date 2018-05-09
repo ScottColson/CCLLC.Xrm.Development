@@ -5,8 +5,8 @@ using System.Globalization;
 using System.Linq;
 using Microsoft.Xrm.Sdk;
 using CCLCC.Core;
-using CCLCC.Telemetry.Interfaces;
-using CCLCC.Telemetry.Telemetry;
+using CCLCC.Telemetry;
+using CCLCC.Telemetry.DataContract;
 
 
 
@@ -92,7 +92,7 @@ namespace CCLCC.Xrm
         public virtual void RegisterContainerServices(IIocContainer container)
         {
             container.Register<ITelemetrySink, CCLCC.Telemetry.Sink.TelemetrySink>();
-            container.Register<ITelemetryFactory, CCLCC.Telemetry.Telemetry.TelemetryFactory>();
+            container.Register<ITelemetryFactory, CCLCC.Telemetry.TelemetryFactory>();
             container.Register<IApplicationTelemetryClientFactory, IApplicationTelemetryClientFactory>();
             container.Register<ICacheFactory, CacheFactory>();   
             container.Register<IConfigurationFactory, ConfigurationFactory>();

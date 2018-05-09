@@ -5,8 +5,6 @@ using System.IO;
 
 namespace CCLCC.Telemetry.Serializer
 {
-    using Interfaces;
-
     public class JsonWriter : IJsonWriter
     {
         private readonly EmptyObjectDetector emptyObjectDetector;

@@ -3,7 +3,6 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
 using CCLCC.Telemetry.Implementation;
-using CCLCC.Telemetry.Interfaces;
 
 namespace CCLCC.Telemetry.Context
 {

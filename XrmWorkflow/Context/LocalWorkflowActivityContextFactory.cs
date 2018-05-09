@@ -3,7 +3,7 @@ using System.Activities;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Workflow;
 using CCLCC.Core;
-using CCLCC.Telemetry.Interfaces;
+using CCLCC.Telemetry;
 
 namespace CCLCC.Xrm.Workflow.Context
 {  

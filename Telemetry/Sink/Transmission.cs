@@ -4,11 +4,10 @@ using System.IO;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using CCLCC.Telemetry.Implementation;
 
 namespace CCLCC.Telemetry.Sink
 {
-    using Interfaces;
-    using Implementation;
 
     public class Transmission
     {
@@ -122,6 +121,7 @@ namespace CCLCC.Telemetry.Sink
 
                 WebRequest request = this.CreateRequest(this.EndpointAddress);
                 Task<HttpWebResponseWrapper> sendTask = this.GetResponseAsync(request);
+
                 Task timeoutTask = Task.Delay(this.Timeout).ContinueWith(task =>
                 {
                     if (!sendTask.IsCompleted)
@@ -136,6 +136,10 @@ namespace CCLCC.Telemetry.Sink
                 HttpWebResponseWrapper responseContent = await sendTask.ConfigureAwait(false);
                 return responseContent;
 
+            }
+            catch(Exception ex)
+            {
+                throw ex;
             }
             finally
             {

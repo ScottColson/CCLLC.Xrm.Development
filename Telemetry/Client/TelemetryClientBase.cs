@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using CCLCC.Telemetry.Interfaces;
 
 namespace CCLCC.Telemetry.Client
 {    

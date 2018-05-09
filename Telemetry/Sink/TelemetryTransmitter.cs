@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 
 namespace CCLCC.Telemetry.Sink
 {
-    using Interfaces;
-
     public class TelemetryTransmitter : ITelemetryTransmitter
     {
         public Uri EndpointAddress { get; set; }

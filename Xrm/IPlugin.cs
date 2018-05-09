@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using Microsoft.Xrm.Sdk;
 using CCLCC.Core;
-using CCLCC.Telemetry.Interfaces;
+using CCLCC.Telemetry;
 
 namespace CCLCC.Xrm
 {
 
     using Context;
-    using Telemetry;
+  
 
     public interface IPlugin<E> : Microsoft.Xrm.Sdk.IPlugin where E : Entity
     {

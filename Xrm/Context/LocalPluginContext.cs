@@ -2,11 +2,10 @@
 using System.Linq;
 using Microsoft.Xrm.Sdk;
 using CCLCC.Core;
-using CCLCC.Telemetry.Interfaces;
+using CCLCC.Telemetry;
 
 namespace CCLCC.Xrm.Context
 {
-    using Telemetry;
     using Utilities;
 
     public class LocalPluginContext<E> : LocalContext<E>, IDisposable, ILocalPluginContext<E> where E : Entity

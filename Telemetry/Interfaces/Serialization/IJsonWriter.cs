@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CCLCC.Telemetry.Interfaces
+namespace CCLCC.Telemetry
 {
     public interface IJsonWriter
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading;
-using CCLCC.Telemetry.Interfaces;
+using CCLCC.Telemetry;
 using CCLCC.Telemetry.Implementation;
 
 namespace CCLCC.Telemetry.Client
@@ -73,9 +73,9 @@ namespace CCLCC.Telemetry.Client
             // Application Insights requires SDK version in the Internal context in
             // version "name: version"
             if (string.IsNullOrEmpty(telemetry.Context.Internal.SdkVersion))
-            {                
-                telemetry.Context.Internal.SdkVersion = "custom: 001.0000";
-            }
+            {
+                telemetry.Context.Internal.SdkVersion = "cclcc:0.1.1-100";
+            }    
         }
 
         public override void Track(ITelemetry telemetryItem)

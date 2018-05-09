@@ -1,15 +1,12 @@
 ﻿using System;
 using Microsoft.Xrm.Sdk;
 using CCLCC.Core;
-using CCLCC.Telemetry.Interfaces;
+using CCLCC.Telemetry;
 
 namespace CCLCC.Xrm.Context
 {
     using Caching;
-    using Configuration;
-
-    using Telemetry;
-
+    using Configuration;   
 
     public interface ILocalContext<E> : IDisposable where E : Entity
     {

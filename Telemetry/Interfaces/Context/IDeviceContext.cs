@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CCLCC.Telemetry.Interfaces 
+namespace CCLCC.Telemetry 
 {
     public interface IDeviceContext 
     {

@@ -2,9 +2,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CCLCC.Telemetry.Client;
 using CCLCC.Telemetry.Context;
-using CCLCC.Telemetry.Interfaces;
 using CCLCC.Telemetry.Serializer;
-using CCLCC.Telemetry.Telemetry;
+using CCLCC.Telemetry;
 using System.Collections.Generic;
 using CCLCC.Telemetry.Sink;
 namespace TelemetryTests
@@ -20,7 +19,7 @@ namespace TelemetryTests
             context.Component.Name = "Test1";
 
             var clientFactory = new ApplicationTelemetryClientFactory(context, new TelemetryInitializerChain());
-            var client = clientFactory.BuildClient("app1", new TelemetrySink(new InMemoryChannel(new TelemetryBuffer(), new TelemetryTransmitter(new TelemetrySerializer(new AIContextTagKeys()))),new TelemetryProcessChain()));
+            var client = clientFactory.BuildClient("app1", new TelemetrySink(new InMemoryChannel(new TelemetryBuffer(), new TelemetryTransmitter(new AITelemetrySerializer(new AIContextTagKeys()))),new TelemetryProcessChain()));
             
 
             var factory = new TelemetryFactory();

@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XrmUtilities", "XrmUtilitie
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelemetryTests", "TelemetryTests\TelemetryTests.csproj", "{4EE52CF6-632B-47D1-81EA-4966C19C4FA1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelemetryTestHarness", "TelemetryTestHarness\TelemetryTestHarness.csproj", "{8D2C9A86-C172-45B5-839F-9988BDCAB8C7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{4EE52CF6-632B-47D1-81EA-4966C19C4FA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4EE52CF6-632B-47D1-81EA-4966C19C4FA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4EE52CF6-632B-47D1-81EA-4966C19C4FA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D2C9A86-C172-45B5-839F-9988BDCAB8C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D2C9A86-C172-45B5-839F-9988BDCAB8C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D2C9A86-C172-45B5-839F-9988BDCAB8C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D2C9A86-C172-45B5-839F-9988BDCAB8C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

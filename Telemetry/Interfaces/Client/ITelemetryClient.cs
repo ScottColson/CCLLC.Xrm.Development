@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace CCLCC.Telemetry.Interfaces
+namespace CCLCC.Telemetry
 {
     public interface ITelemetryClient
     {

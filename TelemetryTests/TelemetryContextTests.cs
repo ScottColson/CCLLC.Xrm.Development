@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CCLCC.Telemetry.Interfaces;
+using CCLCC.Telemetry;
 using CCLCC.Telemetry.Context;
 
 namespace TelemetryTests

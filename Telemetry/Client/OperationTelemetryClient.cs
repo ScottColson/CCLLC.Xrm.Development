@@ -2,12 +2,8 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using CCLCC.Telemetry.Implementation;
-using CCLCC.Telemetry.Interfaces;
+
 
 namespace CCLCC.Telemetry.Client
 { 

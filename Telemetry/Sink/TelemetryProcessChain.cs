@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using CCLCC.Telemetry.Interfaces;
 
 namespace CCLCC.Telemetry.Sink
 {

@@ -5,8 +5,6 @@ using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Workflow;
 using CCLCC.Core;
 using CCLCC.Telemetry;
-using CCLCC.Telemetry.Interfaces;
-
 
 namespace CCLCC.Xrm.Workflow
 {
@@ -48,7 +46,7 @@ namespace CCLCC.Xrm.Workflow
         public virtual void RegisterContainerServices(IIocContainer container)
         {
             container.Register<ITelemetrySink, CCLCC.Telemetry.Sink.TelemetrySink>();
-            container.Register<ITelemetryFactory, CCLCC.Telemetry.Telemetry.TelemetryFactory>();
+            container.Register<ITelemetryFactory, CCLCC.Telemetry.TelemetryFactory>();
             container.Register<IApplicationTelemetryClientFactory, IApplicationTelemetryClientFactory>();
             container.Register<ICacheFactory, CacheFactory>();
             container.Register<IConfigurationFactory, ConfigurationFactory>();

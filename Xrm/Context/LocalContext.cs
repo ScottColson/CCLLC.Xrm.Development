@@ -1,15 +1,14 @@
 ﻿using System;
 using Microsoft.Xrm.Sdk;
 using CCLCC.Core;
-using CCLCC.Telemetry.Interfaces;
+using CCLCC.Telemetry;
 
 namespace CCLCC.Xrm.Context
 {
     using Caching;
-
     using Configuration;
     using Encryption;
-    using Telemetry;
+    
 
     public abstract class LocalContext<E> : ILocalContext<E> where E : Entity
     {

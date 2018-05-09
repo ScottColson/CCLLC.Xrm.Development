@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 
 namespace CCLCC.Telemetry.Sink
 {
-    using Interfaces;    
+    
 
     public class TelemetryBuffer : ITelemetryBuffer
     {

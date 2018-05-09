@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
-using CCLCC.Telemetry.Implementation;
-using CCLCC.Telemetry.Interfaces;
+
 
 namespace CCLCC.Telemetry.Context
 {
