@@ -69,7 +69,7 @@ namespace CCLCC.Xrm.Context
             }
         }
 
-        internal LocalPluginContext(IServiceProvider serviceProvider, IIocContainer container, IPluginExecutionContext executionContext, IApplicationTelemetryClient telemetryClient)
+        internal LocalPluginContext(IServiceProvider serviceProvider, IIocContainer container, IPluginExecutionContext executionContext, IComponentTelemetryClient telemetryClient)
             : base(executionContext, container, telemetryClient)
         {
             this.ServiceProvider = serviceProvider;

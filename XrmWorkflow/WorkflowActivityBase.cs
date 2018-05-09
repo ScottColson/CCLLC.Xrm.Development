@@ -47,7 +47,7 @@ namespace CCLCC.Xrm.Workflow
         {
             container.Register<ITelemetrySink, CCLCC.Telemetry.Sink.TelemetrySink>();
             container.Register<ITelemetryFactory, CCLCC.Telemetry.TelemetryFactory>();
-            container.Register<IApplicationTelemetryClientFactory, IApplicationTelemetryClientFactory>();
+            container.Register<ITelemetryClientFactory, ITelemetryClientFactory>();
             container.Register<ICacheFactory, CacheFactory>();
             container.Register<IConfigurationFactory, ConfigurationFactory>();
             container.Register<ILocalWorkflowActivityContextFactory, LocalWorkflowActivityContextFactory>();
@@ -65,7 +65,7 @@ namespace CCLCC.Xrm.Workflow
             tracingService.Trace(string.Format(CultureInfo.InvariantCulture, "Entered {0}.Execute()", this.GetType().ToString()));
 
             var telemetryFactory = Container.Resolve<ITelemetryFactory>();
-            var telemetryClientFactory = Container.Resolve<IApplicationTelemetryClientFactory>();
+            var telemetryClientFactory = Container.Resolve<ITelemetryClientFactory>();
 
             var executionContext = codeActivityContext.GetExtension<IWorkflowContext>();
 

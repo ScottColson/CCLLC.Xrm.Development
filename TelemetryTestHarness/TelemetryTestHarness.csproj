@@ -49,6 +49,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\IocContainer\IocContainer.csproj">
+      <Project>{8ae70ce7-65e1-4117-bade-a02e6023c1a1}</Project>
+      <Name>IocContainer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Telemetry\Telemetry.csproj">
       <Project>{43635423-c56a-48fe-a2ff-7857f3625a69}</Project>
       <Name>Telemetry</Name>

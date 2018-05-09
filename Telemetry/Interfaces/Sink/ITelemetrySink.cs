@@ -8,9 +8,9 @@ namespace CCLCC.Telemetry
 {
     public interface ITelemetrySink
     {
-        Action OnConfigure { get; set; }
+        Func<bool> OnConfigure { get; set; }
 
-        bool IsInitialized { get; }
+        bool IsConfigured { get; }
 
         ITelemetryChannel Channel { get; }
 

@@ -18,7 +18,7 @@ namespace TelemetryTests
             context.InstrumentationKey = "7a6ecb67-6c9c-4640-81d2-80ce76c3ca34";
             context.Component.Name = "Test1";
 
-            var clientFactory = new ApplicationTelemetryClientFactory(context, new TelemetryInitializerChain());
+            var clientFactory = new TelemetryClientFactory(context, new TelemetryInitializerChain());
             var client = clientFactory.BuildClient("app1", new TelemetrySink(new InMemoryChannel(new TelemetryBuffer(), new TelemetryTransmitter(new AITelemetrySerializer(new AIContextTagKeys()))),new TelemetryProcessChain()));
             
 

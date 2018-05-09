@@ -8,15 +8,17 @@ namespace CCLCC.Telemetry.Sink
 {
     public class TelemetrySink : ITelemetrySink
     {
-        public Action OnConfigure { get; set; }
+        public Func<bool> OnConfigure { get; set; }
 
-        public bool IsInitialized { get { return !string.IsNullOrEmpty(this.Channel.Transmitter.EndpointAddress.OriginalString); } }
+        public bool IsConfigured { get; private set; } 
 
         public ITelemetryChannel Channel { get; private set; }
 
         public ITelemetryProcessChain ProcessChain { get; private set; }
 
-        public TelemetrySink(ITelemetryChannel channel, ITelemetryProcessChain processChain)
+        public TelemetrySink(ITelemetryChannel channel, ITelemetryProcessChain processChain) : this(channel, processChain, false) { }
+
+        public TelemetrySink(ITelemetryChannel channel, ITelemetryProcessChain processChain, bool isConfigured = false)
         {
             if (channel == null) throw new ArgumentNullException("channel");
             this.Channel = channel;
@@ -24,17 +26,17 @@ namespace CCLCC.Telemetry.Sink
             if (processChain == null) throw new ArgumentNullException("processChain");
             this.ProcessChain = processChain;
 
-            
+            this.IsConfigured = isConfigured;            
         }
 
         public void Process(ITelemetry telemetryItem)
         {
-            if (!this.IsInitialized && OnConfigure != null)
+            if (!this.IsConfigured && OnConfigure != null)
             {
-                OnConfigure();
+                this.IsConfigured = OnConfigure();
             }
 
-            if (this.IsInitialized)
+            if (this.IsConfigured)
             {
                 this.ProcessChain.Process(telemetryItem);
                 this.Channel.Send(telemetryItem);

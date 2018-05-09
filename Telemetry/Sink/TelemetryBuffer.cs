@@ -7,7 +7,7 @@ namespace CCLCC.Telemetry.Sink
 
     public class TelemetryBuffer : ITelemetryBuffer
     {
-        private const int DEFAULT_CAPACITY = 100;
+        private const int DEFAULT_CAPACITY = 1000;
         private const int DEFAUL_BACKLOG_LIMIT = 100000;
         private const int MINIMUM_BACKLOG_LIMIT = 1001;
 
@@ -18,6 +18,15 @@ namespace CCLCC.Telemetry.Sink
         private List<ITelemetry> items;
         
         public Action OnFull { get; set; }
+
+        public int Length
+        {
+            get
+            {
+                if (items != null) return items.Count;
+                return 0;
+            }
+        }
 
         public int Capacity
         {

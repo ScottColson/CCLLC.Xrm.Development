@@ -6,44 +6,56 @@ using System.Threading.Tasks;
 
 namespace CCLCC.Telemetry.Sink
 {
+    using System.Globalization;
     using System.Threading;
 
     public class InMemoryChannel : ITelemetryChannel
     {
-        private TimeSpan sendingInterval = new TimeSpan(0, 0, 30); //default sending interval is 30 seconds. 
-        private TimeSpan timeout = new TimeSpan(0, 0, 25); //default transmission timeout is 25 seconds.
+        
         private int disposeCount = 0;
-        private Uri endPointAddress = new Uri(AIConstants.TelemetryServiceEndpoint); //default endpiont address is Microsoft Application Insights.
         private AutoResetEvent startRunnerEvent;
         private bool enabled = true;
 
         public ITelemetryBuffer Buffer { get; private set; }
-        public TimeSpan SendingInterval
-        {
-            get { return sendingInterval; }
-            set { sendingInterval = value; }
-        }
+
         public ITelemetryTransmitter Transmitter { get; private set; }
+
+        public TimeSpan SendingInterval { get; set; }        
+     
+        public TimeSpan TransmissionTimeout { get; set; }
+
+        public Uri EndpointAddress
+        {
+            get { return this.Transmitter.EndpointAddress; }
+            set { this.Transmitter.EndpointAddress = value; }
+        }
 
         public InMemoryChannel(ITelemetryBuffer buffer, ITelemetryTransmitter tranmitter)
         {
             this.Transmitter = tranmitter;
-            this.Transmitter.EndpointAddress = endPointAddress; //default
-            this.Buffer = buffer;              
-            this.Buffer.OnFull = () => { this.Flush(); };
+            this.Transmitter.EndpointAddress = new Uri(AIConstants.TelemetryServiceEndpoint); //default endpiont address is Microsoft Application Insights.
+
+            this.Buffer = buffer;
+            this.Buffer.OnFull = () => { this.Flush(); };  //connect Flush operation to Buffer.OnFull
+
+            this.SendingInterval = new TimeSpan(0, 0, 15); //default sending interval is 15 seconds. 
+            this.TransmissionTimeout = new TimeSpan(0, 0, 30); //default transmission timeout is 25 seconds.
+
+            // Starting the Runner
+            Task.Factory.StartNew(this.Runner, CancellationToken.None, TaskCreationOptions.LongRunning, TaskScheduler.Default);
         }
+        
 
         public void Dispose()
         {
-            this.Dispose(true);
-            
+            this.Dispose(true);            
             GC.SuppressFinalize(this);
         }
 
         public void Flush()
         {
             var items = Buffer.Dequeue();
-            Transmitter.Send(items, timeout);
+            Transmitter.Send(items, this.TransmissionTimeout);
         }
 
         public void Send(ITelemetry item)
@@ -90,8 +102,7 @@ namespace CCLCC.Telemetry.Sink
         /// <see cref="startRunnerEvent" /> is set.
         /// </summary>
         private void Runner()
-        {
-           
+        {           
             try
             {
                 using (this.startRunnerEvent = new AutoResetEvent(false))
@@ -101,7 +112,7 @@ namespace CCLCC.Telemetry.Sink
                         this.Flush();
 
                         // Waiting for the flush delay to elapse
-                        this.startRunnerEvent.WaitOne(this.sendingInterval);
+                        this.startRunnerEvent.WaitOne(this.SendingInterval);
                     }
                 }
             }

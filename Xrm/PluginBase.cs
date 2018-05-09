@@ -93,7 +93,7 @@ namespace CCLCC.Xrm
         {
             container.Register<ITelemetrySink, CCLCC.Telemetry.Sink.TelemetrySink>();
             container.Register<ITelemetryFactory, CCLCC.Telemetry.TelemetryFactory>();
-            container.Register<IApplicationTelemetryClientFactory, IApplicationTelemetryClientFactory>();
+            container.Register<ITelemetryClientFactory, ITelemetryClientFactory>();
             container.Register<ICacheFactory, CacheFactory>();   
             container.Register<IConfigurationFactory, ConfigurationFactory>();
             container.Register<ILocalPluginContextFactory, LocalPluginContextFactory>();
@@ -119,7 +119,7 @@ namespace CCLCC.Xrm
             var executionContext = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
 
             var telemetryFactory = Container.Resolve<ITelemetryFactory>();
-            var telemetryClientFactory = Container.Resolve<IApplicationTelemetryClientFactory>();
+            var telemetryClientFactory = Container.Resolve<ITelemetryClientFactory>();
 
             using (var telemetryClient = telemetryClientFactory.BuildClient(
                 this.GetType().ToString(),

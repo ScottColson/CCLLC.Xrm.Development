@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace CCLCC.Telemetry
 {
-    public interface IApplicationTelemetryClient : ITelemetryClient, IDisposable
+    public interface IComponentTelemetryClient : ITelemetryClient, IDisposable
     {
         string ApplicationName { get; set; }
         string InstrumentationKey { get; set; }

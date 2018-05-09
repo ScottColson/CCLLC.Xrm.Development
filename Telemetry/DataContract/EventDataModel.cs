@@ -12,7 +12,7 @@ namespace CCLCC.Telemetry.DataContract
         public string name { get; set; }
         public IDictionary<string, double> measurements { get; set; }
 
-        public string DataType => throw new System.NotImplementedException();
+        public string DataType { get { return "EventData"; } }
 
         public EventDataModel()
         {

@@ -34,5 +34,7 @@ namespace CCLCC.Telemetry
         /// </summary>
         /// <returns></returns>
         IEnumerable<ITelemetry> Dequeue();
+
+        int Length { get; }
     }
 }

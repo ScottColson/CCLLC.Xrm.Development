@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using CCLCC.Telemetry;
 using CCLCC.Telemetry.Context;
 using CCLCC.Telemetry.Client;
@@ -13,34 +14,74 @@ namespace TelemetryTestHarness
         {
             try
             {
-                var context = new TelemetryContext();
-                context.InstrumentationKey = "7a6ecb67-6c9c-4640-81d2-80ce76c3ca34";
-                context.Component.Name = "Test1";
-                context.Cloud.RoleInstance = "role.instance";
-                context.Cloud.RoleName = "role.name";
+                var container = new CCLCC.Core.IocContainer();
+                container.Register<ITelemetryContext, TelemetryContext>();
+                container.Register<ITelemetryClientFactory, TelemetryClientFactory>();
+                container.Register<ITelemetryInitializerChain, TelemetryInitializerChain>();
+                container.Register<ITelemetryChannel, InMemoryChannel>();
+                container.Register<ITelemetryBuffer, TelemetryBuffer>();
+                container.Register<ITelemetryTransmitter, TelemetryTransmitter>();                
+                container.Register<ITelemetryProcessChain, TelemetryProcessChain>();
+                container.Register<ITelemetrySink, TelemetrySink>();
+                container.Register<IContextTagKeys, AIContextTagKeys>();
+                container.Register<ITelemetrySerializer, AITelemetrySerializer>();
 
-                var clientFactory = new ApplicationTelemetryClientFactory(context, new TelemetryInitializerChain());
-                var client = clientFactory.BuildClient("app1", new TelemetrySink(new InMemoryChannel(new TelemetryBuffer(), new TelemetryTransmitter(new AITelemetrySerializer(new AIContextTagKeys()))), new TelemetryProcessChain()));
-                client.Initializers.TelemetryInitializers.Add(new SequencePropertyInitializer());
+
+
+
+
+
+                var sink = container.Resolve<ITelemetrySink>();
+                sink.OnConfigure = () => 
+                {
+                    return true;
+                };
+                sink.Channel.SendingInterval = new TimeSpan(0, 0, 5); //override sending interval to 5 seconds.
+
+                var clientFactory = container.Resolve<ITelemetryClientFactory>();
+
+                var sw = new System.Diagnostics.Stopwatch();
+                sw.Start();
+                var client = clientFactory.BuildClient("app1", sink);
+                client.Context.InstrumentationKey = "7a6ecb67-6c9c-4640-81d2-80ce76c3ca34";
+                client.Context.Cloud.RoleInstance = "role.instance";
+                client.Context.Cloud.RoleName = "role.name";
+                
+                //client.Initializers.TelemetryInitializers.Add(new SequencePropertyInitializer());
 
                 var factory = new TelemetryFactory();
-                for(int i=1; i< 100; i++)
+                for(int i=0; i< 115; i++)
                 {
-                    var telemetry = factory.BuildMessageTelemetry(string.Format("Message {0}",i), SeverityLevel.Warning);
+                    var telemetry = factory.BuildEventTelemetry(string.Format("Event {0}",i));
                     telemetry.Properties.Add("crm1", "testvalue");
                     telemetry.Properties.Add("increment", i.ToString());
 
                     client.Track(telemetry);
                 }
-                
-                client.TelemetrySink.Channel.Flush();
+                             
+                sw.Stop();
+                Console.WriteLine(string.Format("Elapsed: {0}", sw.ElapsedMilliseconds));
+                Console.WriteLine(string.Format("Buffer Length: {0}", sink.Channel.Buffer.Length));
+
+                //wait for channel to send on sending interval
+                int k = 0;
+                while (sink.Channel.Buffer.Length > 0)
+                {
+                    Thread.Sleep(1000);
+                    k++;
+                    Console.WriteLine(k.ToString());
+                }
+
+                Console.WriteLine(string.Format("Buffer Length: {0}", sink.Channel.Buffer.Length));
+
             }
             catch(Exception ex)
-            {
+            {              
                 Console.WriteLine(ex.Message);
             }
             finally
             {
+                Console.WriteLine("Press key to continue.");
                 var x = Console.ReadKey();
             }
 

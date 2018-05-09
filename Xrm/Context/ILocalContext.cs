@@ -10,7 +10,7 @@ namespace CCLCC.Xrm.Context
 
     public interface ILocalContext<E> : IDisposable where E : Entity
     {
-        Action OnConfigureTelemetrySink { get; set; }
+        Func<bool> OnConfigureTelemetrySink { get; set; }
 
         IExecutionContext ExecutionContext { get; }
         IOrganizationServiceFactory OrganizationServiceFactory { get; }
@@ -19,7 +19,7 @@ namespace CCLCC.Xrm.Context
         IOrganizationService ElevatedOrganizationService { get; }
         IIocContainer Container { get; }
 
-        IApplicationTelemetryClient TelemetryClient { get; }
+        IComponentTelemetryClient TelemetryClient { get; }
 
         ITelemetryFactory TelemetryFactory { get; }
 

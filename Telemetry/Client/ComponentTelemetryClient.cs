@@ -8,7 +8,7 @@ using CCLCC.Telemetry.Implementation;
 namespace CCLCC.Telemetry.Client
 {  
 
-    public class ApplicationTelemetryClient : TelemetryClientBase, IApplicationTelemetryClient
+    public class ComponentTelemetryClient : TelemetryClientBase, IComponentTelemetryClient
     {        
         public ITelemetryContext Context { get; private set; }
 
@@ -28,7 +28,7 @@ namespace CCLCC.Telemetry.Client
             set { this.Context.InstrumentationKey = value; }
         }              
 
-        internal protected ApplicationTelemetryClient(string applicationName, ITelemetrySink telemetrySink, ITelemetryContext telemetryContext, ITelemetryInitializerChain initializers, IDictionary<string,string> contextProperties = null)
+        internal protected ComponentTelemetryClient(string applicationName, ITelemetrySink telemetrySink, ITelemetryContext telemetryContext, ITelemetryInitializerChain initializers, IDictionary<string,string> contextProperties = null)
             : base(null)
         {            
             this.TelemetrySink = telemetrySink;

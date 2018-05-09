@@ -12,7 +12,11 @@ namespace CCLCC.Xrm.Context
 
     public abstract class LocalContext<E> : ILocalContext<E> where E : Entity
     {
-        public Action OnConfigureTelemetrySink { get; set; }
+        public Func<bool> OnConfigureTelemetrySink
+        {
+            get { return this.TelemetryClient.TelemetrySink.OnConfigure; }
+            set { this.TelemetryClient.TelemetrySink.OnConfigure = value; }
+        }
 
         public IIocContainer Container { get; private set; }
         public IExecutionContext ExecutionContext { get; private set; }
@@ -63,7 +67,7 @@ namespace CCLCC.Xrm.Context
             }
         }
 
-        public IApplicationTelemetryClient TelemetryClient { get; private set; }
+        public IComponentTelemetryClient TelemetryClient { get; private set; }
 
         private ITelemetryFactory telemetryFactory;
         public ITelemetryFactory TelemetryFactory
@@ -175,7 +179,7 @@ namespace CCLCC.Xrm.Context
             }
         }
 
-        public LocalContext(IExecutionContext executionContext, IIocContainer container, IApplicationTelemetryClient telemetryClient)
+        public LocalContext(IExecutionContext executionContext, IIocContainer container, IComponentTelemetryClient telemetryClient)
         {
             if (container == null) throw new ArgumentNullException("container");
             this.Container = container;
@@ -185,14 +189,6 @@ namespace CCLCC.Xrm.Context
 
             if (telemetryClient == null) throw new ArgumentNullException("telemetryClient");
             this.TelemetryClient = telemetryClient;
-            
-            this.TelemetryClient.TelemetrySink.OnConfigure = () => 
-                {
-                    if (this.OnConfigureTelemetrySink != null)
-                    {
-                        this.OnConfigureTelemetrySink();
-                    }
-                };
         }
 
         public virtual void Dispose()

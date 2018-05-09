@@ -7,6 +7,9 @@ namespace CCLCC.Telemetry
     {     
         ITelemetryBuffer Buffer { get; }       
         TimeSpan SendingInterval { get; set; }
+        TimeSpan TransmissionTimeout { get; set; }
+        Uri EndpointAddress { get; set; }
+
         ITelemetryTransmitter Transmitter { get;}
        
         /// <summary>

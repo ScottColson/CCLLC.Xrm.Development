@@ -19,7 +19,7 @@ namespace CCLCC.Xrm.Workflow.Context
             }
         }
 
-        public LocalWorkflowActivityContext(CodeActivityContext codeActivityContext, IIocContainer container, IWorkflowContext executionContext, IApplicationTelemetryClient telemetryClient)
+        public LocalWorkflowActivityContext(CodeActivityContext codeActivityContext, IIocContainer container, IWorkflowContext executionContext, IComponentTelemetryClient telemetryClient)
           : base(executionContext, container, telemetryClient)
         {
             this.CodeActivityContext = codeActivityContext;

@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Client\ApplicationTelemetryClientFactory.cs" />
+    <Compile Include="TelemetryClientFactory.cs" />
     <Compile Include="Client\SequencePropertyInitializer.cs" />
     <Compile Include="Client\TelemetryInitializerChain.cs" />
     <Compile Include="Context\CloudContext.cs" />
@@ -54,8 +54,8 @@
     <Compile Include="Context\TelemetryContext.cs" />
     <Compile Include="Context\UserContext.cs" />
     <Compile Include="Implementation\StingExtensionMethods.cs" />
-    <Compile Include="Interfaces\Client\IApplicationTelemetryClient.cs" />
-    <Compile Include="Interfaces\Client\IApplicationTelemetryClientFactory.cs" />
+    <Compile Include="Interfaces\Client\IComponentTelemetryClient.cs" />
+    <Compile Include="Interfaces\Client\ITelemetryClientFactory.cs" />
     <Compile Include="Interfaces\Client\IOperationalTelemetryClient.cs" />
     <Compile Include="Interfaces\Client\ITelemetryClient.cs" />
     <Compile Include="Interfaces\Client\ITelemetryInitializerChain.cs" />
@@ -141,7 +141,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataContract\TelemetryBase.cs" />
     <Compile Include="Client\TelemetryClientBase.cs" />
-    <Compile Include="Client\ApplicationTelemetryClient.cs" />
+    <Compile Include="Client\ComponentTelemetryClient.cs" />
     <Compile Include="DataContract\MessageTelemetry.cs" />
   </ItemGroup>
   <ItemGroup>
