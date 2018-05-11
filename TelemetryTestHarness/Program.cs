@@ -50,13 +50,29 @@ namespace TelemetryTestHarness
                 //client.Initializers.TelemetryInitializers.Add(new SequencePropertyInitializer());
 
                 var factory = new TelemetryFactory();
-                for(int i=0; i< 115; i++)
+                for(int i=0; i< 15; i++)
                 {
-                    var telemetry = factory.BuildEventTelemetry(string.Format("Event {0}",i));
-                    telemetry.Properties.Add("crm1", "testvalue");
-                    telemetry.Properties.Add("increment", i.ToString());
+                    try
+                    {
+                        try
+                        {
+                            throw new ArgumentOutOfRangeException("paramname", 45, "this is out of range");
+                        }
+                        catch(Exception i1)
+                        {
+                            throw new Exception(i1.Message, i1);
+                        }
+                    }
+                    catch(Exception ex)
+                    {
+                        //var telemetry = factory.BuildEventTelemetry(string.Format("Event {0}",i));
+                        var telemetry = factory.BuildExceptionTelemetry(ex);
+                        telemetry.Properties.Add("crm1", "testvalue");
+                        telemetry.Properties.Add("increment", i.ToString());
 
-                    client.Track(telemetry);
+                        client.Track(telemetry);
+                    }
+                    
                 }
                              
                 sw.Stop();

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace CCLCC.Telemetry.DataContract
 {
@@ -12,5 +13,28 @@ namespace CCLCC.Telemetry.DataContract
         public bool hasFullStack { get; set; }
         public string stack { get; set; }
         public IList<IStackFrame> parsedStack { get; set; }
+
+        internal static IExceptionDetails CreateWithoutStackInfo(Exception exception, IExceptionDetails parentExceptionDetails)
+        {
+            if (exception == null)
+            {
+                throw new ArgumentNullException("exception");
+            }
+
+            var exceptionDetails = new ExceptionDetails()
+            {
+                id = exception.GetHashCode(),
+                typeName = exception.GetType().FullName,
+                message = exception.Message
+            };
+
+            if (parentExceptionDetails != null)
+            {
+                exceptionDetails.outerId = parentExceptionDetails.id;
+            }
+
+            return exceptionDetails;
+        }
+
     }
 }

@@ -16,7 +16,7 @@ namespace CCLCC.Telemetry.DataContract
         public IDictionary<string, string> properties { get; set; }
         public IList<IExceptionDetails> exceptions { get; set; }
 
-        public string DataType => throw new NotImplementedException();
+        public string DataType { get { return "ExceptionData"; } }
 
         internal ExceptionDataModel()
         {

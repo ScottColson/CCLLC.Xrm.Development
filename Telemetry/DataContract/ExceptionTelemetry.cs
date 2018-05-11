@@ -4,10 +4,47 @@ using System.Collections.Generic;
 namespace CCLCC.Telemetry.DataContract
 {
     using Implementation;
+    using System.Globalization;
 
     public class ExceptionTelemetry : TelemetryBase<IExceptionDataModel>, IExceptionTelemetry, ISupportProperties, ISupportMetrics, ISupportSampling
     {
-        public Exception Exception { get; private set; }
+        private Exception exception;
+        public Exception Exception
+        {
+            get
+            {
+                return this.exception;
+            }
+
+            set
+            {
+                this.exception = value;
+                this.UpdateExceptions(value);
+            }
+        }
+
+        private string message;
+        public string Message
+        {
+            get
+            {
+                return this.message;
+            }
+
+            set
+            {
+                this.message = value;
+
+                if (this.Data.exceptions != null && this.Data.exceptions.Count > 0)
+                {
+                    this.Data.exceptions[0].message = value;
+                }
+                else
+                {
+                    this.UpdateExceptions(this.Exception);
+                }
+            }
+        }
 
         public IDictionary<string, double> Metrics
         {
@@ -75,6 +112,66 @@ namespace CCLCC.Telemetry.DataContract
             {
                 writer.WriteProperty("severityLevel", this.Data.severityLevel.Value.ToString());
             }
-        }       
+        }
+
+
+
+
+        private void ConvertExceptionTree(Exception exception, IExceptionDetails parentExceptionDetails, List<IExceptionDetails> exceptions)
+        {
+            if (exception == null)
+            {
+                exception = new Exception(Utils.PopulateRequiredStringValue("message"));
+            }
+
+            var exceptionDetails = ExceptionConverter.ConvertToExceptionDetails(exception, parentExceptionDetails);
+
+            // For upper level exception see if Message was provided and do not use exceptiom.message in that case
+            if (parentExceptionDetails == null && !string.IsNullOrWhiteSpace(this.Message))
+            {
+                exceptionDetails.message = this.Message;
+            }
+
+            exceptions.Add(exceptionDetails);
+
+            AggregateException aggregate = exception as AggregateException;
+            if (aggregate != null)
+            {
+                foreach (Exception inner in aggregate.InnerExceptions)
+                {
+                    this.ConvertExceptionTree(inner, exceptionDetails, exceptions);
+                }
+            }
+            else if (exception.InnerException != null)
+            {
+                this.ConvertExceptionTree(exception.InnerException, exceptionDetails, exceptions);
+            }
+        }
+
+        private void UpdateExceptions(Exception exception)
+        {
+            // collect the set of exceptions detail info from the passed in exception
+            List<IExceptionDetails> exceptions = new List<IExceptionDetails>();
+            this.ConvertExceptionTree(exception, null, exceptions);
+
+            // trim if we have too many, also add a custom exception to let the user know we're trimmed
+            if (exceptions.Count > AIConstants.MaxExceptionCountToSave)
+            {                
+                InnerExceptionCountExceededException countExceededException = new InnerExceptionCountExceededException(
+                    string.Format(
+                        CultureInfo.InvariantCulture,
+                        "The number of inner exceptions was {0} which is larger than {1}, the maximum number allowed during transmission. All but the first {1} have been dropped.",
+                        exceptions.Count,
+                        AIConstants.MaxExceptionCountToSave));
+
+                // remove all but the first N exceptions
+                exceptions.RemoveRange(AIConstants.MaxExceptionCountToSave, exceptions.Count - AIConstants.MaxExceptionCountToSave);
+
+                // we'll add our new exception and parent it to the root exception (first one in the list)
+                //exceptions.Add(ExceptionConverter.ConvertToExceptionDetails(countExceededException, exceptions[0]));
+            }
+
+            this.Data.exceptions = exceptions;
+        }
     }
 }
