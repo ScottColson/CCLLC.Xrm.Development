@@ -23,5 +23,10 @@ namespace CCLCC.Telemetry
         {
             return new MessageTelemetry(message, severityLevel, new TelemetryContext(), new MessageDataModel(), telemetryProperties);
         }
+
+        public IDependencyTelemetry BuildDependencyTelemetry(string dependencyTypeName, string target, string dependencyName, string dependencyData, IDictionary<string, string> telemetryProperties = null, IDictionary<string, double> telemetryMetrics = null)
+        {
+            return new DependencyTelemetry(dependencyTypeName, target, dependencyName, dependencyData, new TelemetryContext(), new DependencyDataModel(), telemetryProperties, telemetryMetrics);
+        }
     }        
 }

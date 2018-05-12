@@ -13,6 +13,6 @@ namespace CCLCC.Telemetry
         string ResponseCode { get; set; }
         Uri Url { get; set; }
         string Source { get; set; }
-
+        
     }
 }

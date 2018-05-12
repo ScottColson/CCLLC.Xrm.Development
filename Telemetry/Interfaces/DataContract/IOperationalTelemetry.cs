@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CCLCC.Telemetry
 {
-    public interface IOperationalTelemetry
+    public interface IOperationalTelemetry : ISupportProperties, ISupportMetrics
     {
         string Id { get; set; }
         string Name { get; set; }

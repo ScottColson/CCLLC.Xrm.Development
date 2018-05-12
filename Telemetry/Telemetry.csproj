@@ -41,8 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataContract\DependencyDataModel.cs" />
+    <Compile Include="DataContract\DependencyTelemetry.cs" />
     <Compile Include="DataContract\InnerExceptionCountExceededException.cs" />
     <Compile Include="Implementation\ExceptionConverter.cs" />
+    <Compile Include="Interfaces\DataContract\IOperationalDataModel.cs" />
     <Compile Include="TelemetryClientFactory.cs" />
     <Compile Include="Client\SequencePropertyInitializer.cs" />
     <Compile Include="Client\TelemetryInitializerChain.cs" />

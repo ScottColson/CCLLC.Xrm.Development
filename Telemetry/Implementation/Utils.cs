@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -67,6 +68,17 @@ namespace CCLCC.Telemetry.Implementation
             }
 
             return value;
+        }
+
+        public static TimeSpan ValidateDuration(string value)
+        {
+            TimeSpan interval;
+            if (!TimeSpan.TryParse(value, CultureInfo.InvariantCulture, out interval))
+            {                
+                return TimeSpan.Zero;
+            }
+
+            return interval;
         }
 
     }
