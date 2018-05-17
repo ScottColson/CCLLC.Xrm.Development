@@ -87,9 +87,6 @@ namespace CCLCC.Telemetry.Client
             }
         }
 
-        void IDisposable.Dispose()
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

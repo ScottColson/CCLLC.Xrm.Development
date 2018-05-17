@@ -10,7 +10,12 @@ namespace CCLCC.Xrm.Context
 
     public interface ILocalContext<E> : IDisposable where E : Entity
     {
-        Func<bool> OnConfigureTelemetrySink { get; set; }
+        //Func<bool> OnConfigureTelemetrySink { get; set; }
+
+        void SetAlternateDataKey(string name, string value);
+       
+        void Trace(string message, params object[] args);
+        void Trace(Telemetry.SeverityLevel level, string message, params object[] args);
 
         IExecutionContext ExecutionContext { get; }
         IOrganizationServiceFactory OrganizationServiceFactory { get; }
@@ -19,6 +24,7 @@ namespace CCLCC.Xrm.Context
         IOrganizationService ElevatedOrganizationService { get; }
         IIocContainer Container { get; }
 
+        ITracingService TracingService { get;  }
         IComponentTelemetryClient TelemetryClient { get; }
 
         ITelemetryFactory TelemetryFactory { get; }

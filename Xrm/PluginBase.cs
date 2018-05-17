@@ -6,13 +6,16 @@ using System.Linq;
 using Microsoft.Xrm.Sdk;
 using CCLCC.Core;
 using CCLCC.Telemetry;
-using CCLCC.Telemetry.DataContract;
+using CCLCC.Telemetry.Context;
+using CCLCC.Telemetry.Sink;
+using CCLCC.Telemetry.Client;
+using CCLCC.Telemetry.Serializer;
 
 
 
 namespace CCLCC.Xrm
 {
-    using Caching;
+    using Caching; 
     using Configuration;
     using Context;
     using Encryption;
@@ -91,15 +94,29 @@ namespace CCLCC.Xrm
 
         public virtual void RegisterContainerServices(IIocContainer container)
         {
-            container.Register<ITelemetrySink, CCLCC.Telemetry.Sink.TelemetrySink>();
-            container.Register<ITelemetryFactory, CCLCC.Telemetry.TelemetryFactory>();
-            container.Register<ITelemetryClientFactory, ITelemetryClientFactory>();
+            //Telemetry component registration
+            container.Register<ITelemetryContext, TelemetryContext>();
+            container.Register<ITelemetryClientFactory, TelemetryClientFactory>();
+            container.Register<ITelemetryInitializerChain, TelemetryInitializerChain>();
+            container.Register<ITelemetryChannel, InMemoryChannel>();
+            container.Register<ITelemetryBuffer, TelemetryBuffer>();
+            container.Register<ITelemetryTransmitter, TelemetryTransmitter>();
+            container.Register<ITelemetryProcessChain, TelemetryProcessChain>();
+            container.Register<ITelemetrySink, TelemetrySink>();
+            container.Register<IContextTagKeys, AIContextTagKeys>();  //Context tags known to Application Insights.
+            container.Register<ITelemetrySerializer, AITelemetrySerializer>();
+            container.Register<ITelemetryFactory, TelemetryFactory>();
+
+            //Xrm component registration
             container.Register<ICacheFactory, CacheFactory>();   
             container.Register<IConfigurationFactory, ConfigurationFactory>();
             container.Register<ILocalPluginContextFactory, LocalPluginContextFactory>();
             container.Register<IRijndaelEncryption, RijndaelEncryption>();
         }
         
+                
+                
+
 
         /// <summary>
         /// Executes the plug-in.
@@ -120,28 +137,39 @@ namespace CCLCC.Xrm
 
             var telemetryFactory = Container.Resolve<ITelemetryFactory>();
             var telemetryClientFactory = Container.Resolve<ITelemetryClientFactory>();
-
+            
             using (var telemetryClient = telemetryClientFactory.BuildClient(
                 this.GetType().ToString(),
                 this.TelemetrySink,
-                new Dictionary<string, string>{                    
-                    { "crm-correlationid", executionContext.CorrelationId.ToString() },
+                new Dictionary<string, string>{ //Add properties for CRM execution attributes that don't fit cleanly in context.
                     { "crm-depth", executionContext.Depth.ToString() },
                     { "crm-initiatinguser", executionContext.InitiatingUserId.ToString() },
                     { "crm-isintransaction", executionContext.IsInTransaction.ToString() },
-                    { "crm-isolationmode", executionContext.IsolationMode.ToString() },
-                    { "crm-messagename", executionContext.MessageName },
-                    { "crm-mode", executionContext.Mode.ToString() },
-                    { "crm-operationid", executionContext.OperationId.ToString()},
-                    { "crm-organizationid", executionContext.OrganizationId.ToString() },
-                    { "crm-orgname", executionContext.OrganizationName },
-                    { "crm-primaryentityid", executionContext.PrimaryEntityId.ToString() },
-                    { "crm-primaryentityname", executionContext.PrimaryEntityName },
+                    { "crm-isolationmode", executionContext.IsolationMode.ToString() },                    
+                    { "crm-mode", executionContext.Mode.ToString() },                    
+                    { "crm-organizationid", executionContext.OrganizationId.ToString() },                    
                     { "crm-requestid", executionContext.RequestId.ToString() },
-                    { "crm-stage", executionContext.Stage.ToString() },
-                    { "crm-userid", executionContext.UserId.ToString() }
+                    { "crm-stage", executionContext.Stage.ToString() },                    
                 }))
-            {                
+            {
+                try
+                {
+                    //telemetryClient.Context.Operation.Name = executionContext.MessageName;
+                    //telemetryClient.Context.Operation.CorrelationVector = executionContext.CorrelationId.ToString();
+                    //telemetryClient.Context.Operation.Id = executionContext.OperationId.ToString();
+
+                    //telemetryClient.Context.User.Id = executionContext.UserId.ToString();                    
+                    
+                    var asDataContext = telemetryClient.Context as ISupportDataKeyContext;
+                    if(asDataContext != null)
+                    {
+                        asDataContext.Data.RecordSource = executionContext.OrganizationName;
+                        asDataContext.Data.RecordType = executionContext.PrimaryEntityName;
+                        asDataContext.Data.RecordId = executionContext.PrimaryEntityId.ToString();
+                    }
+                }
+                finally { }
+
                 try
                 {
                     var matchingHandlers = this.PluginEventHandlers

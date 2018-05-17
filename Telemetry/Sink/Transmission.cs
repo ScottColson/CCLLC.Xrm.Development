@@ -8,7 +8,6 @@ using CCLCC.Telemetry.Implementation;
 
 namespace CCLCC.Telemetry.Sink
 {
-
     public class Transmission
     {
         internal const string ContentTypeHeader = "Content-Type";

@@ -12,11 +12,11 @@ namespace CCLCC.Xrm.Context
 
     public abstract class LocalContext<E> : ILocalContext<E> where E : Entity
     {
-        public Func<bool> OnConfigureTelemetrySink
-        {
-            get { return this.TelemetryClient.TelemetrySink.OnConfigure; }
-            set { this.TelemetryClient.TelemetrySink.OnConfigure = value; }
-        }
+        //public Func<bool> OnConfigureTelemetrySink
+        //{
+        //    get { return this.TelemetryClient.TelemetrySink.OnConfigure; }
+        //    set { this.TelemetryClient.TelemetrySink.OnConfigure = value; }
+        //}
 
         public IIocContainer Container { get; private set; }
         public IExecutionContext ExecutionContext { get; private set; }
@@ -179,6 +179,17 @@ namespace CCLCC.Xrm.Context
             }
         }
 
+        private ITracingService tracingService;
+        public ITracingService TracingService
+        {
+            get
+            {
+                if (tracingService == null) { tracingService = CreateTracingService(); }
+                return tracingService;
+            }
+        }
+       
+
         public LocalContext(IExecutionContext executionContext, IIocContainer container, IComponentTelemetryClient telemetryClient)
         {
             if (container == null) throw new ArgumentNullException("container");
@@ -189,6 +200,19 @@ namespace CCLCC.Xrm.Context
 
             if (telemetryClient == null) throw new ArgumentNullException("telemetryClient");
             this.TelemetryClient = telemetryClient;
+        }
+
+        public virtual void SetAlternateDataKey(string name, string value)
+        {
+            if(this.TelemetryClient != null)
+            {
+                var asDataContext = this.TelemetryClient.Context as ISupportDataKeyContext;
+                if(asDataContext != null)
+                {
+                    asDataContext.Data.AltKeyName = name;
+                    asDataContext.Data.AltKeyValue = value;
+                }
+            }
         }
 
         public virtual void Dispose()
@@ -213,6 +237,26 @@ namespace CCLCC.Xrm.Context
         }
 
         protected abstract IOrganizationServiceFactory CreateOrganizationServiceFactory();
+        protected abstract ITracingService CreateTracingService();
+        
+        public void Trace(string message, params object[] args)
+        {
+            this.Trace(SeverityLevel.Information, message, args);
+        }
 
+        public void Trace(SeverityLevel level, string message, params object[] args)
+        {
+            if (!string.IsNullOrEmpty(message))
+            {
+                var msg = level.ToString() + ": " + message;
+                this.TracingService.Trace(msg, args);
+               
+                
+                var msgTelemetry = this.TelemetryFactory.BuildMessageTelemetry(string.Format(message, args), level);
+                this.TelemetryClient.Track(msgTelemetry);
+            }
+
+        
+        }
     }
 }

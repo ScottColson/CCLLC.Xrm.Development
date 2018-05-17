@@ -80,7 +80,10 @@ namespace CCLCC.Xrm.Context
             return (IOrganizationServiceFactory)this.ServiceProvider.GetService(typeof(IOrganizationServiceFactory));
         }
 
-
+        protected override ITracingService CreateTracingService()
+        {
+            return (ITracingService)this.ServiceProvider.GetService(typeof(ITracingService));
+        }
     }
 
 }
