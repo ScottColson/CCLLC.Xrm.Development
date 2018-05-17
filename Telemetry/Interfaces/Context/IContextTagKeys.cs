@@ -9,6 +9,10 @@ namespace CCLCC.Telemetry
         string ComponentVersion { get; set; }
         string DataRecordId { get; set; }
         string DataRecordType { get; set; }
+        string DataRecordSource { get; set; }
+        string DataRecordAltKeyName { get; set; }
+        string DataRecordAltKeyValue { get; set; }
+
         string DeviceId { get; set; }
         string DeviceLocale { get; set; }
         string DeviceModel { get; set; }

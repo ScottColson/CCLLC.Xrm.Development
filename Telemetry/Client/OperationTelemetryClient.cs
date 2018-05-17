@@ -20,6 +20,7 @@ namespace CCLCC.Telemetry.Client
         internal OperationTelemetryClient(ITelemetryClient parentClient, T telemetryItem)
             : base(parentClient)
         {
+            this.Properties = new ConcurrentDictionary<string, string>();
             this.telemetryItem = telemetryItem;                      
             stopwatch = new Stopwatch();
             stopwatch.Start();

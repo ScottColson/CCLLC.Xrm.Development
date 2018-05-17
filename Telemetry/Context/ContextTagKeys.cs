@@ -1,13 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace CCLCC.Telemetry.Context
 {
     /// <summary>
-    /// Defines context key tags that are compatible with Microsoft Application Insights.
+    /// Provides context tags for a generic implementation that includes data key context information 
+    /// that is not supported by Microsoft Application Insights.
     /// </summary>
-    public class AIContextTagKeys : IContextTagKeys
+    public class ContextTagKeys : IContextTagKeys
     {
-        public IReadOnlyDictionary<string,int> TagSizeLimits { get; private set; }
+        public IReadOnlyDictionary<string, int> TagSizeLimits { get; private set; }
         public string ComponentName { get; set; }
         public string ComponentVersion { get; set; }
         public string DataRecordId { get; set; }
@@ -42,37 +47,49 @@ namespace CCLCC.Telemetry.Context
         public string InternalAgentVersion { get; set; }
         public string InternalNodeName { get; set; }
 
-        public AIContextTagKeys()
+        public ContextTagKeys()
         {
-            ComponentVersion = "ai.application.ver";
-            DeviceId = "ai.device.id";
-            DeviceLocale = "ai.device.locale";
-            DeviceModel = "ai.device.model";
-            DeviceOEMName = "ai.device.oemName";
-            DeviceOSVersion = "ai.device.osVersion";
-            DeviceType = "ai.device.type";
-            LocationIp = "ai.location.ip";
-            LocationCountry = "ai.location.country";
-            LocationProvince = "ai.location.province";
-            LocationCity = "ai.location.city";
-            OperationId = "ai.operation.id";
-            OperationName = "ai.operation.name";
-            OperationParentId = "ai.operation.parentId";
-            OperationSyntheticSource = "ai.operation.syntheticSource";
-            OperationCorrelationVector = "ai.operation.correlationVector";
-            SessionId = "ai.session.id";
-            SessionIsFirst = "ai.session.isFirst";
-            UserAccountId = "ai.user.accountId";
-            UserId = "ai.user.id";
-            UserAuthUserId = "ai.user.authUserId";
-            CloudRole = "ai.cloud.role";
-            CloudRoleInstance = "ai.cloud.roleInstance";
-            InternalSdkVersion = "ai.internal.sdkVersion";
-            InternalAgentVersion = "ai.internal.agentVersion";
-            InternalNodeName = "ai.internal.nodeName";
+            ComponentVersion = "component.ver";
+            ComponentName = "component.name";
+            DeviceId = "device.id";
+            DataRecordAltKeyName = "data.altkeyname";
+            DataRecordAltKeyValue = "data.altkeyvalue";
+            DataRecordId = "data.recordid";
+            DataRecordSource = "data.recordsource";
+            DataRecordType = "data.recordtype";
+            DeviceLocale = "device.locale";
+            DeviceModel = "device.model";
+            DeviceOEMName = "device.oemName";
+            DeviceOSVersion = "device.osVersion";
+            DeviceType = "device.type";
+            LocationIp = "location.ip";
+            LocationCountry = "location.country";
+            LocationProvince = "location.province";
+            LocationCity = "location.city";
+            OperationId = "operation.id";
+            OperationName = "operation.name";
+            OperationParentId = "operation.parentId";
+            OperationSyntheticSource = "operation.syntheticSource";
+            OperationCorrelationVector = "operation.correlationVector";
+            SessionId = "session.id";
+            SessionIsFirst = "session.isFirst";
+            UserAccountId = "user.accountId";
+            UserId = "user.id";
+            UserAuthUserId = "user.authUserId";
+            CloudRole = "cloud.role";
+            CloudRoleInstance = "cloud.roleInstance";
+            InternalSdkVersion = "internal.sdkVersion";
+            InternalAgentVersion = "internal.agentVersion";
+            InternalNodeName = "internal.nodeName";
 
             this.TagSizeLimits = new Dictionary<string, int>(){
-                { ComponentVersion, 1024 },
+                { ComponentVersion, 256 },
+                { ComponentName, 256 },
+                { DataRecordAltKeyName, 256 },
+                { DataRecordAltKeyValue, 1024 },
+                { DataRecordId, 256 },
+                { DataRecordSource, 256 },
+                { DataRecordType, 256 },
                 { DeviceId, 1024 },
                 { DeviceModel, 256 },
                 { DeviceOEMName, 256 },
@@ -95,5 +112,6 @@ namespace CCLCC.Telemetry.Context
                 { InternalNodeName, 256 }
             };
         }
+
     }
 }

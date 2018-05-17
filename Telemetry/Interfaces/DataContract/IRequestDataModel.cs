@@ -6,16 +6,11 @@ using System.Threading.Tasks;
 
 namespace CCLCC.Telemetry
 {
-    public interface IRequestDataModel : IDataModel
-    {
-        string id { get; set; }
-        string source { get; set; }
-        string name { get; set; }
-        string duration { get; set; }
+    public interface IRequestDataModel : IOperationalDataModel, IDataModel
+    {        
         string responseCode { get; set; }
-        bool success { get; set; }
-        string url { get; set; }
-        IDictionary<string, double> measurements { get; set; }
+        string source { get; set; }
+        string url { get; set; }             
 
     }
 }

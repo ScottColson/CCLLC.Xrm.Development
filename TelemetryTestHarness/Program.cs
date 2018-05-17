@@ -25,10 +25,7 @@ namespace TelemetryTestHarness
                 container.Register<ITelemetrySink, TelemetrySink>();
                 container.Register<IContextTagKeys, AIContextTagKeys>();
                 container.Register<ITelemetrySerializer, AITelemetrySerializer>();
-
-
-
-
+                container.Register<ITelemetryFactory, TelemetryFactory>();
 
 
                 var sink = container.Resolve<ITelemetrySink>();
@@ -46,10 +43,10 @@ namespace TelemetryTestHarness
                 client.Context.InstrumentationKey = "7a6ecb67-6c9c-4640-81d2-80ce76c3ca34";
                 client.Context.Cloud.RoleInstance = "role.instance";
                 client.Context.Cloud.RoleName = "role.name";
-                
+
                 //client.Initializers.TelemetryInitializers.Add(new SequencePropertyInitializer());
 
-                var factory = new TelemetryFactory();
+                var factory = container.Resolve<ITelemetryFactory>();
                 for(int i=0; i< 15; i++)
                 {
                     try
@@ -74,7 +71,19 @@ namespace TelemetryTestHarness
                     }
                     
                 }
-                             
+
+                var deptel = factory.BuildDependencyTelemetry("Web", "http://someplace", "somename", null);
+                using (var op = client.StartOperation<IDependencyTelemetry>(deptel))
+                {
+                    op.Properties.Add("someopproperty", "abcde");
+                }
+
+
+                var reqtel = factory.BuildRequestTelemetry("a source", new Uri("http://www.bing.com"));
+                using (var op = client.StartOperation<IRequestTelemetry>(reqtel))
+                {
+                    op.Properties.Add("somereqprop", "qwert");                    
+                }
                 sw.Stop();
                 Console.WriteLine(string.Format("Elapsed: {0}", sw.ElapsedMilliseconds));
                 Console.WriteLine(string.Format("Buffer Length: {0}", sink.Channel.Buffer.Length));

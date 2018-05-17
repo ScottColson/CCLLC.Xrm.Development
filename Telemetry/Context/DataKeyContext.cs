@@ -6,7 +6,9 @@ namespace CCLCC.Telemetry.Context
     {
         public string RecordId { get; set; }
         public string RecordType { get; set; }
-        
+        public string RecordSource { get; set; }
+        public string AltKeyName { get; set; }
+        public string AltKeyValue { get; set; }
 
         internal protected DataKeyContext() { }
 
@@ -20,6 +22,9 @@ namespace CCLCC.Telemetry.Context
         {
             tags.UpdateTagValue(keys.DataRecordId, this.RecordId, keys.TagSizeLimits);
             tags.UpdateTagValue(keys.DataRecordType, this.RecordType, keys.TagSizeLimits);
+            tags.UpdateTagValue(keys.DataRecordSource, this.RecordSource, keys.TagSizeLimits);
+            tags.UpdateTagValue(keys.DataRecordAltKeyName, this.AltKeyName, keys.TagSizeLimits);
+            tags.UpdateTagValue(keys.DataRecordAltKeyValue, this.AltKeyValue, keys.TagSizeLimits);
         }
     }
 }

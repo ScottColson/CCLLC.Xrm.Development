@@ -25,8 +25,7 @@ namespace CCLCC.Telemetry.DataContract
         public bool? success { get; set; }
         public string type { get; set; }
         public string data { get; set; }
-        bool? IOperationalDataModel.success { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
+       
         public DependencyDataModel()
         {
             this.ver = 2;
