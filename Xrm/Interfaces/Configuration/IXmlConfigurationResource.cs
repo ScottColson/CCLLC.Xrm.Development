@@ -1,7 +1,7 @@
 ﻿using System.Xml.Linq;
 
-namespace CCLCC.Xrm.Configuration
-{
+namespace CCLCC.Xrm.Sdk
+{ 
     public interface IXmlConfigurationResource
     {
         XDocument Get(string key);

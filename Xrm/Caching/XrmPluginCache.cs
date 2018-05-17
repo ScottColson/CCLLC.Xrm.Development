@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CCLCC.Xrm.Caching
+namespace CCLCC.Xrm.Sdk.Caching
 {
     internal class CacheItem
     {

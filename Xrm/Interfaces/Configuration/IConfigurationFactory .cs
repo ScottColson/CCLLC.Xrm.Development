@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xrm.Sdk;
 
-namespace CCLCC.Xrm.Configuration
+namespace CCLCC.Xrm.Sdk
 {
     using Caching;
     using Encryption;

@@ -7,8 +7,8 @@
     <ProjectGuid>{359C8C95-0FB1-4F18-8B49-A4A287D80DF4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CCLCC.Xrm</RootNamespace>
-    <AssemblyName>CCLCCXrm</AssemblyName>
+    <RootNamespace>CCLCC.Xrm.Sdk</RootNamespace>
+    <AssemblyName>CCLCCXrmSdk</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -76,27 +76,27 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Caching\CacheFactory.cs" />
-    <Compile Include="Caching\ICacheFactory.cs" />
-    <Compile Include="Caching\IXrmCache.cs" />
+    <Compile Include="Interfaces\Caching\ICacheFactory.cs" />
+    <Compile Include="Interfaces\Caching\IXrmCache.cs" />
     <Compile Include="Caching\XrmPluginCache.cs" />
     <Compile Include="Caching\XrmOrganizationCache.cs" />
     <Compile Include="Configuration\ConfigurationFactory.cs" />
     <Compile Include="Configuration\XmlConfigurationResource.cs" />
     <Compile Include="Configuration\ExtensionSettings.cs" />
-    <Compile Include="Configuration\IConfigurationFactory .cs" />
-    <Compile Include="Context\ILocalPluginContextFactory.cs" />
+    <Compile Include="Interfaces\Configuration\IConfigurationFactory .cs" />
+    <Compile Include="Interfaces\Context\ILocalPluginContextFactory.cs" />
     <Compile Include="Context\LocalContext.cs" />
     <Compile Include="Context\LocalPluginContextFactory.cs" />
     <Compile Include="Encryption\RijndaelEncryption.cs" />
-    <Compile Include="Encryption\IEncryption.cs" />
-    <Compile Include="Encryption\IRijndaelEncryption.cs" />
+    <Compile Include="Interfaces\Encryption\IEncryption.cs" />
+    <Compile Include="Interfaces\Encryption\IRijndaelEncryption.cs" />
     <Compile Include="ePluginStage.cs" />
-    <Compile Include="Configuration\IExtensionSettings.cs" />
-    <Compile Include="Configuration\IXmlConfigurationResource.cs" />
-    <Compile Include="Context\ILocalContext.cs" />
-    <Compile Include="Context\ILocalPluginContext.cs" />
+    <Compile Include="Interfaces\Configuration\IExtensionSettings.cs" />
+    <Compile Include="Interfaces\Configuration\IXmlConfigurationResource.cs" />
+    <Compile Include="Interfaces\Context\ILocalContext.cs" />
+    <Compile Include="Interfaces\Context\ILocalPluginContext.cs" />
     <Compile Include="Context\LocalPluginContext.cs" />
-    <Compile Include="IPlugin.cs" />
+    <Compile Include="Interfaces\IPlugin.cs" />
     <Compile Include="MessageNames.cs" />
     <Compile Include="PluginBase.cs" />
     <Compile Include="PluginEvent.cs" />

@@ -8,7 +8,7 @@ using Microsoft.Xrm.Sdk;
 using Microsoft.Crm.Sdk.Messages;
 using System.Collections.Specialized;
 
-namespace CCLCC.Xrm.Caching
+namespace CCLCC.Xrm.Sdk.Caching
 {
 
     /// <summary>

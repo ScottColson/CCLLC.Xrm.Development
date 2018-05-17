@@ -3,9 +3,9 @@ using Microsoft.Xrm.Sdk.Query;
 using System;
 using System.Collections.Generic;
 
-namespace CCLCC.Xrm.Configuration
+namespace CCLCC.Xrm.Sdk.Configuration
 {
-    using Caching;
+ 
     using Encryption;
 
     public class ExtensionSettings : IExtensionSettings

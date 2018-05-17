@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CCLCC.Xrm.Caching;
-using CCLCC.Xrm.Encryption;
 using Microsoft.Xrm.Sdk;
 
-namespace CCLCC.Xrm.Configuration
+namespace CCLCC.Xrm.Sdk.Configuration
 {
     public class ConfigurationFactory : IConfigurationFactory
     {

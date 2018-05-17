@@ -6,7 +6,7 @@ using Microsoft.Xrm.Sdk.Workflow;
 using CCLCC.Core;
 using CCLCC.Telemetry;
 
-namespace CCLCC.Xrm.Workflow
+namespace CCLCC.Xrm.Sdk.Workflow
 {
     using Caching;
     using Configuration;

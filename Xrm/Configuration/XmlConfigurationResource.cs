@@ -5,9 +5,8 @@ using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using System.Xml.Linq;
 
-namespace CCLCC.Xrm.Configuration
+namespace CCLCC.Xrm.Sdk.Configuration
 {
-    using Caching;
 
     /// <summary>
     /// Retrieves XML Configuration Data stored in CRM Web Resources. Configuration data is cached for future use. The

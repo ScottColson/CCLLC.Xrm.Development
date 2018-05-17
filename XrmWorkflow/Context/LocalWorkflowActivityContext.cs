@@ -3,9 +3,10 @@ using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Workflow;
 using CCLCC.Core;
 using CCLCC.Telemetry;
-using CCLCC.Xrm.Context;
+using CCLCC.Xrm.Sdk.Context;
 
-namespace CCLCC.Xrm.Workflow.Context
+
+namespace CCLCC.Xrm.Sdk.Workflow.Context
 {  
     public class LocalWorkflowActivityContext<E> : LocalContext<E>, ILocalWorkflowActivityContext<E> where E : Entity
     {
@@ -28,6 +29,11 @@ namespace CCLCC.Xrm.Workflow.Context
         protected override IOrganizationServiceFactory CreateOrganizationServiceFactory()
         {
             return  this.CodeActivityContext.GetExtension<IOrganizationServiceFactory>();
+        }
+
+        protected override ITracingService CreateTracingService()
+        {
+            return this.CodeActivityContext.GetExtension<ITracingService>();            
         }
     }
 }

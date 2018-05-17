@@ -1,5 +1,5 @@
 ﻿
-namespace CCLCC.Xrm.Encryption
+namespace CCLCC.Xrm.Sdk
 {
     public interface IEncryption
     {

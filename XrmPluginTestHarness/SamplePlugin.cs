@@ -1,8 +1,7 @@
 ﻿using System;
 using Microsoft.Xrm.Sdk;
 using CCLCC.Telemetry;
-using CCLCC.Xrm;
-using CCLCC.Xrm.Context;
+using CCLCC.Xrm.Sdk;
 using CCLCC.Telemetry.Sink;
 
 namespace XrmPluginTestHarness

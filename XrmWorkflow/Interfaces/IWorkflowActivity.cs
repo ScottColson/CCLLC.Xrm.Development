@@ -2,10 +2,9 @@
 using CCLCC.Core;
 using CCLCC.Telemetry;
 
-namespace CCLCC.Xrm.Workflow
+namespace CCLCC.Xrm.Sdk.Workflow
 {
-    using Context;
-
+    
     public interface IWorkflowActivity<E> where E : Entity
     {
         IIocContainer Container { get; }

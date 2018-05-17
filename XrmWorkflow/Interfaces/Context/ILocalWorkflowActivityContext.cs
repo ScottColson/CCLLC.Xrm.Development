@@ -1,9 +1,8 @@
 ﻿using System.Activities;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Workflow;
-using CCLCC.Xrm.Context;
 
-namespace CCLCC.Xrm.Workflow.Context
+namespace CCLCC.Xrm.Sdk
 {    
     public interface ILocalWorkflowActivityContext<E> : ILocalContext<E> where E : Entity
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xrm.Sdk;
 
-namespace CCLCC.Xrm.Utilities
+namespace CCLCC.Xrm.Sdk.Utilities
 {
     using Caching;
     using Microsoft.Xrm.Sdk.Query;

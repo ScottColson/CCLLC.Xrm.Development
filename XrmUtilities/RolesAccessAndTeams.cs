@@ -4,7 +4,7 @@ using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Microsoft.Crm.Sdk.Messages;
 
-namespace CCLCC.Xrm.Utilities
+namespace CCLCC.Xrm.Sdk.Utilities
 {
     public class RolesAccessAndTeams
     {

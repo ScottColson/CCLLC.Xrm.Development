@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xrm.Sdk;
 
-namespace CCLCC.Xrm.Context
+namespace CCLCC.Xrm.Sdk
 {
 
     public interface ILocalPluginContext<E> : ILocalContext<E> where E : Entity 

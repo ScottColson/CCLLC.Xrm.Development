@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CCLCC.Xrm.Caching
+namespace CCLCC.Xrm.Sdk.Caching
 {
     public class CacheFactory : ICacheFactory
     {

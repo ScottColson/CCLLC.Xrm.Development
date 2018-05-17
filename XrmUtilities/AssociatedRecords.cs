@@ -4,7 +4,7 @@ using Microsoft.Xrm.Sdk.Query;
 using System;
 using System.Collections.Generic;
 
-namespace CCLCC.Xrm.Utilities
+namespace CCLCC.Xrm.Sdk.Utilities
 {
     public class AssociatedRecords
     {

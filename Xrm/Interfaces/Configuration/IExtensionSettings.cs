@@ -1,5 +1,5 @@
 ﻿
-namespace CCLCC.Xrm.Configuration
+namespace CCLCC.Xrm.Sdk
 {
     public interface IExtensionSettings
     {

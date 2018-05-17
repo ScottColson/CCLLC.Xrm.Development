@@ -13,7 +13,7 @@ using CCLCC.Telemetry.Serializer;
 
 
 
-namespace CCLCC.Xrm
+namespace CCLCC.Xrm.Sdk
 {
     using Caching; 
     using Configuration;
@@ -149,16 +149,17 @@ namespace CCLCC.Xrm
                     { "crm-mode", executionContext.Mode.ToString() },                    
                     { "crm-organizationid", executionContext.OrganizationId.ToString() },                    
                     { "crm-requestid", executionContext.RequestId.ToString() },
-                    { "crm-stage", executionContext.Stage.ToString() },                    
+                    { "crm-stage", executionContext.Stage.ToString() },
+                    { "crm-userid", executionContext.UserId.ToString() }
                 }))
             {
                 try
                 {
-                    //telemetryClient.Context.Operation.Name = executionContext.MessageName;
-                    //telemetryClient.Context.Operation.CorrelationVector = executionContext.CorrelationId.ToString();
-                    //telemetryClient.Context.Operation.Id = executionContext.OperationId.ToString();
-
-                    //telemetryClient.Context.User.Id = executionContext.UserId.ToString();                    
+                    telemetryClient.Context.Operation.Name = executionContext.MessageName;
+                    telemetryClient.Context.Operation.CorrelationVector = executionContext.CorrelationId.ToString();
+                    telemetryClient.Context.Operation.Id = executionContext.OperationId.ToString();
+                    
+                                   
                     
                     var asDataContext = telemetryClient.Context as ISupportDataKeyContext;
                     if(asDataContext != null)

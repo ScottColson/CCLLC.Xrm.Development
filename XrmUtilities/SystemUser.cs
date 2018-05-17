@@ -1,9 +1,8 @@
 ﻿using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Query;
 
-namespace CCLCC.Xrm.Utilities
-{
-    using Caching;
-    using Microsoft.Xrm.Sdk.Query;
+namespace CCLCC.Xrm.Sdk.Utilities
+{      
 
     public class SystemUser
     {

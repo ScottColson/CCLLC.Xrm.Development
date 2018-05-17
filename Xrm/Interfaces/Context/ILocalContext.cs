@@ -3,7 +3,7 @@ using Microsoft.Xrm.Sdk;
 using CCLCC.Core;
 using CCLCC.Telemetry;
 
-namespace CCLCC.Xrm.Context
+namespace CCLCC.Xrm.Sdk
 {
     using Caching;
     using Configuration;   

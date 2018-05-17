@@ -4,7 +4,7 @@ using Microsoft.Xrm.Sdk;
 using CCLCC.Core;
 using CCLCC.Telemetry;
 
-namespace CCLCC.Xrm
+namespace CCLCC.Xrm.Sdk
 {
 
     using Context;

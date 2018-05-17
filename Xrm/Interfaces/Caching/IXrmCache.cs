@@ -1,5 +1,5 @@
 ﻿
-namespace CCLCC.Xrm.Caching
+namespace CCLCC.Xrm.Sdk
 {
     public interface IXrmCache
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xrm.Sdk;
 
-namespace CCLCC.Xrm
+namespace CCLCC.Xrm.Sdk
 {
     using Context;
     using Telemetry;

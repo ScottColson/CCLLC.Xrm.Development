@@ -7,7 +7,7 @@
     <ProjectGuid>{70C017EE-01DA-48BF-B29F-26134E2D4E79}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CCLCC.Xrm.Workflow</RootNamespace>
+    <RootNamespace>CCLCC.Xrm.Sdk.Workflow</RootNamespace>
     <AssemblyName>CCLCCXrmWorkflow</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -67,11 +67,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Context\ILocalWorkflowActivityContextFactory.cs" />
-    <Compile Include="Context\ILocalWorkflowActivityContext.cs" />
+    <Compile Include="Interfaces\Context\ILocalWorkflowActivityContextFactory.cs" />
+    <Compile Include="Interfaces\Context\ILocalWorkflowActivityContext.cs" />
     <Compile Include="Context\LocalWorkflowActivityContextFactory.cs" />
     <Compile Include="Context\LocalWorkflowActivityContext.cs" />
-    <Compile Include="IWorkflowActivity.cs" />
+    <Compile Include="Interfaces\IWorkflowActivity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WorkflowActivityBase.cs" />
   </ItemGroup>
