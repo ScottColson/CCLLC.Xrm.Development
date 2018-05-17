@@ -14,11 +14,11 @@ namespace CCLCC.Telemetry.Context
 
         public void CopyTo(IDeviceContext target)
         {
-            Type = target.Type;
-            Id = target.Id;
-            OperatingSystem = target.OperatingSystem;
-            OemName = target.OemName;
-            Model = target.Model;
+            target.Type = Type;
+            target.Id = Id;
+            target.OperatingSystem = OperatingSystem;
+            target.OemName = OemName;
+            target.Model = Model;
         }
 
         public void UpdateTags(IDictionary<string, string> tags, IContextTagKeys keys)

@@ -12,9 +12,9 @@ namespace CCLCC.Telemetry.Context
 
         public void CopyTo(IInternalContext target)
         {
-            SdkVersion = target.SdkVersion;
-            AgentVersion = target.AgentVersion;
-            NodeName = target.NodeName;
+            target.SdkVersion = SdkVersion;
+            target.AgentVersion = AgentVersion;
+            target.NodeName = NodeName;
         }
 
         public void UpdateTags(IDictionary<string, string> tags, IContextTagKeys keys)

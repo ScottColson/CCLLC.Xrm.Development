@@ -13,10 +13,10 @@ namespace CCLCC.Telemetry.Context
 
         public void CopyTo(IOperationContext target)
         {
-            Id = target.Id;
-            ParentId = target.ParentId;
-            CorrelationVector = target.CorrelationVector;
-            Name = target.Name;           
+            target.Id = Id;
+            target.ParentId = ParentId;
+            target.CorrelationVector = CorrelationVector;
+            target.Name = Name;           
         }
 
         public void UpdateTags(IDictionary<string, string> tags, IContextTagKeys keys)

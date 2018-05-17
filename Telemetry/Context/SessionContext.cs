@@ -10,8 +10,8 @@ namespace CCLCC.Telemetry.Context
 
         public void CopyTo(ISessionContext target)
         {
-            Id = target.Id;
-            IsFirst = target.IsFirst;
+            target.Id = Id;
+            target.IsFirst = IsFirst;
         }
 
         public void UpdateTags(IDictionary<string, string> tags, IContextTagKeys keys)

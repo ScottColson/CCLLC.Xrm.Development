@@ -13,10 +13,10 @@ namespace CCLCC.Telemetry.Context
 
         public void CopyTo(IUserContext target)
         {
-            Id = target.Id;
-            AccountId = target.AccountId;
-            UserAgent = target.UserAgent;
-            AuthenticatedUserId = target.AuthenticatedUserId;
+            target.Id = Id;
+            target.AccountId = AccountId;
+            target.UserAgent = UserAgent;
+            target.AuthenticatedUserId = AuthenticatedUserId;
         }
 
         public void UpdateTags(IDictionary<string, string> tags, IContextTagKeys keys)

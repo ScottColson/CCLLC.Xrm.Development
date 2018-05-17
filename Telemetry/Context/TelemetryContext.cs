@@ -61,7 +61,7 @@ namespace CCLCC.Telemetry.Context
         {
             this.InstrumentationKey = source.InstrumentationKey;
 
-            source.Component?.CopyTo(this.Component);
+            source.Component?.CopyTo(this.Component);            
             source.Device?.CopyTo(this.Device);
             source.Cloud?.CopyTo(this.Cloud);
             source.Session?.CopyTo(this.Session);

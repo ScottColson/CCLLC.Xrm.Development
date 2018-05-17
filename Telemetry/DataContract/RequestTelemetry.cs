@@ -10,7 +10,7 @@ namespace CCLCC.Telemetry.DataContract
     public class RequestTelemetry : OperationalTelemetryBase<IRequestDataModel>, IRequestTelemetry, ISupportSampling
     {
         public const int MaxUrlLength = 2048;
-        public const int MaxNameLength = 1024;
+        
 
         public string ResponseCode
         {

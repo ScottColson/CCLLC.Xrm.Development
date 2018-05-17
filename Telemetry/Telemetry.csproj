@@ -49,6 +49,8 @@
     <Compile Include="DataContract\RequestTelemetry.cs" />
     <Compile Include="Implementation\ExceptionConverter.cs" />
     <Compile Include="Interfaces\DataContract\IOperationalDataModel.cs" />
+    <Compile Include="Sink\InstrumentationKeyPropertyProcessor.cs" />
+    <Compile Include="Sink\SequencePropertyProcessor.cs" />
     <Compile Include="TelemetryClientFactory.cs" />
     <Compile Include="Client\SequencePropertyInitializer.cs" />
     <Compile Include="Client\TelemetryInitializerChain.cs" />

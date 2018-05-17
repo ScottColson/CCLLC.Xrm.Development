@@ -14,8 +14,11 @@ namespace CCLCC.Telemetry.Context
 
         public void CopyTo(IDataKeyContext target)
         {
-            RecordId = target.RecordId;
-            RecordType = target.RecordType;
+            target.RecordId = RecordId;
+            target.RecordType = RecordType;
+            target.RecordSource = RecordSource;
+            target.AltKeyName = AltKeyName;
+            target.AltKeyValue = AltKeyValue;
         }
 
         public void UpdateTags(IDictionary<string, string> tags, IContextTagKeys keys)

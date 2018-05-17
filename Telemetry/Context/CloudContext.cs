@@ -13,8 +13,8 @@ namespace CCLCC.Telemetry.Context
 
         public void CopyTo(ICloudContext target)
         {
-            RoleName = target.RoleName;
-            RoleInstance = target.RoleInstance;            
+            target.RoleName = RoleName;
+            target.RoleInstance = RoleInstance;            
         }
 
         public void UpdateTags(IDictionary<string, string> tags, IContextTagKeys keys)

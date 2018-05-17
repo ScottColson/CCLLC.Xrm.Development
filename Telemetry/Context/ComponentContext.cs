@@ -11,8 +11,8 @@ namespace CCLCC.Telemetry.Context
 
         public void CopyTo(IComponentContext target)
         {
-            Name = target.Name;
-            Version = target.Version;
+            target.Name = Name;
+            target.Version = Version;
         }
 
         public void UpdateTags(IDictionary<string, string> tags, IContextTagKeys keys)

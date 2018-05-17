@@ -12,7 +12,11 @@ namespace CCLCC.Telemetry.DataContract
         
         public DateTimeOffset Timestamp { get; set; }
         public string Sequence { get; set; }
-        public string InstrumentationKey { get; set; }
+        public string InstrumentationKey
+        {
+            get { return this.Context.InstrumentationKey; }
+            set { this.Context.InstrumentationKey = value; }
+        }
 
         public ITelemetryContext Context { get; private set; }
                 

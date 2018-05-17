@@ -10,7 +10,7 @@ namespace CCLCC.Telemetry.Context
 
         public void CopyTo(ILocationContext target)
         {
-            Ip = target.Ip;
+            target.Ip = Ip;
         }
 
         public void UpdateTags(IDictionary<string, string> tags, IContextTagKeys keys)
