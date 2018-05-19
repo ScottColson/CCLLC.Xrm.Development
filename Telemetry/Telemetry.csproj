@@ -7,8 +7,8 @@
     <ProjectGuid>{43635423-C56A-48FE-A2FF-7857F3625A69}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CCLCC.Telemetry.AI</RootNamespace>
-    <AssemblyName>CCLCCLightAITelemetry</AssemblyName>
+    <RootNamespace>CCLCC.Telemetry</RootNamespace>
+    <AssemblyName>CCLCCTelemetry</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
