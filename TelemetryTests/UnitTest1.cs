@@ -19,7 +19,7 @@ namespace TelemetryTests
             context.Component.Name = "Test1";
 
             var clientFactory = new TelemetryClientFactory(context, new TelemetryInitializerChain());
-            var client = clientFactory.BuildClient("app1", new TelemetrySink(new InMemoryChannel(new TelemetryBuffer(), new TelemetryTransmitter(new AITelemetrySerializer(new AIContextTagKeys()))),new TelemetryProcessChain()));
+            var client = clientFactory.BuildClient("app1", new TelemetrySink(new SyncMemoryChannel(new TelemetryBuffer(), new TelemetryTransmitter(new AITelemetrySerializer(new AIContextTagKeys()))),new TelemetryProcessChain()));
             
 
             var factory = new TelemetryFactory();

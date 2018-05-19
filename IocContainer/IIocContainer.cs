@@ -10,5 +10,7 @@ namespace CCLCC.Core
         T Resolve<T>();
 
         bool IsRegistered<TContract>();
+
+        int Count { get; }
     }
 }

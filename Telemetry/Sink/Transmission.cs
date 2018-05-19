@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Threading;
@@ -112,7 +113,7 @@ namespace CCLCC.Telemetry.Sink
         {
             if (Interlocked.CompareExchange(ref this.isSending, 1, 0) != 0)
             {
-                throw new InvalidOperationException("SendAsync is already in progress.");
+                throw new InvalidOperationException("Transmission is already in progress.");
             }
 
             try
@@ -135,17 +136,54 @@ namespace CCLCC.Telemetry.Sink
                 HttpWebResponseWrapper responseContent = await sendTask.ConfigureAwait(false);
                 return responseContent;
 
-            }
-            catch(Exception ex)
-            {
-                throw ex;
-            }
+            }            
             finally
             {
                 Interlocked.Exchange(ref this.isSending, 0);
             }
         }
 
+        public virtual HttpWebResponseWrapper Send()
+        {
+            if (Interlocked.CompareExchange(ref this.isSending, 1, 0) != 0)
+            {
+                throw new InvalidOperationException("Transmission is already in progress.");
+            }
+            try
+            {
+                try
+                {
+                    WebRequest request = this.CreateRequest(this.EndpointAddress);
+                    request.Timeout = (int)this.Timeout.TotalMilliseconds;
+                    return this.GetResponse(request);
+                }
+                catch (WebException ex)
+                {
+                    string str = string.Empty;
+                    if (ex.Response != null)
+                    {
+                        using (StreamReader reader = new StreamReader(ex.Response.GetResponseStream()))
+                        {
+                            str = reader.ReadToEnd();
+                        }
+                        ex.Response.Close();
+                    }
+                    if (ex.Status == WebExceptionStatus.Timeout)
+                    {
+                        throw new Exception(
+                                "The timeout elapsed while attempting to transmit telemetry.", ex);
+
+                    }
+                    throw new Exception(String.Format(CultureInfo.InvariantCulture,
+                        "A Web exception occurred while attempting to issue the request. {0}: {1}",
+                        ex.Message, str), ex);
+                }
+            }            
+            finally
+            {
+                Interlocked.Exchange(ref this.isSending, 0);
+            }
+        }
       
         protected virtual WebRequest CreateRequest(Uri address)
         {
@@ -174,6 +212,19 @@ namespace CCLCC.Telemetry.Sink
             }
 
             using (WebResponse response = await request.GetResponseAsync().ConfigureAwait(false))
+            {
+                return this.CheckResponse(response);
+            }
+        }
+
+        private HttpWebResponseWrapper GetResponse(WebRequest request)
+        {
+            using (Stream requestStream = request.GetRequestStream())
+            {
+                requestStream.Write(this.Content, 0, this.Content.Length);
+            }
+
+            using (WebResponse response = request.GetResponse())
             {
                 return this.CheckResponse(response);
             }

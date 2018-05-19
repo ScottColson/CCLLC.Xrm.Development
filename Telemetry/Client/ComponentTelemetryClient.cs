@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Threading;
-using CCLCC.Telemetry;
 using CCLCC.Telemetry.Implementation;
 
 namespace CCLCC.Telemetry.Client

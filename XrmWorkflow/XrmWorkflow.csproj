@@ -69,7 +69,7 @@
   <ItemGroup>
     <Compile Include="Interfaces\Context\ILocalWorkflowActivityContextFactory.cs" />
     <Compile Include="Interfaces\Context\ILocalWorkflowActivityContext.cs" />
-    <Compile Include="Context\LocalWorkflowActivityContextFactory.cs" />
+    <Compile Include="LocalWorkflowActivityContextFactory.cs" />
     <Compile Include="Context\LocalWorkflowActivityContext.cs" />
     <Compile Include="Interfaces\IWorkflowActivity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

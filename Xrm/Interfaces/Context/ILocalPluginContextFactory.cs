@@ -8,7 +8,7 @@ namespace CCLCC.Xrm.Sdk
 
     public interface ILocalPluginContextFactory 
     {
-        ILocalPluginContext<E> CreateLocalPluginContext<E>(IPluginExecutionContext executionContext, IServiceProvider serviceProvider, IIocContainer container, IComponentTelemetryClient telemetryClient) where E : Entity;
+        ILocalPluginContext<E> BuildLocalPluginContext<E>(IPluginExecutionContext executionContext, IServiceProvider serviceProvider, IIocContainer container, IComponentTelemetryClient telemetryClient) where E : Entity;
 
     }
 }

@@ -10,16 +10,11 @@ using CCLCC.Telemetry.Context;
 using CCLCC.Telemetry.Sink;
 using CCLCC.Telemetry.Client;
 using CCLCC.Telemetry.Serializer;
-
+using CCLCC.Xrm.Sdk.Encryption;
 
 
 namespace CCLCC.Xrm.Sdk
-{
-    using Caching; 
-    using Configuration;
-    using Context;
-    using Encryption;
-   
+{       
     public abstract class PluginBase<E> : IPlugin<E> where E : Entity
     {
         private Collection<PluginEvent<E>> events = new Collection<PluginEvent<E>>();
@@ -33,7 +28,7 @@ namespace CCLCC.Xrm.Sdk
         }
 
 
-        private IIocContainer container;
+        private static IIocContainer container;
         public IIocContainer Container
         {
             get {
@@ -98,7 +93,7 @@ namespace CCLCC.Xrm.Sdk
             container.Register<ITelemetryContext, TelemetryContext>();
             container.Register<ITelemetryClientFactory, TelemetryClientFactory>();
             container.Register<ITelemetryInitializerChain, TelemetryInitializerChain>();
-            container.Register<ITelemetryChannel, InMemoryChannel>();
+            container.Register<ITelemetryChannel, SyncMemoryChannel>();
             container.Register<ITelemetryBuffer, TelemetryBuffer>();
             container.Register<ITelemetryTransmitter, TelemetryTransmitter>();
             container.Register<ITelemetryProcessChain, TelemetryProcessChain>();
@@ -114,9 +109,7 @@ namespace CCLCC.Xrm.Sdk
             container.Register<IRijndaelEncryption, RijndaelEncryption>();
         }
         
-                
-                
-
+           
 
         /// <summary>
         /// Executes the plug-in.
@@ -125,7 +118,7 @@ namespace CCLCC.Xrm.Sdk
         /// <remarks>
         /// Microsoft CRM plugins must be thread-safe and stateless. 
         /// </remarks>
-        public void Execute(IServiceProvider serviceProvider)
+        public virtual void Execute(IServiceProvider serviceProvider)
         {
             if (serviceProvider == null)
                 throw new ArgumentNullException("serviceProvider");
@@ -158,9 +151,7 @@ namespace CCLCC.Xrm.Sdk
                     telemetryClient.Context.Operation.Name = executionContext.MessageName;
                     telemetryClient.Context.Operation.CorrelationVector = executionContext.CorrelationId.ToString();
                     telemetryClient.Context.Operation.Id = executionContext.OperationId.ToString();
-                    
-                                   
-                    
+                      
                     var asDataContext = telemetryClient.Context as ISupportDataKeyContext;
                     if(asDataContext != null)
                     {
@@ -182,7 +173,7 @@ namespace CCLCC.Xrm.Sdk
                     {
                         var localContextFactory = Container.Resolve<ILocalPluginContextFactory>();
                        
-                        using (var localContext = localContextFactory.CreateLocalPluginContext<E>(executionContext,  serviceProvider, this.Container, telemetryClient))
+                        using (var localContext = localContextFactory.BuildLocalPluginContext<E>(executionContext,  serviceProvider, this.Container, telemetryClient))
                         {                            
                             foreach (var handler in matchingHandlers)
                             {
@@ -223,5 +214,6 @@ namespace CCLCC.Xrm.Sdk
         }
 
         
+      
     }
 }

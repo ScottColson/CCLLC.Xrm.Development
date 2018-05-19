@@ -12,8 +12,31 @@ namespace CCLCC.Core
     /// </summary>
     public class IocContainer : IIocContainer
     {
+        private static object lockObject = new object();
+        private static IocContainer instance;
         private readonly IDictionary<Type, ImplementationParameters> registeredTypes = new Dictionary<Type, ImplementationParameters>();
         private readonly IDictionary<Type, object> instances = new Dictionary<Type, object>();
+
+        static public IocContainer Instance
+        {
+            get
+            {
+                if(instance == null)
+                {
+                    lock (lockObject)
+                    {
+                        if(instance == null)
+                        {
+                            instance = new IocContainer();
+                        }
+                    }
+                }
+
+                return instance;
+            }
+        }
+
+        public int Count { get { return registeredTypes.Count; } }
 
         public void Register<TContract, TImplementation>() where TImplementation : TContract
         {

@@ -9,6 +9,10 @@ using CCLCC.Telemetry;
 namespace CCLCC.Xrm.Sdk.Workflow
 {
     using Caching;
+    using CCLCC.Telemetry.Client;
+    using CCLCC.Telemetry.Context;
+    using CCLCC.Telemetry.Serializer;
+    using CCLCC.Telemetry.Sink;
     using Configuration;
     using Context;
     using Encryption;
@@ -45,9 +49,20 @@ namespace CCLCC.Xrm.Sdk.Workflow
 
         public virtual void RegisterContainerServices(IIocContainer container)
         {
-            container.Register<ITelemetrySink, CCLCC.Telemetry.Sink.TelemetrySink>();
-            container.Register<ITelemetryFactory, CCLCC.Telemetry.TelemetryFactory>();
-            container.Register<ITelemetryClientFactory, ITelemetryClientFactory>();
+            //Telemetry component registration
+            container.Register<ITelemetryContext, TelemetryContext>();
+            container.Register<ITelemetryClientFactory, TelemetryClientFactory>();
+            container.Register<ITelemetryInitializerChain, TelemetryInitializerChain>();
+            container.Register<ITelemetryChannel, SyncMemoryChannel>();
+            container.Register<ITelemetryBuffer, TelemetryBuffer>();
+            container.Register<ITelemetryTransmitter, TelemetryTransmitter>();
+            container.Register<ITelemetryProcessChain, TelemetryProcessChain>();
+            container.Register<ITelemetrySink, TelemetrySink>();
+            container.Register<IContextTagKeys, AIContextTagKeys>();  //Context tags known to Application Insights.
+            container.Register<ITelemetrySerializer, AITelemetrySerializer>();
+            container.Register<ITelemetryFactory, TelemetryFactory>();
+
+            //Xrm component registration
             container.Register<ICacheFactory, CacheFactory>();
             container.Register<IConfigurationFactory, ConfigurationFactory>();
             container.Register<ILocalWorkflowActivityContextFactory, LocalWorkflowActivityContextFactory>();
@@ -90,6 +105,23 @@ namespace CCLCC.Xrm.Sdk.Workflow
                     { "crm-userid", executionContext.UserId.ToString() }
                  }))
             {
+
+                try
+                {
+                    telemetryClient.Context.Operation.Name = executionContext.MessageName;
+                    telemetryClient.Context.Operation.CorrelationVector = executionContext.CorrelationId.ToString();
+                    telemetryClient.Context.Operation.Id = executionContext.OperationId.ToString();
+
+                    var asDataContext = telemetryClient.Context as ISupportDataKeyContext;
+                    if (asDataContext != null)
+                    {
+                        asDataContext.Data.RecordSource = executionContext.OrganizationName;
+                        asDataContext.Data.RecordType = executionContext.PrimaryEntityName;
+                        asDataContext.Data.RecordId = executionContext.PrimaryEntityId.ToString();
+                    }
+                }
+
+                finally { }
                 try
                 {
                     var localContextFactory = Container.Resolve<ILocalWorkflowActivityContextFactory>();

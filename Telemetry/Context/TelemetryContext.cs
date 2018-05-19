@@ -33,7 +33,7 @@ namespace CCLCC.Telemetry.Context
 
         public IOperationContext Operation { get { return LazyInitializer.EnsureInitialized(ref this.operation, () => new OperationContext()); } }
 
-        public IDictionary<string, string> Properties { get => this.properties; }
+        public IDictionary<string, string> Properties { get { return this.properties; } }
 
         public ISessionContext Session { get { return LazyInitializer.EnsureInitialized(ref this.session, () => new SessionContext()); } }
 

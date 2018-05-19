@@ -53,10 +53,13 @@
     <Compile Include="DataContract\InnerExceptionCountExceededException.cs" />
     <Compile Include="DataContract\RequestDataModel.cs" />
     <Compile Include="DataContract\RequestTelemetry.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Implementation\ExceptionConverter.cs" />
     <Compile Include="Interfaces\DataContract\IOperationalDataModel.cs" />
+    <Compile Include="Sink\AITelemetryTransmitter.cs" />
     <Compile Include="Sink\InstrumentationKeyPropertyProcessor.cs" />
     <Compile Include="Sink\SequencePropertyProcessor.cs" />
+    <Compile Include="Sink\SyncMemoryChannel.cs" />
     <Compile Include="TelemetryClientFactory.cs" />
     <Compile Include="Client\SequencePropertyInitializer.cs" />
     <Compile Include="Client\TelemetryInitializerChain.cs" />
@@ -126,7 +129,7 @@
     <Compile Include="Interfaces\Client\ITelemetryInitializer.cs" />
     <Compile Include="Interfaces\DataContract\SeverityLevel.cs" />
     <Compile Include="Serializer\AITelemetrySerializer.cs" />
-    <Compile Include="Sink\InMemoryChannel.cs" />
+    <Compile Include="Sink\AsyncMemoryChannel.cs" />
     <Compile Include="Sink\TelemetryBuffer.cs" />
     <Compile Include="Sink\TelemetryProcessChain.cs" />
     <Compile Include="Sink\TelemetrySink.cs" />

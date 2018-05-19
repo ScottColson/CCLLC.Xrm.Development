@@ -94,7 +94,7 @@ namespace CCLCC.Xrm.Sdk.Context
                 if (organizationCache == null)
                 {
                     var factory = Container.Resolve<ICacheFactory>();
-                    organizationCache = factory.CreateOrganizationCache(this.ExecutionContext.OrganizationId);
+                    organizationCache = factory.BuildOrganizationCache(this.ExecutionContext.OrganizationId);
                 }
                 return organizationCache;
             }
@@ -108,7 +108,7 @@ namespace CCLCC.Xrm.Sdk.Context
                 if (pluginCache == null)
                 {
                     var factory = Container.Resolve<ICacheFactory>();
-                    pluginCache = factory.CreatePluginCache();
+                    pluginCache = factory.BuildPluginCache();
                 }
                 return pluginCache;
             }
@@ -126,7 +126,7 @@ namespace CCLCC.Xrm.Sdk.Context
                 {
                     var factory = Container.Resolve<IConfigurationFactory>();
                     var encryption = Container.Resolve<IRijndaelEncryption>();
-                    extensionSettings = factory.CreateExtensionSettings(this.ElevatedOrganizationService, this.OrganizationCache, encryption);
+                    extensionSettings = factory.BuildExtensionSettings(this.ElevatedOrganizationService, this.OrganizationCache, encryption);
                 }
 
                 return extensionSettings;
@@ -144,7 +144,7 @@ namespace CCLCC.Xrm.Sdk.Context
                 if (xmlConfigurationResources == null)
                 {
                     var factory = Container.Resolve<IConfigurationFactory>();
-                    xmlConfigurationResources = factory.CreateConfigurationResources(this.ElevatedOrganizationService, this.OrganizationCache);
+                    xmlConfigurationResources = factory.BuildConfigurationResources(this.ElevatedOrganizationService, this.OrganizationCache);
                 }
 
                 return xmlConfigurationResources;

@@ -285,7 +285,7 @@ namespace TelemetryTests
             Assert.AreEqual(context.Cloud.RoleName, clone.Cloud.RoleName);
 
             Assert.AreEqual(context.Component.Name, clone.Component.Name);
-            Assert.AreEqual(context.Component.Version, clone.Component.Name);
+            Assert.AreEqual(context.Component.Version, clone.Component.Version);
 
             Assert.AreEqual(context.Device.Id, clone.Device.Id);
             Assert.AreEqual(context.Device.Model, clone.Device.Model);
@@ -342,7 +342,7 @@ namespace TelemetryTests
             Assert.AreEqual(context.Cloud.RoleName, clone.Cloud.RoleName);
 
             Assert.AreEqual(context.Component.Name, clone.Component.Name);
-            Assert.AreEqual(context.Component.Version, clone.Component.Name);
+            Assert.AreEqual(context.Component.Version, clone.Component.Version);
 
             Assert.AreEqual(context.Data.RecordId, (clone as ISupportDataKeyContext).Data.RecordId);
             Assert.AreEqual(context.Data.RecordType, (clone as ISupportDataKeyContext).Data.RecordType);

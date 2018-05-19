@@ -19,7 +19,7 @@ namespace TelemetryTestHarness
                 container.Register<ITelemetryContext, TelemetryContext>();
                 container.Register<ITelemetryClientFactory, TelemetryClientFactory>();
                 container.Register<ITelemetryInitializerChain, TelemetryInitializerChain>();
-                container.Register<ITelemetryChannel, InMemoryChannel>();
+                container.Register<ITelemetryChannel, SyncMemoryChannel>();
                 container.Register<ITelemetryBuffer, TelemetryBuffer>();
                 container.Register<ITelemetryTransmitter, TelemetryTransmitter>();                
                 container.Register<ITelemetryProcessChain, TelemetryProcessChain>();
@@ -107,6 +107,7 @@ namespace TelemetryTestHarness
                     op.Properties.Add("somereqprop", "qwert");                    
                 }
 
+                client.TelemetrySink.Channel.Flush();
 
                 sw.Stop();
                 Console.WriteLine(string.Format("Elapsed: {0}", sw.ElapsedMilliseconds));

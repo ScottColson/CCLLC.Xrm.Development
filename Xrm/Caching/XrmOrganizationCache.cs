@@ -1,19 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Runtime.Caching;
-using Microsoft.Xrm.Sdk;
-using Microsoft.Crm.Sdk.Messages;
-using System.Collections.Specialized;
 
 namespace CCLCC.Xrm.Sdk.Caching
 {
 
     /// <summary>
-    /// Wraps the default .NET memory cache to provide a cache that is unique to and shared across a given 
-    /// CRM organization within the scope of the hosting server. 
+    /// Wraps the default <see cref="MemoryCache"/> to provide a cache that is unique to and shared across a given 
+    /// CRM organization within the scope of the hosting process. 
     /// </summary>
     public class XrmOrganizationCache : IXrmCache
     {
@@ -38,15 +31,30 @@ namespace CCLCC.Xrm.Sdk.Caching
 
         public void Add(string key, object data, int seconds)
         {
-            CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTime.Now + TimeSpan.FromSeconds(seconds) };
+            if(seconds < 0) { seconds = 0; }
+            this.Add(key, data, TimeSpan.FromSeconds(seconds));            
+        }
+
+        public void Add(string key, object data, TimeSpan lifetime)
+        {
+            if(lifetime == default(TimeSpan)) { lifetime = new TimeSpan(0, 5, 0); }
+            CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTime.Now + lifetime };
             Cache.Add(getOrganizationKey(key), data, policy);
         }
 
         public void Add<T>(string key, T data, int seconds)
         {
-            Add(key, data, seconds);
+            if (seconds < 0) { seconds = 0; }
+            this.Add<T>(key, data, TimeSpan.FromSeconds(seconds));
         }
 
+        public void Add<T>(string key, T data, TimeSpan lifetime)
+        {
+            if (lifetime == default(TimeSpan)) { lifetime = new TimeSpan(0, 5, 0); }
+            CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTime.Now + lifetime };
+            Cache.Add(getOrganizationKey(key), data, policy);
+        }       
+        
         public object Get(string key)
         {
             var orgKey = getOrganizationKey( key);
@@ -66,8 +74,7 @@ namespace CCLCC.Xrm.Sdk.Caching
         {
             return Cache[getOrganizationKey(key)] != null;
         }
-
-       
+        
     }
 
 }

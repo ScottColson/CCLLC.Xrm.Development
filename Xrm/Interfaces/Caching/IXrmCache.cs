@@ -1,9 +1,14 @@
-﻿
+﻿using System;
+
 namespace CCLCC.Xrm.Sdk
 {
     public interface IXrmCache
     {
+        void Add(string key, object data, TimeSpan lifetime);
+
         void Add(string key, object data, int seconds);
+
+        void Add<T>(string key, T data, TimeSpan lifetime);
 
         void Add<T>(string key, T data, int seconds);
         

@@ -75,18 +75,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Caching\CacheFactory.cs" />
+    <Compile Include="CacheFactory.cs" />
     <Compile Include="Interfaces\Caching\ICacheFactory.cs" />
     <Compile Include="Interfaces\Caching\IXrmCache.cs" />
     <Compile Include="Caching\XrmPluginCache.cs" />
     <Compile Include="Caching\XrmOrganizationCache.cs" />
-    <Compile Include="Configuration\ConfigurationFactory.cs" />
+    <Compile Include="ConfigurationFactory.cs" />
     <Compile Include="Configuration\XmlConfigurationResource.cs" />
     <Compile Include="Configuration\ExtensionSettings.cs" />
     <Compile Include="Interfaces\Configuration\IConfigurationFactory .cs" />
     <Compile Include="Interfaces\Context\ILocalPluginContextFactory.cs" />
     <Compile Include="Context\LocalContext.cs" />
-    <Compile Include="Context\LocalPluginContextFactory.cs" />
+    <Compile Include="LocalPluginContextFactory.cs" />
     <Compile Include="Encryption\RijndaelEncryption.cs" />
     <Compile Include="Interfaces\Encryption\IEncryption.cs" />
     <Compile Include="Interfaces\Encryption\IRijndaelEncryption.cs" />

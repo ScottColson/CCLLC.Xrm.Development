@@ -32,7 +32,7 @@ namespace CCLCC.Xrm.Sdk.Caching
             _cache = new Dictionary<string, CacheItem>();
         }
 
-        protected static XrmPluginCache Instance
+        internal protected static XrmPluginCache Instance
         {
             get
             {
@@ -65,6 +65,18 @@ namespace CCLCC.Xrm.Sdk.Caching
             return false;
         }
 
+        public void Add(string key, object data, TimeSpan lifetime)
+        {
+            if (lifetime == default(TimeSpan))
+            {
+                this.Add(key, data);
+            }
+            else
+            {
+                this.Add(key, data, (int)lifetime.TotalSeconds);
+            }
+        }
+
         public void Add(string key, object data, int seconds = DEFAULT_CACHE_TIMEOUT)
         {
             if (seconds < MIN_CACHE_TIMEOUT)
@@ -88,6 +100,18 @@ namespace CCLCC.Xrm.Sdk.Caching
                 {
                     _cache.Add(key, item);
                 }
+            }
+        }
+
+        public void Add<T>(string key, T data, TimeSpan lifetime)
+        {
+            if (lifetime == default(TimeSpan))
+            {
+                this.Add<T>(key, data);
+            }
+            else
+            {
+                this.Add<T>(key, data, (int)lifetime.TotalSeconds);
             }
         }
 
@@ -126,7 +150,8 @@ namespace CCLCC.Xrm.Sdk.Caching
                 {
                     object value = _cache[key].value;
                     
-                    return (T)((object)Convert.ChangeType(value, typeof(T)));
+                    //return (T)((object)Convert.ChangeType(value, typeof(T)));
+                    return (T)value;
                 }
             }
 
@@ -148,7 +173,17 @@ namespace CCLCC.Xrm.Sdk.Caching
 
         public object Get(string key)
         {
-            throw new NotImplementedException();
+            if (this.Exists(key))
+            {
+                if (_cache[key].ExpiresOn >= DateTime.UtcNow)
+                {
+                    object value = _cache[key].value;
+
+                    return value;
+                }
+            }
+
+            return null;
         }
     }
 }

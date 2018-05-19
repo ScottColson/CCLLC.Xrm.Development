@@ -3,8 +3,6 @@ using System.Collections.Generic;
 
 namespace CCLCC.Telemetry.Sink
 {
-    
-
     public class TelemetryBuffer : ITelemetryBuffer
     {
         private const int DEFAULT_CAPACITY = 1000;

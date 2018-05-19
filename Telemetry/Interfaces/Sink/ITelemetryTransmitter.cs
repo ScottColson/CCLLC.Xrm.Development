@@ -11,6 +11,8 @@ namespace CCLCC.Telemetry
         Uri EndpointAddress { get; set; }
         ITelemetrySerializer Serializer { get; }
 
-        Task Send(IEnumerable<ITelemetry> telemetryItems, TimeSpan timeout);
+        void Send(IEnumerable<ITelemetry> telemetryItems, TimeSpan timeout);
+
+        Task SendAsync(IEnumerable<ITelemetry> telemetryItems, TimeSpan timeout);
     }
 }
