@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CacheFactory.cs" />
+    <Compile Include="Configuration\DefaultExtensionSettingsConfig.cs" />
     <Compile Include="Interfaces\Caching\ICacheFactory.cs" />
     <Compile Include="Interfaces\Caching\IXrmCache.cs" />
     <Compile Include="Caching\XrmPluginCache.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="Configuration\XmlConfigurationResource.cs" />
     <Compile Include="Configuration\ExtensionSettings.cs" />
     <Compile Include="Interfaces\Configuration\IConfigurationFactory .cs" />
+    <Compile Include="Interfaces\Configuration\IExtensionSettingsConfig.cs" />
     <Compile Include="Interfaces\Context\ILocalPluginContextFactory.cs" />
     <Compile Include="Context\LocalContext.cs" />
     <Compile Include="LocalPluginContextFactory.cs" />

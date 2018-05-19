@@ -10,9 +10,9 @@ namespace CCLCC.Xrm.Sdk
             return new XmlConfigurationResource(orgService, cache);
         }
 
-        public IExtensionSettings BuildExtensionSettings(IOrganizationService orgService, IXrmCache cache, IEncryption encryption, string key = null)
+        public IExtensionSettings BuildExtensionSettings(IOrganizationService orgService, IXrmCache cache, IEncryption encryption, IExtensionSettingsConfig config)
         {
-            return new ExtensionSettings(orgService, cache, encryption, key);
+            return new ExtensionSettings(orgService, cache, encryption, config);
         }
     }
 }

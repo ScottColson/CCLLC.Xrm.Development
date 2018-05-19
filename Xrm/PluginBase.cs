@@ -11,7 +11,7 @@ using CCLCC.Telemetry.Sink;
 using CCLCC.Telemetry.Client;
 using CCLCC.Telemetry.Serializer;
 using CCLCC.Xrm.Sdk.Encryption;
-
+using CCLCC.Xrm.Sdk.Configuration;
 
 namespace CCLCC.Xrm.Sdk
 {       
@@ -107,6 +107,7 @@ namespace CCLCC.Xrm.Sdk
             container.Register<IConfigurationFactory, ConfigurationFactory>();
             container.Register<ILocalPluginContextFactory, LocalPluginContextFactory>();
             container.Register<IRijndaelEncryption, RijndaelEncryption>();
+            container.Register<IExtensionSettingsConfig, DefaultExtensionSettingsConfig>();
         }
         
            

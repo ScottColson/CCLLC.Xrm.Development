@@ -126,7 +126,8 @@ namespace CCLCC.Xrm.Sdk.Context
                 {
                     var factory = Container.Resolve<IConfigurationFactory>();
                     var encryption = Container.Resolve<IRijndaelEncryption>();
-                    extensionSettings = factory.BuildExtensionSettings(this.ElevatedOrganizationService, this.OrganizationCache, encryption);
+                    var config = Container.Resolve<IExtensionSettingsConfig>();
+                    extensionSettings = factory.BuildExtensionSettings(this.ElevatedOrganizationService, this.OrganizationCache, encryption, config);
                 }
 
                 return extensionSettings;

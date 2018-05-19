@@ -7,7 +7,7 @@ namespace CCLCC.Xrm.Sdk
 
     public interface IConfigurationFactory
     {
-        IExtensionSettings BuildExtensionSettings(IOrganizationService orgService, IXrmCache cache, IEncryption encryption, string key = null);
+        IExtensionSettings BuildExtensionSettings(IOrganizationService orgService, IXrmCache cache, IEncryption encryption, IExtensionSettingsConfig config);
 
         IXmlConfigurationResource BuildConfigurationResources(IOrganizationService orgService, IXrmCache cache);
     }

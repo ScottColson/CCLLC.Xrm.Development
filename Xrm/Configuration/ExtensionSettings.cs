@@ -9,8 +9,7 @@ namespace CCLCC.Xrm.Sdk.Configuration
     using Encryption;
 
     public class ExtensionSettings : IExtensionSettings
-    {
-        const int DEFAULT_CACHE_TIMEOUT = 1800; //30 minutes
+    {        
         const int MAX_CACHE_TIMEOUT = 28800; //8 hours
         const int MIN_CACHE_TIMEOUT = 0; //no cache
 
@@ -23,16 +22,18 @@ namespace CCLCC.Xrm.Sdk.Configuration
         private IOrganizationService orgService;
         private IXrmCache cache;
         private IEncryption encryption;
+        private IExtensionSettingsConfig config;
         private string encryptionKey;
 
         char[] SEPARATORS = { ';', ',' };
 
-        public ExtensionSettings(IOrganizationService OrgService, IXrmCache cache, IEncryption encryption, string key = null)
+        public ExtensionSettings(IOrganizationService OrgService, IXrmCache cache, IEncryption encryption, IExtensionSettingsConfig config)
         {
+            this.config = config;
             this.orgService = OrgService;
             this.cache = cache;
             this.encryption = encryption;
-            encryptionKey = !string.IsNullOrEmpty(key) ? key : DEFAULT_ENCRYPTION_KEY;
+            encryptionKey = !string.IsNullOrEmpty(config.EncryptionKey) ? config.EncryptionKey : DEFAULT_ENCRYPTION_KEY;
         }
 
         private int GetCacheTimeout(Dictionary<string, string> entries)
@@ -54,7 +55,7 @@ namespace CCLCC.Xrm.Sdk.Configuration
                 }
             }
             else
-                expireSeconds = DEFAULT_CACHE_TIMEOUT;
+                expireSeconds = config.DefaultTimeout;
 
             return expireSeconds;
         }
@@ -68,8 +69,8 @@ namespace CCLCC.Xrm.Sdk.Configuration
                 try
                 {
                     //query the system for all active extension settings
-                    QueryByAttribute qry = new QueryByAttribute("dmvm_extensionsetting");
-                    qry.ColumnSet = new ColumnSet(new string[] { "dmvm_name", "dmvm_value", "dmvm_encrypted" });
+                    QueryByAttribute qry = new QueryByAttribute(config.EntityName);
+                    qry.ColumnSet = new ColumnSet(new string[] { config.NameColumn, config.ValueColumn, config.EncryptionColumn });
                     qry.AddAttributeValue("statecode", 0);
 
                     EntityCollection result = this.orgService.RetrieveMultiple(qry);
@@ -77,11 +78,11 @@ namespace CCLCC.Xrm.Sdk.Configuration
 
                     foreach (Entity setting in result.Entities)
                     {
-                        var name = setting.GetAttributeValue<string>("dmvm_name");
+                        var name = setting.GetAttributeValue<string>(config.NameColumn);
                         name = !string.IsNullOrEmpty(name) ? name.ToLowerInvariant() : string.Empty;
-                        var value = setting.GetAttributeValue<string>("dmvm_value");
+                        var value = setting.GetAttributeValue<string>(config.ValueColumn);
 
-                        bool encrypted = setting.GetAttributeValue<bool>("dmvm_encrypted");
+                        bool encrypted = setting.GetAttributeValue<bool>(config.EncryptionColumn);
 
                         if (encrypted)
                         {
@@ -143,7 +144,7 @@ namespace CCLCC.Xrm.Sdk.Configuration
         {
             var qry = new QueryExpression
             {
-                EntityName = "dmvm_extensionsetting",
+                EntityName = config.EntityName,
                 ColumnSet = new ColumnSet(true),
                 Criteria = new FilterExpression
                 {
@@ -152,7 +153,7 @@ namespace CCLCC.Xrm.Sdk.Configuration
                     {
                         new ConditionExpression
                         {
-                            AttributeName = "dmvm_name",
+                            AttributeName = config.NameColumn,
                             Operator = ConditionOperator.Equal,
                             Values = { key}
                         }
@@ -164,15 +165,15 @@ namespace CCLCC.Xrm.Sdk.Configuration
 
             if (results.Entities.Count == 0)
             {
-                var record = new Entity("dmvm_extensionsetting");
-                record["dmvm_value"] = value;
-                record["dmvm_name"] = key;
+                var record = new Entity(config.EntityName);
+                record[config.ValueColumn] = value;
+                record[config.NameColumn] = key;
                 this.orgService.Create(record);
             }
             else
             {
-                var record = new Entity("dmvm_extensionsetting", results.Entities[0].Id);
-                record["dmvm_value"] = value;
+                var record = new Entity(config.EntityName, results.Entities[0].Id);
+                record[config.ValueColumn] = value;
                 orgService.Update(record);
             }
 
