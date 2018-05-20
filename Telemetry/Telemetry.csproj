@@ -168,6 +168,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="CCLCC.Telemetry.snk" />
+    <None Include="Telemetry.nuspec" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

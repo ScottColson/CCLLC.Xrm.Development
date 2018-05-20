@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DIContainer")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("CCLCC.Core.IocContainer")]
+[assembly: AssemblyDescription("A light IoC container implementation to register and resolve dependencies at runtime.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("DIContainer")]
+[assembly: AssemblyCompany("Colson Code, LLC")]
+[assembly: AssemblyProduct("CCLCC.Core.IocContainer")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

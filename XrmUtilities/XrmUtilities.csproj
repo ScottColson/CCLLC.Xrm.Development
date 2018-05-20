@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="XrmUtilities.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Xrm\Xrm.csproj">

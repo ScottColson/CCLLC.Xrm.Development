@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("XrmPluginExtensions")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("CCLCC.Xrm.Sdk")]
+[assembly: AssemblyDescription("Provides base classes to simplify the creation of Xrm plugins and provide caching, configuration and telemetry services within those plugins.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("XrmPluginExtensions")]
+[assembly: AssemblyCompany("Colson Code, LLC")]
+[assembly: AssemblyProduct("CCLCC.Xrm.Sdk")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

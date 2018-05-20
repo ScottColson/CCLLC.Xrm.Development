@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="XrmWorkflow.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IocContainer\IocContainer.csproj">

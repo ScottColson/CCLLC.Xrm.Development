@@ -54,6 +54,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="CCLCCIoCContainer.snk" />
+    <None Include="IocContainer.nuspec">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

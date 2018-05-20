@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("TelemetrySDK")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("CCLCC.Telemetry")]
+[assembly: AssemblyDescription("Provides basic telemetry creation and transmission services that are compatible with Microsoft Application Insights and also compatible with operation inside a sandboxed Xrm plugin or workflow activity.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("TelemetrySDK")]
+[assembly: AssemblyCompany("Colson Code, LLC")]
+[assembly: AssemblyProduct("CCLCC.Telemetry")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

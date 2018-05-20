@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>CCLCC.Xrm.Sdk.Workflow</title>
+    <authors>Colson Code, LLC</authors>
+    <owners>Colson Code, LLC</owners>
+    <licenseUrl>https://github.com/ScottColson/CCLCC.Xrm.Development/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/ScottColson/CCLCC.Xrm.Development</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Provides base classes to simplify the creation of Xrm workflow activities and provide caching, configuration and telemetry services within those activities.</description>
+    <releaseNotes>Initial Release</releaseNotes>
+    <copyright>Copyright 2018</copyright>
+    <tags>Dynamics Crm Xrm Plugin Workflow Telemetry</tags>
+    <dependencies>
+      <dependency id="CCLCCIoCContainer" version="1.0.0" />
+      <dependency id="CCLCCTelemetry" version="1.0.0" />
+      <dependency id="CCLCCXrmSdk" version="1.0.0" />
+    </dependencies>
+  </metadata>
+</package>
