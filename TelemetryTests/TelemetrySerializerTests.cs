@@ -28,7 +28,7 @@ namespace TelemetryTests
             for (int i = 0; i < 5; i++)
             {
                 var data = new MessageDataModel();
-                var telemetry = new MessageTelemetry("message text", SeverityLevel.Warning, context, data, props);
+                var telemetry = new MessageTelemetry("message text", eSeverityLevel.Warning, context, data, props);
                 initializer.Initialize(telemetry);
                 telemetry.Sanitize();
                 items.Add(telemetry);

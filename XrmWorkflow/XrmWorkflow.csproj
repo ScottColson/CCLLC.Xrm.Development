@@ -67,8 +67,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Context\InstrumentedWorkflowActivityContext.cs" />
+    <Compile Include="InstrumentedWorkflowActivityBase.cs" />
     <Compile Include="Interfaces\Context\ILocalWorkflowActivityContextFactory.cs" />
     <Compile Include="Interfaces\Context\ILocalWorkflowActivityContext.cs" />
+    <Compile Include="Interfaces\ISupportWorkflowActivityInstrumentation.cs" />
     <Compile Include="LocalWorkflowActivityContextFactory.cs" />
     <Compile Include="Context\LocalWorkflowActivityContext.cs" />
     <Compile Include="Interfaces\IWorkflowActivity.cs" />

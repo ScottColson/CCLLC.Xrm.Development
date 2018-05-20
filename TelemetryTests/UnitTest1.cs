@@ -23,7 +23,7 @@ namespace TelemetryTests
             
 
             var factory = new TelemetryFactory();
-            var telemetry = factory.BuildMessageTelemetry("message text", SeverityLevel.Warning);                        
+            var telemetry = factory.BuildMessageTelemetry("message text", eSeverityLevel.Warning);                        
             telemetry.Properties.Add("crm1", "testvalue");
             
             client.Track(telemetry);

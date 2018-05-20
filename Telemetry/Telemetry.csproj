@@ -127,7 +127,7 @@
     <Compile Include="Interfaces\DataContract\ITelemetry.cs" />
     <Compile Include="Interfaces\DataContract\ITelemetryFactory.cs" />
     <Compile Include="Interfaces\Client\ITelemetryInitializer.cs" />
-    <Compile Include="Interfaces\DataContract\SeverityLevel.cs" />
+    <Compile Include="Interfaces\DataContract\eSeverityLevel.cs" />
     <Compile Include="Serializer\AITelemetrySerializer.cs" />
     <Compile Include="Sink\AsyncMemoryChannel.cs" />
     <Compile Include="Sink\TelemetryBuffer.cs" />

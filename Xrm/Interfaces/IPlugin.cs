@@ -16,7 +16,7 @@ namespace CCLCC.Xrm.Sdk
         /// IOC container used to instantiate various objects required during the execution of the plugin.
         /// </summary>
         IIocContainer Container { get; }
-        ITelemetrySink TelemetrySink { get; }
+       
         IReadOnlyList<PluginEvent<E>> PluginEventHandlers { get; }
         string UnsecureConfig { get; }
         string SecureConfig { get; }

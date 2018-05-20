@@ -61,21 +61,6 @@ namespace CCLCC.Xrm.Sdk.Context
             }
         }
 
-        public IComponentTelemetryClient TelemetryClient { get; private set; }
-
-        private ITelemetryFactory telemetryFactory;
-        public ITelemetryFactory TelemetryFactory
-        {
-            get
-            {
-                if (telemetryFactory == null)
-                {
-                    telemetryFactory = this.Container.Resolve<ITelemetryFactory>();
-                }
-                return telemetryFactory;
-            }
-        }
-
         public int Depth { get { return this.ExecutionContext.Depth; } }
 
         public string MessageName { get { return this.ExecutionContext.MessageName; } }
@@ -185,41 +170,19 @@ namespace CCLCC.Xrm.Sdk.Context
         }
        
 
-        public LocalContext(IExecutionContext executionContext, IIocContainer container, IComponentTelemetryClient telemetryClient)
+        public LocalContext(IExecutionContext executionContext, IIocContainer container)
         {
             if (container == null) throw new ArgumentNullException("container");
             this.Container = container;
            
             if (executionContext == null) throw new ArgumentNullException("executionContext");
-            this.ExecutionContext = executionContext;
-
-            if (telemetryClient == null) throw new ArgumentNullException("telemetryClient");
-            this.TelemetryClient = telemetryClient;
+            this.ExecutionContext = executionContext;           
         }
 
-        public virtual void SetAlternateDataKey(string name, string value)
-        {
-            if(this.TelemetryClient != null)
-            {
-                var asDataContext = this.TelemetryClient.Context as ISupportDataKeyContext;
-                if(asDataContext != null)
-                {
-                    asDataContext.Data.AltKeyName = name;
-                    asDataContext.Data.AltKeyValue = value;
-                }
-            }
-        }
+        
 
         public virtual void Dispose()
-        {
-            if (this.TelemetryClient != null)
-            {
-                if (this.TelemetryClient.TelemetrySink != null)
-                {
-                    this.TelemetryClient.TelemetrySink.OnConfigure = null;
-                }
-                this.TelemetryClient.Dispose();
-            }   
+        {            
         }
         
 
@@ -234,21 +197,17 @@ namespace CCLCC.Xrm.Sdk.Context
         protected abstract IOrganizationServiceFactory CreateOrganizationServiceFactory();
         protected abstract ITracingService CreateTracingService();
         
-        public void Trace(string message, params object[] args)
+        public virtual void Trace(string message, params object[] args)
         {
-            this.Trace(SeverityLevel.Information, message, args);
+            this.Trace(eMessageType.Information, message, args);
         }
 
-        public void Trace(SeverityLevel level, string message, params object[] args)
+        public virtual void Trace(eMessageType type, string message, params object[] args)
         {
             if (!string.IsNullOrEmpty(message))
             {
-                var msg = level.ToString() + ": " + message;
-                this.TracingService.Trace(msg, args);
-               
-                
-                var msgTelemetry = this.TelemetryFactory.BuildMessageTelemetry(string.Format(message, args), level);
-                this.TelemetryClient.Track(msgTelemetry);
+                var msg = type.ToString() + ": " + message;
+                this.TracingService.Trace(msg, args);               
             }
 
         

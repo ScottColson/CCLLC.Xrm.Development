@@ -10,9 +10,14 @@ namespace CCLCC.Xrm.Sdk.Workflow
 {  
     public class LocalWorkflowActivityContextFactory : ILocalWorkflowActivityContextFactory
     {             
-        public ILocalWorkflowActivityContext<E> BuildLocalWorkflowActivityContext<E>(IWorkflowContext executionContext, IIocContainer container, CodeActivityContext codeActivityContext, IComponentTelemetryClient telemetryClient) where E : Entity
+        public ILocalWorkflowActivityContext<E> BuildLocalWorkflowActivityContext<E>(IWorkflowContext executionContext, IIocContainer container, CodeActivityContext codeActivityContext, IComponentTelemetryClient telemetryClient = null) where E : Entity
         {
-            return new LocalWorkflowActivityContext<E>(codeActivityContext, container, executionContext, telemetryClient);
+            if (telemetryClient == null)
+            {
+                return new LocalWorkflowActivityContext<E>(codeActivityContext, container, executionContext);
+            }
+
+            return new InstrumentedWorkflowActivityContext<E>(codeActivityContext, container, executionContext, telemetryClient);
         }
 
     }

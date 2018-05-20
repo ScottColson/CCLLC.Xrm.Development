@@ -19,8 +19,7 @@ namespace CCLCC.Xrm.Sdk
     {
         private static IIocContainer _container;
         private static object _containerLock = new object();
-        private static ITelemetrySink _telemetrySink;
-        private static object _sinkLock = new object();
+        
         
         private Collection<PluginEvent<E>> events = new Collection<PluginEvent<E>>();
         
@@ -62,32 +61,7 @@ namespace CCLCC.Xrm.Sdk
                 return _container;
             }
         }
-
-        /// <summary>
-        /// Provides a <see cref="ITelemetrySink"/> to recieve and process various 
-        /// <see cref="ITelemetry"/> items generated during the execution of the 
-        /// Plugin. This sink uses a static implementation therefore all 
-        /// plugins that use this base share the same sink which is more
-        /// efficient than operating multiple sinks.
-        /// </summary>
-        public virtual ITelemetrySink TelemetrySink
-        {
-            get
-            {
-                if(_telemetrySink == null)
-                {
-                    lock (_sinkLock)
-                    {
-                        if(_telemetrySink == null)
-                        {
-                            _telemetrySink = Container.Resolve<ITelemetrySink>();
-                        }
-                    }                    
-                }
-
-                return _telemetrySink;
-            }
-        }
+             
 
         /// <summary>
         /// Unsecure configuration specified during the registration of the plugin step
@@ -132,20 +106,7 @@ namespace CCLCC.Xrm.Sdk
         /// Registers all dependencies used by the Plugin. 
         /// </summary>
         public virtual void RegisterContainerServices()
-        {
-            //Telemetry component registration
-            Container.Register<ITelemetryContext, TelemetryContext>();
-            Container.Register<ITelemetryClientFactory, TelemetryClientFactory>();
-            Container.Register<ITelemetryInitializerChain, TelemetryInitializerChain>();
-            Container.Register<ITelemetryChannel, SyncMemoryChannel>();
-            Container.Register<ITelemetryBuffer, TelemetryBuffer>();
-            Container.Register<ITelemetryTransmitter, AITelemetryTransmitter>();
-            Container.Register<ITelemetryProcessChain, TelemetryProcessChain>();
-            Container.Register<ITelemetrySink, TelemetrySink>();
-            Container.Register<IContextTagKeys, AIContextTagKeys>();  //Context tags known to Application Insights.
-            Container.Register<ITelemetrySerializer, AITelemetrySerializer>();
-            Container.Register<ITelemetryFactory, TelemetryFactory>();
-
+        {            
             //Xrm component registration
             Container.Register<ICacheFactory, CacheFactory>();   
             Container.Register<IConfigurationFactory, ConfigurationFactory>();
@@ -154,7 +115,7 @@ namespace CCLCC.Xrm.Sdk
             Container.Register<IExtensionSettingsConfig, DefaultExtensionSettingsConfig>();
         }
         
-           
+         
 
         /// <summary>
         /// Executes the plug-in.
@@ -176,48 +137,7 @@ namespace CCLCC.Xrm.Sdk
             var telemetryFactory = Container.Resolve<ITelemetryFactory>();
             var telemetryClientFactory = Container.Resolve<ITelemetryClientFactory>();
             
-            using (var telemetryClient = telemetryClientFactory.BuildClient(
-                this.GetType().ToString(),
-                this.TelemetrySink,
-                new Dictionary<string, string>{ //Add properties for CRM execution attributes that don't fit cleanly in context.
-                    { "crm-depth", executionContext.Depth.ToString() },
-                    { "crm-initiatinguser", executionContext.InitiatingUserId.ToString() },
-                    { "crm-isintransaction", executionContext.IsInTransaction.ToString() },
-                    { "crm-isolationmode", executionContext.IsolationMode.ToString() },                    
-                    { "crm-mode", executionContext.Mode.ToString() },                    
-                    { "crm-organizationid", executionContext.OrganizationId.ToString() },                    
-                    { "crm-requestid", executionContext.RequestId.ToString() },
-                    { "crm-stage", executionContext.Stage.ToString() },
-                    { "crm-userid", executionContext.UserId.ToString() }
-                }))
-            {
-
-                #region Setup Telementry Context
-
-                telemetryClient.Context.Operation.Name = executionContext.MessageName;
-                telemetryClient.Context.Operation.CorrelationVector = executionContext.CorrelationId.ToString();
-                telemetryClient.Context.Operation.Id = executionContext.OperationId.ToString();
-
-                telemetryClient.Context.Session.Id = executionContext.CorrelationId.ToString();
-
-                //not all telemetry context providers support data context. In that case
-                //use custom properties.
-                var asDataContext = telemetryClient.Context as ISupportDataKeyContext;
-                if (asDataContext != null)
-                {
-                    asDataContext.Data.RecordSource = executionContext.OrganizationName;
-                    asDataContext.Data.RecordType = executionContext.PrimaryEntityName;
-                    asDataContext.Data.RecordId = executionContext.PrimaryEntityId.ToString();
-                }
-                else
-                {
-                    telemetryClient.Context.Properties.Add("crm-recordsource", executionContext.OrganizationName);
-                    telemetryClient.Context.Properties.Add("crm-primaryentityid", executionContext.PrimaryEntityId.ToString());
-                    telemetryClient.Context.Properties.Add("crm-primaryentityname", executionContext.PrimaryEntityName);
-                }
-
-                #endregion
-                
+           
                 try
                 {
                     var matchingHandlers = this.PluginEventHandlers
@@ -229,31 +149,11 @@ namespace CCLCC.Xrm.Sdk
                     {
                         var localContextFactory = Container.Resolve<ILocalPluginContextFactory>();
                        
-                        using (var localContext = localContextFactory.BuildLocalPluginContext<E>(executionContext,  serviceProvider, this.Container, telemetryClient))
-                        {                            
+                        using (var localContext = localContextFactory.BuildLocalPluginContext<E>(executionContext,  serviceProvider, this.Container, null))
+                        {
                             foreach (var handler in matchingHandlers)
-                            {
-                                try
-                                {
-                                    handler.PluginAction.Invoke(localContext);
-                                }
-                                catch(InvalidPluginExecutionException ex)
-                                {
-                                    if (telemetryClient != null && telemetryFactory != null)
-                                    {
-                                        telemetryClient.Track(telemetryFactory.BuildMessageTelemetry(ex.Message, SeverityLevel.Error));
-                                    }
-                                    throw;
-                                }
-                                catch(Exception ex)
-                                {
-                                    
-                                    if(telemetryClient != null && telemetryFactory != null)
-                                    {
-                                        telemetryClient.Track(telemetryFactory.BuildExceptionTelemetry(ex));
-                                    }
-                                    throw;
-                                }
+                            {                               
+                                    handler.PluginAction.Invoke(localContext);                                
                             }
                         } //using localContext
                     }
@@ -262,9 +162,9 @@ namespace CCLCC.Xrm.Sdk
                 {
                     tracingService.Trace(string.Format("Exception: {0}", ex.Message));
                     throw;
-                }
+                }              
                 
-            } //using telemetryClient.
+           
 
             tracingService.Trace(string.Format(CultureInfo.InvariantCulture, "Exiting {0}.Execute()", this.GetType().ToString()));
         }

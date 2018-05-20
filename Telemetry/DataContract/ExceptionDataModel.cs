@@ -9,7 +9,7 @@ namespace CCLCC.Telemetry.DataContract
     public class ExceptionDataModel : IExceptionDataModel
     {
         public int ver { get; set; }
-        public SeverityLevel? severityLevel { get; set; }
+        public eSeverityLevel? severityLevel { get; set; }
         public string problemId { get; set; }
         public IDictionary<string, double> measurements { get; set; }
         

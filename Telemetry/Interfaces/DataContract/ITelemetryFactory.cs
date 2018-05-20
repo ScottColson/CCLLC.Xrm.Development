@@ -10,7 +10,7 @@ namespace CCLCC.Telemetry
 
         IExceptionTelemetry BuildExceptionTelemetry(Exception ex, IDictionary<string, string> telemetryProperties = null, IDictionary<string, double> telemetryMetrics = null);
 
-        IMessageTelemetry BuildMessageTelemetry(string message, SeverityLevel severityLevel, IDictionary<string, string> telemetryProperties = null);
+        IMessageTelemetry BuildMessageTelemetry(string message, eSeverityLevel severityLevel, IDictionary<string, string> telemetryProperties = null);
         IRequestTelemetry BuildRequestTelemetry(string source, Uri url, IDictionary<string, string> telemetryProperties = null, IDictionary<string, double> telemetryMetrics = null);
     }
 }

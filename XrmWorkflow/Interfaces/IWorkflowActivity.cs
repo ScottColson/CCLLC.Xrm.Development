@@ -7,9 +7,9 @@ namespace CCLCC.Xrm.Sdk.Workflow
     
     public interface IWorkflowActivity<E> where E : Entity
     {
-        IIocContainer Container { get; }
-        ITelemetrySink TelemetrySink { get; }           
+        IIocContainer Container { get; }              
         void RegisterContainerServices();       
         void ExecuteInternal(ILocalWorkflowActivityContext<E> context);
+       
     }
 }

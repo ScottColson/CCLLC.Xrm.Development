@@ -24,7 +24,7 @@ namespace CCLCC.Telemetry
             return new ExceptionTelemetry(ex, new TelemetryContext(), new ExceptionDataModel(), telemetryProperties, telemetryMetrics);
         }
 
-        public IMessageTelemetry BuildMessageTelemetry(string message, SeverityLevel severityLevel, IDictionary<string, string> telemetryProperties = null)
+        public IMessageTelemetry BuildMessageTelemetry(string message, eSeverityLevel severityLevel, IDictionary<string, string> telemetryProperties = null)
         {
             return new MessageTelemetry(message, severityLevel, new TelemetryContext(), new MessageDataModel(), telemetryProperties);
         }

@@ -8,7 +8,7 @@ namespace CCLCC.Xrm.Sdk
 {
     public interface ILocalWorkflowActivityContextFactory     {
       
-        ILocalWorkflowActivityContext<E> BuildLocalWorkflowActivityContext<E>(IWorkflowContext executionContext, IIocContainer container, CodeActivityContext codeActivityContext, IComponentTelemetryClient telemetrClient) where E : Entity;
+        ILocalWorkflowActivityContext<E> BuildLocalWorkflowActivityContext<E>(IWorkflowContext executionContext, IIocContainer container, CodeActivityContext codeActivityContext, IComponentTelemetryClient telemetrClient = null) where E : Entity;
 
     }
 }

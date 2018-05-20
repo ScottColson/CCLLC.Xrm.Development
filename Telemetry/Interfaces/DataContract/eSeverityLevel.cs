@@ -1,7 +1,7 @@
 ﻿
 namespace CCLCC.Telemetry
 {
-    public enum SeverityLevel
+    public enum eSeverityLevel
     {
         Verbose,
         Information,

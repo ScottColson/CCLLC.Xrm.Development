@@ -6,7 +6,7 @@ using CCLCC.Telemetry.Sink;
 
 namespace XrmPluginTestHarness
 {
-    public class SamplePlugin : PluginBase<Entity>, IPlugin
+    public class SamplePlugin : InstrumentedPluginBase<Entity>, IPlugin
     {
         public SamplePlugin(string unsecureConfig, string secureConfig) : base(unsecureConfig, secureConfig)
         {
@@ -16,9 +16,9 @@ namespace XrmPluginTestHarness
         public void ExecuteHandler(ILocalContext<Entity> localContext)
         {
             
-            localContext.TelemetryClient.TelemetrySink.OnConfigure = () =>
+            TelemetrySink.OnConfigure = () =>
             {
-                var sink = localContext.TelemetryClient.TelemetrySink;
+                var sink = TelemetrySink;
                 sink.Channel.EndpointAddress = new Uri("https://dc.services.visualstudio.com/v2/track"); //Application Insights
                 sink.ProcessChain.TelemetryProcessors.Add(new SequencePropertyProcessor());
                 sink.ProcessChain.TelemetryProcessors.Add(new InstrumentationKeyPropertyProcessor("7a6ecb67-6c9c-4640-81d2-80ce76c3ca34"));
@@ -30,7 +30,11 @@ namespace XrmPluginTestHarness
             //localContext.Trace(SeverityLevel.Error, "Error message");
             //localContext.Trace("Parameterized message at {0}", DateTime.Now);
 
-            localContext.TelemetryClient.TelemetrySink.Channel.Flush();
+            var instrumentedContext = localContext as ISupportContextInstrumentation;
+            if (instrumentedContext != null)
+            {
+                instrumentedContext.TelemetryClient.TelemetrySink.Channel.Flush();
+            }
         }
     }
 }

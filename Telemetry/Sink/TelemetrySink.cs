@@ -8,7 +8,20 @@ namespace CCLCC.Telemetry.Sink
 {
     public class TelemetrySink : ITelemetrySink
     {
-        public Func<bool> OnConfigure { get; set; }
+        private static object _configureLock = new object();
+        private Func<bool> _onConfigure;
+        public Func<bool> OnConfigure
+        {
+            get { return _onConfigure; }
+            set
+            {
+                lock (_configureLock)
+                {
+                    _onConfigure = value;
+                }
+            }
+        }
+
 
         public bool IsConfigured { get; private set; } 
 

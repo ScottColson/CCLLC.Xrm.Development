@@ -10,7 +10,7 @@ namespace CCLCC.Telemetry.DataContract
         public int ver { get; set; }
         public IDictionary<string, string> properties { get; set; }
         public string message { get; set; }
-        public SeverityLevel? severityLevel { get; set; }
+        public eSeverityLevel? severityLevel { get; set; }
 
         public string DataType { get; private set; }
 

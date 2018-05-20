@@ -9,7 +9,7 @@ namespace CCLCC.Telemetry
     public interface IExceptionDataModel : IDataModel
     {
         IList<IExceptionDetails> exceptions { get; set; }
-        SeverityLevel? severityLevel { get; set; }
+        eSeverityLevel? severityLevel { get; set; }
 
         string problemId { get; set; }
 

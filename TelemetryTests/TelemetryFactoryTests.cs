@@ -15,7 +15,7 @@ namespace TelemetryTests
 
             var message = Guid.NewGuid().ToString();
 
-            var telemetry = factory.BuildMessageTelemetry(message, SeverityLevel.Error);
+            var telemetry = factory.BuildMessageTelemetry(message, eSeverityLevel.Error);
 
             telemetry.Sanitize();
 
@@ -26,7 +26,7 @@ namespace TelemetryTests
 
             Assert.AreEqual("Message", telemetry.TelemetryName);
             Assert.AreEqual(message, telemetry.Message);
-            Assert.AreEqual(SeverityLevel.Error, telemetry.SeverityLevel);
+            Assert.AreEqual(eSeverityLevel.Error, telemetry.SeverityLevel);
             Assert.IsNotNull(telemetry.Properties);
             Assert.AreEqual(0, telemetry.Properties.Count);
         }
@@ -40,7 +40,7 @@ namespace TelemetryTests
             var props = new Dictionary<string, string>();
             props.Add("key1", "value1");
 
-            var telemetry = factory.BuildMessageTelemetry(message, SeverityLevel.Error, props);
+            var telemetry = factory.BuildMessageTelemetry(message, eSeverityLevel.Error, props);
             telemetry.Sanitize();
 
             Assert.IsInstanceOfType(telemetry, typeof(ITelemetry));
@@ -50,7 +50,7 @@ namespace TelemetryTests
 
             Assert.AreEqual("Message", telemetry.TelemetryName);
             Assert.AreEqual(message, telemetry.Message);
-            Assert.AreEqual(SeverityLevel.Error, telemetry.SeverityLevel);
+            Assert.AreEqual(eSeverityLevel.Error, telemetry.SeverityLevel);
             Assert.IsNotNull(telemetry.Properties);
             Assert.AreNotSame(props, telemetry.Properties);
             Assert.AreEqual(1, telemetry.Properties.Count);

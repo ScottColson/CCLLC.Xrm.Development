@@ -9,6 +9,6 @@ namespace CCLCC.Telemetry
     public interface IMessageDataModel : IDataModel
     {
         string message { get; set; }
-        SeverityLevel? severityLevel { get; set; }
+        eSeverityLevel? severityLevel { get; set; }
     }
 }

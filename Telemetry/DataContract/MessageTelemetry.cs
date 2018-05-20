@@ -9,7 +9,7 @@ namespace CCLCC.Telemetry.DataContract
     {
         public const int MaxMessageLength = 32768;
 
-        public SeverityLevel? SeverityLevel
+        public eSeverityLevel? SeverityLevel
         {
             get { return this.Data.severityLevel; }
             set { this.Data.severityLevel = value; }
@@ -23,7 +23,7 @@ namespace CCLCC.Telemetry.DataContract
 
         public IDictionary<string, string> Properties { get { return this.Data.properties; } }
                
-        public MessageTelemetry(string message, SeverityLevel? severityLevel, ITelemetryContext context, IMessageDataModel data, IDictionary<string,string> telemetryProperties = null) 
+        public MessageTelemetry(string message, eSeverityLevel? severityLevel, ITelemetryContext context, IMessageDataModel data, IDictionary<string,string> telemetryProperties = null) 
             : base("Message", context, data)
         {            
             this.Message = message;

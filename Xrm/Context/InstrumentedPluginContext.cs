@@ -2,12 +2,12 @@
 using System.Linq;
 using Microsoft.Xrm.Sdk;
 using CCLCC.Core;
+using CCLCC.Telemetry;
+using CCLCC.Xrm.Sdk.Utilities;
 
 namespace CCLCC.Xrm.Sdk.Context
 {
-    using Utilities;
-
-    public class LocalPluginContext<E> : LocalContext<E>, IDisposable, ILocalPluginContext<E> where E : Entity
+    public class InstrumentedPluginContext<E> : InstrumentedContext<E>, IDisposable, ILocalPluginContext<E> where E : Entity
     {
         public IServiceProvider ServiceProvider { get; private set; }
 
@@ -68,8 +68,8 @@ namespace CCLCC.Xrm.Sdk.Context
             }
         }
 
-        internal LocalPluginContext(IServiceProvider serviceProvider, IIocContainer container, IPluginExecutionContext executionContext)
-            : base(executionContext, container)
+        internal InstrumentedPluginContext(IServiceProvider serviceProvider, IIocContainer container, IPluginExecutionContext executionContext, IComponentTelemetryClient telemetryClient)
+            : base(executionContext, container, telemetryClient)
         {
             this.ServiceProvider = serviceProvider;
         }

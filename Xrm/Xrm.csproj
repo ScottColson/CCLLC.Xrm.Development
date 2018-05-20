@@ -77,6 +77,9 @@
   <ItemGroup>
     <Compile Include="CacheFactory.cs" />
     <Compile Include="Configuration\DefaultExtensionSettingsConfig.cs" />
+    <Compile Include="Context\InstrumentedPluginContext.cs" />
+    <Compile Include="Context\InstrumentedContext.cs" />
+    <Compile Include="InstrumentedPluginBase.cs" />
     <Compile Include="Interfaces\Caching\ICacheFactory.cs" />
     <Compile Include="Interfaces\Caching\IXrmCache.cs" />
     <Compile Include="Caching\XrmPluginCache.cs" />
@@ -88,6 +91,9 @@
     <Compile Include="Interfaces\Configuration\IExtensionSettingsConfig.cs" />
     <Compile Include="Interfaces\Context\ILocalPluginContextFactory.cs" />
     <Compile Include="Context\LocalContext.cs" />
+    <Compile Include="Interfaces\Context\ISupportContextInstrumentation.cs" />
+    <Compile Include="Interfaces\eMessageType.cs" />
+    <Compile Include="Interfaces\ISupportPluginInstrumentation.cs" />
     <Compile Include="LocalPluginContextFactory.cs" />
     <Compile Include="Encryption\RijndaelEncryption.cs" />
     <Compile Include="Interfaces\Encryption\IEncryption.cs" />

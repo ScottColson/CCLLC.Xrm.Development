@@ -100,7 +100,7 @@ namespace CCLCC.Xrm.Sdk.Configuration
             } //end lock
         }
 
-        public T Get<T>(string Key, T DefaultValue)
+        public T Get<T>(string Key, T DefaultValue = default(T))
         {
             string value;
             var entries = cache.Get(CACHE_ENTRIES_KEY) as Dictionary<string, string>;
