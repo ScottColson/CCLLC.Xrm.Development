@@ -10,7 +10,7 @@ namespace XrmPluginTestHarness
     {
         public SamplePlugin(string unsecureConfig, string secureConfig) : base(unsecureConfig, secureConfig)
         {
-            base.RegisterMessageHandler(null, null, ePluginStage.PostOperation, ExecuteHandler);
+            base.RegisterEventHandler(null, null, ePluginStage.PostOperation, ExecuteHandler);
         }
 
         public void ExecuteHandler(ILocalContext<Entity> localContext)

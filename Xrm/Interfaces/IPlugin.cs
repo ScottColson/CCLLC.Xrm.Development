@@ -21,9 +21,9 @@ namespace CCLCC.Xrm.Sdk
         string UnsecureConfig { get; }
         string SecureConfig { get; }
 
-        void RegisterMessageHandler(string entityName, string messageName, ePluginStage stage, Action<ILocalContext<E>> handler);
+        void RegisterEventHandler(string entityName, string messageName, ePluginStage stage, Action<ILocalContext<E>> handler);
 
-        void RegisterContainerServices(IIocContainer container);
+        void RegisterContainerServices();
 
        
     }

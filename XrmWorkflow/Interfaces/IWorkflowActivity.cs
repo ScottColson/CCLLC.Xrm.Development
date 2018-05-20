@@ -9,7 +9,7 @@ namespace CCLCC.Xrm.Sdk.Workflow
     {
         IIocContainer Container { get; }
         ITelemetrySink TelemetrySink { get; }           
-        void RegisterContainerServices(IIocContainer container);       
+        void RegisterContainerServices();       
         void ExecuteInternal(ILocalWorkflowActivityContext<E> context);
     }
 }

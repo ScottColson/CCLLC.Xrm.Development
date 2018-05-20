@@ -4,14 +4,9 @@ using CCLCC.Core;
 using CCLCC.Telemetry;
 
 namespace CCLCC.Xrm.Sdk
-{
-    using Caching;
-    using Configuration;   
-
+{   
     public interface ILocalContext<E> : IDisposable where E : Entity
     {
-        //Func<bool> OnConfigureTelemetrySink { get; set; }
-
         void SetAlternateDataKey(string name, string value);
        
         void Trace(string message, params object[] args);

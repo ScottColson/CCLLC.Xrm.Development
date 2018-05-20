@@ -1,8 +1,7 @@
 ﻿
 namespace CCLCC.Telemetry.DataContract
 {
-    [System.Diagnostics.Tracing.EventData]
-    public class StackFrame : IStackFrame
+    public partial class StackFrame : IStackFrame
     {
         public int level { get; set; }
         public string method { get; set; }

@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CCLCC.Xrm.Sdk</RootNamespace>
     <AssemblyName>CCLCCXrmSdk</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -103,6 +103,7 @@
     <Compile Include="PluginBase.cs" />
     <Compile Include="PluginEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\PluginWebClient.cs" />
     <Compile Include="Utilities\XrmEntityExtensions.cs" />
   </ItemGroup>
   <ItemGroup>

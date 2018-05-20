@@ -3,8 +3,7 @@ using System.Collections.Generic;
 
 namespace CCLCC.Telemetry.DataContract
 {
-    [System.Diagnostics.Tracing.EventData]
-    public class ExceptionDetails : IExceptionDetails
+    public partial class ExceptionDetails : IExceptionDetails
     {
         public int id { get; set; }
         public int outerId { get; set; }
