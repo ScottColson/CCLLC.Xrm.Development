@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CCLCC.Telemetry.Client
+namespace CCLLC.Telemetry.Client
 {
     public class TelemetryInitializerChain : ITelemetryInitializerChain
     {

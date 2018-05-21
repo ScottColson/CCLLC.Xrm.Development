@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace CCLCC.Core
+namespace CCLLC.Core
 {
     /// <summary>
     /// Provides a light weight IOC container implementation for configuring services used by 

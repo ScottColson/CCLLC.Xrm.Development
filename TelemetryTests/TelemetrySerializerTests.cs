@@ -1,10 +1,10 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CCLCC.Telemetry.Client;
-using CCLCC.Telemetry.Context;
-using CCLCC.Telemetry;
-using CCLCC.Telemetry.Serializer;
-using CCLCC.Telemetry.DataContract;
+using CCLLC.Telemetry.Client;
+using CCLLC.Telemetry.Context;
+using CCLLC.Telemetry;
+using CCLLC.Telemetry.Serializer;
+using CCLLC.Telemetry.DataContract;
 using System.Collections.Generic;
 using System.Text;
 

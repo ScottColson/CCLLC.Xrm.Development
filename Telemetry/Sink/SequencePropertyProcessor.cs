@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CCLCC.Telemetry.Sink
+namespace CCLLC.Telemetry.Sink
 {
     public class SequencePropertyProcessor : ITelemetryProcessor
     {

@@ -2,12 +2,12 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>$version$</version>
-    <title>CCLCC.Core.IocContainer</title>
+    <version>1.1.0</version>
+    <title>CCLLC.Core.IocContainer</title>
     <authors>Colson Code, LLC</authors>
     <owners>Colson Code, LLC</owners>
-    <licenseUrl>https://github.com/ScottColson/CCLCC.Xrm.Development/blob/master/LICENSE</licenseUrl>
-    <projectUrl>https://github.com/ScottColson/CCLCC.Xrm.Development</projectUrl>
+    <licenseUrl>https://github.com/ScottColson/CCLLC.Xrm.Development/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/ScottColson/CCLLC.Xrm.Development</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A light IoC container implementation to register and resolve dependencies at runtime.</description>
     <releaseNotes>Initial Release</releaseNotes>

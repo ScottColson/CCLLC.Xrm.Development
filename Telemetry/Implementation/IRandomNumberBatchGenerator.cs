@@ -1,4 +1,4 @@
-﻿namespace CCLCC.Telemetry.Implementation
+﻿namespace CCLLC.Telemetry.Implementation
 {
     /// <summary>
     /// Interface for random number generator capable of producing 

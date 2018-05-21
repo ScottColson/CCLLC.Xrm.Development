@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CCLCC.Core;
+using CCLLC.Core;
 
 namespace IoCContainerTests
 {

@@ -3,16 +3,16 @@ using System.Activities;
 using System.Globalization;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Workflow;
-using CCLCC.Core;
-using CCLCC.Telemetry;
+using CCLLC.Core;
+using CCLLC.Telemetry;
 
-namespace CCLCC.Xrm.Sdk.Workflow
+namespace CCLLC.Xrm.Sdk.Workflow
 {
     using Caching;
-    using CCLCC.Telemetry.Client;
-    using CCLCC.Telemetry.Context;
-    using CCLCC.Telemetry.Serializer;
-    using CCLCC.Telemetry.Sink;
+    using CCLLC.Telemetry.Client;
+    using CCLLC.Telemetry.Context;
+    using CCLLC.Telemetry.Serializer;
+    using CCLLC.Telemetry.Sink;
     using Configuration;
     using Context;
     using Encryption;

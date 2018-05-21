@@ -4,15 +4,15 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CCLCC.Core;
-using CCLCC.Telemetry;
-using CCLCC.Telemetry.Client;
-using CCLCC.Telemetry.Context;
-using CCLCC.Telemetry.Serializer;
-using CCLCC.Telemetry.Sink;
+using CCLLC.Core;
+using CCLLC.Telemetry;
+using CCLLC.Telemetry.Client;
+using CCLLC.Telemetry.Context;
+using CCLLC.Telemetry.Serializer;
+using CCLLC.Telemetry.Sink;
 using Microsoft.Xrm.Sdk;
 
-namespace CCLCC.Xrm.Sdk
+namespace CCLLC.Xrm.Sdk
 {
     public abstract class InstrumentedPluginBase<E> : PluginBase<E>, ISupportPluginInstrumentation<E> where E : Entity
     {

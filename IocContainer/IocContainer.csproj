@@ -7,8 +7,8 @@
     <ProjectGuid>{8AE70CE7-65E1-4117-BADE-A02E6023C1A1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CCLCC.Core</RootNamespace>
-    <AssemblyName>CCLCCIoCContainer</AssemblyName>
+    <RootNamespace>CCLLC.Core</RootNamespace>
+    <AssemblyName>CCLLCIoCContainer</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

@@ -2,9 +2,9 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
-using CCLCC.Telemetry.Implementation;
+using CCLLC.Telemetry.Implementation;
 
-namespace CCLCC.Telemetry.Context
+namespace CCLLC.Telemetry.Context
 {
     public class TelemetryContext : ITelemetryContext
     {

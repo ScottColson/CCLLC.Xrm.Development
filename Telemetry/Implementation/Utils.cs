@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CCLCC.Telemetry.Implementation
+namespace CCLLC.Telemetry.Implementation
 {
     internal static partial class Utils
     {

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CCLCC.Telemetry
+namespace CCLLC.Telemetry
 {
     public interface IRequestTelemetry : ITelemetry, IOperationalTelemetry, IDataModelTelemetry<IRequestDataModel>
     {

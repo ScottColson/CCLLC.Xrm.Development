@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CCLCC.Telemetry
+namespace CCLLC.Telemetry
 {
     public interface IExceptionTelemetry :  ITelemetry, IDataModelTelemetry<IExceptionDataModel>, ISupportProperties, ISupportMetrics, ISupportSampling
     {

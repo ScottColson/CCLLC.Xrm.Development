@@ -3,7 +3,7 @@ using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Metadata;
 
-namespace CCLCC.Xrm.Sdk.Utilities
+namespace CCLLC.Xrm.Sdk.Utilities
 {
     public class MetaData
     {

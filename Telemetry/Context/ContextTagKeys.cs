@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CCLCC.Telemetry.Context
+namespace CCLLC.Telemetry.Context
 {
     /// <summary>
     /// Provides context tags for a generic implementation that includes data key context information 

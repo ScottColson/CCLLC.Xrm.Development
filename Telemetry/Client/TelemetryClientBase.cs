@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CCLCC.Telemetry.Client
+namespace CCLLC.Telemetry.Client
 {    
     
     public abstract class TelemetryClientBase : ITelemetryClient

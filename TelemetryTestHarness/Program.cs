@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading;
-using CCLCC.Telemetry;
-using CCLCC.Telemetry.Context;
-using CCLCC.Telemetry.Client;
-using CCLCC.Telemetry.Sink;
-using CCLCC.Telemetry.Serializer;
+using CCLLC.Telemetry;
+using CCLLC.Telemetry.Context;
+using CCLLC.Telemetry.Client;
+using CCLLC.Telemetry.Sink;
+using CCLLC.Telemetry.Serializer;
 using System.Runtime.Caching;
 
 namespace TelemetryTestHarness
@@ -15,7 +15,7 @@ namespace TelemetryTestHarness
         {
             try
             {
-                var container = new CCLCC.Core.IocContainer();
+                var container = new CCLLC.Core.IocContainer();
                 container.Register<ITelemetryContext, TelemetryContext>();
                 container.Register<ITelemetryClientFactory, TelemetryClientFactory>();
                 container.Register<ITelemetryInitializerChain, TelemetryInitializerChain>();

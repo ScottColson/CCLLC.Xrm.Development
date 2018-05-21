@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using CCLCC.Telemetry.Implementation;
+using CCLLC.Telemetry.Implementation;
 
-namespace CCLCC.Telemetry.Context
+namespace CCLLC.Telemetry.Context
 {
    
     internal static class TagManager

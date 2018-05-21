@@ -1,6 +1,6 @@
-﻿using CCLCC.Telemetry;
+﻿using CCLLC.Telemetry;
 
-namespace CCLCC.Xrm.Sdk
+namespace CCLLC.Xrm.Sdk
 {
     public interface ISupportContextInstrumentation
     {

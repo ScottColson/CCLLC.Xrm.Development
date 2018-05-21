@@ -5,9 +5,9 @@ using System.IO;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using CCLCC.Telemetry.Implementation;
+using CCLLC.Telemetry.Implementation;
 
-namespace CCLCC.Telemetry.Sink
+namespace CCLLC.Telemetry.Sink
 {
     public class Transmission
     {

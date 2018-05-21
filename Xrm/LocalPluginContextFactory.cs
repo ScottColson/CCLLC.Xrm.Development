@@ -1,10 +1,10 @@
 ﻿using System;
 using Microsoft.Xrm.Sdk;
-using CCLCC.Core;
-using CCLCC.Telemetry;
-using CCLCC.Xrm.Sdk.Context;
+using CCLLC.Core;
+using CCLLC.Telemetry;
+using CCLLC.Xrm.Sdk.Context;
 
-namespace CCLCC.Xrm.Sdk
+namespace CCLLC.Xrm.Sdk
 {
     public class LocalPluginContextFactory : ILocalPluginContextFactory
     {

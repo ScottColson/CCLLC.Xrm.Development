@@ -1,7 +1,7 @@
 ﻿using System;
-using CCLCC.Xrm.Sdk.Caching;
+using CCLLC.Xrm.Sdk.Caching;
 
-namespace CCLCC.Xrm.Sdk
+namespace CCLLC.Xrm.Sdk
 {
     public class CacheFactory : ICacheFactory
     {

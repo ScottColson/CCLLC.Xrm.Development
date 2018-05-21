@@ -1,4 +1,4 @@
-﻿namespace CCLCC.Telemetry.Implementation
+﻿namespace CCLLC.Telemetry.Implementation
 {
     /// <summary>
     /// HttpWebResponse wrapper object.

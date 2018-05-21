@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xrm.Sdk;
 using System;
 
-namespace CCLCC.Xrm.Sdk.Utilities
+namespace CCLLC.Xrm.Sdk.Utilities
 {
     public class AnnotationsAndAttachments
     {

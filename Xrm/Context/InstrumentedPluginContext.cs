@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.Xrm.Sdk;
-using CCLCC.Core;
-using CCLCC.Telemetry;
-using CCLCC.Xrm.Sdk.Utilities;
+using CCLLC.Core;
+using CCLLC.Telemetry;
+using CCLLC.Xrm.Sdk.Utilities;
 
-namespace CCLCC.Xrm.Sdk.Context
+namespace CCLLC.Xrm.Sdk.Context
 {
     public class InstrumentedPluginContext<E> : InstrumentedContext<E>, IDisposable, ILocalPluginContext<E> where E : Entity
     {

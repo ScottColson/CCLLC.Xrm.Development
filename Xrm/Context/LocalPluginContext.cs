@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.Xrm.Sdk;
-using CCLCC.Core;
+using CCLLC.Core;
 
-namespace CCLCC.Xrm.Sdk.Context
+namespace CCLLC.Xrm.Sdk.Context
 {
     using Utilities;
 

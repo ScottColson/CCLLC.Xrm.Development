@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CCLCC.Telemetry.DataContract
+namespace CCLLC.Telemetry.DataContract
 {
     public partial class ExceptionDetails : IExceptionDetails
     {

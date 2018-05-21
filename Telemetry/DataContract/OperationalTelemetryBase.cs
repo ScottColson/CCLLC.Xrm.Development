@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CCLCC.Telemetry.DataContract
+namespace CCLLC.Telemetry.DataContract
 {
-    using CCLCC.Telemetry.Implementation;
+    using CCLLC.Telemetry.Implementation;
     using Context;
 
     public abstract class OperationalTelemetryBase<TData> : TelemetryBase<TData>, IOperationalTelemetry where TData : IOperationalDataModel

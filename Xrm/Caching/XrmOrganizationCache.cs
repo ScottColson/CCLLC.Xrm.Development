@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Caching;
 
-namespace CCLCC.Xrm.Sdk.Caching
+namespace CCLLC.Xrm.Sdk.Caching
 {
 
     /// <summary>

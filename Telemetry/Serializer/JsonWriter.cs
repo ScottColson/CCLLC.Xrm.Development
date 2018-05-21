@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 
-namespace CCLCC.Telemetry.Serializer
+namespace CCLLC.Telemetry.Serializer
 {
     public class JsonWriter : IJsonWriter
     {

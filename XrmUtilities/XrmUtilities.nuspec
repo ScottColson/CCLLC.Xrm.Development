@@ -2,19 +2,19 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>$version$</version>
-    <title>CCLCC.Xrm.Sdk.Utilities</title>
+    <version>1.1.0</version>
+    <title>CCLLC.Xrm.Sdk.Utilities</title>
     <authors>Colson Code, LLC</authors>
     <owners>Colson Code, LLC</owners>
-    <licenseUrl>https://github.com/ScottColson/CCLCC.Xrm.Development/blob/master/LICENSE</licenseUrl>
-    <projectUrl>https://github.com/ScottColson/CCLCC.Xrm.Development</projectUrl>
+    <licenseUrl>https://github.com/ScottColson/CCLLC.Xrm.Development/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/ScottColson/CCLLC.Xrm.Development</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A set of utility methods to simplify Xrm Plugin and Workflow Activity development.</description>
     <releaseNotes>Initial Release</releaseNotes>
     <copyright>Copyright 2018</copyright>
     <tags>Dynamics Crm Xrm Plugin Workflow Telemetry</tags>
     <dependencies>   
-      <dependency id="CCLCCXrmSdk" version="1.0.0" />
+      <dependency id="CCLLCXrmSdk" version="1.1.0" />
     </dependencies>
   </metadata>
 </package>

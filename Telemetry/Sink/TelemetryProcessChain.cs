@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CCLCC.Telemetry.Sink
+namespace CCLLC.Telemetry.Sink
 {
     public class TelemetryProcessChain : ITelemetryProcessChain
     {

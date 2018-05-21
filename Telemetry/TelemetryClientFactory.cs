@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using CCLCC.Telemetry.Client;
+using CCLLC.Telemetry.Client;
 
-namespace CCLCC.Telemetry
+namespace CCLLC.Telemetry
 {
     public class TelemetryClientFactory : ITelemetryClientFactory
     {

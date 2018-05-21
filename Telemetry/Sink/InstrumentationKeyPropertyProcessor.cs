@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CCLCC.Telemetry.Sink
+namespace CCLLC.Telemetry.Sink
 {
     public class InstrumentationKeyPropertyProcessor : ITelemetryProcessor
     {

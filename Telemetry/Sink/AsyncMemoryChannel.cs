@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CCLCC.Telemetry.Sink
+namespace CCLLC.Telemetry.Sink
 {
     public class AsyncMemoryChannel : ITelemetryChannel
     {

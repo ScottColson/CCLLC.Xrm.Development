@@ -7,8 +7,8 @@
     <ProjectGuid>{359C8C95-0FB1-4F18-8B49-A4A287D80DF4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CCLCC.Xrm.Sdk</RootNamespace>
-    <AssemblyName>CCLCCXrmSdk</AssemblyName>
+    <RootNamespace>CCLLC.Xrm.Sdk</RootNamespace>
+    <AssemblyName>CCLLCXrmSdk</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

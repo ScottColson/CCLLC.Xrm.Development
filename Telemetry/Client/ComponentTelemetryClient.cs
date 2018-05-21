@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using CCLCC.Telemetry.Implementation;
+using CCLLC.Telemetry.Implementation;
 
-namespace CCLCC.Telemetry.Client
+namespace CCLLC.Telemetry.Client
 {  
 
     public class ComponentTelemetryClient : TelemetryClientBase, IComponentTelemetryClient
@@ -71,7 +71,7 @@ namespace CCLCC.Telemetry.Client
             // version "name: version"
             if (string.IsNullOrEmpty(telemetry.Context.Internal.SdkVersion))
             {
-                telemetry.Context.Internal.SdkVersion = "cclcc:0.1.1-100";
+                telemetry.Context.Internal.SdkVersion = "ccllc:0.1.1-100";
             }    
         }
 

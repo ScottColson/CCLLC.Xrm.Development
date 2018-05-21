@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CCLCC.Telemetry.Context
+namespace CCLLC.Telemetry.Context
 {
     /// <summary>
     /// Defines context key tags that are compatible with Microsoft Application Insights.

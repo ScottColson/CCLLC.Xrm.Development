@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using CCLCC.Telemetry.DataContract;
+using CCLLC.Telemetry.DataContract;
 
 
-namespace CCLCC.Telemetry
+namespace CCLLC.Telemetry
 {
     using Context;
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace CCLCC.Telemetry.Client
+namespace CCLLC.Telemetry.Client
 {        
     public class SequencePropertyInitializer : ITelemetryInitializer
     {

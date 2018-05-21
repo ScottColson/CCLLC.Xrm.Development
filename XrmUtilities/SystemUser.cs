@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 
-namespace CCLCC.Xrm.Sdk.Utilities
+namespace CCLLC.Xrm.Sdk.Utilities
 {      
 
     public class SystemUser
@@ -23,7 +23,7 @@ namespace CCLCC.Xrm.Sdk.Utilities
 
         public EntityReference GetSystemUserId()
         {
-            const string CACHEKEY = "CCLCC.Xrm.Utilities.SystemUser.Id";
+            const string CACHEKEY = "CCLLC.Xrm.Utilities.SystemUser.Id";
 
             var id = Cache.Get(CACHEKEY) as EntityReference;
 

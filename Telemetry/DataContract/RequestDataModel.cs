@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CCLCC.Telemetry.Implementation;
+using CCLLC.Telemetry.Implementation;
 
-namespace CCLCC.Telemetry.DataContract
+namespace CCLLC.Telemetry.DataContract
 {
     public class RequestDataModel : IRequestDataModel
     {

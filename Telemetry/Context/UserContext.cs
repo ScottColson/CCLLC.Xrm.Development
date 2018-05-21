@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CCLCC.Telemetry.Context
+namespace CCLLC.Telemetry.Context
 {
     public class UserContext : IUserContext
     {

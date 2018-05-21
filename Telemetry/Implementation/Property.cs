@@ -2,7 +2,7 @@
 // Copyright © Microsoft. All Rights Reserved.
 // </copyright>
 
-namespace CCLCC.Telemetry.Implementation
+namespace CCLLC.Telemetry.Implementation
 {
     using System;
     using System.Collections.Generic;

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 
-namespace CCLCC.Telemetry.DataContract
+namespace CCLLC.Telemetry.DataContract
 {
     using Implementation;
 

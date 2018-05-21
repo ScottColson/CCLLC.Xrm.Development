@@ -1,10 +1,10 @@
 ﻿using System.Activities;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Workflow;
-using CCLCC.Core;
-using CCLCC.Telemetry;
+using CCLLC.Core;
+using CCLLC.Telemetry;
 
-namespace CCLCC.Xrm.Sdk
+namespace CCLLC.Xrm.Sdk
 {
     public interface ILocalWorkflowActivityContextFactory     {
       

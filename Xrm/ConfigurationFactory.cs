@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xrm.Sdk;
-using CCLCC.Xrm.Sdk.Configuration;
+using CCLLC.Xrm.Sdk.Configuration;
 
-namespace CCLCC.Xrm.Sdk
+namespace CCLLC.Xrm.Sdk
 {
     public class ConfigurationFactory : IConfigurationFactory
     {

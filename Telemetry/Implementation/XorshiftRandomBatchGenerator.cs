@@ -1,4 +1,4 @@
-﻿namespace CCLCC.Telemetry.Implementation
+﻿namespace CCLLC.Telemetry.Implementation
 {
     using System.Diagnostics.CodeAnalysis;
 

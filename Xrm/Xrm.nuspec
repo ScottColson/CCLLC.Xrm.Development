@@ -2,20 +2,20 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>$version$</version>
-    <title>CCLCC.Xrm.Sdk</title>
+    <version>1.1.1</version>
+    <title>CCLLC.Xrm.Sdk</title>
     <authors>Colson Code, LLC</authors>
     <owners>Colson Code, LLC</owners>
-    <licenseUrl>https://github.com/ScottColson/CCLCC.Xrm.Development/blob/master/LICENSE</licenseUrl>
-    <projectUrl>https://github.com/ScottColson/CCLCC.Xrm.Development</projectUrl>
+    <licenseUrl>https://github.com/ScottColson/CCLLC.Xrm.Development/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/ScottColson/CCLLC.Xrm.Development</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Provides base classes to simplify the creation of Xrm plugins and provide caching, configuration and telemetry services within those plugins.</description>
     <releaseNotes>Initial Release</releaseNotes>
     <copyright>Copyright 2018</copyright>
     <tags>Dynamics Crm Xrm Plugin Telemetry</tags>
     <dependencies>
-      <dependency id="CCLCCIoCContainer" version="1.0.0" />
-      <dependency id="CCLCCTelemetry" version="1.0.0" />
+      <dependency id="CCLLCIoCContainer" version="1.1.0" />
+      <dependency id="CCLLCTelemetry" version="1.1.0" />
     </dependencies>
   </metadata>
 </package>

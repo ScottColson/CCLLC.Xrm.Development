@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xrm.Sdk;
-using CCLCC.Core;
-using CCLCC.Telemetry;
+using CCLLC.Core;
+using CCLLC.Telemetry;
 
-namespace CCLCC.Xrm.Sdk.Workflow
+namespace CCLLC.Xrm.Sdk.Workflow
 {
     
     public interface IWorkflowActivity<E> where E : Entity

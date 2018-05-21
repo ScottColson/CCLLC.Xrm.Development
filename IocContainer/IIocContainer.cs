@@ -1,5 +1,5 @@
 ﻿
-namespace CCLCC.Core
+namespace CCLLC.Core
 {
     public interface IIocContainer
     {

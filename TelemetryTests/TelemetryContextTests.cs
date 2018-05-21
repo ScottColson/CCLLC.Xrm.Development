@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CCLCC.Telemetry;
-using CCLCC.Telemetry.Context;
+using CCLLC.Telemetry;
+using CCLLC.Telemetry.Context;
 
 namespace TelemetryTests
 {

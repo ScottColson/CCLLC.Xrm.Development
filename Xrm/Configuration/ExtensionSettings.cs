@@ -3,7 +3,7 @@ using Microsoft.Xrm.Sdk.Query;
 using System;
 using System.Collections.Generic;
 
-namespace CCLCC.Xrm.Sdk.Configuration
+namespace CCLLC.Xrm.Sdk.Configuration
 {
  
     using Encryption;
@@ -13,7 +13,7 @@ namespace CCLCC.Xrm.Sdk.Configuration
         const int MAX_CACHE_TIMEOUT = 28800; //8 hours
         const int MIN_CACHE_TIMEOUT = 0; //no cache
 
-        const string CACHE_ENTRIES_KEY = "CCLCC.Xrm.ExtensionSettings.Entries.Dictionary";
+        const string CACHE_ENTRIES_KEY = "CCLLC.Xrm.ExtensionSettings.Entries.Dictionary";
         const string CACHE_SETTING_NAME = "CacheTimeOut";
         const string DEFAULT_ENCRYPTION_KEY = "7a5a64brEgaceqenuyegac7era3Ape6aWatrewegeka94waqegayathudrebuc7t";
 

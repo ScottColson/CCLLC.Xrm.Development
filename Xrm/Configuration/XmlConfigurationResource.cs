@@ -5,7 +5,7 @@ using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using System.Xml.Linq;
 
-namespace CCLCC.Xrm.Sdk.Configuration
+namespace CCLLC.Xrm.Sdk.Configuration
 {
 
     /// <summary>

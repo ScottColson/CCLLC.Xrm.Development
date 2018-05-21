@@ -7,8 +7,8 @@
     <ProjectGuid>{70C017EE-01DA-48BF-B29F-26134E2D4E79}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CCLCC.Xrm.Sdk.Workflow</RootNamespace>
-    <AssemblyName>CCLCCXrmWorkflow</AssemblyName>
+    <RootNamespace>CCLLC.Xrm.Sdk.Workflow</RootNamespace>
+    <AssemblyName>CCLLCXrmWorkflow</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

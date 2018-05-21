@@ -1,6 +1,6 @@
 ﻿using System.Xml.Linq;
 
-namespace CCLCC.Xrm.Sdk
+namespace CCLLC.Xrm.Sdk
 { 
     public interface IXmlConfigurationResource
     {

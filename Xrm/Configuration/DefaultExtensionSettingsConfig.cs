@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CCLCC.Xrm.Sdk.Configuration
+namespace CCLLC.Xrm.Sdk.Configuration
 {
     public class DefaultExtensionSettingsConfig : IExtensionSettingsConfig
     {
@@ -19,10 +19,10 @@ namespace CCLCC.Xrm.Sdk.Configuration
         {
             DefaultTimeout = 1800; //30 minutes
             EncryptionKey = "7a5a64brEgaceqenuyegac7era3Ape6aWatrewegeka94waqegayathudrebuc7t";
-            EntityName = "cclcc_extensionsettings";
-            NameColumn = "cclcc_name";
-            ValueColumn = "cclcc_value";
-            EncryptionColumn = "cclcc_encryptedflag";
+            EntityName = "ccllc_extensionsettings";
+            NameColumn = "ccllc_name";
+            ValueColumn = "ccllc_value";
+            EncryptionColumn = "ccllc_encryptedflag";
         }
     }
 }

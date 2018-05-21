@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace CCLCC.Telemetry.DataContract
+namespace CCLLC.Telemetry.DataContract
 {
     public abstract class TelemetryBase<TData> : ITelemetry, IDataModelTelemetry<TData> where TData : IDataModel
     {

@@ -1,4 +1,4 @@
-namespace CCLCC.Telemetry.DataContract
+namespace CCLLC.Telemetry.DataContract
 {
     using System;
     using System.Runtime.Serialization;

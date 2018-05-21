@@ -1,5 +1,5 @@
 ﻿
-namespace CCLCC.Telemetry
+namespace CCLLC.Telemetry
 {
     public enum eSeverityLevel
     {

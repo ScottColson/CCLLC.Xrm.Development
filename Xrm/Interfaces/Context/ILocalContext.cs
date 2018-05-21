@@ -1,8 +1,8 @@
 ﻿using System;
 using Microsoft.Xrm.Sdk;
-using CCLCC.Core;
+using CCLLC.Core;
 
-namespace CCLCC.Xrm.Sdk
+namespace CCLLC.Xrm.Sdk
 {   
     public interface ILocalContext<E> : IDisposable where E : Entity
     {        

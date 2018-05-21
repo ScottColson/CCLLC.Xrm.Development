@@ -1,12 +1,12 @@
 ﻿using System.Activities;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Workflow;
-using CCLCC.Core;
-using CCLCC.Telemetry;
-using CCLCC.Xrm.Sdk.Context;
+using CCLLC.Core;
+using CCLLC.Telemetry;
+using CCLLC.Xrm.Sdk.Context;
 
 
-namespace CCLCC.Xrm.Sdk.Workflow.Context
+namespace CCLLC.Xrm.Sdk.Workflow.Context
 {
     public class InstrumentedWorkflowActivityContext<E> : InstrumentedContext<E>, ILocalWorkflowActivityContext<E> where E : Entity
     {

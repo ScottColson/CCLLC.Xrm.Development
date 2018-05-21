@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using CCLCC.Telemetry.Implementation;
+using CCLLC.Telemetry.Implementation;
 
 
-namespace CCLCC.Telemetry.DataContract
+namespace CCLLC.Telemetry.DataContract
 {
 
     public class EventTelemetry : TelemetryBase<IEventDataModel>, IEventTelemetry

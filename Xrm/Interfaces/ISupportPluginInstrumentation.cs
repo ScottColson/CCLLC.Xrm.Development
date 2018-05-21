@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xrm.Sdk;
-using CCLCC.Telemetry;
+using CCLLC.Telemetry;
 
-namespace CCLCC.Xrm.Sdk
+namespace CCLLC.Xrm.Sdk
 {
     public interface ISupportPluginInstrumentation<E> where E : Entity
     {

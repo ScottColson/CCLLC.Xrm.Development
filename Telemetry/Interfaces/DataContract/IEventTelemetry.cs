@@ -1,5 +1,5 @@
 ﻿
-namespace CCLCC.Telemetry
+namespace CCLLC.Telemetry
 {
     public interface IEventTelemetry : ITelemetry, IDataModelTelemetry<IEventDataModel>, ISupportProperties, ISupportMetrics, ISupportSampling
     {

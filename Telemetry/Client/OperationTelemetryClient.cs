@@ -2,10 +2,10 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
-using CCLCC.Telemetry.Implementation;
+using CCLLC.Telemetry.Implementation;
 
 
-namespace CCLCC.Telemetry.Client
+namespace CCLLC.Telemetry.Client
 { 
     public class OperationTelemetryClient<T> : TelemetryClientBase, IOperationalTelemetryClient<T> where T : IOperationalTelemetry
     {    

@@ -4,7 +4,7 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace CCLCC.Telemetry.Implementation
+namespace CCLLC.Telemetry.Implementation
 {
     using System;
     using System.Runtime.CompilerServices;

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CCLCC.Core
+namespace CCLLC.Core
 {
     class ImplementationParameters
     {

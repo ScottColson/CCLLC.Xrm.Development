@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CCLCC.Xrm.Sdk
+namespace CCLLC.Xrm.Sdk
 {
     public interface ICacheFactory
     {

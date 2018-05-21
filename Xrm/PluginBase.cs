@@ -4,16 +4,16 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using Microsoft.Xrm.Sdk;
-using CCLCC.Core;
-using CCLCC.Telemetry;
-using CCLCC.Telemetry.Context;
-using CCLCC.Telemetry.Sink;
-using CCLCC.Telemetry.Client;
-using CCLCC.Telemetry.Serializer;
-using CCLCC.Xrm.Sdk.Encryption;
-using CCLCC.Xrm.Sdk.Configuration;
+using CCLLC.Core;
+using CCLLC.Telemetry;
+using CCLLC.Telemetry.Context;
+using CCLLC.Telemetry.Sink;
+using CCLLC.Telemetry.Client;
+using CCLLC.Telemetry.Serializer;
+using CCLLC.Xrm.Sdk.Encryption;
+using CCLLC.Xrm.Sdk.Configuration;
 
-namespace CCLCC.Xrm.Sdk
+namespace CCLLC.Xrm.Sdk
 {       
     public abstract class PluginBase<E> : IPlugin<E> where E : Entity
     {

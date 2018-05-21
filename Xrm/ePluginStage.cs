@@ -1,5 +1,5 @@
 ﻿
-namespace CCLCC.Xrm.Sdk
+namespace CCLLC.Xrm.Sdk
 {
     public enum ePluginStage
     {    

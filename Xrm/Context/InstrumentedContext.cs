@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CCLCC.Core;
-using CCLCC.Telemetry;
+using CCLLC.Core;
+using CCLLC.Telemetry;
 using Microsoft.Xrm.Sdk;
 
-namespace CCLCC.Xrm.Sdk.Context
+namespace CCLLC.Xrm.Sdk.Context
 {
     public abstract class InstrumentedContext<E> : LocalContext<E>, ISupportContextInstrumentation where E : Entity
     {

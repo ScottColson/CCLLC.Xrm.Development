@@ -3,10 +3,10 @@ using System.Activities;
 using System.Globalization;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Workflow;
-using CCLCC.Core;
+using CCLLC.Core;
 
 
-namespace CCLCC.Xrm.Sdk.Workflow
+namespace CCLLC.Xrm.Sdk.Workflow
 {
     
     using Configuration;

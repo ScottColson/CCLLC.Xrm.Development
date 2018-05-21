@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using CCLCC.Telemetry.Context;
-using CCLCC.Telemetry.Implementation;
-using CCLCC.Telemetry.DataContract;
+using CCLLC.Telemetry.Context;
+using CCLLC.Telemetry.Implementation;
+using CCLLC.Telemetry.DataContract;
 
-namespace CCLCC.Telemetry.DataContract
+namespace CCLLC.Telemetry.DataContract
 {
     public class MessageTelemetry : TelemetryBase<IMessageDataModel>, IMessageTelemetry
     {

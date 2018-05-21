@@ -1,4 +1,4 @@
-﻿namespace CCLCC.Telemetry
+﻿namespace CCLLC.Telemetry
 {
     public interface ITelemetryInitializer
     {

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("CCLCC.Xrm.Sdk.Workflow")]
+[assembly: AssemblyTitle("CCLLC.Xrm.Sdk.Workflow")]
 [assembly: AssemblyDescription("Provides base classes to simplify the creation of Xrm workflow activities and provide caching, configuration and telemetry services within those activities.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Colson Code, LLC")]
-[assembly: AssemblyProduct("CCLCC.Xrm.Sdk.Workflow")]
+[assembly: AssemblyProduct("CCLLC.Xrm.Sdk.Workflow")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.1.0.0")]
+[assembly: AssemblyFileVersion("1.1.0.0")]
