@@ -25,7 +25,7 @@ namespace TelemetryTestHarness
                 container.Register<ITelemetryProcessChain, TelemetryProcessChain>();
                 container.Register<ITelemetrySink, TelemetrySink>();
                 container.Register<IContextTagKeys, AIContextTagKeys>();
-                container.Register<ITelemetrySerializer, AITelemetrySerializer>();
+                container.Register<ITelemetrySerializer, TelemetrySerializer>();
                 container.Register<ITelemetryFactory, TelemetryFactory>();
 
                

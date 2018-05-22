@@ -56,6 +56,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Implementation\ExceptionConverter.cs" />
     <Compile Include="Interfaces\DataContract\IOperationalDataModel.cs" />
+    <Compile Include="Serializer\TelemetrySerializer.cs" />
     <Compile Include="Sink\AITelemetryTransmitter.cs" />
     <Compile Include="Sink\InstrumentationKeyPropertyProcessor.cs" />
     <Compile Include="Sink\SequencePropertyProcessor.cs" />
