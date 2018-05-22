@@ -123,5 +123,22 @@ namespace CCLLC.Telemetry.DataContract
             writer.WriteProperty("measurements", this.Data.measurements);
             writer.WriteProperty("properties", this.Data.properties);
         }
+
+        public override IDictionary<string, string> GetTaggedData()
+        {
+            var dict = new Dictionary<string, string>();
+            dict.Add("ver", this.Data.ver.ToString());
+            dict.Add("id", this.Data.id);
+            dict.Add("source", this.Data.source);
+            dict.Add("name", this.Data.name);
+            dict.Add("duration", this.Data.duration);
+            if (this.Data.success.HasValue)
+            {
+                dict.Add("success", this.Data.success.ToString());
+            }
+            dict.Add("responseCode", this.Data.responseCode);
+            dict.Add("url", this.Data.url);            
+            return dict;
+        }
     }
 }

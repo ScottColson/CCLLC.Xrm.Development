@@ -13,6 +13,7 @@ namespace CCLLC.Telemetry
         ITelemetryContext Context { get; }
         DateTimeOffset Timestamp { get; set; }
         string TelemetryName { get; }
+        IDictionary<string, string> GetTaggedData();
         void Sanitize();
     }
 }

@@ -63,7 +63,14 @@ namespace CCLLC.Telemetry.DataContract
             writer.WriteProperty("measurements", this.Data.measurements);
             writer.WriteProperty("properties", this.Data.properties);
         }
-       
-      
+
+        public override IDictionary<string, string> GetTaggedData()
+        {
+            var dict = new Dictionary<string, string>();
+            dict.Add("ver", this.Data.ver.ToString());
+            dict.Add("name", this.Data.name);            
+            return dict;
+        }
+
     }
 }

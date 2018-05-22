@@ -34,7 +34,7 @@ namespace CCLLC.Telemetry.DataContract
 
         public abstract void SerializeData(ITelemetrySerializer serializer, IJsonWriter writer);
 
-       
+        public abstract IDictionary<string, string> GetTaggedData();
         
     }
 }

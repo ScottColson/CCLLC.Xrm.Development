@@ -46,6 +46,11 @@ namespace CCLLC.Telemetry.DataContract
             }
         }
 
+        public IList<IExceptionDetails> ExceptionDetails
+        {
+            get { return this.Data.exceptions; }
+        }
+
         public IDictionary<string, double> Metrics
         {
             get { return this.Data.measurements; }
@@ -114,7 +119,18 @@ namespace CCLLC.Telemetry.DataContract
             }
         }
 
+        public override IDictionary<string, string> GetTaggedData()
+        {
+            var dict = new Dictionary<string, string>();
+            dict.Add("ver", this.Data.ver.ToString());
+            dict.Add("problemId", this.Data.problemId);
+            if (this.Data.severityLevel.HasValue)
+            {
+                dict.Add("severityLevel", this.Data.severityLevel.Value.ToString());
+            }
 
+            return dict;
+        }
 
 
         private void ConvertExceptionTree(Exception exception, IExceptionDetails parentExceptionDetails, List<IExceptionDetails> exceptions)
