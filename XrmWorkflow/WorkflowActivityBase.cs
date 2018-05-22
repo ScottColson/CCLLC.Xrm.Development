@@ -4,16 +4,12 @@ using System.Globalization;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Workflow;
 using CCLLC.Core;
-
+using CCLLC.Xrm.Sdk.Configuration;
+using CCLLC.Xrm.Sdk.Encryption;
 
 namespace CCLLC.Xrm.Sdk.Workflow
-{
-    
-    using Configuration;
-    using Encryption;
-    using System.Collections.Generic;
-
-    public abstract class WorkflowActivityBase<E> : CodeActivity, IWorkflowActivity<E> where E : Entity
+{    
+    public abstract partial class WorkflowActivityBase : CodeActivity, IWorkflowActivity
     {
         private static IIocContainer _container;
         private static object _containerLock = new object();
@@ -60,7 +56,7 @@ namespace CCLLC.Xrm.Sdk.Workflow
 
 
 
-        public abstract void ExecuteInternal(ILocalWorkflowActivityContext<E> localContext);
+        public abstract void ExecuteInternal(ILocalWorkflowActivityContext<Entity> localContext);
 
         protected override void Execute(CodeActivityContext codeActivityContext)
         {
@@ -69,19 +65,17 @@ namespace CCLLC.Xrm.Sdk.Workflow
             var tracingService = codeActivityContext.GetExtension<ITracingService>();
 
             tracingService.Trace(string.Format(CultureInfo.InvariantCulture, "Entered {0}.Execute()", this.GetType().ToString()));
-
-
+            
             var executionContext = codeActivityContext.GetExtension<IWorkflowContext>();
 
             try
             {
                 var localContextFactory = Container.Resolve<ILocalWorkflowActivityContextFactory>();
 
-                using (var localContext = localContextFactory.BuildLocalWorkflowActivityContext<E>(executionContext, Container, codeActivityContext))
+                using (var localContext = localContextFactory.BuildLocalWorkflowActivityContext<Entity>(executionContext, Container, codeActivityContext))
                 {
 
                     ExecuteInternal(localContext);
-
 
                 } //using localContext
             }

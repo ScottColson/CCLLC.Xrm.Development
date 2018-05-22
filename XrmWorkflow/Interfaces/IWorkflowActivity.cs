@@ -5,11 +5,11 @@ using CCLLC.Telemetry;
 namespace CCLLC.Xrm.Sdk.Workflow
 {
     
-    public interface IWorkflowActivity<E> where E : Entity
+    public interface IWorkflowActivity
     {
         IIocContainer Container { get; }              
         void RegisterContainerServices();       
-        void ExecuteInternal(ILocalWorkflowActivityContext<E> context);
+        void ExecuteInternal(ILocalWorkflowActivityContext<Entity> context);
        
     }
 }

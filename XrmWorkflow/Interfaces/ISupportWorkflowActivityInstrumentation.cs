@@ -3,10 +3,10 @@ using CCLLC.Telemetry;
 
 namespace CCLLC.Xrm.Sdk.Workflow
 {
-    public interface ISupportWorkflowActivityInstrumentation<E> where E : Entity
+    public interface ISupportWorkflowActivityInstrumentation
     {
         ITelemetrySink TelemetrySink { get; }
-        bool ConfigureTelemetrySink(ILocalWorkflowActivityContext<E> localContext);
+        bool ConfigureTelemetrySink(ILocalWorkflowActivityContext<Entity> localContext);
     }
 }
 

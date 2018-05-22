@@ -1,24 +1,19 @@
 ﻿using System;
 using System.Activities;
+using System.Collections.Generic;
 using System.Globalization;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Workflow;
 using CCLLC.Core;
 using CCLLC.Telemetry;
+using CCLLC.Telemetry.Client;
+using CCLLC.Telemetry.Context;
+using CCLLC.Telemetry.Serializer;
+using CCLLC.Telemetry.Sink;
 
 namespace CCLLC.Xrm.Sdk.Workflow
 {
-    using Caching;
-    using CCLLC.Telemetry.Client;
-    using CCLLC.Telemetry.Context;
-    using CCLLC.Telemetry.Serializer;
-    using CCLLC.Telemetry.Sink;
-    using Configuration;
-    using Context;
-    using Encryption;
-    using System.Collections.Generic;
-
-    public abstract class InstrumentedWorkflowActivityBase<E> : WorkflowActivityBase<E>, ISupportWorkflowActivityInstrumentation<E> where E : Entity
+    public abstract partial class InstrumentedWorkflowActivityBase : WorkflowActivityBase, ISupportWorkflowActivityInstrumentation
     {
         private static IIocContainer _container;
         private static object _containerLock = new object();
@@ -99,13 +94,14 @@ namespace CCLLC.Xrm.Sdk.Workflow
             Container.Register<ITelemetryFactory, TelemetryFactory>();            
         }
 
-        public virtual bool ConfigureTelemetrySink(ILocalWorkflowActivityContext<E> localContext)
+        public virtual bool ConfigureTelemetrySink(ILocalWorkflowActivityContext<Entity> localContext)
         {
             if (localContext != null)
             {
                 var key = localContext.ExtensionSettings.Get<string>("Telemetry.InstrumentationKey");
                 if (!string.IsNullOrEmpty(key))
                 {
+                    localContext.TracingService.Trace("Retrieved Telemetry Instrumentation Key.");
                     TelemetrySink.ProcessChain.TelemetryProcessors.Add(new SequencePropertyProcessor());
                     TelemetrySink.ProcessChain.TelemetryProcessors.Add(new InstrumentationKeyPropertyProcessor(key));
 
@@ -182,8 +178,13 @@ namespace CCLLC.Xrm.Sdk.Workflow
                 {
                     var localContextFactory = Container.Resolve<ILocalWorkflowActivityContextFactory>();
 
-                    using (var localContext = localContextFactory.BuildLocalWorkflowActivityContext<E>(executionContext, Container, codeActivityContext, telemetryClient))
+                    using (var localContext = localContextFactory.BuildLocalWorkflowActivityContext<Entity>(executionContext, Container, codeActivityContext, telemetryClient))
                     {
+                        if (!TelemetrySink.IsConfigured)
+                        {
+                            TelemetrySink.OnConfigure = () => { return this.ConfigureTelemetrySink(localContext); };
+                        }
+
                         try
                         {
                             ExecuteInternal(localContext);

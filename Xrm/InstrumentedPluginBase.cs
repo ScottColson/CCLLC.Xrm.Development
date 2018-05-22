@@ -68,7 +68,7 @@ namespace CCLLC.Xrm.Sdk
                     {
                         if (_telemetrySink == null)
                         {
-                            _telemetrySink = Container.Resolve<ITelemetrySink>();
+                            _telemetrySink = Container.Resolve<ITelemetrySink>();                            
                         }
                     }
                 }
@@ -98,6 +98,7 @@ namespace CCLLC.Xrm.Sdk
             Container.Register<ITelemetrySerializer, AITelemetrySerializer>();
             Container.Register<ITelemetryFactory, TelemetryFactory>();
         }
+
         public virtual bool ConfigureTelemetrySink(ILocalPluginContext<E> localContext)
         {
             if (localContext != null)
