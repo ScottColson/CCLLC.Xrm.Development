@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>$id$</id>
-    <version>1.1.0</version>
+    <id>CCLLCIoCContainer</id>
+    <version>1.3.0</version>
     <title>CCLLC.Core.IocContainer</title>
     <authors>Colson Code, LLC</authors>
     <owners>Colson Code, LLC</owners>
@@ -10,8 +10,12 @@
     <projectUrl>https://github.com/ScottColson/CCLLC.Xrm.Development</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A light IoC container implementation to register and resolve dependencies at runtime.</description>
-    <releaseNotes>Initial Release</releaseNotes>
+    <releaseNotes></releaseNotes>
     <copyright>Copyright 2018</copyright>
-    <tags>IoC</tags>
+    <tags>IoC</tags>    
   </metadata>
+  <files>
+    <file src="bin\Release\net452\CCLLCIocContainer.dll" target="lib/net452" />
+    <file src="bin\Release\net462\CCLLCIocContainer.dll" target="lib/net462" />
+  </files>
 </package>

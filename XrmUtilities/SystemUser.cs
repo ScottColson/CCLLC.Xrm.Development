@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
+using CCLLC.Xrm.Sdk.Caching;
 
 namespace CCLLC.Xrm.Sdk.Utilities
 {      
