@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>1.1.1</version>
+    <version>1.2.1</version>
     <title>CCLLC.Telemetry</title>
     <authors>Colson Code, LLC</authors>
     <owners>Colson Code, LLC</owners>
@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/ScottColson/CCLLC.Xrm.Development</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Provides basic telemetry creation and transmission services that are compatible with Microsoft Application Insights and also compatible with operation inside a sandboxed Xrm plugin or workflow activity.</description>
-    <releaseNotes>Initial Release</releaseNotes>
+    <releaseNotes>Remove readme.txt from interfaces.</releaseNotes>
     <copyright>Copyright 2018</copyright>
     <tags>Analytics ApplicationInsights Telemetry</tags>
   </metadata>

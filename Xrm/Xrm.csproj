@@ -38,6 +38,12 @@
     <AssemblyOriginatorKeyFile>XrmBase.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CCLLCIoCContainer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=506847acdbcda1d9, processorArchitecture=MSIL">
+      <HintPath>..\packages\CCLLCIoCContainer.1.1.0\lib\net452\CCLLCIoCContainer.dll</HintPath>
+    </Reference>
+    <Reference Include="CCLLCTelemetry, Version=1.2.1.0, Culture=neutral, PublicKeyToken=4ebf07474c8930b9, processorArchitecture=MSIL">
+      <HintPath>..\packages\CCLLCTelemetry.1.2.1\lib\net452\CCLLCTelemetry.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Crm.Sdk.Proxy, Version=8.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CrmSdk.CoreAssemblies.8.0.0\lib\net45\Microsoft.Crm.Sdk.Proxy.dll</HintPath>
     </Reference>
@@ -111,16 +117,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\PluginWebClient.cs" />
     <Compile Include="Utilities\XrmEntityExtensions.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\IocContainer\IocContainer.csproj">
-      <Project>{8ae70ce7-65e1-4117-bade-a02e6023c1a1}</Project>
-      <Name>IocContainer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Telemetry\Telemetry.csproj">
-      <Project>{43635423-c56a-48fe-a2ff-7857f3625a69}</Project>
-      <Name>Telemetry</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

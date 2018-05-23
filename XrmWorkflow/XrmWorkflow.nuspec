@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>1.1.1</version>
+    <version>1.2.1</version>
     <title>CCLLC.Xrm.Sdk.Workflow</title>
     <authors>Colson Code, LLC</authors>
     <owners>Colson Code, LLC</owners>
@@ -12,11 +12,6 @@
     <description>Provides base classes to simplify the creation of Xrm workflow activities and provide caching, configuration and telemetry services within those activities.</description>
     <releaseNotes>Fix registration issue.</releaseNotes>
     <copyright>Copyright 2018</copyright>
-    <tags>Dynamics Crm Xrm Plugin Workflow Telemetry</tags>
-    <dependencies>
-      <dependency id="CCLLCIoCContainer" version="1.1.0" />
-      <dependency id="CCLLCTelemetry" version="1.1.0" />
-      <dependency id="CCLLCXrmSdk" version="1.1.1" />
-    </dependencies>
+    <tags>Dynamics Crm Xrm Plugin Workflow Telemetry</tags>    
   </metadata>
 </package>

@@ -165,9 +165,6 @@
     <Compile Include="DataContract\MessageTelemetry.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Interfaces\readme.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="CCLCC.Telemetry.snk" />
     <None Include="Telemetry.nuspec" />
   </ItemGroup>
