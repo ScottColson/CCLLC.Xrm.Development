@@ -87,63 +87,81 @@ namespace CCLLC.Telemetry.Serializer
             jsonWriter.WriteEndArray();
         }
 
-
+        /// <summary>
+        /// Serialize the <see cref="ITelemetry"/> item into a JSON object. All context and data items are fields
+        /// in the object. If the item has custom properties or measurements then those are serialized as a list 
+        /// name/value pairs. Exception details, if present are serialized as an array of exception information which
+        /// is a complex object.
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="writer"></param>
         protected virtual void Serialize(ITelemetry item, IJsonWriter writer)
         {
             writer.WriteStartObject();
 
-            WriteTelemetryName(item, writer);
-            WriteEnvelopeProperties(item, writer, contextTagKeys);
-            writer.WritePropertyName("data");
+            writer.WriteProperty("telemetrytype", item.TelemetryName);
+            writer.WriteProperty("time", item.Timestamp.UtcDateTime.ToString("o", CultureInfo.InvariantCulture));
+
+            var samplingSupportingTelemetry = item as ISupportSampling;
+            if (samplingSupportingTelemetry != null
+                && samplingSupportingTelemetry.SamplingPercentage.HasValue
+                && (samplingSupportingTelemetry.SamplingPercentage.Value > 0.0 + 1.0E-12)
+                && (samplingSupportingTelemetry.SamplingPercentage.Value < 100.0 - 1.0E-12))
             {
-                writer.WriteStartObject();
+                writer.WriteProperty("sampleRate", samplingSupportingTelemetry.SamplingPercentage.Value);
+            }
 
-                //serialize the main data tags for the telemetry.
-                var dataTags = item.GetTaggedData();
-                foreach(var tag in dataTags)
+            writer.WriteProperty("seq", item.Sequence);
+
+            //serialize out the telemetry context into the current object
+            if (item.Context != null)
+            {
+                var contextTags = item.Context.ToContextTags(this.contextTagKeys);
+                foreach (var tag in contextTags)
                 {
-                    if(!string.IsNullOrEmpty(tag.Key) && !string.IsNullOrEmpty(tag.Value))
-                    {
-                        writer.WriteProperty(tag.Key, tag.Value);
-                    }
+                    writer.WriteProperty(tag.Key, tag.Value);
                 }
+            }
 
-                //if the telemetry has additional properties then serialize the properties into a
-                //list of name/value pairs.
-                var withProperties = item as ISupportProperties;
-                if(withProperties != null && withProperties.Properties.Count > 0)
+            //serialize the main data tags for the telemetry.
+            var dataTags = item.GetTaggedData();
+            foreach (var tag in dataTags)
+            {
+                writer.WriteProperty(tag.Key, tag.Value);
+            }
+
+            //if the telemetry has additional properties then serialize the properties into a
+            //list of name/value pairs.
+            var withProperties = item as ISupportProperties;
+            if (withProperties != null && withProperties.Properties.Count > 0)
+            {
+                writer.WriteProperty("properties", withProperties.Properties);
+            }
+
+            //if the telemetry has measurements then serialize the measurements into a
+            //list of name/value pairs.
+            var withMeasurements = item as ISupportMetrics;
+            if (withMeasurements != null && withMeasurements.Metrics.Count > 0)
+            {
+                writer.WriteProperty("measurements", withMeasurements.Metrics);
+            }
+
+            //if the telemtry has a list of exception details then serialize the list
+            //into a JSON array.
+            var withExceptions = item as IExceptionTelemetry;
+            if (withExceptions != null && withExceptions.ExceptionDetails.Count > 0)
+            {
+                writer.WritePropertyName("exceptions");
                 {
-                    writer.WriteProperty("properties", withProperties.Properties);
+                    writer.WriteStartArray();
+
+                    SerializeExceptions(withExceptions.ExceptionDetails, writer);
+
+                    writer.WriteEndArray();
                 }
-
-                //if the telemetry has measurements then serialize the measurements into a
-                //list of name/value pairs.
-                var withMeasurements = item as ISupportMetrics;
-                if(withMeasurements != null && withMeasurements.Metrics.Count > 0)
-                {
-                    writer.WriteProperty("measurements", withMeasurements.Metrics);
-                }
-
-                //if the telemtry has a list of exception details then serialize the list
-                //into a JSON array.
-                var withExceptions = item as IExceptionTelemetry;
-                if(withExceptions != null && withExceptions.ExceptionDetails.Count > 0)
-                {
-                    writer.WritePropertyName("exceptions");
-                    {
-                        writer.WriteStartArray();
-
-                        SerializeExceptions(withExceptions.ExceptionDetails, writer);
-
-                        writer.WriteEndArray();
-                    }                    
-                }
-                
-                writer.WriteEndObject();
             }
 
             writer.WriteEndObject();
-
         }
         
         /// <summary>
@@ -153,38 +171,13 @@ namespace CCLLC.Telemetry.Serializer
         {
             return new GZipStream(stream, CompressionMode.Compress);
         }
-
-        protected virtual void WriteTelemetryName(ITelemetry telemetry, IJsonWriter json)
-        {            
-            json.WriteProperty("type", telemetry.TelemetryName);
-        }
-
-        protected virtual void WriteEnvelopeProperties(ITelemetry telemetry, IJsonWriter json, IContextTagKeys keys)
-        {
-            json.WriteProperty("time", telemetry.Timestamp.UtcDateTime.ToString("o", CultureInfo.InvariantCulture));
-
-            var samplingSupportingTelemetry = telemetry as ISupportSampling;
-
-            if (samplingSupportingTelemetry != null
-                && samplingSupportingTelemetry.SamplingPercentage.HasValue
-                && (samplingSupportingTelemetry.SamplingPercentage.Value > 0.0 + 1.0E-12)
-                && (samplingSupportingTelemetry.SamplingPercentage.Value < 100.0 - 1.0E-12))
-            {
-                json.WriteProperty("sampleRate", samplingSupportingTelemetry.SamplingPercentage.Value);
-            }
-
-            json.WriteProperty("seq", telemetry.Sequence);
-            WriteTelemetryContext(json, telemetry.Context, keys);
-        }
-
-        protected virtual void WriteTelemetryContext(IJsonWriter json, ITelemetryContext context, IContextTagKeys keys)
-        {
-            if (context != null)
-            {                
-                json.WriteProperty("context", context.ToContextTags(keys));
-            }
-        }        
-
+        
+        /// <summary>
+        /// Serialize the list of exception details into an object that represents the exception and
+        /// related stack.
+        /// </summary>
+        /// <param name="exceptions"></param>
+        /// <param name="writer"></param>
         public virtual void SerializeExceptions(IEnumerable<IExceptionDetails> exceptions, IJsonWriter writer)
         {
             int exceptionArrayIndex = 0;
@@ -244,6 +237,11 @@ namespace CCLLC.Telemetry.Serializer
             }
         }
 
+        /// <summary>
+        /// Serialize the stack frame for exception detials.
+        /// </summary>
+        /// <param name="frame"></param>
+        /// <param name="writer"></param>
         protected virtual void SerializeStackFrame(IStackFrame frame, IJsonWriter writer)
         {
             writer.WriteProperty("level", frame.level);
