@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>CCLLCIoCContainer</id>
-    <version>1.3.0</version>
+    <version>1.3.2</version>
     <title>CCLLC.Core.IocContainer</title>
     <authors>Colson Code, LLC</authors>
     <owners>Colson Code, LLC</owners>
