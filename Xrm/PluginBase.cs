@@ -91,7 +91,7 @@ namespace CCLLC.Xrm.Sdk
         /// <param name="messageName"></param>
         /// <param name="stage"></param>
         /// <param name="handler"></param>
-        public virtual void RegisterEventHandler(string entityName, string messageName, ePluginStage stage, Action<ILocalContext<E>> handler)
+        public virtual void RegisterEventHandler(string entityName, string messageName, ePluginStage stage, Action<ILocalPluginContext<E>> handler)
         {
             events.Add(new PluginEvent<E>
             {
