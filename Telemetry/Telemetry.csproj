@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CCLLC.Telemetry</RootNamespace>
-    <AssemblyName>CCLLCTelemetry</AssemblyName>  
+    <AssemblyName>CCLLCTelemetry</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -187,6 +187,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="CCLCC.Telemetry.snk" />
+    <None Include="Telemetry.nuspec">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

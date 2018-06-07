@@ -10,5 +10,6 @@ namespace CCLLC.Telemetry
     {       
         string OperationName { get; set; }
         IDictionary<string, string> Properties { get; }
+        void CompleteOperation(bool? success);
     }
 }
