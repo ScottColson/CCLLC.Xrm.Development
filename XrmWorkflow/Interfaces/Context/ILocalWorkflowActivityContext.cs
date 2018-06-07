@@ -4,7 +4,7 @@ using Microsoft.Xrm.Sdk.Workflow;
 
 namespace CCLLC.Xrm.Sdk
 {    
-    public interface ILocalWorkflowActivityContext<E> : ILocalContext<E> where E : Entity
+    public interface ILocalWorkflowActivityContext : ILocalContext
     {
         CodeActivityContext CodeActivityContext { get; }
         IWorkflowContext WorkflowContext { get; }

@@ -56,7 +56,7 @@ namespace CCLLC.Xrm.Sdk.Workflow
 
 
 
-        public abstract void ExecuteInternal(ILocalWorkflowActivityContext<Entity> localContext);
+        public abstract void ExecuteInternal(ILocalWorkflowActivityContext localContext);
 
         protected override void Execute(CodeActivityContext codeActivityContext)
         {
@@ -72,7 +72,7 @@ namespace CCLLC.Xrm.Sdk.Workflow
             {
                 var localContextFactory = Container.Resolve<ILocalWorkflowActivityContextFactory>();
 
-                using (var localContext = localContextFactory.BuildLocalWorkflowActivityContext<Entity>(executionContext, Container, codeActivityContext))
+                using (var localContext = localContextFactory.BuildLocalWorkflowActivityContext(executionContext, Container, codeActivityContext))
                 {
 
                     ExecuteInternal(localContext);

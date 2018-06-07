@@ -94,7 +94,7 @@ namespace CCLLC.Xrm.Sdk.Workflow
             Container.Register<ITelemetryFactory, TelemetryFactory>();            
         }
 
-        public virtual bool ConfigureTelemetrySink(ILocalWorkflowActivityContext<Entity> localContext)
+        public virtual bool ConfigureTelemetrySink(ILocalWorkflowActivityContext localContext)
         {
             if (localContext != null)
             {
@@ -132,6 +132,7 @@ namespace CCLLC.Xrm.Sdk.Workflow
                  this.GetType().ToString(),
                  this.TelemetrySink,
                  new Dictionary<string, string>{
+                    { "crm-pluginclass", this.GetType().ToString() },
                     { "crm-correlationid", executionContext.CorrelationId.ToString() },
                     { "crm-depth", executionContext.Depth.ToString() },
                     { "crm-initiatinguser", executionContext.InitiatingUserId.ToString() },
@@ -178,7 +179,7 @@ namespace CCLLC.Xrm.Sdk.Workflow
                 {
                     var localContextFactory = Container.Resolve<ILocalWorkflowActivityContextFactory>();
 
-                    using (var localContext = localContextFactory.BuildLocalWorkflowActivityContext<Entity>(executionContext, Container, codeActivityContext, telemetryClient))
+                    using (var localContext = localContextFactory.BuildLocalWorkflowActivityContext(executionContext, Container, codeActivityContext, telemetryClient))
                     {
                         if (!TelemetrySink.IsConfigured)
                         {

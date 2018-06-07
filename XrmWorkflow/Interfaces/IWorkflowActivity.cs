@@ -9,7 +9,7 @@ namespace CCLLC.Xrm.Sdk.Workflow
     {
         IIocContainer Container { get; }              
         void RegisterContainerServices();       
-        void ExecuteInternal(ILocalWorkflowActivityContext<Entity> context);
+        void ExecuteInternal(ILocalWorkflowActivityContext context);
        
     }
 }

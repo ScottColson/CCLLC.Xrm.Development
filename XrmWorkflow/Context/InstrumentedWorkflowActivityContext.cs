@@ -8,7 +8,7 @@ using CCLLC.Xrm.Sdk.Context;
 
 namespace CCLLC.Xrm.Sdk.Workflow.Context
 {
-    public class InstrumentedWorkflowActivityContext<E> : InstrumentedContext<E>, ILocalWorkflowActivityContext<E> where E : Entity
+    public class InstrumentedWorkflowActivityContext : InstrumentedContext, ILocalWorkflowActivityContext
     {
         public CodeActivityContext CodeActivityContext { get; private set; }
 

@@ -6,7 +6,7 @@ namespace CCLLC.Xrm.Sdk.Workflow
     public interface ISupportWorkflowActivityInstrumentation
     {
         ITelemetrySink TelemetrySink { get; }
-        bool ConfigureTelemetrySink(ILocalWorkflowActivityContext<Entity> localContext);
+        bool ConfigureTelemetrySink(ILocalWorkflowActivityContext localContext);
     }
 }
 
