@@ -15,20 +15,20 @@ using CCLLC.Xrm.Sdk.Configuration;
 
 namespace CCLLC.Xrm.Sdk
 {       
-    public abstract class PluginBase<E> : IPlugin<E> where E : Entity
+    public abstract class PluginBase : IPlugin, IEnhancedPlugin 
     {
         private static IIocContainer _container;
         private static object _containerLock = new object();
         
         
-        private Collection<PluginEvent<E>> events = new Collection<PluginEvent<E>>();
+        private Collection<PluginEvent> events = new Collection<PluginEvent>();
         
         /// <summary>
         /// Provides of list of <see cref="PluginEvent{E}"/> items that define the 
         /// events the plugin can operate against. Add items to the list using the 
         /// <see cref="RegisterEventHandler(string, string, ePluginStage, Action{ILocalContext{E}})"/> method.
         /// </summary>
-        public IReadOnlyList<PluginEvent<E>> PluginEventHandlers 
+        public IReadOnlyList<PluginEvent> PluginEventHandlers 
         {
             get
             {                
@@ -91,9 +91,9 @@ namespace CCLLC.Xrm.Sdk
         /// <param name="messageName"></param>
         /// <param name="stage"></param>
         /// <param name="handler"></param>
-        public virtual void RegisterEventHandler(string entityName, string messageName, ePluginStage stage, Action<ILocalPluginContext<E>> handler)
+        public virtual void RegisterEventHandler(string entityName, string messageName, ePluginStage stage, Action<ILocalPluginContext> handler)
         {
-            events.Add(new PluginEvent<E>
+            events.Add(new PluginEvent
             {
                 EntityName = entityName,
                 MessageName = messageName,
@@ -150,7 +150,7 @@ namespace CCLLC.Xrm.Sdk
                     {
                         var localContextFactory = Container.Resolve<ILocalPluginContextFactory>();
                        
-                        using (var localContext = localContextFactory.BuildLocalPluginContext<E>(executionContext,  serviceProvider, this.Container, null))
+                        using (var localContext = localContextFactory.BuildLocalPluginContext(executionContext,  serviceProvider, this.Container, null))
                         {
                             foreach (var handler in matchingHandlers)
                             {                               

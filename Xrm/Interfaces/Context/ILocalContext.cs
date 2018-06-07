@@ -4,7 +4,7 @@ using CCLLC.Core;
 
 namespace CCLLC.Xrm.Sdk
 {   
-    public interface ILocalContext<E> : IDisposable where E : Entity
+    public interface ILocalContext : IDisposable 
     {        
         void Trace(string message, params object[] args);
         void Trace(eMessageType type, string message, params object[] args);
@@ -27,7 +27,7 @@ namespace CCLLC.Xrm.Sdk
         IExtensionSettings ExtensionSettings { get; }
         IXmlConfigurationResource XmlConfigurationResources { get; }
 
-        E TargetEntity { get; }
+        Entity TargetEntity { get; }
 
         EntityReference TargetReference { get; }
 

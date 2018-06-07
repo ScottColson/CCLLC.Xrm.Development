@@ -10,7 +10,7 @@ namespace CCLLC.Xrm.Sdk.Context
     using Encryption;
 
 
-    public abstract class LocalContext<E> : ILocalContext<E> where E : Entity
+    public abstract class LocalContext : ILocalContext 
     {
         public IIocContainer Container { get; private set; }
         public IExecutionContext ExecutionContext { get; private set; }
@@ -132,14 +132,13 @@ namespace CCLLC.Xrm.Sdk.Context
         }
 
 
-        public E TargetEntity
+        public Entity TargetEntity
         {
             get
             {
                 if (this.ExecutionContext.InputParameters.Contains("Target"))
                 {
-                    var entity = this.ExecutionContext.InputParameters["Target"] as Entity;
-                    return GetEntityAsType(entity);
+                    return this.ExecutionContext.InputParameters["Target"] as Entity;                    
                 }
 
                 return null;
@@ -198,16 +197,7 @@ namespace CCLLC.Xrm.Sdk.Context
 
         public virtual void Dispose()
         {            
-        }
-        
-
-        protected E GetEntityAsType(Entity entity)
-        {
-            if (typeof(E) == entity.GetType())
-                return entity as E;
-            else
-                return entity.ToEntity<E>();
-        }
+        }     
 
         protected abstract IOrganizationServiceFactory CreateOrganizationServiceFactory();
         protected abstract ITracingService CreateTracingService();

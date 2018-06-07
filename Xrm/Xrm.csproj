@@ -61,10 +61,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CCLLCIoCContainer, Version=1.3.0.0, Culture=neutral, PublicKeyToken=506847acdbcda1d9, processorArchitecture=MSIL">
-      <HintPath>..\packages\CCLLCIoCContainer.1.3.2\lib\net462\CCLLCIoCContainer.dll</HintPath>
+      <HintPath>..\packages\CCLLCIoCContainer.1.3.2\lib\net452\CCLLCIoCContainer.dll</HintPath>
     </Reference>
-    <Reference Include="CCLLCTelemetry, Version=1.3.0.0, Culture=neutral, PublicKeyToken=4ebf07474c8930b9, processorArchitecture=MSIL">
-      <HintPath>..\packages\CCLLCTelemetry.1.3.2\lib\net462\CCLLCTelemetry.dll</HintPath>
+    <Reference Include="CCLLCTelemetry, Version=1.3.3.0, Culture=neutral, PublicKeyToken=4ebf07474c8930b9, processorArchitecture=MSIL">
+      <HintPath>..\packages\CCLLCTelemetry.1.3.3\lib\net452\CCLLCTelemetry.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Crm.Sdk.Proxy, Version=8.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CrmSdk.CoreAssemblies.8.0.0\lib\net45\Microsoft.Crm.Sdk.Proxy.dll</HintPath>
@@ -135,7 +135,7 @@
     <Compile Include="Interfaces\Context\ILocalContext.cs" />
     <Compile Include="Interfaces\Context\ILocalPluginContext.cs" />
     <Compile Include="Context\LocalPluginContext.cs" />
-    <Compile Include="Interfaces\IPlugin.cs" />
+    <Compile Include="Interfaces\IEnhancedPlugin.cs" />
     <Compile Include="MessageNames.cs" />
     <Compile Include="PluginBase.cs" />
     <Compile Include="PluginEvent.cs" />
@@ -147,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Xrm.nuspec" />
     <None Include="XrmBase.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

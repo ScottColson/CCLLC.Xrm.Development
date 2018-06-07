@@ -7,7 +7,7 @@ using CCLLC.Xrm.Sdk.Utilities;
 
 namespace CCLLC.Xrm.Sdk.Context
 {
-    public class InstrumentedPluginContext<E> : InstrumentedContext<E>, IDisposable, ILocalPluginContext<E> where E : Entity
+    public class InstrumentedPluginContext : InstrumentedContext, IDisposable, ILocalPluginContext
     {
         public IServiceProvider ServiceProvider { get; private set; }
 
@@ -18,13 +18,13 @@ namespace CCLLC.Xrm.Sdk.Context
         /// <summary>
         /// Returns the first registered 'Pre' image for the pipeline execution
         /// </summary>
-        public E PreImage
+        public Entity PreImage
         {
             get
             {
                 if (this.PluginExecutionContext.PreEntityImages.Any())
                 {
-                    return GetEntityAsType(this.PluginExecutionContext.PreEntityImages[this.PluginExecutionContext.PreEntityImages.FirstOrDefault().Key]);
+                    return this.PluginExecutionContext.PreEntityImages[this.PluginExecutionContext.PreEntityImages.FirstOrDefault().Key];
                 }
                 return null;
             }
@@ -33,13 +33,13 @@ namespace CCLLC.Xrm.Sdk.Context
         /// <summary>
         /// Returns the first registered 'Post' image for the pipeline execution
         /// </summary>
-        public E PostImage
+        public Entity PostImage
         {
             get
             {
                 if (this.PluginExecutionContext.PostEntityImages.Any())
                 {
-                    return GetEntityAsType(this.PluginExecutionContext.PostEntityImages[this.PluginExecutionContext.PostEntityImages.FirstOrDefault().Key]);
+                    return this.PluginExecutionContext.PostEntityImages[this.PluginExecutionContext.PostEntityImages.FirstOrDefault().Key];
                 }
                 return null;
             }
@@ -52,7 +52,7 @@ namespace CCLLC.Xrm.Sdk.Context
         /// return the same entity object and will not reflect changes made to that Target since initial
         /// request.
         /// </summary>
-        public E PreMergedTarget
+        public Entity PreMergedTarget
         {
             get
             {
@@ -64,7 +64,7 @@ namespace CCLLC.Xrm.Sdk.Context
                     _preMergedTarget.MergeWith(this.PreImage);
                 }
 
-                return GetEntityAsType(_preMergedTarget);
+                return _preMergedTarget;
             }
         }
 

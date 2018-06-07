@@ -5,7 +5,7 @@ using Microsoft.Xrm.Sdk;
 
 namespace CCLLC.Xrm.Sdk.Context
 {
-    public abstract class InstrumentedContext<E> : LocalContext<E>, ISupportContextInstrumentation where E : Entity
+    public abstract class InstrumentedContext : LocalContext, ISupportContextInstrumentation
     {
         public IComponentTelemetryClient TelemetryClient { get; private set; }
 
@@ -56,6 +56,11 @@ namespace CCLLC.Xrm.Sdk.Context
                 {
                     asDataContext.Data.AltKeyName = name;
                     asDataContext.Data.AltKeyValue = value;
+                }
+                else
+                {
+                    TelemetryClient.Context.Properties["alternate-key-name"] = name;
+                    TelemetryClient.Context.Properties["alternate-key-value"] = value;
                 }
             }
         }

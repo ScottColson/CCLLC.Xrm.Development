@@ -7,14 +7,12 @@ using System.Threading.Tasks;
 
 namespace CCLLC.Xrm.Sdk
 {
-    public interface IPluginWebRequest
+    public interface IPluginWebRequest : IDisposable
     {
-        byte[] Content { get; set; }
-        string ContentType { get; set; }  
         ICredentials Credentials { get; set; }
-        WebHeaderCollection Headers { get; set; }
-        string Method { get; set; }
+        WebHeaderCollection Headers { get; set; }       
         TimeSpan Timeout { get; set; }
-        IPluginWebResponse Send();
+        IPluginWebResponse Get();
+        IPluginWebResponse Post(byte[] data, string contentType, string contentEncoding = null);
     }
 }

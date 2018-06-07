@@ -6,7 +6,7 @@ namespace CCLLC.Xrm.Sdk
     using Context;
     using Telemetry;
 
-    public class PluginEvent<E> where E : Entity
+    public class PluginEvent
     {
         /// <summary>
         /// Execution pipeline stage that the plugin should be registered against.
@@ -23,6 +23,6 @@ namespace CCLLC.Xrm.Sdk
         /// <summary>
         /// Method that should be executed when the conditions of the Plugin Event have been met.
         /// </summary>
-        public Action<ILocalPluginContext<E>> PluginAction  { get; set; }
+        public Action<ILocalPluginContext> PluginAction  { get; set; }
 }
 }

@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CCLLC.Core;
 using CCLLC.Telemetry;
 using CCLLC.Telemetry.Client;
@@ -14,7 +12,7 @@ using Microsoft.Xrm.Sdk;
 
 namespace CCLLC.Xrm.Sdk
 {
-    public abstract class InstrumentedPluginBase<E> : PluginBase<E>, ISupportPluginInstrumentation<E> where E : Entity
+    public abstract class InstrumentedPluginBase : PluginBase, ISupportPluginInstrumentation
     {
         private static IIocContainer _container;
         private static object _containerLock = new object();
@@ -99,7 +97,7 @@ namespace CCLLC.Xrm.Sdk
             Container.Register<ITelemetryFactory, TelemetryFactory>();
         }
 
-        public virtual bool ConfigureTelemetrySink(ILocalPluginContext<E> localContext)
+        public virtual bool ConfigureTelemetrySink(ILocalPluginContext localContext)
         {
             if (localContext != null)
             {
@@ -140,6 +138,7 @@ namespace CCLLC.Xrm.Sdk
                 this.GetType().ToString(),
                 this.TelemetrySink,
                 new Dictionary<string, string>{ //Add properties for CRM execution attributes that don't fit cleanly in context.
+                    { "crm-pluginclass", this.GetType().ToString() },
                     { "crm-depth", executionContext.Depth.ToString() },
                     { "crm-initiatinguser", executionContext.InitiatingUserId.ToString() },
                     { "crm-isintransaction", executionContext.IsInTransaction.ToString() },
@@ -153,6 +152,7 @@ namespace CCLLC.Xrm.Sdk
             {
 
                 #region Setup Telementry Context
+                
 
                 telemetryClient.Context.Operation.Name = executionContext.MessageName;
                 telemetryClient.Context.Operation.CorrelationVector = executionContext.CorrelationId.ToString();
@@ -189,7 +189,7 @@ namespace CCLLC.Xrm.Sdk
                     {
                         var localContextFactory = Container.Resolve<ILocalPluginContextFactory>();
 
-                        using (var localContext = localContextFactory.BuildLocalPluginContext<E>(executionContext, serviceProvider, this.Container, telemetryClient))
+                        using (var localContext = localContextFactory.BuildLocalPluginContext(executionContext, serviceProvider, this.Container, telemetryClient))
                         {
                             if (!TelemetrySink.IsConfigured)
                             {

@@ -4,14 +4,14 @@ using Microsoft.Xrm.Sdk;
 namespace CCLLC.Xrm.Sdk
 {
 
-    public interface ILocalPluginContext<E> : ILocalContext<E> where E : Entity 
+    public interface ILocalPluginContext : ILocalContext
     {
 
         IServiceProvider ServiceProvider { get; }      
         ePluginStage Stage { get; }
         IPluginExecutionContext PluginExecutionContext { get; }
-        E PreImage { get; }
-        E PostImage { get; }
-        E PreMergedTarget { get; }
+        Entity PreImage { get; }
+        Entity PostImage { get; }
+        Entity PreMergedTarget { get; }
     }
 }

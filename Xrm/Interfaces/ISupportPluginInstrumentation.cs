@@ -3,9 +3,9 @@ using CCLLC.Telemetry;
 
 namespace CCLLC.Xrm.Sdk
 {
-    public interface ISupportPluginInstrumentation<E> where E : Entity
+    public interface ISupportPluginInstrumentation
     {
         ITelemetrySink TelemetrySink { get; }
-        bool ConfigureTelemetrySink(ILocalPluginContext<E> localContext);
+        bool ConfigureTelemetrySink(ILocalPluginContext localContext);
     }
 }
