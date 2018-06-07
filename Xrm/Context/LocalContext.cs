@@ -8,10 +8,10 @@ namespace CCLLC.Xrm.Sdk.Context
     using Caching;
     using Configuration;
     using Encryption;
-    
+
 
     public abstract class LocalContext<E> : ILocalContext<E> where E : Entity
-    {        
+    {
         public IIocContainer Container { get; private set; }
         public IExecutionContext ExecutionContext { get; private set; }
 
@@ -168,7 +168,19 @@ namespace CCLLC.Xrm.Sdk.Context
                 return tracingService;
             }
         }
-       
+
+        private IPluginWebRequestFactory _webRequestFactory;
+        public IPluginWebRequestFactory WebRequestFactory
+        {
+            get
+            {
+                if (_webRequestFactory == null)
+                {
+                    _webRequestFactory = this.Container.Resolve<IPluginWebRequestFactory>();
+                }
+                return _webRequestFactory;
+            }
+        }
 
         public LocalContext(IExecutionContext executionContext, IIocContainer container)
         {
@@ -179,7 +191,10 @@ namespace CCLLC.Xrm.Sdk.Context
             this.ExecutionContext = executionContext;           
         }
 
-        
+        public virtual IPluginWebRequest CreateWebRequest(Uri address)
+        {
+            return this.WebRequestFactory.BuildPluginWebRequest(address);
+        }
 
         public virtual void Dispose()
         {            

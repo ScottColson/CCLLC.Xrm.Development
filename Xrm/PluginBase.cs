@@ -113,6 +113,7 @@ namespace CCLLC.Xrm.Sdk
             Container.Register<ILocalPluginContextFactory, LocalPluginContextFactory>();
             Container.Register<IRijndaelEncryption, RijndaelEncryption>();
             Container.Register<IExtensionSettingsConfig, DefaultExtensionSettingsConfig>();
+            Container.Register<IPluginWebRequestFactory, CCLLC.Xrm.Sdk.Utilities.PluginHttpWebRequestFactory>();
         }
         
          

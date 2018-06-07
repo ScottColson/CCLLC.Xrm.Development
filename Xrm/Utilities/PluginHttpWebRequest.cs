@@ -7,11 +7,12 @@ using CCLLC.Telemetry;
 
 namespace CCLLC.Xrm.Sdk.Utilities
 {
-    public class PluginHttpWebRequest 
+    public class PluginHttpWebRequest : IPluginWebRequest
     {
         private HttpWebRequest _webRequest;
         private ITelemetryFactory _telemetryFactory = null;
         private ITelemetryClient _telemetryClient = null;
+        private string _dependencyName = null;
 
         public byte[] Content { get; set; }
 
@@ -41,20 +42,27 @@ namespace CCLLC.Xrm.Sdk.Utilities
 
         public TimeSpan Timeout { get; set; }
         
-        PluginHttpWebRequest(Uri address, ITelemetryFactory telemetryFactory = null, ITelemetryClient telementryClient = null)
-        {            
+        internal PluginHttpWebRequest(Uri address, string dependencyName = null, ITelemetryFactory telemetryFactory = null, ITelemetryClient telementryClient = null)
+        {
+            _dependencyName = dependencyName;
+            _telemetryClient = telementryClient;
+            _telemetryFactory = telemetryFactory;
             _webRequest = (HttpWebRequest)WebRequest.Create(address);
             this.Timeout = new TimeSpan(0, 0, 30); //Default timeout is 30 seconds.
         }
             
-        public virtual HttpWebResponse Send()
+        public virtual IPluginWebResponse Send()
         {
             IDependencyTelemetry dependencyTelemetry = null;
             IOperationalTelemetryClient<IDependencyTelemetry> dependencyClient = null;
 
             if (_telemetryClient != null && _telemetryFactory != null)
             {
-                dependencyTelemetry = _telemetryFactory.BuildDependencyTelemetry("Web", _webRequest.RequestUri.ToString(), "PluginWebRequest", null);
+                dependencyTelemetry = _telemetryFactory.BuildDependencyTelemetry(
+                    "Web", 
+                    _webRequest.RequestUri.ToString(), 
+                    _dependencyName != null ? _dependencyName : "PluginWebRequest",
+                    null);
                 dependencyClient = _telemetryClient.StartOperation<IDependencyTelemetry>(dependencyTelemetry);
             }
 
@@ -70,16 +78,16 @@ namespace CCLLC.Xrm.Sdk.Utilities
 
                 using (HttpWebResponse response = _webRequest.GetResponse() as HttpWebResponse)
                 {
+                    var pluginWebResponse = new PluginHttpWebResponse(response);
                     if (dependencyTelemetry != null)
                     {
-                        int statusCode = (int)response.StatusCode;
-                        dependencyTelemetry.ResultCode = statusCode.ToString();
-                        dependencyTelemetry.Success = (statusCode >= 200 && statusCode < 300);                       
+                        dependencyTelemetry.ResultCode = pluginWebResponse.StatusCode.ToString();
+                        dependencyTelemetry.Success = pluginWebResponse.Success;                       
                     }
 
                     if(dependencyClient != null) { dependencyClient.Dispose(); }
 
-                    return response;
+                    return pluginWebResponse;
                 }
 
             }

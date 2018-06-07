@@ -122,6 +122,9 @@
     <Compile Include="Interfaces\Context\ISupportContextInstrumentation.cs" />
     <Compile Include="Interfaces\eMessageType.cs" />
     <Compile Include="Interfaces\ISupportPluginInstrumentation.cs" />
+    <Compile Include="Interfaces\Utility\IPluginWebResponse.cs" />
+    <Compile Include="Interfaces\Utility\IPluginWebRequest.cs" />
+    <Compile Include="Interfaces\Utility\IPluginWebRequestFactory.cs" />
     <Compile Include="LocalPluginContextFactory.cs" />
     <Compile Include="Encryption\RijndaelEncryption.cs" />
     <Compile Include="Interfaces\Encryption\IEncryption.cs" />
@@ -138,6 +141,8 @@
     <Compile Include="PluginEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\PluginHttpWebRequest.cs" />
+    <Compile Include="Utilities\PluginHttpWebRequestFactory.cs" />
+    <Compile Include="Utilities\PluginHttpWebResponse.cs" />
     <Compile Include="Utilities\XrmEntityExtensions.cs" />
   </ItemGroup>
   <ItemGroup>

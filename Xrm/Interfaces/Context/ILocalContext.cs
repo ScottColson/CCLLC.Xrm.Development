@@ -31,5 +31,8 @@ namespace CCLLC.Xrm.Sdk
 
         EntityReference TargetReference { get; }
 
+        IPluginWebRequestFactory WebRequestFactory { get; }
+
+        IPluginWebRequest CreateWebRequest(Uri address);
     }
 }

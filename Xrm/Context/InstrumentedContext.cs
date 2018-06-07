@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CCLLC.Core;
 using CCLLC.Telemetry;
 using Microsoft.Xrm.Sdk;
@@ -32,6 +28,11 @@ namespace CCLLC.Xrm.Sdk.Context
             this.TelemetryClient = telemetryClient;
         }
 
+        public override IPluginWebRequest CreateWebRequest(Uri address)
+        {
+            return WebRequestFactory.BuildPluginWebRequest(address, this.TelemetryFactory, this.TelemetryClient);
+        }
+
         public override void Dispose()
         {            
             if (this.TelemetryClient != null)
@@ -45,30 +46,7 @@ namespace CCLLC.Xrm.Sdk.Context
 
             base.Dispose();
         }
-
-        public override void Trace(eMessageType type, string message, params object[] args)
-        {
-            base.Trace(type, message, args);
-            if (!string.IsNullOrEmpty(message))
-            {
-                if (this.TelemetryClient != null && this.TelemetryFactory != null)
-                {
-                    var level = eSeverityLevel.Information;
-                    if(type == eMessageType.Warning)
-                    {
-                        level = eSeverityLevel.Warning;
-                    }
-                    else if(type == eMessageType.Error)
-                    {
-                        level = eSeverityLevel.Error;
-                    }
-
-                    var msgTelemetry = this.TelemetryFactory.BuildMessageTelemetry(string.Format(message, args), level);
-                    this.TelemetryClient.Track(msgTelemetry);
-                }
-            }
-        }
-
+               
         public virtual void SetAlternateDataKey(string name, string value)
         {
             if (this.TelemetryClient != null)
@@ -81,5 +59,29 @@ namespace CCLLC.Xrm.Sdk.Context
                 }
             }
         }
+
+        public override void Trace(eMessageType type, string message, params object[] args)
+        {
+            base.Trace(type, message, args);
+            if (!string.IsNullOrEmpty(message))
+            {
+                if (this.TelemetryClient != null && this.TelemetryFactory != null)
+                {
+                    var level = eSeverityLevel.Information;
+                    if (type == eMessageType.Warning)
+                    {
+                        level = eSeverityLevel.Warning;
+                    }
+                    else if (type == eMessageType.Error)
+                    {
+                        level = eSeverityLevel.Error;
+                    }
+
+                    var msgTelemetry = this.TelemetryFactory.BuildMessageTelemetry(string.Format(message, args), level);
+                    this.TelemetryClient.Track(msgTelemetry);
+                }
+            }
+        }
+
     }
 }
