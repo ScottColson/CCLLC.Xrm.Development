@@ -191,9 +191,9 @@ namespace CCLLC.Xrm.Sdk.Context
             this.ExecutionContext = executionContext;           
         }
 
-        public virtual IPluginWebRequest CreateWebRequest(Uri address)
+        public virtual IPluginWebRequest CreateWebRequest(Uri address, string dependencyName = null)
         {
-            return this.WebRequestFactory.BuildPluginWebRequest(address);
+            return this.WebRequestFactory.BuildPluginWebRequest(address, dependencyName);
         }
 
         public virtual void Dispose()

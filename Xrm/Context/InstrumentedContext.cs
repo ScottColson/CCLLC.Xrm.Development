@@ -9,16 +9,16 @@ namespace CCLLC.Xrm.Sdk.Context
     {
         public IComponentTelemetryClient TelemetryClient { get; private set; }
 
-        private ITelemetryFactory telemetryFactory;
+        private ITelemetryFactory _telemetryFactory;
         public ITelemetryFactory TelemetryFactory
         {
             get
             {
-                if (telemetryFactory == null)
+                if (_telemetryFactory == null)
                 {
-                    telemetryFactory = this.Container.Resolve<ITelemetryFactory>();
+                    _telemetryFactory = this.Container.Resolve<ITelemetryFactory>();
                 }
-                return telemetryFactory;
+                return _telemetryFactory;
             }
         }
 
@@ -28,9 +28,9 @@ namespace CCLLC.Xrm.Sdk.Context
             this.TelemetryClient = telemetryClient;
         }
 
-        public override IPluginWebRequest CreateWebRequest(Uri address)
+        public override IPluginWebRequest CreateWebRequest(Uri address, string dependencyName = null)
         {
-            return WebRequestFactory.BuildPluginWebRequest(address, this.TelemetryFactory, this.TelemetryClient);
+            return WebRequestFactory.BuildPluginWebRequest(address, dependencyName,  this.TelemetryFactory, this.TelemetryClient);
         }
 
         public override void Dispose()
@@ -83,5 +83,12 @@ namespace CCLLC.Xrm.Sdk.Context
             }
         }
 
+        public virtual void TrackEvent(string name)
+        {
+            if(this.TelemetryFactory != null && this.TelemetryClient != null && !string.IsNullOrEmpty(name))
+            {
+                this.TelemetryClient.Track(this.TelemetryFactory.BuildEventTelemetry(name));
+            }
+        }
     }
 }

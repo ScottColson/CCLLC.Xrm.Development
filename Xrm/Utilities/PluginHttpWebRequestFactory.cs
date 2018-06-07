@@ -9,9 +9,9 @@ namespace CCLLC.Xrm.Sdk.Utilities
 {
     public class PluginHttpWebRequestFactory : IPluginWebRequestFactory
     {
-        public IPluginWebRequest BuildPluginWebRequest(Uri address, ITelemetryFactory telemetryFactory = null, ITelemetryClient telemetryClient = null)
+        public IPluginWebRequest BuildPluginWebRequest(Uri address, string dependencyName = null, ITelemetryFactory telemetryFactory = null, ITelemetryClient telemetryClient = null)
         {
-            return new PluginHttpWebRequest(address, telemetryFactory, telemetryClient);
+            return new PluginHttpWebRequest(address, dependencyName,  telemetryFactory, telemetryClient);
         }
     }
 }

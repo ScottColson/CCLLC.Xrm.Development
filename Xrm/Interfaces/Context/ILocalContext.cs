@@ -33,6 +33,6 @@ namespace CCLLC.Xrm.Sdk
 
         IPluginWebRequestFactory WebRequestFactory { get; }
 
-        IPluginWebRequest CreateWebRequest(Uri address);
+        IPluginWebRequest CreateWebRequest(Uri address, string dependencyName = null);
     }
 }
