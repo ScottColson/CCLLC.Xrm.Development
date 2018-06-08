@@ -8,17 +8,17 @@ using CCLLC.Xrm.Sdk;
 
 namespace TelemetrySamples
 {
-    public class UsingAltPluginBase : AltPluginBase<Entity>
+    public class UsingAltPluginBase : AltPluginBase
     {
         public UsingAltPluginBase(string unsecureConfig, string secureConfig) : base(unsecureConfig, secureConfig)
         {
-            this.RegisterEventHandler("contact", MessageNames.Create, ePluginStage.PreOperation, MyCreateEventHandler);
+            this.RegisterEventHandler("contact", MessageNames.Update, ePluginStage.PreOperation, MyUpdateEventHandler);
         }
 
-        private void MyCreateEventHandler(ILocalPluginContext<Entity> localContext)
+        private void MyUpdateEventHandler(ILocalPluginContext localContext)
         {
             // This line will write to Plugin Trace Log as well as Application Insights
-            localContext.Trace("Entered MyCreateEventHandler at {0}", DateTime.Now);
+            localContext.Trace("Entered UsingAltPluginBase MyUpdateEventHandler at {0}", DateTime.Now);
         }
     }
 }

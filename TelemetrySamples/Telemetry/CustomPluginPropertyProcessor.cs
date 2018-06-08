@@ -3,7 +3,7 @@
 namespace TelemetrySamples.Telemetry
 {
     /// <summary>
-    /// Adds a custom property wiht the name and value specified to the telemetry context 
+    /// Adds a custom property with the name and value specified to the telemetry context 
     /// of each telemetry item processed by the telemetry sink.
     /// </summary>
     public class CustomPluginPropertyProcessor : CCLLC.Telemetry.ITelemetryProcessor
@@ -21,7 +21,12 @@ namespace TelemetrySamples.Telemetry
         {
             if(telemetryItem != null && telemetryItem.Context != null && !string.IsNullOrEmpty(_propertyName) && !string.IsNullOrEmpty(_propertyValue))
             {
-                telemetryItem.Context.Properties.Add(_propertyName, _propertyValue);
+                //need to cast the telemetry item to an interface that supports properties.
+                var withProperties = telemetryItem as ISupportProperties;
+                if (withProperties != null)
+                {
+                    withProperties.Properties.Add(_propertyName, _propertyValue);
+                }
             }
         }
     }

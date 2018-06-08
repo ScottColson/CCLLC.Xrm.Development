@@ -13,7 +13,7 @@ namespace TelemetrySamples
     ///  - Accessing advanced telemetry functions by accessing alternate interfaces of 
     ///    localContext.
     /// </summary>
-    public class ConnectedToAppInsights : InstrumentedPluginBase<Entity>
+    public class ConnectedToAppInsights : InstrumentedPluginBase
     {
         
         public ConnectedToAppInsights(string unsecureConfig, string secureConfig) : base(unsecureConfig, secureConfig)
@@ -24,13 +24,13 @@ namespace TelemetrySamples
             this.RegisterEventHandler("contact", MessageNames.Delete, ePluginStage.PreOperation, MyDeleteEventHandler);
         }       
         
-        private void MyCreateEventHandler(ILocalPluginContext<Entity> localContext)
+        private void MyCreateEventHandler(ILocalPluginContext localContext)
         {
             // This line will write to Plugin Trace Log as well as Application Insights
             localContext.Trace("Entered MyCreateEventHandler at {0}", DateTime.Now);  
         }
 
-        private void MyUpdateEventHandler(ILocalPluginContext<Entity> localContext)
+        private void MyUpdateEventHandler(ILocalPluginContext localContext)
         {
             // This line will write to Plugin Trace Log as well as Application Insights
             localContext.Trace("Entered MyUpdateEventHandler");
@@ -48,22 +48,27 @@ namespace TelemetrySamples
                 // just uses a random guid.
                 asInstrumentedContext.SetAlternateDataKey("MySystemName", Guid.NewGuid().ToString());
 
+                //Track an event.
+                asInstrumentedContext.TrackEvent("MyEventName");
+                
                 // access the TelementryFactory and TelemetryClient directly to send a message
                 // to AppInsights with a severity level. Using this method you can access anything 
                 // that the Telemetry system offers even if that functionality is not surfaced in 
                 // the localContext.
                 var item = asInstrumentedContext.TelemetryFactory.BuildMessageTelemetry("This is a warning message.", CCLLC.Telemetry.eSeverityLevel.Warning);
                 asInstrumentedContext.TelemetryClient.Track(item);
+
+
             }            
         }
 
-        private void MyDeleteEventHandler(ILocalPluginContext<Entity> localContext)
+        private void MyDeleteEventHandler(ILocalPluginContext localContext)
         {
             // cast localContext into its concrete implementation to access telemetry
             // features that are not part of the ILocalPluginContext definition. Generally
             // it is better to cast to the ISupportContextInstrumentation interface as
             // shown in MyUpdateEventHandler to prevent lockin to a specific implementation
-            var concreteContext = localContext as InstrumentedPluginContext<Entity>;
+            var concreteContext = localContext as InstrumentedPluginContext;
 
             // This line will write to Plugin Trace Log as well as Application Insights
             concreteContext.Trace("Entered MyDeleteEventHandler");

@@ -8,9 +8,9 @@ namespace TelemetrySamples
 {       
     /// <summary>
     /// This is an example of an plugin base class that provides an alternate
-    /// TelemetrySink configuration from that provided by the InstrumentedPluginBase.
+    /// TelemetrySink configuration from that provided by the <see cref="InstrumentedPluginBase"/>.
     /// </summary>
-    public abstract class AltPluginBase<E> : InstrumentedPluginBase<E> where E : Entity
+    public abstract class AltPluginBase : InstrumentedPluginBase
     {
         // all plugins that inherit from InstrumentedPluginBase use a single telmetry
         // sink. Since this alternate base class uses an alternate configuration for
@@ -47,7 +47,7 @@ namespace TelemetrySamples
         // in addition to the two processors that the InstrumentedPluginBase uses.
         // With the exception of adding the new CustomPluginPropertyProcessor, this
         // is the same code used in InstrumentedPluginBase.
-        public override bool ConfigureTelemetrySink(ILocalPluginContext<E> localContext)
+        public override bool ConfigureTelemetrySink(ILocalPluginContext localContext)
         {
             if (localContext != null)
             {
@@ -58,7 +58,7 @@ namespace TelemetrySamples
                     TelemetrySink.ProcessChain.TelemetryProcessors.Add(new CCLLC.Telemetry.Sink.InstrumentationKeyPropertyProcessor(key));
 
                     //this telemetry processor will stamp each telemetry item with datetime of when the sink was first configured.
-                    TelemetrySink.ProcessChain.TelemetryProcessors.Add(new Telemetry.CustomPluginPropertyProcessor("SinkConfigurationTime", DateTime.UtcNow.ToString()));
+                    TelemetrySink.ProcessChain.TelemetryProcessors.Add(new Telemetry.CustomPluginPropertyProcessor("sink-config-time", DateTime.UtcNow.ToString()));
 
                     return true; //telemetry sink is configured.
                 }
