@@ -1,0 +1,452 @@
+Set platform to 'v4', using directory 'C:\Windows\Microsoft.NET\Framework\v4.0.30319' for mscorlib.dll
+Set platform to 'v4', using directory 'C:\Windows\Microsoft.NET\Framework\v4.0.30319' for mscorlib.dll
+Running on Microsoft (R) .NET Framework v4.0.30319
+mscorlib.dll version = 4.0.0.0
+The list of input assemblies is:
+	C:\Source\GitHub\D365.XrmPlugin.Extensions\CCLLCExtensionSettings\bin\Release\CCLLCExtensionSettings.dll
+	CCLLCIoCContainer.dll
+	CCLLCTelemetry.dll
+	CCLLCXrmSdk.dll
+	CCLLCXrmWorkflow.dll
+Trying to read assembly from the file 'C:\Source\GitHub\D365.XrmPlugin.Extensions\CCLLCExtensionSettings\bin\Release\CCLLCExtensionSettings.dll'.
+	Successfully read in assembly.
+	There were no errors reported in CCLLCExtensionSettings's metadata.
+Trying to read assembly from the file 'C:\Source\GitHub\D365.XrmPlugin.Extensions\CCLLCExtensionSettings\bin\Release\CCLLCIoCContainer.dll'.
+	Successfully read in assembly.
+	There were no errors reported in CCLLCIoCContainer's metadata.
+Trying to read assembly from the file 'C:\Source\GitHub\D365.XrmPlugin.Extensions\CCLLCExtensionSettings\bin\Release\CCLLCTelemetry.dll'.
+	Successfully read in assembly.
+	There were no errors reported in CCLLCTelemetry's metadata.
+Trying to read assembly from the file 'C:\Source\GitHub\D365.XrmPlugin.Extensions\CCLLCExtensionSettings\bin\Release\CCLLCXrmSdk.dll'.
+	Successfully read in assembly.
+	There were no errors reported in CCLLCXrmSdk's metadata.
+Trying to read assembly from the file 'C:\Source\GitHub\D365.XrmPlugin.Extensions\CCLLCExtensionSettings\bin\Release\CCLLCXrmWorkflow.dll'.
+	Successfully read in assembly.
+	There were no errors reported in CCLLCXrmWorkflow's metadata.
+Checking to see that all of the input assemblies have a compatible PeKind.
+	CCLLCExtensionSettings.PeKind = ILonly
+	CCLLCIoCContainer.PeKind = ILonly
+	CCLLCTelemetry.PeKind = ILonly
+	CCLLCXrmSdk.PeKind = ILonly
+	CCLLCXrmWorkflow.PeKind = ILonly
+All input assemblies have a compatible PeKind value.
+AssemblyResolver: Assembly 'CCLLCXrmWorkflow' is referencing assembly 'System.Activities'.
+	AssemblyResolver: Attempting referencing assembly's directory.
+	AssemblyResolver: Did not find assembly in referencing assembly's directory.
+	AssemblyResolver: Attempting input directory.
+	AssemblyResolver: Did not find assembly in input directory.
+	AssemblyResolver: Attempting user-supplied directories.
+Resolved assembly reference 'System.Activities' to 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\\System.Activities.dll'. (Used a client-supplied directory.)
+AssemblyResolver: Assembly 'CCLLCXrmSdk' is referencing assembly 'Microsoft.Xrm.Sdk'.
+	AssemblyResolver: Attempting referencing assembly's directory.
+	AssemblyResolver: Did not find assembly in referencing assembly's directory.
+	AssemblyResolver: Attempting input directory.
+	AssemblyResolver: Did not find assembly in input directory.
+	AssemblyResolver: Attempting user-supplied directories.
+Resolved assembly reference 'Microsoft.Xrm.Sdk' to 'C:\Source\GitHub\D365.XrmPlugin.Extensions\packages\Microsoft.CrmSdk.CoreAssemblies.8.0.0\lib\net45\\Microsoft.Xrm.Sdk.dll'. (Used a client-supplied directory.)
+AssemblyResolver: Assembly 'CCLLCXrmWorkflow' is referencing assembly 'CCLLCXrmSdk'.
+	AssemblyResolver: Attempting referencing assembly's directory.
+Resolved assembly reference 'CCLLCXrmSdk' to 'C:\Source\GitHub\D365.XrmPlugin.Extensions\CCLLCExtensionSettings\bin\Release\CCLLCXrmSdk.dll'. (Used referencing Module's directory.)
+AssemblyResolver: Assembly 'CCLLCExtensionSettings' is referencing assembly 'Microsoft.Xrm.Sdk.Workflow'.
+	AssemblyResolver: Attempting referencing assembly's directory.
+	AssemblyResolver: Did not find assembly in referencing assembly's directory.
+	AssemblyResolver: Attempting input directory.
+	AssemblyResolver: Did not find assembly in input directory.
+	AssemblyResolver: Attempting user-supplied directories.
+Resolved assembly reference 'Microsoft.Xrm.Sdk.Workflow' to 'C:\Source\GitHub\D365.XrmPlugin.Extensions\packages\Microsoft.CrmSdk.Workflow.8.0.0\lib\net45\\Microsoft.Xrm.Sdk.Workflow.dll'. (Used a client-supplied directory.)
+AssemblyResolver: Assembly 'CCLLCXrmSdk' is referencing assembly 'System.Xml.Linq'.
+	AssemblyResolver: Attempting referencing assembly's directory.
+	AssemblyResolver: Did not find assembly in referencing assembly's directory.
+	AssemblyResolver: Attempting input directory.
+	AssemblyResolver: Did not find assembly in input directory.
+	AssemblyResolver: Attempting user-supplied directories.
+Resolved assembly reference 'System.Xml.Linq' to 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\\System.Xml.Linq.dll'. (Used a client-supplied directory.)
+AssemblyResolver: Assembly 'Microsoft.Xrm.Sdk' is referencing assembly 'System.Runtime.Serialization'.
+	AssemblyResolver: Attempting referencing assembly's directory.
+	AssemblyResolver: Did not find assembly in referencing assembly's directory.
+	AssemblyResolver: Attempting input directory.
+	AssemblyResolver: Did not find assembly in input directory.
+	AssemblyResolver: Attempting user-supplied directories.
+Resolved assembly reference 'System.Runtime.Serialization' to 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\\System.Runtime.Serialization.dll'. (Used a client-supplied directory.)
+AssemblyResolver: Assembly 'CCLLCXrmSdk' is referencing assembly 'System.Runtime.Caching'.
+	AssemblyResolver: Attempting referencing assembly's directory.
+	AssemblyResolver: Did not find assembly in referencing assembly's directory.
+	AssemblyResolver: Attempting input directory.
+	AssemblyResolver: Did not find assembly in input directory.
+	AssemblyResolver: Attempting user-supplied directories.
+Resolved assembly reference 'System.Runtime.Caching' to 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\\System.Runtime.Caching.dll'. (Used a client-supplied directory.)
+Using assembly 'CCLLCExtensionSettings' for assembly-level attributes for the target assembly.
+Merging assembly 'CCLLCExtensionSettings' into target assembly.
+Merging assembly 'CCLLCIoCContainer' into target assembly.
+Merging assembly 'CCLLCTelemetry' into target assembly.
+Merging assembly 'CCLLCXrmSdk' into target assembly.
+Merging assembly 'CCLLCXrmWorkflow' into target assembly.
+AssemblyResolver: Assembly 'System.Activities' is referencing assembly 'System.Transactions'.
+	AssemblyResolver: Attempting referencing assembly's directory.
+Resolved assembly reference 'System.Transactions' to 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.Transactions.dll'. (Used referencing Module's directory.)
+AssemblyResolver: Assembly 'System.Activities' is referencing assembly 'System.Core'.
+	AssemblyResolver: Attempting referencing assembly's directory.
+Resolved assembly reference 'System.Core' to 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.Core.dll'. (Used referencing Module's directory.)
+AssemblyResolver: Assembly 'System.Activities' is referencing assembly 'System.Xaml'.
+	AssemblyResolver: Attempting referencing assembly's directory.
+Resolved assembly reference 'System.Xaml' to 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.Xaml.dll'. (Used referencing Module's directory.)
+Copying 1 Win32 Resources from assembly 'CCLLCExtensionSettings' into target assembly.
+ILMerge: Signing assembly with the key file 'C:\Source\GitHub\D365.XrmPlugin.Extensions\CCLLCExtensionSettings\CCLLCExtensionSettings.snk'.
+	There were no errors reported in the target assembly's metadata.
+ILMerge: Writing target assembly 'C:\Source\GitHub\D365.XrmPlugin.Extensions\CCLLCExtensionSettings\bin\Release\ILMerge\CCLLCExtensionSettings.dll'.
+Location for referenced assembly 'System.Activities' is 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.Activities.dll'
+	There were no errors reported in  System.Activities's metadata.
+Location for referenced assembly 'mscorlib' is 'C:\Windows\Microsoft.NET\Framework\v4.0.30319\mscorlib.dll'
+	There were no errors reported in  mscorlib's metadata.
+Location for referenced assembly 'Microsoft.Xrm.Sdk' is 'C:\Source\GitHub\D365.XrmPlugin.Extensions\packages\Microsoft.CrmSdk.CoreAssemblies.8.0.0\lib\net45\Microsoft.Xrm.Sdk.dll'
+	There were no errors reported in  Microsoft.Xrm.Sdk's metadata.
+Location for referenced assembly 'System' is 'C:\Windows\Microsoft.NET\Framework\v4.0.30319\system.dll'
+	There were no errors reported in  System's metadata.
+Location for referenced assembly 'System.Core' is 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.Core.dll'
+	There were no errors reported in  System.Core's metadata.
+Location for referenced assembly 'System.Xml.Linq' is 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.Xml.Linq.dll'
+	There were no errors reported in  System.Xml.Linq's metadata.
+Location for referenced assembly 'System.Runtime.Caching' is 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.Runtime.Caching.dll'
+	There were no errors reported in  System.Runtime.Caching's metadata.
+Location for referenced assembly 'Microsoft.Xrm.Sdk.Workflow' is 'C:\Source\GitHub\D365.XrmPlugin.Extensions\packages\Microsoft.CrmSdk.Workflow.8.0.0\lib\net45\Microsoft.Xrm.Sdk.Workflow.dll'
+	There were no errors reported in  Microsoft.Xrm.Sdk.Workflow's metadata.
+ILMerge: Done.
+Set platform to 'v4', using directory 'C:\Windows\Microsoft.NET\Framework\v4.0.30319' for mscorlib.dll
+Set platform to 'v4', using directory 'C:\Windows\Microsoft.NET\Framework\v4.0.30319' for mscorlib.dll
+Running on Microsoft (R) .NET Framework v4.0.30319
+mscorlib.dll version = 4.0.0.0
+The list of input assemblies is:
+	C:\Source\GitHub\D365.XrmPlugin.Extensions\CCLLCExtensionSettings\bin\Release\CCLLCExtensionSettings.dll
+	CCLLCIoCContainer.dll
+	CCLLCTelemetry.dll
+	CCLLCXrmSdk.dll
+	CCLLCXrmWorkflow.dll
+Trying to read assembly from the file 'C:\Source\GitHub\D365.XrmPlugin.Extensions\CCLLCExtensionSettings\bin\Release\CCLLCExtensionSettings.dll'.
+	Successfully read in assembly.
+	There were no errors reported in CCLLCExtensionSettings's metadata.
+Trying to read assembly from the file 'C:\Source\GitHub\D365.XrmPlugin.Extensions\CCLLCExtensionSettings\bin\Release\CCLLCIoCContainer.dll'.
+	Successfully read in assembly.
+	There were no errors reported in CCLLCIoCContainer's metadata.
+Trying to read assembly from the file 'C:\Source\GitHub\D365.XrmPlugin.Extensions\CCLLCExtensionSettings\bin\Release\CCLLCTelemetry.dll'.
+	Successfully read in assembly.
+	There were no errors reported in CCLLCTelemetry's metadata.
+Trying to read assembly from the file 'C:\Source\GitHub\D365.XrmPlugin.Extensions\CCLLCExtensionSettings\bin\Release\CCLLCXrmSdk.dll'.
+	Successfully read in assembly.
+	There were no errors reported in CCLLCXrmSdk's metadata.
+Trying to read assembly from the file 'C:\Source\GitHub\D365.XrmPlugin.Extensions\CCLLCExtensionSettings\bin\Release\CCLLCXrmWorkflow.dll'.
+	Successfully read in assembly.
+	There were no errors reported in CCLLCXrmWorkflow's metadata.
+Checking to see that all of the input assemblies have a compatible PeKind.
+	CCLLCExtensionSettings.PeKind = ILonly
+	CCLLCIoCContainer.PeKind = ILonly
+	CCLLCTelemetry.PeKind = ILonly
+	CCLLCXrmSdk.PeKind = ILonly
+	CCLLCXrmWorkflow.PeKind = ILonly
+All input assemblies have a compatible PeKind value.
+AssemblyResolver: Assembly 'CCLLCXrmWorkflow' is referencing assembly 'System.Activities'.
+	AssemblyResolver: Attempting referencing assembly's directory.
+	AssemblyResolver: Did not find assembly in referencing assembly's directory.
+	AssemblyResolver: Attempting input directory.
+	AssemblyResolver: Did not find assembly in input directory.
+	AssemblyResolver: Attempting user-supplied directories.
+Resolved assembly reference 'System.Activities' to 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\\System.Activities.dll'. (Used a client-supplied directory.)
+AssemblyResolver: Assembly 'CCLLCXrmSdk' is referencing assembly 'Microsoft.Xrm.Sdk'.
+	AssemblyResolver: Attempting referencing assembly's directory.
+	AssemblyResolver: Did not find assembly in referencing assembly's directory.
+	AssemblyResolver: Attempting input directory.
+	AssemblyResolver: Did not find assembly in input directory.
+	AssemblyResolver: Attempting user-supplied directories.
+Resolved assembly reference 'Microsoft.Xrm.Sdk' to 'C:\Source\GitHub\D365.XrmPlugin.Extensions\packages\Microsoft.CrmSdk.CoreAssemblies.8.0.0\lib\net45\\Microsoft.Xrm.Sdk.dll'. (Used a client-supplied directory.)
+AssemblyResolver: Assembly 'CCLLCXrmWorkflow' is referencing assembly 'CCLLCXrmSdk'.
+	AssemblyResolver: Attempting referencing assembly's directory.
+Resolved assembly reference 'CCLLCXrmSdk' to 'C:\Source\GitHub\D365.XrmPlugin.Extensions\CCLLCExtensionSettings\bin\Release\CCLLCXrmSdk.dll'. (Used referencing Module's directory.)
+AssemblyResolver: Assembly 'CCLLCExtensionSettings' is referencing assembly 'Microsoft.Xrm.Sdk.Workflow'.
+	AssemblyResolver: Attempting referencing assembly's directory.
+	AssemblyResolver: Did not find assembly in referencing assembly's directory.
+	AssemblyResolver: Attempting input directory.
+	AssemblyResolver: Did not find assembly in input directory.
+	AssemblyResolver: Attempting user-supplied directories.
+Resolved assembly reference 'Microsoft.Xrm.Sdk.Workflow' to 'C:\Source\GitHub\D365.XrmPlugin.Extensions\packages\Microsoft.CrmSdk.Workflow.8.0.0\lib\net45\\Microsoft.Xrm.Sdk.Workflow.dll'. (Used a client-supplied directory.)
+AssemblyResolver: Assembly 'CCLLCXrmSdk' is referencing assembly 'System.Xml.Linq'.
+	AssemblyResolver: Attempting referencing assembly's directory.
+	AssemblyResolver: Did not find assembly in referencing assembly's directory.
+	AssemblyResolver: Attempting input directory.
+	AssemblyResolver: Did not find assembly in input directory.
+	AssemblyResolver: Attempting user-supplied directories.
+Resolved assembly reference 'System.Xml.Linq' to 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\\System.Xml.Linq.dll'. (Used a client-supplied directory.)
+AssemblyResolver: Assembly 'Microsoft.Xrm.Sdk' is referencing assembly 'System.Runtime.Serialization'.
+	AssemblyResolver: Attempting referencing assembly's directory.
+	AssemblyResolver: Did not find assembly in referencing assembly's directory.
+	AssemblyResolver: Attempting input directory.
+	AssemblyResolver: Did not find assembly in input directory.
+	AssemblyResolver: Attempting user-supplied directories.
+Resolved assembly reference 'System.Runtime.Serialization' to 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\\System.Runtime.Serialization.dll'. (Used a client-supplied directory.)
+AssemblyResolver: Assembly 'CCLLCXrmSdk' is referencing assembly 'System.Runtime.Caching'.
+	AssemblyResolver: Attempting referencing assembly's directory.
+	AssemblyResolver: Did not find assembly in referencing assembly's directory.
+	AssemblyResolver: Attempting input directory.
+	AssemblyResolver: Did not find assembly in input directory.
+	AssemblyResolver: Attempting user-supplied directories.
+Resolved assembly reference 'System.Runtime.Caching' to 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\\System.Runtime.Caching.dll'. (Used a client-supplied directory.)
+Using assembly 'CCLLCExtensionSettings' for assembly-level attributes for the target assembly.
+Merging assembly 'CCLLCExtensionSettings' into target assembly.
+Merging assembly 'CCLLCIoCContainer' into target assembly.
+Merging assembly 'CCLLCTelemetry' into target assembly.
+Merging assembly 'CCLLCXrmSdk' into target assembly.
+Merging assembly 'CCLLCXrmWorkflow' into target assembly.
+AssemblyResolver: Assembly 'System.Activities' is referencing assembly 'System.Transactions'.
+	AssemblyResolver: Attempting referencing assembly's directory.
+Resolved assembly reference 'System.Transactions' to 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.Transactions.dll'. (Used referencing Module's directory.)
+AssemblyResolver: Assembly 'System.Activities' is referencing assembly 'System.Core'.
+	AssemblyResolver: Attempting referencing assembly's directory.
+Resolved assembly reference 'System.Core' to 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.Core.dll'. (Used referencing Module's directory.)
+AssemblyResolver: Assembly 'System.Activities' is referencing assembly 'System.Xaml'.
+	AssemblyResolver: Attempting referencing assembly's directory.
+Resolved assembly reference 'System.Xaml' to 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.Xaml.dll'. (Used referencing Module's directory.)
+Copying 1 Win32 Resources from assembly 'CCLLCExtensionSettings' into target assembly.
+ILMerge: Signing assembly with the key file 'C:\Source\GitHub\D365.XrmPlugin.Extensions\CCLLCExtensionSettings\CCLLCExtensionSettings.snk'.
+	There were no errors reported in the target assembly's metadata.
+ILMerge: Writing target assembly 'C:\Source\GitHub\D365.XrmPlugin.Extensions\CCLLCExtensionSettings\bin\Release\ILMerge\CCLLCExtensionSettings.dll'.
+Location for referenced assembly 'System.Activities' is 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.Activities.dll'
+	There were no errors reported in  System.Activities's metadata.
+Location for referenced assembly 'mscorlib' is 'C:\Windows\Microsoft.NET\Framework\v4.0.30319\mscorlib.dll'
+	There were no errors reported in  mscorlib's metadata.
+Location for referenced assembly 'Microsoft.Xrm.Sdk' is 'C:\Source\GitHub\D365.XrmPlugin.Extensions\packages\Microsoft.CrmSdk.CoreAssemblies.8.0.0\lib\net45\Microsoft.Xrm.Sdk.dll'
+	There were no errors reported in  Microsoft.Xrm.Sdk's metadata.
+Location for referenced assembly 'System' is 'C:\Windows\Microsoft.NET\Framework\v4.0.30319\system.dll'
+	There were no errors reported in  System's metadata.
+Location for referenced assembly 'System.Core' is 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.Core.dll'
+	There were no errors reported in  System.Core's metadata.
+Location for referenced assembly 'System.Xml.Linq' is 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.Xml.Linq.dll'
+	There were no errors reported in  System.Xml.Linq's metadata.
+Location for referenced assembly 'System.Runtime.Caching' is 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.Runtime.Caching.dll'
+	There were no errors reported in  System.Runtime.Caching's metadata.
+Location for referenced assembly 'Microsoft.Xrm.Sdk.Workflow' is 'C:\Source\GitHub\D365.XrmPlugin.Extensions\packages\Microsoft.CrmSdk.Workflow.8.0.0\lib\net45\Microsoft.Xrm.Sdk.Workflow.dll'
+	There were no errors reported in  Microsoft.Xrm.Sdk.Workflow's metadata.
+ILMerge: Done.
+Set platform to 'v4', using directory 'C:\Windows\Microsoft.NET\Framework\v4.0.30319' for mscorlib.dll
+Set platform to 'v4', using directory 'C:\Windows\Microsoft.NET\Framework\v4.0.30319' for mscorlib.dll
+Running on Microsoft (R) .NET Framework v4.0.30319
+mscorlib.dll version = 4.0.0.0
+The list of input assemblies is:
+	C:\Source\GitHub\D365.XrmPlugin.Extensions\CCLLCExtensionSettings\bin\Release\CCLLCExtensionSettings.dll
+	CCLLCIoCContainer.dll
+	CCLLCTelemetry.dll
+	CCLLCXrmSdk.dll
+	CCLLCXrmWorkflow.dll
+Trying to read assembly from the file 'C:\Source\GitHub\D365.XrmPlugin.Extensions\CCLLCExtensionSettings\bin\Release\CCLLCExtensionSettings.dll'.
+	Successfully read in assembly.
+	There were no errors reported in CCLLCExtensionSettings's metadata.
+Trying to read assembly from the file 'C:\Source\GitHub\D365.XrmPlugin.Extensions\CCLLCExtensionSettings\bin\Release\CCLLCIoCContainer.dll'.
+	Successfully read in assembly.
+	There were no errors reported in CCLLCIoCContainer's metadata.
+Trying to read assembly from the file 'C:\Source\GitHub\D365.XrmPlugin.Extensions\CCLLCExtensionSettings\bin\Release\CCLLCTelemetry.dll'.
+	Successfully read in assembly.
+	There were no errors reported in CCLLCTelemetry's metadata.
+Trying to read assembly from the file 'C:\Source\GitHub\D365.XrmPlugin.Extensions\CCLLCExtensionSettings\bin\Release\CCLLCXrmSdk.dll'.
+	Successfully read in assembly.
+	There were no errors reported in CCLLCXrmSdk's metadata.
+Trying to read assembly from the file 'C:\Source\GitHub\D365.XrmPlugin.Extensions\CCLLCExtensionSettings\bin\Release\CCLLCXrmWorkflow.dll'.
+	Successfully read in assembly.
+	There were no errors reported in CCLLCXrmWorkflow's metadata.
+Checking to see that all of the input assemblies have a compatible PeKind.
+	CCLLCExtensionSettings.PeKind = ILonly
+	CCLLCIoCContainer.PeKind = ILonly
+	CCLLCTelemetry.PeKind = ILonly
+	CCLLCXrmSdk.PeKind = ILonly
+	CCLLCXrmWorkflow.PeKind = ILonly
+All input assemblies have a compatible PeKind value.
+AssemblyResolver: Assembly 'CCLLCXrmWorkflow' is referencing assembly 'System.Activities'.
+	AssemblyResolver: Attempting referencing assembly's directory.
+	AssemblyResolver: Did not find assembly in referencing assembly's directory.
+	AssemblyResolver: Attempting input directory.
+	AssemblyResolver: Did not find assembly in input directory.
+	AssemblyResolver: Attempting user-supplied directories.
+Resolved assembly reference 'System.Activities' to 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\\System.Activities.dll'. (Used a client-supplied directory.)
+AssemblyResolver: Assembly 'CCLLCXrmSdk' is referencing assembly 'Microsoft.Xrm.Sdk'.
+	AssemblyResolver: Attempting referencing assembly's directory.
+	AssemblyResolver: Did not find assembly in referencing assembly's directory.
+	AssemblyResolver: Attempting input directory.
+	AssemblyResolver: Did not find assembly in input directory.
+	AssemblyResolver: Attempting user-supplied directories.
+Resolved assembly reference 'Microsoft.Xrm.Sdk' to 'C:\Source\GitHub\D365.XrmPlugin.Extensions\packages\Microsoft.CrmSdk.CoreAssemblies.8.0.0\lib\net45\\Microsoft.Xrm.Sdk.dll'. (Used a client-supplied directory.)
+AssemblyResolver: Assembly 'CCLLCXrmWorkflow' is referencing assembly 'CCLLCXrmSdk'.
+	AssemblyResolver: Attempting referencing assembly's directory.
+Resolved assembly reference 'CCLLCXrmSdk' to 'C:\Source\GitHub\D365.XrmPlugin.Extensions\CCLLCExtensionSettings\bin\Release\CCLLCXrmSdk.dll'. (Used referencing Module's directory.)
+AssemblyResolver: Assembly 'CCLLCExtensionSettings' is referencing assembly 'Microsoft.Xrm.Sdk.Workflow'.
+	AssemblyResolver: Attempting referencing assembly's directory.
+	AssemblyResolver: Did not find assembly in referencing assembly's directory.
+	AssemblyResolver: Attempting input directory.
+	AssemblyResolver: Did not find assembly in input directory.
+	AssemblyResolver: Attempting user-supplied directories.
+Resolved assembly reference 'Microsoft.Xrm.Sdk.Workflow' to 'C:\Source\GitHub\D365.XrmPlugin.Extensions\packages\Microsoft.CrmSdk.Workflow.8.0.0\lib\net45\\Microsoft.Xrm.Sdk.Workflow.dll'. (Used a client-supplied directory.)
+AssemblyResolver: Assembly 'CCLLCXrmSdk' is referencing assembly 'System.Xml.Linq'.
+	AssemblyResolver: Attempting referencing assembly's directory.
+	AssemblyResolver: Did not find assembly in referencing assembly's directory.
+	AssemblyResolver: Attempting input directory.
+	AssemblyResolver: Did not find assembly in input directory.
+	AssemblyResolver: Attempting user-supplied directories.
+Resolved assembly reference 'System.Xml.Linq' to 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\\System.Xml.Linq.dll'. (Used a client-supplied directory.)
+AssemblyResolver: Assembly 'Microsoft.Xrm.Sdk' is referencing assembly 'System.Runtime.Serialization'.
+	AssemblyResolver: Attempting referencing assembly's directory.
+	AssemblyResolver: Did not find assembly in referencing assembly's directory.
+	AssemblyResolver: Attempting input directory.
+	AssemblyResolver: Did not find assembly in input directory.
+	AssemblyResolver: Attempting user-supplied directories.
+Resolved assembly reference 'System.Runtime.Serialization' to 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\\System.Runtime.Serialization.dll'. (Used a client-supplied directory.)
+AssemblyResolver: Assembly 'CCLLCXrmSdk' is referencing assembly 'System.Runtime.Caching'.
+	AssemblyResolver: Attempting referencing assembly's directory.
+	AssemblyResolver: Did not find assembly in referencing assembly's directory.
+	AssemblyResolver: Attempting input directory.
+	AssemblyResolver: Did not find assembly in input directory.
+	AssemblyResolver: Attempting user-supplied directories.
+Resolved assembly reference 'System.Runtime.Caching' to 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\\System.Runtime.Caching.dll'. (Used a client-supplied directory.)
+Using assembly 'CCLLCExtensionSettings' for assembly-level attributes for the target assembly.
+Merging assembly 'CCLLCExtensionSettings' into target assembly.
+Merging assembly 'CCLLCIoCContainer' into target assembly.
+Merging assembly 'CCLLCTelemetry' into target assembly.
+Merging assembly 'CCLLCXrmSdk' into target assembly.
+Merging assembly 'CCLLCXrmWorkflow' into target assembly.
+AssemblyResolver: Assembly 'System.Activities' is referencing assembly 'System.Transactions'.
+	AssemblyResolver: Attempting referencing assembly's directory.
+Resolved assembly reference 'System.Transactions' to 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.Transactions.dll'. (Used referencing Module's directory.)
+AssemblyResolver: Assembly 'System.Activities' is referencing assembly 'System.Core'.
+	AssemblyResolver: Attempting referencing assembly's directory.
+Resolved assembly reference 'System.Core' to 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.Core.dll'. (Used referencing Module's directory.)
+AssemblyResolver: Assembly 'System.Activities' is referencing assembly 'System.Xaml'.
+	AssemblyResolver: Attempting referencing assembly's directory.
+Resolved assembly reference 'System.Xaml' to 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.Xaml.dll'. (Used referencing Module's directory.)
+Copying 1 Win32 Resources from assembly 'CCLLCExtensionSettings' into target assembly.
+ILMerge: Signing assembly with the key file 'C:\Source\GitHub\D365.XrmPlugin.Extensions\CCLLCExtensionSettings\CCLLCExtensionSettings.snk'.
+	There were no errors reported in the target assembly's metadata.
+ILMerge: Writing target assembly 'C:\Source\GitHub\D365.XrmPlugin.Extensions\CCLLCExtensionSettings\bin\Release\ILMerge\CCLLCExtensionSettings.dll'.
+Location for referenced assembly 'System.Activities' is 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.Activities.dll'
+	There were no errors reported in  System.Activities's metadata.
+Location for referenced assembly 'mscorlib' is 'C:\Windows\Microsoft.NET\Framework\v4.0.30319\mscorlib.dll'
+	There were no errors reported in  mscorlib's metadata.
+Location for referenced assembly 'Microsoft.Xrm.Sdk' is 'C:\Source\GitHub\D365.XrmPlugin.Extensions\packages\Microsoft.CrmSdk.CoreAssemblies.8.0.0\lib\net45\Microsoft.Xrm.Sdk.dll'
+	There were no errors reported in  Microsoft.Xrm.Sdk's metadata.
+Location for referenced assembly 'System' is 'C:\Windows\Microsoft.NET\Framework\v4.0.30319\system.dll'
+	There were no errors reported in  System's metadata.
+Location for referenced assembly 'System.Core' is 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.Core.dll'
+	There were no errors reported in  System.Core's metadata.
+Location for referenced assembly 'System.Xml.Linq' is 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.Xml.Linq.dll'
+	There were no errors reported in  System.Xml.Linq's metadata.
+Location for referenced assembly 'System.Runtime.Caching' is 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.Runtime.Caching.dll'
+	There were no errors reported in  System.Runtime.Caching's metadata.
+Location for referenced assembly 'Microsoft.Xrm.Sdk.Workflow' is 'C:\Source\GitHub\D365.XrmPlugin.Extensions\packages\Microsoft.CrmSdk.Workflow.8.0.0\lib\net45\Microsoft.Xrm.Sdk.Workflow.dll'
+	There were no errors reported in  Microsoft.Xrm.Sdk.Workflow's metadata.
+ILMerge: Done.
+Set platform to 'v4', using directory 'C:\Windows\Microsoft.NET\Framework\v4.0.30319' for mscorlib.dll
+Set platform to 'v4', using directory 'C:\Windows\Microsoft.NET\Framework\v4.0.30319' for mscorlib.dll
+Running on Microsoft (R) .NET Framework v4.0.30319
+mscorlib.dll version = 4.0.0.0
+The list of input assemblies is:
+	C:\Source\GitHub\D365.XrmPlugin.Extensions\CCLLCExtensionSettings\bin\Release\CCLLCExtensionSettings.dll
+	CCLLCIoCContainer.dll
+	CCLLCTelemetry.dll
+	CCLLCXrmSdk.dll
+	CCLLCXrmWorkflow.dll
+Trying to read assembly from the file 'C:\Source\GitHub\D365.XrmPlugin.Extensions\CCLLCExtensionSettings\bin\Release\CCLLCExtensionSettings.dll'.
+	Successfully read in assembly.
+	There were no errors reported in CCLLCExtensionSettings's metadata.
+Trying to read assembly from the file 'C:\Source\GitHub\D365.XrmPlugin.Extensions\CCLLCExtensionSettings\bin\Release\CCLLCIoCContainer.dll'.
+	Successfully read in assembly.
+	There were no errors reported in CCLLCIoCContainer's metadata.
+Trying to read assembly from the file 'C:\Source\GitHub\D365.XrmPlugin.Extensions\CCLLCExtensionSettings\bin\Release\CCLLCTelemetry.dll'.
+	Successfully read in assembly.
+	There were no errors reported in CCLLCTelemetry's metadata.
+Trying to read assembly from the file 'C:\Source\GitHub\D365.XrmPlugin.Extensions\CCLLCExtensionSettings\bin\Release\CCLLCXrmSdk.dll'.
+	Successfully read in assembly.
+	There were no errors reported in CCLLCXrmSdk's metadata.
+Trying to read assembly from the file 'C:\Source\GitHub\D365.XrmPlugin.Extensions\CCLLCExtensionSettings\bin\Release\CCLLCXrmWorkflow.dll'.
+	Successfully read in assembly.
+	There were no errors reported in CCLLCXrmWorkflow's metadata.
+Checking to see that all of the input assemblies have a compatible PeKind.
+	CCLLCExtensionSettings.PeKind = ILonly
+	CCLLCIoCContainer.PeKind = ILonly
+	CCLLCTelemetry.PeKind = ILonly
+	CCLLCXrmSdk.PeKind = ILonly
+	CCLLCXrmWorkflow.PeKind = ILonly
+All input assemblies have a compatible PeKind value.
+AssemblyResolver: Assembly 'CCLLCXrmWorkflow' is referencing assembly 'System.Activities'.
+	AssemblyResolver: Attempting referencing assembly's directory.
+	AssemblyResolver: Did not find assembly in referencing assembly's directory.
+	AssemblyResolver: Attempting input directory.
+	AssemblyResolver: Did not find assembly in input directory.
+	AssemblyResolver: Attempting user-supplied directories.
+Resolved assembly reference 'System.Activities' to 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\\System.Activities.dll'. (Used a client-supplied directory.)
+AssemblyResolver: Assembly 'CCLLCXrmSdk' is referencing assembly 'Microsoft.Xrm.Sdk'.
+	AssemblyResolver: Attempting referencing assembly's directory.
+	AssemblyResolver: Did not find assembly in referencing assembly's directory.
+	AssemblyResolver: Attempting input directory.
+	AssemblyResolver: Did not find assembly in input directory.
+	AssemblyResolver: Attempting user-supplied directories.
+Resolved assembly reference 'Microsoft.Xrm.Sdk' to 'C:\Source\GitHub\D365.XrmPlugin.Extensions\packages\Microsoft.CrmSdk.CoreAssemblies.8.0.0\lib\net45\\Microsoft.Xrm.Sdk.dll'. (Used a client-supplied directory.)
+AssemblyResolver: Assembly 'CCLLCXrmWorkflow' is referencing assembly 'CCLLCXrmSdk'.
+	AssemblyResolver: Attempting referencing assembly's directory.
+Resolved assembly reference 'CCLLCXrmSdk' to 'C:\Source\GitHub\D365.XrmPlugin.Extensions\CCLLCExtensionSettings\bin\Release\CCLLCXrmSdk.dll'. (Used referencing Module's directory.)
+AssemblyResolver: Assembly 'CCLLCExtensionSettings' is referencing assembly 'Microsoft.Xrm.Sdk.Workflow'.
+	AssemblyResolver: Attempting referencing assembly's directory.
+	AssemblyResolver: Did not find assembly in referencing assembly's directory.
+	AssemblyResolver: Attempting input directory.
+	AssemblyResolver: Did not find assembly in input directory.
+	AssemblyResolver: Attempting user-supplied directories.
+Resolved assembly reference 'Microsoft.Xrm.Sdk.Workflow' to 'C:\Source\GitHub\D365.XrmPlugin.Extensions\packages\Microsoft.CrmSdk.Workflow.8.0.0\lib\net45\\Microsoft.Xrm.Sdk.Workflow.dll'. (Used a client-supplied directory.)
+AssemblyResolver: Assembly 'CCLLCXrmSdk' is referencing assembly 'System.Xml.Linq'.
+	AssemblyResolver: Attempting referencing assembly's directory.
+	AssemblyResolver: Did not find assembly in referencing assembly's directory.
+	AssemblyResolver: Attempting input directory.
+	AssemblyResolver: Did not find assembly in input directory.
+	AssemblyResolver: Attempting user-supplied directories.
+Resolved assembly reference 'System.Xml.Linq' to 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\\System.Xml.Linq.dll'. (Used a client-supplied directory.)
+AssemblyResolver: Assembly 'Microsoft.Xrm.Sdk' is referencing assembly 'System.Runtime.Serialization'.
+	AssemblyResolver: Attempting referencing assembly's directory.
+	AssemblyResolver: Did not find assembly in referencing assembly's directory.
+	AssemblyResolver: Attempting input directory.
+	AssemblyResolver: Did not find assembly in input directory.
+	AssemblyResolver: Attempting user-supplied directories.
+Resolved assembly reference 'System.Runtime.Serialization' to 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\\System.Runtime.Serialization.dll'. (Used a client-supplied directory.)
+AssemblyResolver: Assembly 'CCLLCXrmSdk' is referencing assembly 'System.Runtime.Caching'.
+	AssemblyResolver: Attempting referencing assembly's directory.
+	AssemblyResolver: Did not find assembly in referencing assembly's directory.
+	AssemblyResolver: Attempting input directory.
+	AssemblyResolver: Did not find assembly in input directory.
+	AssemblyResolver: Attempting user-supplied directories.
+Resolved assembly reference 'System.Runtime.Caching' to 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\\System.Runtime.Caching.dll'. (Used a client-supplied directory.)
+Using assembly 'CCLLCExtensionSettings' for assembly-level attributes for the target assembly.
+Merging assembly 'CCLLCExtensionSettings' into target assembly.
+Merging assembly 'CCLLCIoCContainer' into target assembly.
+Merging assembly 'CCLLCTelemetry' into target assembly.
+Merging assembly 'CCLLCXrmSdk' into target assembly.
+Merging assembly 'CCLLCXrmWorkflow' into target assembly.
+AssemblyResolver: Assembly 'System.Activities' is referencing assembly 'System.Transactions'.
+	AssemblyResolver: Attempting referencing assembly's directory.
+Resolved assembly reference 'System.Transactions' to 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.Transactions.dll'. (Used referencing Module's directory.)
+AssemblyResolver: Assembly 'System.Activities' is referencing assembly 'System.Core'.
+	AssemblyResolver: Attempting referencing assembly's directory.
+Resolved assembly reference 'System.Core' to 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.Core.dll'. (Used referencing Module's directory.)
+AssemblyResolver: Assembly 'System.Activities' is referencing assembly 'System.Xaml'.
+	AssemblyResolver: Attempting referencing assembly's directory.
+Resolved assembly reference 'System.Xaml' to 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.Xaml.dll'. (Used referencing Module's directory.)
+Copying 1 Win32 Resources from assembly 'CCLLCExtensionSettings' into target assembly.
+ILMerge: Signing assembly with the key file 'C:\Source\GitHub\D365.XrmPlugin.Extensions\CCLLCExtensionSettings\CCLLCExtensionSettings.snk'.
+	There were no errors reported in the target assembly's metadata.
+ILMerge: Writing target assembly 'C:\Source\GitHub\D365.XrmPlugin.Extensions\CCLLCExtensionSettings\bin\Release\ILMerge\CCLLCExtensionSettings.dll'.
+Location for referenced assembly 'System.Activities' is 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.Activities.dll'
+	There were no errors reported in  System.Activities's metadata.
+Location for referenced assembly 'mscorlib' is 'C:\Windows\Microsoft.NET\Framework\v4.0.30319\mscorlib.dll'
+	There were no errors reported in  mscorlib's metadata.
+Location for referenced assembly 'Microsoft.Xrm.Sdk' is 'C:\Source\GitHub\D365.XrmPlugin.Extensions\packages\Microsoft.CrmSdk.CoreAssemblies.8.0.0\lib\net45\Microsoft.Xrm.Sdk.dll'
+	There were no errors reported in  Microsoft.Xrm.Sdk's metadata.
+Location for referenced assembly 'System' is 'C:\Windows\Microsoft.NET\Framework\v4.0.30319\system.dll'
+	There were no errors reported in  System's metadata.
+Location for referenced assembly 'System.Core' is 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.Core.dll'
+	There were no errors reported in  System.Core's metadata.
+Location for referenced assembly 'System.Xml.Linq' is 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.Xml.Linq.dll'
+	There were no errors reported in  System.Xml.Linq's metadata.
+Location for referenced assembly 'System.Runtime.Caching' is 'C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.Runtime.Caching.dll'
+	There were no errors reported in  System.Runtime.Caching's metadata.
+Location for referenced assembly 'Microsoft.Xrm.Sdk.Workflow' is 'C:\Source\GitHub\D365.XrmPlugin.Extensions\packages\Microsoft.CrmSdk.Workflow.8.0.0\lib\net45\Microsoft.Xrm.Sdk.Workflow.dll'
+	There were no errors reported in  Microsoft.Xrm.Sdk.Workflow's metadata.
+ILMerge: Done.
