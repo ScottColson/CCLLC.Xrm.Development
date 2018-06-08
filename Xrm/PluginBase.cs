@@ -5,33 +5,27 @@ using System.Globalization;
 using System.Linq;
 using Microsoft.Xrm.Sdk;
 using CCLLC.Core;
-using CCLLC.Telemetry;
-using CCLLC.Telemetry.Context;
-using CCLLC.Telemetry.Sink;
-using CCLLC.Telemetry.Client;
-using CCLLC.Telemetry.Serializer;
 using CCLLC.Xrm.Sdk.Encryption;
 using CCLLC.Xrm.Sdk.Configuration;
 
 namespace CCLLC.Xrm.Sdk
-{       
-    public abstract class PluginBase : IPlugin, IEnhancedPlugin 
+{
+    public abstract class PluginBase : IPlugin, IEnhancedPlugin
     {
         private static IIocContainer _container;
         private static object _containerLock = new object();
-        
-        
+
         private Collection<PluginEvent> events = new Collection<PluginEvent>();
-        
+
         /// <summary>
         /// Provides of list of <see cref="PluginEvent{E}"/> items that define the 
         /// events the plugin can operate against. Add items to the list using the 
         /// <see cref="RegisterEventHandler(string, string, ePluginStage, Action{ILocalContext{E}})"/> method.
         /// </summary>
-        public IReadOnlyList<PluginEvent> PluginEventHandlers 
+        public IReadOnlyList<PluginEvent> PluginEventHandlers
         {
             get
-            {                
+            {
                 return this.events;
             }
         }
@@ -45,23 +39,24 @@ namespace CCLLC.Xrm.Sdk
         /// </summary>
         public virtual IIocContainer Container
         {
-            get {
+            get
+            {
                 if (_container == null)
                 {
                     lock (_containerLock)
                     {
-                        if(_container == null)
+                        if (_container == null)
                         {
                             _container = new IocContainer();
                             RegisterContainerServices();
                         }
                     }
-                   
+
                 }
                 return _container;
             }
         }
-             
+
 
         /// <summary>
         /// Unsecure configuration specified during the registration of the plugin step
@@ -106,17 +101,17 @@ namespace CCLLC.Xrm.Sdk
         /// Registers all dependencies used by the Plugin. 
         /// </summary>
         public virtual void RegisterContainerServices()
-        {            
+        {
             //Xrm component registration
-            Container.Register<ICacheFactory, CacheFactory>();   
+            Container.Register<ICacheFactory, CacheFactory>();
             Container.Register<IConfigurationFactory, ConfigurationFactory>();
             Container.Register<ILocalPluginContextFactory, LocalPluginContextFactory>();
             Container.Register<IRijndaelEncryption, RijndaelEncryption>();
             Container.Register<IExtensionSettingsConfig, DefaultExtensionSettingsConfig>();
             Container.Register<IPluginWebRequestFactory, CCLLC.Xrm.Sdk.Utilities.PluginHttpWebRequestFactory>();
         }
-        
-         
+
+
 
         /// <summary>
         /// Executes the plug-in.
@@ -129,48 +124,42 @@ namespace CCLLC.Xrm.Sdk
         {
             if (serviceProvider == null)
                 throw new ArgumentNullException("serviceProvider");
-           
+
             var tracingService = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
             tracingService.Trace(string.Format(CultureInfo.InvariantCulture, "Entering {0}.Execute()", this.GetType().ToString()));
 
             var executionContext = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
-
-            var telemetryFactory = Container.Resolve<ITelemetryFactory>();
-            var telemetryClientFactory = Container.Resolve<ITelemetryClientFactory>();
             
-           
-                try
-                {
-                    var matchingHandlers = this.PluginEventHandlers
-                        .Where(a => (int)a.Stage == executionContext.Stage
-                            && (string.IsNullOrWhiteSpace(a.MessageName) || string.Compare(a.MessageName, executionContext.MessageName, StringComparison.InvariantCultureIgnoreCase) == 0)
-                            && (string.IsNullOrWhiteSpace(a.EntityName) || string.Compare(a.EntityName, executionContext.PrimaryEntityName, StringComparison.InvariantCultureIgnoreCase) == 0));
+            try
+            {
+                var matchingHandlers = this.PluginEventHandlers
+                    .Where(a => (int)a.Stage == executionContext.Stage
+                        && (string.IsNullOrWhiteSpace(a.MessageName) || string.Compare(a.MessageName, executionContext.MessageName, StringComparison.InvariantCultureIgnoreCase) == 0)
+                        && (string.IsNullOrWhiteSpace(a.EntityName) || string.Compare(a.EntityName, executionContext.PrimaryEntityName, StringComparison.InvariantCultureIgnoreCase) == 0));
 
-                    if (matchingHandlers.Any())
+                if (matchingHandlers.Any())
+                {
+                    var localContextFactory = Container.Resolve<ILocalPluginContextFactory>();
+
+                    using (var localContext = localContextFactory.BuildLocalPluginContext(executionContext, serviceProvider, this.Container, null))
                     {
-                        var localContextFactory = Container.Resolve<ILocalPluginContextFactory>();
-                       
-                        using (var localContext = localContextFactory.BuildLocalPluginContext(executionContext,  serviceProvider, this.Container, null))
+                        foreach (var handler in matchingHandlers)
                         {
-                            foreach (var handler in matchingHandlers)
-                            {                               
-                                    handler.PluginAction.Invoke(localContext);                                
-                            }
-                        } //using localContext
+                            handler.PluginAction.Invoke(localContext);
+                        }
                     }
                 }
-                catch (Exception ex)
-                {
-                    tracingService.Trace(string.Format("Exception: {0}", ex.Message));
-                    throw;
-                }              
-                
-           
+            }
+            catch (Exception ex)
+            {
+                tracingService.Trace(string.Format("Exception: {0}", ex.Message));
+                throw;
+            }
 
             tracingService.Trace(string.Format(CultureInfo.InvariantCulture, "Exiting {0}.Execute()", this.GetType().ToString()));
         }
 
-        
-      
+
+
     }
 }
