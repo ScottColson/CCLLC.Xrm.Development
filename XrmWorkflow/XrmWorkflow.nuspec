@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>CCLLCXrmWorkflow</id>
-    <version>2.0.0-alpha</version>
+    <version>2.0.0</version>
     <title>CCLLC.Xrm.Sdk.Workflow</title>
     <authors>Colson Code, LLC</authors>
     <owners>Colson Code, LLC</owners>

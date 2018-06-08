@@ -14,12 +14,12 @@ namespace CCLLC.Xrm.Sdk.Workflow
         private static IIocContainer _container;
         private static object _containerLock = new object();
 
-
         /// <summary>
-        /// Provides an <see cref="IIocContainer"/> instance to register all objects used by the
-        /// base workflow activity. This container uses a static implementation therefore all 
-        /// workflow activities that use this base share the same container and therefore
-        /// use the same concreate implementations registered in the container.
+        /// Provides an <see cref="IIocContainer"/> instance to register all objects used by
+        /// <see cref="WorkflowActivityBase"/>. This container uses a thread-safe singleton 
+        /// implementation. Therefore all workflow activities that use this base share the 
+        /// same <see cref="IIocContainer"/> within a given process space and will therefore 
+        /// use the same concreate implementations for registered dependencies. 
         /// </summary>
         public virtual IIocContainer Container
         {
@@ -42,22 +42,26 @@ namespace CCLLC.Xrm.Sdk.Workflow
         }
 
         /// <summary>
-        /// Registers all dependencies used by the WorkflowActivity. 
+        /// Registers implementations for all dependencies used by <see cref="WorkflowActivityBase"/>. 
+        /// Override this method to add additional dependencies or to change the implementation associated
+        /// with the items registered here.
         /// </summary>
         public virtual void RegisterContainerServices()
-        {
-            //Xrm component registration
+        {            
             Container.Register<IExtensionSettingsConfig, DefaultExtensionSettingsConfig>();
             Container.Register<ICacheFactory, CacheFactory>();
             Container.Register<IConfigurationFactory, ConfigurationFactory>();
             Container.Register<ILocalWorkflowActivityContextFactory, LocalWorkflowActivityContextFactory>();
             Container.Register<IRijndaelEncryption, RijndaelEncryption>();
+            Container.Register<IPluginWebRequestFactory, CCLLC.Xrm.Sdk.Utilities.PluginHttpWebRequestFactory>();
         }
 
-
-
-        public abstract void ExecuteInternal(ILocalWorkflowActivityContext localContext);
-
+        /// <summary>
+        /// The handler called by CRM when a WFA is executed. Spins up a <see cref="ILocalWorkflowActivityContext"/>
+        /// instance and passes it to the <see cref="ExecuteInternal(ILocalWorkflowActivityContext)"/> method
+        /// which is implemented in the inheriting class.
+        /// </summary>
+        /// <param name="codeActivityContext">Context information passed in by CRM.</param>
         protected override void Execute(CodeActivityContext codeActivityContext)
         {
             if (codeActivityContext == null) { throw new ArgumentNullException("codeActivityContext"); }
@@ -74,10 +78,8 @@ namespace CCLLC.Xrm.Sdk.Workflow
 
                 using (var localContext = localContextFactory.BuildLocalWorkflowActivityContext(executionContext, Container, codeActivityContext))
                 {
-
                     ExecuteInternal(localContext);
-
-                } //using localContext
+                } 
             }
             catch (Exception ex)
             {
@@ -87,8 +89,14 @@ namespace CCLLC.Xrm.Sdk.Workflow
                 }
                 throw;
             }
-
-
         }
+        
+        /// <summary>
+        /// Handler that must be implemented in inheriting class to do the actual work of the WFA.
+        /// </summary>
+        /// <param name="localContext">Instance of <see cref="ILocalWorkflowActivityContext"/> passed 
+        /// in from <see cref="Execute(CodeActivityContext)"/>.</param>
+        public abstract void ExecuteInternal(ILocalWorkflowActivityContext localContext);
+
     }
 }
