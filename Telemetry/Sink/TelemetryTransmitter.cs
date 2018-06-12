@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace CCLLC.Telemetry.Sink
 {
     /// <summary>
-    /// Serializes a collection of <see cref="ITelemetry"/> items using the and delivers 
+    /// Serializes a collection of <see cref="ITelemetry"/> items and delivers 
     /// them to the telemetry service identified in the <see cref="EndpointAddress"/>. Depends
     /// on an instance of <see cref="ITelemetrySerializer"/> to serialize the telemetry to JSON.
     /// </summary>
@@ -41,14 +41,15 @@ namespace CCLLC.Telemetry.Sink
             if (telemetryItems.Count() <= 0) { return new Task(() => {}); }
 
             var content = Serializer.Serialize(telemetryItems);
-            var transmission = new Transmission(this.EndpointAddress, content, this.Serializer.ContentType, this.Serializer.CompressionType, timeout);
-            return transmission.SendAsync();
+            var transmission = BuildTransmission(content);
+            return transmission.SendAsync(timeout);
         }
 
         /// <summary>
         /// Send an enumerable set of <see cref="ITelemetry"/> items to the 
-        /// specified <see cref="EndpointAddress"/>. Use <see cref="SendAsync(IEnumerable{ITelemetry}, TimeSpan)"/>
-        /// when supported by hosting application to minimize impact on application.
+        /// specified <see cref="EndpointAddress"/> synchronously. Use 
+        /// <see cref="SendAsync(IEnumerable{ITelemetry}, TimeSpan)"/> when 
+        /// supported by hosting application to minimize impact on application.
         /// </summary>
         /// <param name="telemetryItems"></param>
         /// <param name="timeout"></param>
@@ -57,9 +58,28 @@ namespace CCLLC.Telemetry.Sink
             if (this.EndpointAddress != null && telemetryItems != null && telemetryItems.Count() > 0)
             {
                 var content = Serializer.Serialize(telemetryItems);
-                var transmission = new Transmission(this.EndpointAddress, content, this.Serializer.ContentType, this.Serializer.CompressionType, timeout);
-                transmission.Send();
+                var transmission = BuildTransmission(content);
+                try
+                {
+                    transmission.Send(timeout);
+                }
+                catch
+                { 
+                    //swallow the error.
+                }
+
             }
+        }
+
+        /// <summary>
+        /// Internal factory method that builds out a new transmission for the specified content.
+        /// </summary>
+        /// <param name="content"></param>
+        /// <param name="timeout"></param>
+        /// <returns></returns>
+        protected ITransmission BuildTransmission(byte[] content)
+        {
+            return new Transmission(this.EndpointAddress, content, this.Serializer.ContentType, this.Serializer.CompressionType);
         }
     }
 }

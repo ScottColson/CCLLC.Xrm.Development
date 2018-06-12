@@ -25,9 +25,9 @@ namespace CCLLC.Telemetry.Sink
             set { this.Transmitter.EndpointAddress = value; }
         }
 
-        public AsyncMemoryChannel(ITelemetryBuffer buffer, ITelemetryTransmitter tranmitter)
+        public AsyncMemoryChannel(ITelemetryBuffer buffer, ITelemetryTransmitter transmitter)
         {
-            this.Transmitter = tranmitter;
+            this.Transmitter = transmitter;
             
             this.Buffer = buffer;
             this.Buffer.OnFull = () => { this.Flush(); };  //connect Flush operation to Buffer.OnFull

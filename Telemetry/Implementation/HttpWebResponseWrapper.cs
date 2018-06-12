@@ -3,7 +3,7 @@
     /// <summary>
     /// HttpWebResponse wrapper object.
     /// </summary>
-    public class HttpWebResponseWrapper
+    public class HttpWebResponseWrapper : IHttpWebResponseWrapper
     {
         /// <summary>
         /// Gets or sets HttpWebResponse content.

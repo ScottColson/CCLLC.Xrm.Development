@@ -77,6 +77,10 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Implementation\ExceptionConverter.cs" />
     <Compile Include="Interfaces\DataContract\IOperationalDataModel.cs" />
+    <Compile Include="Interfaces\Serialization\IJsonWriterFactory.cs" />
+    <Compile Include="Interfaces\Sink\IHttpWebResponseWrapper.cs" />
+    <Compile Include="Interfaces\Sink\ITransmission.cs" />
+    <Compile Include="Serializer\JsonWriterFactory.cs" />
     <Compile Include="Serializer\TelemetrySerializer.cs" />
     <Compile Include="Sink\AITelemetryTransmitter.cs" />
     <Compile Include="Sink\InstrumentationKeyPropertyProcessor.cs" />
