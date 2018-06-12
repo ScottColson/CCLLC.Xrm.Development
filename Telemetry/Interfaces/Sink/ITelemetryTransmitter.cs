@@ -9,8 +9,8 @@ namespace CCLLC.Telemetry
         Uri EndpointAddress { get; set; }
         ITelemetrySerializer Serializer { get; }
 
-        void Send(IEnumerable<ITelemetry> telemetryItems, TimeSpan timeout);
+        IHttpWebResponseWrapper Send(IEnumerable<ITelemetry> telemetryItems, TimeSpan timeout);
 
-        Task SendAsync(IEnumerable<ITelemetry> telemetryItems, TimeSpan timeout);
+        Task<IHttpWebResponseWrapper> SendAsync(IEnumerable<ITelemetry> telemetryItems, TimeSpan timeout);
     }
 }

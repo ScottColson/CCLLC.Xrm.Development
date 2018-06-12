@@ -2,7 +2,6 @@
 
 namespace CCLLC.Telemetry.Sink
 {
-
     /// <summary>
     /// Serializes a collection of <see cref="ITelemetry"/> items using the and delivers 
     /// them to the telemetry service identified in the <see cref="EndpointAddress"/>. Defaults
@@ -11,7 +10,7 @@ namespace CCLLC.Telemetry.Sink
     /// </summary>
     public class AITelemetryTransmitter : TelemetryTransmitter
     {
-        public AITelemetryTransmitter(ITelemetrySerializer serializer) : base(serializer)
+        public AITelemetryTransmitter(ITelemetrySerializer serializer, IEventLogger eventLogger) : base(serializer, eventLogger)
         {
             this.EndpointAddress = new Uri(AIConstants.TelemetryServiceEndpoint);
         }

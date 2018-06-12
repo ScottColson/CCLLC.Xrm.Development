@@ -12,18 +12,22 @@ namespace CCLLC.Telemetry.Sink
     /// </summary>
     public class TelemetryTransmitter : ITelemetryTransmitter
     {
+        private IEventLogger _eventLogger;
+
         public Uri EndpointAddress { get; set; }
 
         public ITelemetrySerializer Serializer { get; private set; }
 
-        public TelemetryTransmitter(ITelemetrySerializer serializer)
+        public TelemetryTransmitter(ITelemetrySerializer serializer, IEventLogger eventLogger)
         {
+            _eventLogger = eventLogger;
             this.Serializer = serializer;
         }        
 
         public void Dispose()
         {
             this.Serializer = null;
+            _eventLogger = null;
             GC.SuppressFinalize(this);
         }
 
@@ -34,15 +38,23 @@ namespace CCLLC.Telemetry.Sink
         /// <param name="telemetryItems"></param>
         /// <param name="timeout"></param>
         /// <returns></returns>
-        public Task SendAsync(IEnumerable<ITelemetry> telemetryItems, TimeSpan timeout)
+        public Task<IHttpWebResponseWrapper> SendAsync(IEnumerable<ITelemetry> telemetryItems, TimeSpan timeout)
         {
-            if(this.EndpointAddress == null) { return new Task(() => { }); }
-            if (telemetryItems == null) { return new Task(() =>{}); }
-            if (telemetryItems.Count() <= 0) { return new Task(() => {}); }
+            try
+            {
+                if (this.EndpointAddress == null) { return new Task<IHttpWebResponseWrapper>(() => { return null; }); }
+                if (telemetryItems == null) { return new Task<IHttpWebResponseWrapper>(() => { return null; }); }
+                if (telemetryItems.Count() <= 0) { return new Task<IHttpWebResponseWrapper>(() => { return null; }); }
 
-            var content = Serializer.Serialize(telemetryItems);
-            var transmission = BuildTransmission(content);
-            return transmission.SendAsync(timeout);
+                var content = Serializer.Serialize(telemetryItems);
+                var transmission = BuildTransmission(content);
+                return transmission.SendAsync(timeout);
+            }
+            catch(Exception ex)
+            {
+                _eventLogger.FailedToSend(ex.Message);
+                return new Task<IHttpWebResponseWrapper>(() => { return null; });
+            }
         }
 
         /// <summary>
@@ -53,22 +65,24 @@ namespace CCLLC.Telemetry.Sink
         /// </summary>
         /// <param name="telemetryItems"></param>
         /// <param name="timeout"></param>
-        public void Send(IEnumerable<ITelemetry> telemetryItems, TimeSpan timeout)
+        public IHttpWebResponseWrapper Send(IEnumerable<ITelemetry> telemetryItems, TimeSpan timeout)
         {
             if (this.EndpointAddress != null && telemetryItems != null && telemetryItems.Count() > 0)
             {
-                var content = Serializer.Serialize(telemetryItems);
-                var transmission = BuildTransmission(content);
                 try
                 {
-                    transmission.Send(timeout);
-                }
-                catch
-                { 
-                    //swallow the error.
-                }
+                    var content = Serializer.Serialize(telemetryItems);
+                    var transmission = BuildTransmission(content);
 
+                    return transmission.Send(timeout);
+                }
+                catch (Exception ex)
+                {
+                    _eventLogger.FailedToSend(ex.Message);                    
+                }
             }
+
+            return null;
         }
 
         /// <summary>

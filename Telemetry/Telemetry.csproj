@@ -76,7 +76,9 @@
     <Compile Include="DataContract\RequestTelemetry.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Implementation\ExceptionConverter.cs" />
+    <Compile Include="EventLogger\InertEventLogger.cs" />
     <Compile Include="Interfaces\DataContract\IOperationalDataModel.cs" />
+    <Compile Include="Interfaces\EventLogger\IEventLogger.cs" />
     <Compile Include="Interfaces\Serialization\IJsonWriterFactory.cs" />
     <Compile Include="Interfaces\Sink\IHttpWebResponseWrapper.cs" />
     <Compile Include="Interfaces\Sink\ITransmission.cs" />
