@@ -13,13 +13,14 @@ namespace CCLLC.Telemetry.Client
         private bool completed = false;
         private T telemetryItem;
 
-        public string OperationName { get; set; }
+        public ITelemetryClient ParentClient { get; private set; }
 
         public IDictionary<string, string> Properties { get; set; }
 
         internal OperationTelemetryClient(ITelemetryClient parentClient, T telemetryItem)
-            : base(parentClient)
+            : base()
         {
+            this.ParentClient = parentClient;
             this.Properties = new ConcurrentDictionary<string, string>();
             this.telemetryItem = telemetryItem;                      
             stopwatch = new Stopwatch();
@@ -45,7 +46,7 @@ namespace CCLLC.Telemetry.Client
                 CompleteOperation(null);
             }
             stopwatch = null;
-            OperationName = null;
+            ParentClient = null;
             base.Dispose();
             GC.SuppressFinalize(this);
         }

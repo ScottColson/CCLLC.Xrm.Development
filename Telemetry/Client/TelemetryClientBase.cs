@@ -4,17 +4,13 @@ namespace CCLLC.Telemetry.Client
 {    
     
     public abstract class TelemetryClientBase : ITelemetryClient
-    {        
-        public ITelemetryClient ParentClient { get; private set; }
-
-        protected TelemetryClientBase(ITelemetryClient parentClient)
-        {
-            this.ParentClient = parentClient;            
+    {  
+        protected TelemetryClientBase()
+        {                  
         }
 
         public virtual void Dispose()
-        {           
-            ParentClient = null;
+        {                       
             GC.SuppressFinalize(this);
         }
         

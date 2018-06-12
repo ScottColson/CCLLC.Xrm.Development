@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace CCLLC.Telemetry
 {
@@ -10,5 +9,10 @@ namespace CCLLC.Telemetry
         ITelemetrySink TelemetrySink { get; }   
         ITelemetryContext Context { get; }
         ITelemetryInitializerChain Initializers { get; }
+
+        /// <summary>
+        /// Transmit all buffered <see cref="ITelemetry"/> items in the <see cref="ITelemetrySink"/>.
+        /// </summary>
+        void Flush();
     }
 }

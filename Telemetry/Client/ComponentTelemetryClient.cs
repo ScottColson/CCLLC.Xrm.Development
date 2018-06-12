@@ -26,7 +26,7 @@ namespace CCLLC.Telemetry.Client
         }              
 
         internal protected ComponentTelemetryClient(string applicationName, ITelemetrySink telemetrySink, ITelemetryContext telemetryContext, ITelemetryInitializerChain initializers, IDictionary<string,string> contextProperties = null)
-            : base(null)
+            : base()
         {            
             this.TelemetrySink = telemetrySink;
             this.Context = telemetryContext;
@@ -47,12 +47,21 @@ namespace CCLLC.Telemetry.Client
             GC.SuppressFinalize(this);
         }
 
+        
+        public void Flush()
+        {
+            if (TelemetrySink != null && TelemetrySink.Channel != null)
+            {
+                TelemetrySink.Channel.Flush();
+            }
+        }
+
         public override void Initialize(ITelemetry telemetry)
         {
             //copy the context from the client.
             telemetry.Context.CopyFrom(this.Context);
 
-            //copy any properties from the context if the telemetry support properties.
+            //copy any properties from the context if the telemetry supports properties.
             var telemetryWithProperties = telemetry as ISupportProperties;
             if (telemetryWithProperties != null)
             {
@@ -75,6 +84,7 @@ namespace CCLLC.Telemetry.Client
             }    
         }
 
+        
         public override void Track(ITelemetry telemetryItem)
         {           
             if(TelemetrySink != null)
