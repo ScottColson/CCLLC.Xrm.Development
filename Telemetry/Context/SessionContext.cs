@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 
-
 namespace CCLLC.Telemetry.Context
 {
     public class SessionContext : ISessionContext

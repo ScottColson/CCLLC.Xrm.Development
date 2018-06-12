@@ -1,14 +1,12 @@
 ﻿// <copyright file="Property.cs" company="Microsoft">
 // Copyright © Microsoft. All Rights Reserved.
 // </copyright>
+using System;
+using System.Collections.Generic;
 
 namespace CCLLC.Telemetry.Implementation
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.Linq;
-    
+ 
     
 
     /// <summary>

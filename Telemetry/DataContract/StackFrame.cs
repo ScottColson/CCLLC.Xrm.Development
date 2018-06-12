@@ -1,5 +1,4 @@
-﻿
-namespace CCLLC.Telemetry.DataContract
+﻿namespace CCLLC.Telemetry.DataContract
 {
     public partial class StackFrame : IStackFrame
     {

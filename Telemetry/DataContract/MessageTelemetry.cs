@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using CCLLC.Telemetry.Context;
 using CCLLC.Telemetry.Implementation;
-using CCLLC.Telemetry.DataContract;
 
 namespace CCLLC.Telemetry.DataContract
 {

@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using CCLLC.Telemetry.Implementation;
 
 namespace CCLLC.Telemetry.DataContract
 {
-    using CCLLC.Telemetry.Implementation;
-    using Context;
-
     public abstract class OperationalTelemetryBase<TData> : TelemetryBase<TData>, IOperationalTelemetry where TData : IOperationalDataModel
     {
         public const int MaxNameLength = 1024;

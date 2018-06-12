@@ -4,8 +4,7 @@ using System.Globalization;
 using CCLLC.Telemetry.Implementation;
 
 namespace CCLLC.Telemetry.Context
-{
-   
+{   
     internal static class TagManager
     {
         internal static void SetStringValueOrRemove(this IDictionary<string, string> tags, string tagKey, string tagValue)

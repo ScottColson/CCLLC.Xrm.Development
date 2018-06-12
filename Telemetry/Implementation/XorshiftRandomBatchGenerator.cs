@@ -1,7 +1,7 @@
-﻿namespace CCLLC.Telemetry.Implementation
-{
-    using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 
+namespace CCLLC.Telemetry.Implementation
+{
     /// <summary>
     /// Generates batches of random number using Xorshift algorithm
     /// Note: implementation of XorShift algorithm https://en.wikipedia.org/wiki/Xorshift. You can find some extra details and performance tests here http://www.codeproject.com/Articles/9187/A-fast-equivalent-for-System-Random.

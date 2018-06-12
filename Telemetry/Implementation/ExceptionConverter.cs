@@ -1,10 +1,10 @@
-﻿namespace CCLLC.Telemetry.Implementation
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using CCLLC.Telemetry.DataContract;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using CCLLC.Telemetry.DataContract;
 
+namespace CCLLC.Telemetry.Implementation
+{
     internal static class ExceptionConverter
     {
         public const int MaxParsedStackLength = 32768;

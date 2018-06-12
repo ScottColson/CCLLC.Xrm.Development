@@ -1,5 +1,4 @@
-﻿
-namespace CCLLC.Telemetry
+﻿namespace CCLLC.Telemetry
 {
     public interface IMessageTelemetry : ITelemetry, IDataModelTelemetry<IMessageDataModel>, ISupportProperties
     {

@@ -3,12 +3,12 @@
 // Copyright © Microsoft. All Rights Reserved.
 // </copyright>
 //------------------------------------------------------------------------------
+using System;
+using System.Threading;
 
 namespace CCLLC.Telemetry.Implementation
 {
-    using System;
-    using System.Runtime.CompilerServices;
-    using System.Threading;
+    
 
     internal class WeakConcurrentRandom
     {

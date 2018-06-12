@@ -3,17 +3,13 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.IO.Compression;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using CCLLC.Telemetry.Implementation;
+
 
 namespace CCLLC.Telemetry.Serializer
-{
-  
-    using Implementation;
-
-    using Telemetry;
-
+{  
+    
     public class AITelemetrySerializer : ITelemetrySerializer
     {
         private IContextTagKeys _contextTagKeys;
