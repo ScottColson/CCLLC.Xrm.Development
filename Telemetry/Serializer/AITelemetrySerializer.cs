@@ -16,8 +16,10 @@ namespace CCLLC.Telemetry.Serializer
 
     public class AITelemetrySerializer : ITelemetrySerializer
     {
-        private IContextTagKeys contextTagKeys;
+        private IContextTagKeys _contextTagKeys;
+        private IJsonWriterFactory _jsonWriterFactory;
         private readonly UTF8Encoding transmissionEncoding = new UTF8Encoding(false);
+
         public virtual UTF8Encoding TransmissionEncoding { get { return this.transmissionEncoding; } }
 
         /// <summary>
@@ -42,10 +44,12 @@ namespace CCLLC.Telemetry.Serializer
             }
         }
 
-        public AITelemetrySerializer(IContextTagKeys contextTagKeys)
+        public AITelemetrySerializer(IJsonWriterFactory jsonWriterFactory, IContextTagKeys contextTagKeys)
         {
-            if(contextTagKeys == null) { throw new ArgumentNullException("contextTagKeys"); }
-            this.contextTagKeys = contextTagKeys;
+            if (jsonWriterFactory == null) { throw new ArgumentNullException("jsonWriterFactory"); }
+            if (contextTagKeys == null) { throw new ArgumentNullException("contextTagKeys"); }
+            _contextTagKeys = contextTagKeys;
+            _jsonWriterFactory = jsonWriterFactory;
         }
 
         /// <summary>
@@ -73,7 +77,7 @@ namespace CCLLC.Telemetry.Serializer
         /// </summary>
         protected virtual void SeializeToStream(IEnumerable<ITelemetry> telemetryItems, TextWriter streamWriter)
         {
-            JsonWriter jsonWriter = new JsonWriter(streamWriter);
+            var jsonWriter = _jsonWriterFactory.BuildJsonWriter(streamWriter);
 
             int telemetryCount = 0;            
             foreach (var telemetryItem in telemetryItems)
@@ -94,7 +98,7 @@ namespace CCLLC.Telemetry.Serializer
             writer.WriteStartObject();
 
             WriteTelemetryName(item, writer);
-            WriteEnvelopeProperties(item, writer, contextTagKeys);
+            WriteEnvelopeProperties(item, writer, _contextTagKeys);
             writer.WritePropertyName("data");
             {
                 writer.WriteStartObject();

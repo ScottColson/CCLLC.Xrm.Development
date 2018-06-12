@@ -11,9 +11,11 @@ namespace CCLLC.Telemetry.Serializer
 {
     public class TelemetrySerializer : ITelemetrySerializer
     {
-        private IContextTagKeys contextTagKeys;
-        private readonly UTF8Encoding transmissionEncoding = new UTF8Encoding(false);
-        public virtual UTF8Encoding TransmissionEncoding { get { return this.transmissionEncoding; } }
+        private IContextTagKeys _contextTagKeys;
+        private IJsonWriterFactory _jsonWriterFactory;
+        private readonly UTF8Encoding _transmissionEncoding = new UTF8Encoding(false);
+
+        public virtual UTF8Encoding TransmissionEncoding { get { return _transmissionEncoding; } }
 
         /// <summary>
         /// Gets the compression type used by the serializer. 
@@ -37,10 +39,13 @@ namespace CCLLC.Telemetry.Serializer
             }
         }
 
-        public TelemetrySerializer(IContextTagKeys contextTagKeys)
+        public TelemetrySerializer(IJsonWriterFactory jsonWriterFactory, IContextTagKeys contextTagKeys)
         {
+            if (jsonWriterFactory == null) { throw new ArgumentNullException("jsonWriterFactory"); }
             if (contextTagKeys == null) { throw new ArgumentNullException("contextTagKeys"); }
-            this.contextTagKeys = contextTagKeys;
+            _jsonWriterFactory = jsonWriterFactory;
+            _contextTagKeys = contextTagKeys;
+
         }
 
         /// <summary>
@@ -68,7 +73,7 @@ namespace CCLLC.Telemetry.Serializer
         /// </summary>
         protected virtual void SerializeToStream(IEnumerable<ITelemetry> telemetryItems, TextWriter streamWriter)
         {
-            JsonWriter jsonWriter = new JsonWriter(streamWriter);
+            var jsonWriter = _jsonWriterFactory.BuildJsonWriter(streamWriter);
 
             int telemetryCount = 0;
             jsonWriter.WriteStartArray();
@@ -116,7 +121,7 @@ namespace CCLLC.Telemetry.Serializer
             //serialize out the telemetry context into the current object
             if (item.Context != null)
             {
-                var contextTags = item.Context.ToContextTags(this.contextTagKeys);
+                var contextTags = item.Context.ToContextTags(_contextTagKeys);
                 foreach (var tag in contextTags)
                 {
                     writer.WriteProperty(tag.Key, tag.Value);

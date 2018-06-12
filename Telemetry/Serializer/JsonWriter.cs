@@ -11,7 +11,7 @@ namespace CCLLC.Telemetry.Serializer
         private readonly TextWriter textWriter;
         private bool currentObjectHasProperties;
 
-        public JsonWriter(TextWriter textWriter)
+        protected internal JsonWriter(TextWriter textWriter)
         {
             this.emptyObjectDetector = new EmptyObjectDetector();
             this.textWriter = textWriter;
