@@ -36,6 +36,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{74E7
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelemetrySamples", "TelemetrySamples\TelemetrySamples.csproj", "{67945807-09B4-4678-8B60-9678E221DB8C}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XrmAppInsightsConnector", "XrmAppInsightsConnector\XrmAppInsightsConnector.csproj", "{399E0B3F-C15D-4495-BC3F-9F4A18EFB3A4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -140,6 +142,14 @@ Global
 		{67945807-09B4-4678-8B60-9678E221DB8C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{67945807-09B4-4678-8B60-9678E221DB8C}.Release-4.6.2|Any CPU.ActiveCfg = Release|Any CPU
 		{67945807-09B4-4678-8B60-9678E221DB8C}.Release-4.6.2|Any CPU.Build.0 = Release|Any CPU
+		{399E0B3F-C15D-4495-BC3F-9F4A18EFB3A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{399E0B3F-C15D-4495-BC3F-9F4A18EFB3A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{399E0B3F-C15D-4495-BC3F-9F4A18EFB3A4}.Debug-4.6.2|Any CPU.ActiveCfg = Debug|Any CPU
+		{399E0B3F-C15D-4495-BC3F-9F4A18EFB3A4}.Debug-4.6.2|Any CPU.Build.0 = Debug|Any CPU
+		{399E0B3F-C15D-4495-BC3F-9F4A18EFB3A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{399E0B3F-C15D-4495-BC3F-9F4A18EFB3A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{399E0B3F-C15D-4495-BC3F-9F4A18EFB3A4}.Release-4.6.2|Any CPU.ActiveCfg = Release|Any CPU
+		{399E0B3F-C15D-4495-BC3F-9F4A18EFB3A4}.Release-4.6.2|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,82 @@
+﻿<Project ToolsVersion="15.0" Sdk="Microsoft.NET.Sdk">
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), 'Product.props'))\Product.props" />
+
+  <PropertyGroup>
+    <TargetFrameworks>net452;</TargetFrameworks>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <Company>Colson Code, LLC</Company>
+    <Copyright>Copyright © Colson Code, LLC. All Rights Reserved.</Copyright>
+    <ProjectGuid>{399E0B3F-C15D-4495-BC3F-9F4A18EFB3A4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  </PropertyGroup>
+  
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!--https://docs.microsoft.com/en-us/nuget/schema/msbuild-targets-->
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <IncludeSymbols>True</IncludeSymbols>
+    <AssemblyOriginatorKeyFile>CCLLCXrmAppInsightsPlatform.snk</AssemblyOriginatorKeyFile>
+    <Version>8.0.0-alpha</Version>
+    <Authors>Colson Code, LLC</Authors>
+    <AssemblyVersion>8.0.0</AssemblyVersion>
+    <Description>A connector to link existing plugins to ApplicationInsights.</Description>
+    <PackageId>XrmAppInsightsConnector</PackageId>
+    <PackageLicenseUrl>https://github.com/ScottColson/CCLLC.Xrm.Development/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/ScottColson/CCLLC.Xrm.Development</PackageProjectUrl>
+    <PackageTags>Xrm Telemetry ApplicationInsights</PackageTags>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Activities" />
+    <Reference Include="System.Activities.Presentation" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Workflow.Activities" />
+    <Reference Include="System.Workflow.ComponentModel" />
+    <Reference Include="System.Workflow.Runtime" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CCLLCXrmAppInsightsPlatform.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CCLLCIoCContainer" Version="1.4.0-alpha3" />
+    <PackageReference Include="CCLLCTelemetry" Version="2.0.0-alpha4" />
+    <PackageReference Include="Microsoft.CrmSdk.CoreAssemblies" Version="8.0.0" />
+    <PackageReference Include="Microsoft.CrmSdk.Workflow" Version="8.0.0" />
+  </ItemGroup>
+  
+
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), 'Common.targets'))\Common.targets" />
+
+</Project>
