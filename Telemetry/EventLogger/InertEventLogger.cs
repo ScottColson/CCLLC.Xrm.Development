@@ -5,5 +5,13 @@
         public void FailedToSend(string msg, string appDomain = "Incorrect")
         {            
         }
+
+        public void LogError(string msg, string appDomainName = "Incorrect")
+        {            
+        }
+
+        public void LogVerbose(string msg, string appDomainName = "Incorrect")
+        {             
+        }
     }
 }

@@ -17,6 +17,12 @@ namespace CCLLC.Telemetry
         
         ITelemetryContext DeepClone();
 
+        /// <summary>
+        /// Generates a new instance of the telemetry context.
+        /// </summary>
+        /// <returns></returns>
+        ITelemetryContext BuildNew();
+
         void CopyFrom(ITelemetryContext source);
 
         IDictionary<string, string> ToContextTags(IContextTagKeys keys);

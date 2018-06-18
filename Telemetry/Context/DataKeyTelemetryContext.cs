@@ -19,6 +19,11 @@ namespace CCLLC.Telemetry.Context
         {           
         }
 
+        public override ITelemetryContext BuildNew()
+        {
+            return new DataKeyTelemetryContext(new ConcurrentDictionary<string, string>());
+        }
+
         public override ITelemetryContext DeepClone()
         {
             var clone = new DataKeyTelemetryContext();

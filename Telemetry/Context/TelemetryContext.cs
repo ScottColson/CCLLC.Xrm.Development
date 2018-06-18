@@ -46,6 +46,11 @@ namespace CCLLC.Telemetry.Context
             this.properties = properties == null ? new ConcurrentDictionary<string, string>() : properties;
         }
 
+        public virtual ITelemetryContext BuildNew()
+        {
+            return new TelemetryContext(new ConcurrentDictionary<string, string>());
+        }
+
         public virtual ITelemetryContext DeepClone()
         {
             var clone = new TelemetryContext(new ConcurrentDictionary<string, string>());            

@@ -6,55 +6,59 @@ namespace CCLLC.Core
 {
     /// <summary>
     /// Provides a light weight IOC container implementation for configuring services used by 
-    /// CRM plugins.
-    /// 
-    /// Based on work from Ken Egozi: http://kenegozi.com/blog/2008/01/17/its-my-turn-to-build-an-ioc-container-in-15-minutes-and-33-lines
+    /// CRM plugins. Based on work from Ken Egozi: http://kenegozi.com/blog/2008/01/17/its-my-turn-to-build-an-ioc-container-in-15-minutes-and-33-lines
     /// </summary>
     public class IocContainer : IIocContainer
     {
         private static object lockObject = new object();
-        private static IocContainer instance;
         private readonly IDictionary<Type, ImplementationParameters> registeredTypes = new Dictionary<Type, ImplementationParameters>();
         private readonly IDictionary<Type, object> instances = new Dictionary<Type, object>();
-
-        static public IocContainer Instance
-        {
-            get
-            {
-                if(instance == null)
-                {
-                    lock (lockObject)
-                    {
-                        if(instance == null)
-                        {
-                            instance = new IocContainer();
-                        }
-                    }
-                }
-
-                return instance;
-            }
-        }
-
+            
+        /// <summary>
+        /// The number of items registered in the container.
+        /// </summary>
         public int Count { get { return registeredTypes.Count; } }
 
+        /// <summary>
+        /// Register an implementation for a given interface contract.
+        /// </summary>
+        /// <typeparam name="TContract">The type of the interface contract.</typeparam>
+        /// <typeparam name="TImplementation">The type of the implementation.</typeparam>
         public void Register<TContract, TImplementation>() where TImplementation : TContract
         {
             var implementation = new ImplementationParameters { Type = typeof(TImplementation), SingleInstance = false };
             registeredTypes[typeof(TContract)] = implementation;
         }
 
+        /// <summary>
+        /// Register an single instance implementation for given interface contract. When
+        /// an implementation is registers as a single instance, the container creates a
+        /// singleton for that implementation so the same object is returned for each
+        /// call to <see cref="Resolve{T}"/>.  
+        /// </summary>
+        /// <typeparam name="TContract">The type of the interface contract.</typeparam>
+        /// <typeparam name="TImplementation">The type of the implementation.</typeparam>
         public void RegisterAsSingleInstance<TContract, TImplementation>() where TImplementation : TContract
         {
             var implementation = new ImplementationParameters { Type = typeof(TImplementation), SingleInstance = true };
             registeredTypes[typeof(TContract)] = implementation;
         }
 
+        /// <summary>
+        /// Return an implementation for the desired contract interface.
+        /// </summary>
+        /// <typeparam name="T">The type of the interface contract.</typeparam>
+        /// <returns>The registered implementation as the requested interface contract.</returns>
         public T Resolve<T>()
         {
             return (T)Resolve(typeof(T));
         }
 
+        /// <summary>
+        /// Check to see if a given contract is already registered in the container.
+        /// </summary>
+        /// <typeparam name="TContract"></typeparam>
+        /// <returns>Returns true if the interface contract is already registered.</returns>
         public bool IsRegistered<TContract>()
         {
             return IsRegistered(typeof(TContract));

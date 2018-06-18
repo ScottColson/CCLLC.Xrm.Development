@@ -6,17 +6,17 @@ namespace CCLLC.Telemetry
     public class TelemetryClientFactory : ITelemetryClientFactory
     {
         ITelemetryContext telemetryContext;
-        ITelemetryInitializerChain telemetryInitializers;
+        public ITelemetryInitializerChain InitializerChain { get; private set; }
 
         public TelemetryClientFactory(ITelemetryContext context, ITelemetryInitializerChain telemetryInitializers)
         {
             this.telemetryContext = context;
-            this.telemetryInitializers = telemetryInitializers;
+            this.InitializerChain = telemetryInitializers;
         }
 
         public IComponentTelemetryClient BuildClient(string applicationName, ITelemetrySink telemetrySink, IDictionary<string, string> contextProperties = null)
         {
-            return new ComponentTelemetryClient(applicationName, telemetrySink, telemetryContext, telemetryInitializers, contextProperties);
+            return new ComponentTelemetryClient(applicationName, telemetrySink, telemetryContext.BuildNew(), InitializerChain, contextProperties);
         }
     }
 }

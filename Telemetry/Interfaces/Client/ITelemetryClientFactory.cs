@@ -8,6 +8,8 @@ namespace CCLLC.Telemetry
 {
     public interface ITelemetryClientFactory
     {
+        ITelemetryInitializerChain InitializerChain { get; }
+
         /// <summary>
         /// Configures and returns a new instance of <see cref="IComponentTelemetryClient"/>
         /// </summary>
