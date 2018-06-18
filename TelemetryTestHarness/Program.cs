@@ -5,7 +5,7 @@ using CCLLC.Telemetry.Context;
 using CCLLC.Telemetry.Client;
 using CCLLC.Telemetry.Sink;
 using CCLLC.Telemetry.Serializer;
-using System.Runtime.Caching;
+using CCLLC.Telemetry.EventLogger;
 
 namespace TelemetryTestHarness
 {
@@ -16,38 +16,39 @@ namespace TelemetryTestHarness
             try
             {
                 var container = new CCLLC.Core.IocContainer();
+                container.RegisterAsSingleInstance<IEventLogger, InertEventLogger>();
+
                 container.Register<ITelemetryContext, TelemetryContext>();
+                container.Register<ITelemetryFactory, TelemetryFactory>();
                 container.Register<ITelemetryClientFactory, TelemetryClientFactory>();
                 container.Register<ITelemetryInitializerChain, TelemetryInitializerChain>();
+
+                container.Register<ITelemetrySink, TelemetrySink>();
+                container.Register<ITelemetryProcessChain, TelemetryProcessChain>();
                 container.Register<ITelemetryChannel, SyncMemoryChannel>();
                 container.Register<ITelemetryBuffer, TelemetryBuffer>();
-                container.Register<ITelemetryTransmitter, TelemetryTransmitter>();                
-                container.Register<ITelemetryProcessChain, TelemetryProcessChain>();
-                container.Register<ITelemetrySink, TelemetrySink>();
-                container.Register<IContextTagKeys, AIContextTagKeys>();
+                container.Register<ITelemetryTransmitter, AITelemetryTransmitter>();
+
                 container.Register<ITelemetrySerializer, AITelemetrySerializer>();
-                container.Register<ITelemetryFactory, TelemetryFactory>();
+                container.Register<IContextTagKeys, AIContextTagKeys>();              
+                container.Register<IJsonWriterFactory, JsonWriterFactory>();
+            
 
                
                 
                 //setup the telemetry sink
                 var sink = container.Resolve<ITelemetrySink>();
-                sink.Channel.SendingInterval = new TimeSpan(0, 0, 5); //override sending interval to 5 seconds.
-
-
+                
                 //Delegate called the first time that telemetry is pushed to the sink. Configures the sink
                 //with a destination address for the telemetry, and adds telementry processors to set the 
                 //instrumentation key and manage the sequence number. 
                 sink.OnConfigure = () =>
-                {
-                    sink.Channel.EndpointAddress = new Uri("https://dc.services.visualstudio.com/v2/track"); //Application Insights
+                {                    
                     sink.ProcessChain.TelemetryProcessors.Add(new SequencePropertyProcessor());
                     sink.ProcessChain.TelemetryProcessors.Add(new InstrumentationKeyPropertyProcessor("7a6ecb67-6c9c-4640-81d2-80ce76c3ca34"));
-                                        
+                    sink.Channel.SendingInterval = new TimeSpan(0, 0, 5); //override sending interval to 5 seconds.
                     return true; //indicate that the delegate successfully configured the sink.
-                };
-
-                
+                };                
                
                 var sw = new System.Diagnostics.Stopwatch();
                 sw.Start();
@@ -107,8 +108,7 @@ namespace TelemetryTestHarness
                     op.Properties.Add("somereqprop", "qwert");                    
                 }
 
-                client.TelemetrySink.Channel.Flush();
-
+                
                 sw.Stop();
                 Console.WriteLine(string.Format("Elapsed: {0}", sw.ElapsedMilliseconds));
                 Console.WriteLine(string.Format("Buffer Length: {0}", sink.Channel.Buffer.Length));
