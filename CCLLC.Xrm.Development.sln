@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.4
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telemetry", "Telemetry\Telemetry.csproj", "{43635423-C56A-48FE-A2FF-7857F3625A69}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Telemetry", "Telemetry\Telemetry.csproj", "{43635423-C56A-48FE-A2FF-7857F3625A69}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IocContainer", "IocContainer\IocContainer.csproj", "{8AE70CE7-65E1-4117-BADE-A02E6023C1A1}"
 EndProject
@@ -16,8 +16,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XrmUtilities", "XrmUtilities\XrmUtilities.csproj", "{4A6E4C38-94DA-4461-8B92-7FA35284DA81}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelemetryTests", "TelemetryTests\TelemetryTests.csproj", "{4EE52CF6-632B-47D1-81EA-4966C19C4FA1}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelemetryTestHarness", "TelemetryTestHarness\TelemetryTestHarness.csproj", "{8D2C9A86-C172-45B5-839F-9988BDCAB8C7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XrmPluginTestHarness", "XrmPluginTestHarness\XrmPluginTestHarness.csproj", "{95F6FEAE-DF6F-440C-82FA-86DBA36444D6}"
 EndProject
@@ -37,6 +35,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelemetrySamples", "TelemetrySamples\TelemetrySamples.csproj", "{67945807-09B4-4678-8B60-9678E221DB8C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XrmAppInsightsConnector", "XrmAppInsightsConnector\XrmAppInsightsConnector.csproj", "{399E0B3F-C15D-4495-BC3F-9F4A18EFB3A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelemetryConsoleApp", "TelemetryConsoleApp\TelemetryConsoleApp.csproj", "{BA55B5AD-167E-4ECC-A0DD-6F0F61E4B134}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -102,14 +102,6 @@ Global
 		{4EE52CF6-632B-47D1-81EA-4966C19C4FA1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4EE52CF6-632B-47D1-81EA-4966C19C4FA1}.Release-4.6.2|Any CPU.ActiveCfg = Release-4.6.2|Any CPU
 		{4EE52CF6-632B-47D1-81EA-4966C19C4FA1}.Release-4.6.2|Any CPU.Build.0 = Release-4.6.2|Any CPU
-		{8D2C9A86-C172-45B5-839F-9988BDCAB8C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8D2C9A86-C172-45B5-839F-9988BDCAB8C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8D2C9A86-C172-45B5-839F-9988BDCAB8C7}.Debug-4.6.2|Any CPU.ActiveCfg = Debug-4.6.2|Any CPU
-		{8D2C9A86-C172-45B5-839F-9988BDCAB8C7}.Debug-4.6.2|Any CPU.Build.0 = Debug-4.6.2|Any CPU
-		{8D2C9A86-C172-45B5-839F-9988BDCAB8C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8D2C9A86-C172-45B5-839F-9988BDCAB8C7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8D2C9A86-C172-45B5-839F-9988BDCAB8C7}.Release-4.6.2|Any CPU.ActiveCfg = Release-4.6.2|Any CPU
-		{8D2C9A86-C172-45B5-839F-9988BDCAB8C7}.Release-4.6.2|Any CPU.Build.0 = Release-4.6.2|Any CPU
 		{95F6FEAE-DF6F-440C-82FA-86DBA36444D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{95F6FEAE-DF6F-440C-82FA-86DBA36444D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95F6FEAE-DF6F-440C-82FA-86DBA36444D6}.Debug-4.6.2|Any CPU.ActiveCfg = Debug-4.6.2|Any CPU
@@ -150,6 +142,14 @@ Global
 		{399E0B3F-C15D-4495-BC3F-9F4A18EFB3A4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{399E0B3F-C15D-4495-BC3F-9F4A18EFB3A4}.Release-4.6.2|Any CPU.ActiveCfg = Release|Any CPU
 		{399E0B3F-C15D-4495-BC3F-9F4A18EFB3A4}.Release-4.6.2|Any CPU.Build.0 = Release|Any CPU
+		{BA55B5AD-167E-4ECC-A0DD-6F0F61E4B134}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA55B5AD-167E-4ECC-A0DD-6F0F61E4B134}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA55B5AD-167E-4ECC-A0DD-6F0F61E4B134}.Debug-4.6.2|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA55B5AD-167E-4ECC-A0DD-6F0F61E4B134}.Debug-4.6.2|Any CPU.Build.0 = Debug|Any CPU
+		{BA55B5AD-167E-4ECC-A0DD-6F0F61E4B134}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA55B5AD-167E-4ECC-A0DD-6F0F61E4B134}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA55B5AD-167E-4ECC-A0DD-6F0F61E4B134}.Release-4.6.2|Any CPU.ActiveCfg = Release|Any CPU
+		{BA55B5AD-167E-4ECC-A0DD-6F0F61E4B134}.Release-4.6.2|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -157,6 +157,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{891C565A-57F2-4E05-8595-7711615C1BB1} = {7CFF4DDD-3164-4C66-9193-0017FBC1ECA9}
 		{67945807-09B4-4678-8B60-9678E221DB8C} = {74E70360-C50E-4997-B328-7D919C6BD07A}
+		{BA55B5AD-167E-4ECC-A0DD-6F0F61E4B134} = {74E70360-C50E-4997-B328-7D919C6BD07A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {366A9950-9525-4052-B423-790518D945FB}
