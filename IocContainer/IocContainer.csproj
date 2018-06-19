@@ -31,7 +31,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <IncludeSymbols>True</IncludeSymbols>
     <AssemblyOriginatorKeyFile>CCLCCIoCContainer.snk</AssemblyOriginatorKeyFile>    
-    <Version>1.4.0-alpha3</Version>
+    <Version>1.4.0</Version>
     <Authors>Colson Code, LLC</Authors>
     <AssemblyVersion>1.4.0.0</AssemblyVersion>
     <Description>A light IoC container implementation to register and resolve dependencies at runtime.</Description>
@@ -39,6 +39,9 @@
     <PackageLicenseUrl>https://github.com/ScottColson/CCLLC.Xrm.Development/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/ScottColson/CCLLC.Xrm.Development</PackageProjectUrl>
     <PackageTags>IoC</PackageTags>
+    <Product>CCLLC.IoC.Container</Product>
+    <Title>CCLLC.IoC.Container</Title>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   </PropertyGroup> 
   
   

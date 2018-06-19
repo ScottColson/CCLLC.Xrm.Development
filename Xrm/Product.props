@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), 'Common.props'))\Common.props"/>
+  
+  
+  <PropertyGroup>
+    <RootNamespace>CCLLC.Xrm.Sdk</RootNamespace>
+    <AssemblyName>CCLLCXrmSdk</AssemblyName>
+    <DocumentationFile>$(OutputPath)\$(TargetFramework)\$(AssemblyName).XML</DocumentationFile>
+  </PropertyGroup>
+</Project>

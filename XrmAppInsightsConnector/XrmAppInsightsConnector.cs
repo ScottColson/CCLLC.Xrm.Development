@@ -14,50 +14,55 @@ namespace CCLLC.Xrm.AppInsights
 {
     public class XrmAppInsightsConnector : IXrmAppInsightsConnector
     {
-        private IEventLogger logger;
-        private IIocContainer container;
-        private ITelemetrySink sink;
+        private IEventLogger logger;        
+        protected ITelemetrySink Sink { get; private set; }
+
+        protected IIocContainer Container { get; private set; }
 
         public XrmAppInsightsConnector()
         {
             // register all the individual telemetry componenets required in an IoC
             // container. 
-            container = new IocContainer();
+            Container = new IocContainer();
 
-            container.RegisterAsSingleInstance<IEventLogger, InertEventLogger>();
-                        
-            container.RegisterAsSingleInstance<ITelemetryFactory, TelemetryFactory>();
+            RegisterContainerServices();
 
-            container.Register<ITelemetryClientFactory, TelemetryClientFactory>();
-            container.Register<ITelemetryInitializerChain, TelemetryInitializerChain>();
-            container.Register<ITelemetryContext, TelemetryContext>();
-
-            container.RegisterAsSingleInstance<ITelemetrySink, TelemetrySink>();
-            container.Register<ITelemetryProcessChain, TelemetryProcessChain>();
-            container.Register<ITelemetryChannel, SyncMemoryChannel>();
-            container.Register<ITelemetryBuffer, TelemetryBuffer>();
-            container.Register<ITelemetryTransmitter, AITelemetryTransmitter>();
-
-            container.RegisterAsSingleInstance<ITelemetrySerializer, AITelemetrySerializer>();
-            container.Register<IContextTagKeys, AIContextTagKeys>();  //Context tags known to Application Insights.
-            container.Register<IJsonWriterFactory, JsonWriterFactory>();
-
-            logger = container.Resolve<IEventLogger>();
+            logger = Container.Resolve<IEventLogger>();
 
             // setup and configure the sink. 
-            sink = container.Resolve<ITelemetrySink>();
-            sink.OnConfigure = () => { return true; }; //no special configuraiton required.
+            Sink = Container.Resolve<ITelemetrySink>();
+            Sink.OnConfigure = () => { return true; }; //no special configuraiton required.
+        }
+
+        protected virtual void RegisterContainerServices() {
+
+            Container.RegisterAsSingleInstance<IEventLogger, InertEventLogger>();
+
+            Container.RegisterAsSingleInstance<ITelemetryFactory, TelemetryFactory>();
+            Container.RegisterAsSingleInstance<ITelemetryClientFactory, TelemetryClientFactory>();
+            Container.Register<ITelemetryInitializerChain, TelemetryInitializerChain>();
+            Container.Register<ITelemetryContext, TelemetryContext>();
+
+            Container.Register<ITelemetrySink, TelemetrySink>();
+            Container.Register<ITelemetryProcessChain, TelemetryProcessChain>();
+            Container.Register<ITelemetryChannel, SyncMemoryChannel>();
+            Container.Register<ITelemetryBuffer, TelemetryBuffer>();
+            Container.Register<ITelemetryTransmitter, AITelemetryTransmitter>();
+
+            Container.Register<ITelemetrySerializer, AITelemetrySerializer>();
+            Container.Register<IContextTagKeys, AIContextTagKeys>();  //Context tags known to Application Insights.
+            Container.Register<IJsonWriterFactory, JsonWriterFactory>();
         }
 
         public IXrmAppInsightsClient BuildClient(string className, IExecutionContext executionContext, string instrumentationKey)
         {
-            var clientFactory = container.Resolve<ITelemetryClientFactory>();
+            var clientFactory = Container.Resolve<ITelemetryClientFactory>();
 
             // create a new telemetry client and capture common xrm execution context properties that 
             // don't fit in telemetry context as custom telemetry context properties.
             var client = clientFactory.BuildClient(
                 className,
-                this.sink,
+                this.Sink,
                 new Dictionary<string, string>{
                     { "crm-pluginclass", className },
                     { "crm-depth", executionContext.Depth.ToString() },
@@ -93,9 +98,11 @@ namespace CCLLC.Xrm.AppInsights
             }
 
             //set instrumentation key
-            client.InstrumentationKey = instrumentationKey;                     
+            client.InstrumentationKey = instrumentationKey;
 
-            var telemetryFactory = container.Resolve<ITelemetryFactory>();
+            client.Initializers.TelemetryInitializers.Add(new SequencePropertyInitializer());
+
+            var telemetryFactory = Container.Resolve<ITelemetryFactory>();
 
             return new XrmAppInsightsClient(telemetryFactory, client, logger);
         }

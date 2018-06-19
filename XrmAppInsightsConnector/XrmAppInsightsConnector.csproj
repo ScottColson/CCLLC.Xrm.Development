@@ -31,18 +31,19 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <IncludeSymbols>True</IncludeSymbols>
     <AssemblyOriginatorKeyFile>CCLLCXrmAppInsightsPlatform.snk</AssemblyOriginatorKeyFile>
-    <Version>8.0.0-alpha</Version>
+    <Version>8.0.0-alpha3</Version>
     <Authors>Colson Code, LLC</Authors>
     <AssemblyVersion>8.0.0</AssemblyVersion>
     <Description>A connector to link existing plugins to ApplicationInsights.</Description>
-    <PackageId>XrmAppInsightsConnector</PackageId>
+    <PackageId>CCLLCXrmAppInsightsConnector</PackageId>
+    <Title>CCLLC.Xrm.AppInsightsConnector</Title>
     <PackageLicenseUrl>https://github.com/ScottColson/CCLLC.Xrm.Development/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/ScottColson/CCLLC.Xrm.Development</PackageProjectUrl>
     <PackageTags>Xrm Telemetry ApplicationInsights</PackageTags>
   </PropertyGroup>
 
   <PropertyGroup>
-    
+    <Product>CCLLC.Xrm.AppInsightsConnector</Product>
   </PropertyGroup>
   
   <ItemGroup>
@@ -70,8 +71,8 @@
     <None Include="CCLLCXrmAppInsightsPlatform.snk" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CCLLCIoCContainer" Version="1.4.0-alpha3" />
-    <PackageReference Include="CCLLCTelemetry" Version="2.0.0-alpha4" />
+    <PackageReference Include="CCLLCIoCContainer" Version="1.4.0" />
+    <PackageReference Include="CCLLCTelemetry" Version="2.0.0" />
     <PackageReference Include="Microsoft.CrmSdk.CoreAssemblies" Version="8.0.0" />
     <PackageReference Include="Microsoft.CrmSdk.Workflow" Version="8.0.0" />
   </ItemGroup>
