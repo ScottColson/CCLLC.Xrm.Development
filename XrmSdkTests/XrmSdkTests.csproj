@@ -142,9 +142,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Xrm\Xrm.csproj">
+    <ProjectReference Include="..\XrmSdk\XrmSdk.csproj">
       <Project>{359c8c95-0fb1-4f18-8b49-a4a287d80df4}</Project>
-      <Name>Xrm</Name>
+      <Name>XrmSdk</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IocContainer", "IocContaine
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XrmWorkflow", "XrmWorkflow\XrmWorkflow.csproj", "{70C017EE-01DA-48BF-B29F-26134E2D4E79}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xrm", "Xrm\Xrm.csproj", "{359C8C95-0FB1-4F18-8B49-A4A287D80DF4}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XrmUtilities", "XrmUtilities\XrmUtilities.csproj", "{4A6E4C38-94DA-4461-8B92-7FA35284DA81}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XrmPluginTestHarness", "XrmPluginTestHarness\XrmPluginTestHarness.csproj", "{95F6FEAE-DF6F-440C-82FA-86DBA36444D6}"
@@ -37,6 +35,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XrmAppInsightsConnectorTests", "XrmAppInsightsConnectorTests\XrmAppInsightsConnectorTests.csproj", "{4EB48596-2156-4344-8B50-A19DED8E4198}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XrmSdkTests", "XrmSdkTests\XrmSdkTests.csproj", "{6DEEC884-FB35-4138-8B17-7454DE138948}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XrmSdk", "XrmSdk\XrmSdk.csproj", "{359C8C95-0FB1-4F18-8B49-A4A287D80DF4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -70,14 +70,6 @@ Global
 		{70C017EE-01DA-48BF-B29F-26134E2D4E79}.Release|Any CPU.Build.0 = Release|Any CPU
 		{70C017EE-01DA-48BF-B29F-26134E2D4E79}.Release-4.6.2|Any CPU.ActiveCfg = Release-4.6.2|Any CPU
 		{70C017EE-01DA-48BF-B29F-26134E2D4E79}.Release-4.6.2|Any CPU.Build.0 = Release-4.6.2|Any CPU
-		{359C8C95-0FB1-4F18-8B49-A4A287D80DF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{359C8C95-0FB1-4F18-8B49-A4A287D80DF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{359C8C95-0FB1-4F18-8B49-A4A287D80DF4}.Debug-4.6.2|Any CPU.ActiveCfg = Debug|Any CPU
-		{359C8C95-0FB1-4F18-8B49-A4A287D80DF4}.Debug-4.6.2|Any CPU.Build.0 = Debug|Any CPU
-		{359C8C95-0FB1-4F18-8B49-A4A287D80DF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{359C8C95-0FB1-4F18-8B49-A4A287D80DF4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{359C8C95-0FB1-4F18-8B49-A4A287D80DF4}.Release-4.6.2|Any CPU.ActiveCfg = Release|Any CPU
-		{359C8C95-0FB1-4F18-8B49-A4A287D80DF4}.Release-4.6.2|Any CPU.Build.0 = Release|Any CPU
 		{4A6E4C38-94DA-4461-8B92-7FA35284DA81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4A6E4C38-94DA-4461-8B92-7FA35284DA81}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A6E4C38-94DA-4461-8B92-7FA35284DA81}.Debug-4.6.2|Any CPU.ActiveCfg = Debug-4.6.2|Any CPU
@@ -150,6 +142,14 @@ Global
 		{6DEEC884-FB35-4138-8B17-7454DE138948}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6DEEC884-FB35-4138-8B17-7454DE138948}.Release-4.6.2|Any CPU.ActiveCfg = Release-4.6.2|Any CPU
 		{6DEEC884-FB35-4138-8B17-7454DE138948}.Release-4.6.2|Any CPU.Build.0 = Release-4.6.2|Any CPU
+		{359C8C95-0FB1-4F18-8B49-A4A287D80DF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{359C8C95-0FB1-4F18-8B49-A4A287D80DF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{359C8C95-0FB1-4F18-8B49-A4A287D80DF4}.Debug-4.6.2|Any CPU.ActiveCfg = Debug|Any CPU
+		{359C8C95-0FB1-4F18-8B49-A4A287D80DF4}.Debug-4.6.2|Any CPU.Build.0 = Debug|Any CPU
+		{359C8C95-0FB1-4F18-8B49-A4A287D80DF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{359C8C95-0FB1-4F18-8B49-A4A287D80DF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{359C8C95-0FB1-4F18-8B49-A4A287D80DF4}.Release-4.6.2|Any CPU.ActiveCfg = Release|Any CPU
+		{359C8C95-0FB1-4F18-8B49-A4A287D80DF4}.Release-4.6.2|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
