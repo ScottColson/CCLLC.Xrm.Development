@@ -1,0 +1,36 @@
+﻿{
+  "General": {
+    "OutputFile": null,
+    "TargetPlatform": "v4,C:\\Windows\\Microsoft.NET\\Framework\\v4.0.30319",
+    "KeyFile": null,
+    "AlternativeILMergePath": null,
+    "InputAssemblies": [
+      "CCLLCIoCContainer.dll",
+      "CCLLCTelemetry.dll",
+      "CCLLCXrmAppInsightsConnector.dll"
+    ]
+  },
+  "Advanced": {
+    "AllowDuplicateType": null,
+    "AllowMultipleAssemblyLevelAttributes": false,
+    "AllowWildCards": false,
+    "AllowZeroPeKind": false,
+    "AttributeFile": null,
+    "Closed": false,
+    "CopyAttributes": false, 
+    "DebugInfo": false,
+    "DelaySign": false,
+    "ExcludeFile": "",
+    "FileAlignment": 512,
+    "Internalize": false,
+    "Log": true,
+    "LogFile": "ILmergeLog.txt",
+    "PublicKeyTokens": true,
+    "SearchDirectories": [],
+    "TargetKind": null,
+    "UnionMerge": false,
+    "Version": null,
+    "XmlDocumentation": false
+  }
+
+}
