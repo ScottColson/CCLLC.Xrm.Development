@@ -1,4 +1,0 @@
-2:27:30 PM	
-2:27:30 PM	Exiting program with exception: Could not load file or assembly 'CrmSvcUtil, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35' or one of its dependencies. The located assembly's manifest definition does not match the assembly reference. (Exception from HRESULT: 0x80131040)
-4:16:52 PM	
-4:16:52 PM	Exiting program with exception: Could not load file or assembly 'CrmSvcUtil, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35' or one of its dependencies. The located assembly's manifest definition does not match the assembly reference. (Exception from HRESULT: 0x80131040)

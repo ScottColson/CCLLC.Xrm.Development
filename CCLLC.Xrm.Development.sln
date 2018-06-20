@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Telemetry", "Telemetry\Tele
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IocContainer", "IocContainer\IocContainer.csproj", "{8AE70CE7-65E1-4117-BADE-A02E6023C1A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XrmPluginTestHarness", "XrmPluginTestHarness\XrmPluginTestHarness.csproj", "{95F6FEAE-DF6F-440C-82FA-86DBA36444D6}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReadMe", "ReadMe", "{DC2EF5C1-C784-41CC-93C8-8B53352923E0}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
@@ -62,14 +60,6 @@ Global
 		{8AE70CE7-65E1-4117-BADE-A02E6023C1A1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8AE70CE7-65E1-4117-BADE-A02E6023C1A1}.Release-4.6.2|Any CPU.ActiveCfg = Release|Any CPU
 		{8AE70CE7-65E1-4117-BADE-A02E6023C1A1}.Release-4.6.2|Any CPU.Build.0 = Release|Any CPU
-		{95F6FEAE-DF6F-440C-82FA-86DBA36444D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{95F6FEAE-DF6F-440C-82FA-86DBA36444D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{95F6FEAE-DF6F-440C-82FA-86DBA36444D6}.Debug-4.6.2|Any CPU.ActiveCfg = Debug-4.6.2|Any CPU
-		{95F6FEAE-DF6F-440C-82FA-86DBA36444D6}.Debug-4.6.2|Any CPU.Build.0 = Debug-4.6.2|Any CPU
-		{95F6FEAE-DF6F-440C-82FA-86DBA36444D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{95F6FEAE-DF6F-440C-82FA-86DBA36444D6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{95F6FEAE-DF6F-440C-82FA-86DBA36444D6}.Release-4.6.2|Any CPU.ActiveCfg = Release-4.6.2|Any CPU
-		{95F6FEAE-DF6F-440C-82FA-86DBA36444D6}.Release-4.6.2|Any CPU.Build.0 = Release-4.6.2|Any CPU
 		{67945807-09B4-4678-8B60-9678E221DB8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{67945807-09B4-4678-8B60-9678E221DB8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67945807-09B4-4678-8B60-9678E221DB8C}.Debug-4.6.2|Any CPU.ActiveCfg = Debug|Any CPU
