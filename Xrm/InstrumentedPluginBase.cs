@@ -85,7 +85,7 @@ namespace CCLLC.Xrm.Sdk
             base.RegisterContainerServices();
 
             //Telemetry issue event logger
-            Container.Register<IEventLogger, InertEventLogger>();
+            Container.RegisterAsSingleInstance<IEventLogger, InertEventLogger>();
 
             //setup the objects needed to create/capture telemetry items.
             Container.RegisterAsSingleInstance<ITelemetryFactory, TelemetryFactory>();  //ITelemetryFactory is used to create new telemetry items.

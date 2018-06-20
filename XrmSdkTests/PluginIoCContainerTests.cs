@@ -23,7 +23,7 @@ namespace XrmSdkTests
         {
             var plugin1 = new Plugin(null, null);
             var plugin2 = new Plugin(null, null);
-
+            
             Assert.IsNotNull(plugin1.Container);
             Assert.IsNotNull(plugin2.Container);
 
@@ -36,7 +36,7 @@ namespace XrmSdkTests
         {
             var plugin1 = new InstrumentedPlugin(null, null);
             var plugin2 = new InstrumentedPlugin(null, null);
-
+            
             Assert.IsNotNull(plugin1.Container);
             Assert.IsNotNull(plugin2.Container);
 
@@ -88,8 +88,8 @@ namespace XrmSdkTests
             Assert.IsTrue(plugin.Container.IsRegisteredAs<IExtensionSettingsConfig, DefaultExtensionSettingsConfig>());
             Assert.IsTrue(plugin.Container.IsRegisteredAs<IPluginWebRequestFactory, PluginHttpWebRequestFactory>());
 
-            //verify expected concrete implementatino for telemetry support
-            Assert.IsTrue(plugin.Container.IsRegisteredAs<IEventLogger,InertEventLogger>());
+            //verify expected concrete implementation for telemetry support
+            Assert.IsTrue(plugin.Container.IsRegisteredAs<IEventLogger,InertEventLogger>(true));
             Assert.IsTrue(plugin.Container.IsRegisteredAs<ITelemetryFactory,TelemetryFactory>(true));            
             Assert.IsTrue(plugin.Container.IsRegisteredAs<ITelemetryClientFactory,TelemetryClientFactory>(true));            
             Assert.IsTrue(plugin.Container.IsRegisteredAs<ITelemetryContext, TelemetryContext>());
