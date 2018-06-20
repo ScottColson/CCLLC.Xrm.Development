@@ -1,10 +1,9 @@
 ﻿using System;
-using Microsoft.Xrm.Sdk;
 using CCLLC.Xrm.Sdk;
 using CCLLC.Telemetry;
 
 
-namespace TelemetrySamples
+namespace UsingXrmSdkWithTelemetry
 {       
     /// <summary>
     /// This is an example of an plugin base class that provides an alternate

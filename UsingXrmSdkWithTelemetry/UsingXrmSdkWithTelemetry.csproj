@@ -7,8 +7,8 @@
     <ProjectGuid>{67945807-09B4-4678-8B60-9678E221DB8C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TelemetrySamples</RootNamespace>
-    <AssemblyName>TelemetrySamples</AssemblyName>
+    <RootNamespace>UsingXrmSdkWithTelemetry</RootNamespace>
+    <AssemblyName>UsingXrmSdkWithTelemetry</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>

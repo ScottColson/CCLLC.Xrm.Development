@@ -1,8 +1,7 @@
 ﻿using System;
-using Microsoft.Xrm.Sdk;
 using CCLLC.Xrm.Sdk;
 
-namespace TelemetrySamples
+namespace UsingXrmSdkWithTelemetry
 {
     public class InstrumentedWebRequest : InstrumentedPluginBase
     {

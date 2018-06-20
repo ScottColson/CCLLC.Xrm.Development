@@ -1,9 +1,8 @@
 ﻿using System;
-using Microsoft.Xrm.Sdk;
 using CCLLC.Xrm.Sdk;  //provides basic telemetry instrumentation support
 using CCLLC.Xrm.Sdk.Context;  //provide access to the concrete implementation for instrumented plugin context.
 
-namespace TelemetrySamples
+namespace UsingXrmSdkWithTelemetry
 {
     /// <summary>
     /// Sample plugin that inherits InstrumentedPluginBase which provides

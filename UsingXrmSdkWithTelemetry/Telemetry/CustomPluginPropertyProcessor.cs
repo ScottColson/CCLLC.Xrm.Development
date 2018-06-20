@@ -1,6 +1,6 @@
 ﻿using CCLLC.Telemetry;
 
-namespace TelemetrySamples.Telemetry
+namespace UsingXrmSdkWithTelemetry.Telemetry
 {
     /// <summary>
     /// Adds a custom property with the name and value specified to the telemetry context 

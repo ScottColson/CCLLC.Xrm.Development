@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xrm.Sdk;
 using CCLLC.Xrm.Sdk;
 
-namespace TelemetrySamples
+namespace UsingXrmSdkWithTelemetry
 {
     public class UsingAltPluginBase : AltPluginBase
     {
