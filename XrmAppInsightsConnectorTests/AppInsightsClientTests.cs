@@ -73,7 +73,7 @@ namespace XrmAppInsightsConnectorTests
         {
             var client = getClient();
 
-            client.Trace(eSeverityLevel.Warning, "{0}", "This is a message");
+            client.Trace(eMessageType.Warning, "{0}", "This is a message");
 
             var items = new List<ITelemetry>(connector.TestableSink.Channel.Buffer.Dequeue());
             Assert.AreEqual(1, items.Count);

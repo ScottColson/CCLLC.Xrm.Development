@@ -13,7 +13,7 @@ namespace CCLLC.Xrm.AppInsights
 
         void Trace(string message, params object[] args);
 
-        void Trace(eSeverityLevel level, string message, params object[] args);
+        void Trace(eMessageType type, string message, params object[] args);
 
         void TrackEvent(string name);
 

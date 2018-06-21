@@ -29,15 +29,25 @@ namespace CCLLC.Xrm.AppInsights
 
         public void Trace(string message, params object[] args)
         {
-            Trace(eSeverityLevel.Information, message, args);
+            Trace(eMessageType.Information, message, args);
         }
 
-        public void Trace(eSeverityLevel level, string message, params object[] args)
+        public void Trace(eMessageType type, string message, params object[] args)
         {
             try
             {
                 if (this.TelemetryFactory != null && this.TelemetryClient != null && !string.IsNullOrEmpty(message))
                 {
+                    var level = eSeverityLevel.Information;
+                    if (type == eMessageType.Warning)
+                    {
+                        level = eSeverityLevel.Warning;
+                    }
+                    else if (type == eMessageType.Error)
+                    {
+                        level = eSeverityLevel.Error;
+                    }
+
                     if (this.TelemetryClient != null && this.TelemetryFactory != null)
                     {
                         var msgTelemetry = this.TelemetryFactory.BuildMessageTelemetry(string.Format(message, args), level);
