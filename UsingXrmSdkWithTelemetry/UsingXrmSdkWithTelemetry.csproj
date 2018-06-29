@@ -50,9 +50,6 @@
     <Reference Include="CCLLCXrmSdk, Version=8.0.0.0, Culture=neutral, PublicKeyToken=e38c5b9aef80b42d, processorArchitecture=MSIL">
       <HintPath>..\packages\CCLLCXrmSdk.8.0.0\lib\net452\CCLLCXrmSdk.dll</HintPath>
     </Reference>
-    <Reference Include="CCLLCXrmWorkflow, Version=2.0.0.0, Culture=neutral, PublicKeyToken=af011f443e1823d0, processorArchitecture=MSIL">
-      <HintPath>..\packages\CCLLCXrmWorkflow.2.0.0\lib\net452\CCLLCXrmWorkflow.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Crm.Sdk.Proxy, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CrmSdk.CoreAssemblies.9.0.2.3\lib\net452\Microsoft.Crm.Sdk.Proxy.dll</HintPath>
       <Private>False</Private>

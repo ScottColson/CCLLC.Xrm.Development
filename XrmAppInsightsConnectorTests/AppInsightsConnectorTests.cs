@@ -6,6 +6,7 @@ using CCLLC.Telemetry.Context;
 using CCLLC.Telemetry.EventLogger;
 using CCLLC.Telemetry.Serializer;
 using CCLLC.Telemetry.Sink;
+using TestHelpers;
 
 namespace XrmAppInsightsConnectorTests
 {

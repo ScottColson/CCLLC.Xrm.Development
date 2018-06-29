@@ -1,30 +1,47 @@
 ﻿using Microsoft.Xrm.Sdk;
 using CCLLC.Xrm.Sdk;
+using CCLLC.Telemetry;
+using System;
 
 namespace XrmSdkTests
 {
     public class InstrumentedPlugin : InstrumentedPluginBase, IPlugin
     {
-        public InstrumentedPlugin(string unsecureConfig, string secureConfig) : base(unsecureConfig, secureConfig)
+        private bool _overrideChannel;
+
+        public InstrumentedPlugin() : this(null, null, true) { }
+
+        public InstrumentedPlugin(string unsecureConfig, string secureConfig, bool overrideChannel = true) : base(unsecureConfig, secureConfig)
         {
-            base.RegisterEventHandler(null, null, ePluginStage.PostOperation, ExecuteHandler);
+            _overrideChannel = overrideChannel;
+            base.RegisterEventHandler(null, null, ePluginStage.PreOperation, ExecuteHandler);
         }
 
-        public void ExecuteHandler(ILocalContext localContext)
-        { 
-            //test basic telemetry
-            localContext.Trace("Simple trace message.");
-            localContext.Trace(eMessageType.Warning, "Warning message.");
+        public override void RegisterContainerServices()
+        {
+            base.RegisterContainerServices();
 
-            //test enhanced telemetry
-            var asInstrumentedContext = localContext as ISupportContextInstrumentation;
-            if (asInstrumentedContext != null)
+            if (_overrideChannel)
             {
-                asInstrumentedContext.TrackEvent("My Event Name");
+                //replace standard channel with the mock
+                base.Container.Register<ITelemetryChannel, TestHelpers.MockChannel>();
             }
-            
-
-            
         }
+
+        public override bool ConfigureTelemetrySink(ILocalPluginContext localContext)
+        {
+            return true;
+        }
+
+        public void ExecuteHandler(ILocalPluginContext localContext)
+        { 
+            if(TestingDelegate != null)
+            {
+                TestingDelegate(localContext);
+            }
+        }
+
+        public Action<ILocalPluginContext> TestingDelegate;
+
     }
 }

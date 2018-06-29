@@ -45,9 +45,6 @@
     <FileVersion>8.0.0</FileVersion>
   </PropertyGroup> 
   
-  
-  
-  
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Activities" />

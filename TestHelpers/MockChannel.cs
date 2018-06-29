@@ -2,7 +2,7 @@
 using System;
 
 
-namespace XrmAppInsightsConnectorTests
+namespace TestHelpers
 {
     public class MockChannel : ITelemetryChannel
     {

@@ -105,8 +105,6 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContainerTestingExtensions.cs" />
-    <Compile Include="MockChannel.cs" />
     <Compile Include="TestableConnector.cs" />
     <Compile Include="AppInsightsConnectorTests.cs" />
     <Compile Include="AppInsightsClientTests.cs" />
@@ -117,6 +115,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TestHelpers\TestHelpers.csproj">
+      <Project>{c70997e0-cc74-4b4b-ae09-5b6fb3039925}</Project>
+      <Name>TestHelpers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\XrmAppInsightsConnector\XrmAppInsightsConnector.csproj">
       <Project>{399e0b3f-c15d-4495-bc3f-9f4a18efb3a4}</Project>
       <Name>XrmAppInsightsConnector</Name>

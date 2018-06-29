@@ -1,4 +1,4 @@
-﻿namespace XrmAppInsightsConnectorTests
+﻿namespace TestHelpers
 {
     public static class ContainerTestingExtensions
     {

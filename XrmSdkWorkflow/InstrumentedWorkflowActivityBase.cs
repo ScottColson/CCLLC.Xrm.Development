@@ -8,8 +8,10 @@ using CCLLC.Core;
 using CCLLC.Telemetry;
 using CCLLC.Telemetry.Client;
 using CCLLC.Telemetry.Context;
+using CCLLC.Telemetry.EventLogger;
 using CCLLC.Telemetry.Serializer;
 using CCLLC.Telemetry.Sink;
+
 
 namespace CCLLC.Xrm.Sdk.Workflow
 {
@@ -80,18 +82,27 @@ namespace CCLLC.Xrm.Sdk.Workflow
         {
             base.RegisterContainerServices();
 
-            //Telemetry component registration
-            Container.Register<ITelemetryContext, TelemetryContext>();
-            Container.Register<ITelemetryClientFactory, TelemetryClientFactory>();
-            Container.Register<ITelemetryInitializerChain, TelemetryInitializerChain>();
-            Container.Register<ITelemetryChannel, SyncMemoryChannel>();
-            Container.Register<ITelemetryBuffer, TelemetryBuffer>();
-            Container.Register<ITelemetryTransmitter, AITelemetryTransmitter>(); //Transmitter preconfigured with AI endpoint
-            Container.Register<ITelemetryProcessChain, TelemetryProcessChain>();
-            Container.Register<ITelemetrySink, TelemetrySink>();
-            Container.Register<IContextTagKeys, AIContextTagKeys>();  //Context tags known to Application Insights.
-            Container.Register<ITelemetrySerializer, AITelemetrySerializer>(); //Serializer that created JSON as expected by AI
-            Container.Register<ITelemetryFactory, TelemetryFactory>();            
+            //Telemetry issue event logger
+            Container.RegisterAsSingleInstance<IEventLogger, InertEventLogger>();
+
+            //setup the objects needed to create/capture telemetry items.
+            Container.RegisterAsSingleInstance<ITelemetryFactory, TelemetryFactory>();  //ITelemetryFactory is used to create new telemetry items.
+            Container.RegisterAsSingleInstance<ITelemetryClientFactory, TelemetryClientFactory>(); //ITelemetryClientFactory is used to create and configure a telemetry client.
+            Container.Register<ITelemetryContext, TelemetryContext>(); //ITelemetryContext is a dependency for telemetry creation.
+            Container.Register<ITelemetryInitializerChain, TelemetryInitializerChain>(); //ITelemetryInitializerChain is a dependency for building a telemetry client.
+
+            //setup the objects needed to buffer and send telemetry to Application Insights.
+            Container.Register<ITelemetrySink, TelemetrySink>(); //ITelemetrySink receives telemetry from one or more telemetry clients, processes it, buffers it, and transmits it.
+            Container.Register<ITelemetryProcessChain, TelemetryProcessChain>(); //ITelemetryProcessChain holds 0 or more processors that can modify the telemetry prior to transmission.
+            Container.Register<ITelemetryChannel, SyncMemoryChannel>(); //ITelemetryChannel provides the buffering and transmission. There is a sync and an asynch channel.
+            Container.Register<ITelemetryBuffer, TelemetryBuffer>(); //ITelemetryBuffer is used the channel
+            Container.Register<ITelemetryTransmitter, AITelemetryTransmitter>(); //ITelemetryTransmitter transmits a block of telemetry to Applicatoin Insights.
+
+            //setup the objects needed to serialize telemetry as part of transmission.
+            Container.Register<IContextTagKeys, AIContextTagKeys>(); //Defines context tags expected by Application Insights.
+            Container.Register<ITelemetrySerializer, AITelemetrySerializer>(); //Serialize telemetry items into a compressed Gzip data.
+            Container.Register<IJsonWriterFactory, JsonWriterFactory>(); //Factory to create JSON converters as needed.
+
         }
 
         public virtual bool ConfigureTelemetrySink(ILocalWorkflowActivityContext localContext)

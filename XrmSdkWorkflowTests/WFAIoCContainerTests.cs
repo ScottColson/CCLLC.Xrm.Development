@@ -1,87 +1,90 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CCLLC.Xrm.Sdk;
 using CCLLC.Xrm.Sdk.Configuration;
 using CCLLC.Xrm.Sdk.Encryption;
 using CCLLC.Xrm.Sdk.Utilities;
+using CCLLC.Xrm.Sdk.Workflow;
 using CCLLC.Telemetry;
 using CCLLC.Telemetry.EventLogger;
 using CCLLC.Telemetry.Context;
 using CCLLC.Telemetry.Client;
 using CCLLC.Telemetry.Sink;
 using CCLLC.Telemetry.Serializer;
+
 using TestHelpers;
 
-namespace XrmSdkTests
+namespace XrmSdkWorkflowTests
 {
     [TestClass]
     public class PluginIoCContainerTests
     {    
         [TestMethod]
-        public void Plugin_Container_IsSingleton()
+        public void WFA_Container_IsSingleton()
         {
-            var plugin1 = new Plugin(null, null);
-            var plugin2 = new Plugin(null, null);
+            var wfa1 = new WFA();
+            var wfa2 = new WFA();
             
-            Assert.IsNotNull(plugin1.Container);
-            Assert.IsNotNull(plugin2.Container);
+            Assert.IsNotNull(wfa1.Container);
+            Assert.IsNotNull(wfa2.Container);
 
-            Assert.AreSame(plugin1.Container, plugin2.Container);
+            Assert.AreSame(wfa1.Container, wfa2.Container);
 
         }
 
         [TestMethod]
-        public void InstrumentedPlugin_Container_IsSingleton()
+        public void InstrumentedWFA_Container_IsSingleton()
         {
-            var plugin1 = new InstrumentedPlugin(null, null,false);
-            var plugin2 = new InstrumentedPlugin(null, null,false);
+            var wfa1 = new InstrumentedWFA();
+            var wfa2 = new InstrumentedWFA();
             
-            Assert.IsNotNull(plugin1.Container);
-            Assert.IsNotNull(plugin2.Container);
+            Assert.IsNotNull(wfa1.Container);
+            Assert.IsNotNull(wfa2.Container);
 
-            Assert.AreSame(plugin1.Container, plugin2.Container);
-
-        }
-
-        [TestMethod]
-        public void InstrumentedPlugin_Container_IsNot_Plugin_Container()
-        {
-            var plugin1 = new Plugin(null, null);
-            var plugin2 = new InstrumentedPlugin(null, null);
-
-            Assert.IsNotNull(plugin1.Container);
-            Assert.IsNotNull(plugin2.Container);
-
-            Assert.AreNotSame(plugin1.Container, plugin2.Container);
+            Assert.AreSame(wfa1.Container, wfa2.Container);
 
         }
 
         [TestMethod]
-        public void Plugin_Container_Initialization()
+        public void InstrumentedWFA_Container_IsNot_WFA_Container()
         {
-            var plugin = new Plugin(null, null);
+            var wfa1 = new WFA();
+            var wfa2 = new InstrumentedWFA();
+
+            Assert.IsNotNull(wfa1.Container);
+            Assert.IsNotNull(wfa2.Container);
+
+            Assert.AreNotSame(wfa1.Container, wfa2.Container);
+
+        }
+
+        [TestMethod]
+        public void WFA_Container_Initialization()
+        {
+            var plugin = new WFA();
             Assert.IsNotNull(plugin.Container);
             Assert.AreEqual(6,plugin.Container.Count);
 
             //verify expected concreate implementations for each registered interface.
             Assert.IsTrue(plugin.Container.IsRegisteredAs<ICacheFactory, CacheFactory>());
             Assert.IsTrue(plugin.Container.IsRegisteredAs<IConfigurationFactory, ConfigurationFactory>());
-            Assert.IsTrue(plugin.Container.IsRegisteredAs<ILocalPluginContextFactory, LocalPluginContextFactory>());
+            Assert.IsTrue(plugin.Container.IsRegisteredAs<ILocalWorkflowActivityContextFactory, LocalWorkflowActivityContextFactory>());
             Assert.IsTrue(plugin.Container.IsRegisteredAs<IRijndaelEncryption, RijndaelEncryption>());
             Assert.IsTrue(plugin.Container.IsRegisteredAs<IExtensionSettingsConfig, DefaultExtensionSettingsConfig>());
             Assert.IsTrue(plugin.Container.IsRegisteredAs<IPluginWebRequestFactory, PluginHttpWebRequestFactory>());
         }
 
         [TestMethod]
-        public void InstrumentedPlugin_Container_Initialization()
+        public void InstrumentedWFA_Container_Initialization()
         {
-            var plugin = new InstrumentedPlugin(null, null, false); //do not override channel
+            var plugin = new InstrumentedWFA();
             Assert.IsNotNull(plugin.Container);
             Assert.AreEqual(19, plugin.Container.Count);
 
             //verify expected concreate implementations for each registered interface.
             Assert.IsTrue(plugin.Container.IsRegisteredAs<ICacheFactory, CacheFactory>());
             Assert.IsTrue(plugin.Container.IsRegisteredAs<IConfigurationFactory, ConfigurationFactory>());
-            Assert.IsTrue(plugin.Container.IsRegisteredAs<ILocalPluginContextFactory, LocalPluginContextFactory>());
+            Assert.IsTrue(plugin.Container.IsRegisteredAs<ILocalWorkflowActivityContextFactory, LocalWorkflowActivityContextFactory>());
             Assert.IsTrue(plugin.Container.IsRegisteredAs<IRijndaelEncryption, RijndaelEncryption>());
             Assert.IsTrue(plugin.Container.IsRegisteredAs<IExtensionSettingsConfig, DefaultExtensionSettingsConfig>());
             Assert.IsTrue(plugin.Container.IsRegisteredAs<IPluginWebRequestFactory, PluginHttpWebRequestFactory>());

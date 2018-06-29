@@ -14,7 +14,7 @@ namespace XrmAppInsightsConnectorTests
             if (_overrideChannel)
             {
                 //replace standard channel with the mock
-                base.Container.Register<ITelemetryChannel, MockChannel>();
+                base.Container.Register<ITelemetryChannel, TestHelpers.MockChannel>();
             }
         }
 
