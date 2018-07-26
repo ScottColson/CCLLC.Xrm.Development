@@ -6,6 +6,7 @@ using CCLLC.Telemetry.Context;
 using CCLLC.Telemetry.EventLogger;
 using CCLLC.Telemetry.Serializer;
 using CCLLC.Telemetry.Sink;
+using CCLLC.Xrm.AppInsights;
 using TestHelpers;
 
 namespace XrmAppInsightsConnectorTests
@@ -18,8 +19,9 @@ namespace XrmAppInsightsConnectorTests
         {
             var connector = new TestableConnector(false); //do not override container registrations.
 
-            Assert.AreEqual(13, connector.TestableContainer.Count);
+            Assert.AreEqual(14, connector.TestableContainer.Count);
             //verify expected concrete implementatino for telemetry support
+            Assert.IsTrue(connector.TestableContainer.IsRegisteredAs<IXrmTelemetryPropertyManager, DefaultPluginPropertyManager>(true));
             Assert.IsTrue(connector.TestableContainer.IsRegisteredAs<IEventLogger, InertEventLogger>(true));
             Assert.IsTrue(connector.TestableContainer.IsRegisteredAs<ITelemetryFactory, TelemetryFactory>(true));
             Assert.IsTrue(connector.TestableContainer.IsRegisteredAs<ITelemetryClientFactory, TelemetryClientFactory>(true));

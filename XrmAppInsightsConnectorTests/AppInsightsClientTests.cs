@@ -33,19 +33,19 @@ namespace XrmAppInsightsConnectorTests
             Assert.AreEqual(pluginContext.OperationId.ToString(), context.Operation.Id);
             Assert.AreEqual(pluginContext.CorrelationId.ToString(), context.Session.Id);
 
-            Assert.AreEqual(this.GetType().ToString(), telemetry.Properties["crm-pluginclass"]);
-            Assert.AreEqual(pluginContext.Stage.ToString(), telemetry.Properties["crm-stage"]);
-            Assert.AreEqual(pluginContext.Depth.ToString(), telemetry.Properties["crm-depth"]);
-            Assert.AreEqual(pluginContext.InitiatingUserId.ToString(), telemetry.Properties["crm-initiatinguser"]);
-            Assert.AreEqual(pluginContext.IsInTransaction.ToString(), telemetry.Properties["crm-isintransaction"]);
-            Assert.AreEqual(pluginContext.IsolationMode.ToString(), telemetry.Properties["crm-isolationmode"]);
-            Assert.AreEqual(pluginContext.Mode.ToString(), telemetry.Properties["crm-mode"]);
-            Assert.AreEqual(pluginContext.OrganizationId.ToString(), telemetry.Properties["crm-organizationid"]);
-            Assert.AreEqual(pluginContext.RequestId.ToString(), telemetry.Properties["crm-requestid"]);
-            Assert.AreEqual(pluginContext.UserId.ToString(), telemetry.Properties["crm-userid"]);
-            Assert.AreEqual(pluginContext.OrganizationName, telemetry.Properties["crm-recordsource"]);
-            Assert.AreEqual(pluginContext.PrimaryEntityId.ToString(), telemetry.Properties["crm-primaryentityid"]);
-            Assert.AreEqual(pluginContext.PrimaryEntityName, telemetry.Properties["crm-primaryentityname"]);
+            Assert.AreEqual(this.GetType().ToString(), telemetry.Properties["source"]);
+            Assert.AreEqual("Pre-operation", telemetry.Properties["stage"]);
+            Assert.AreEqual(pluginContext.Depth.ToString(), telemetry.Properties["depth"]);
+            Assert.AreEqual(pluginContext.InitiatingUserId.ToString(), telemetry.Properties["initiatingUserId"]);
+            Assert.AreEqual(pluginContext.IsInTransaction.ToString(), telemetry.Properties["isInTransaction"]);
+            Assert.AreEqual(pluginContext.IsolationMode.ToString(), telemetry.Properties["isolationMode"]);
+            Assert.AreEqual("Synchronus", telemetry.Properties["mode"]);
+            Assert.AreEqual(pluginContext.OrganizationId.ToString(), telemetry.Properties["orgId"]);
+            Assert.AreEqual(pluginContext.RequestId.ToString(), telemetry.Properties["requestId"]);
+            Assert.AreEqual(pluginContext.UserId.ToString(), telemetry.Properties["userId"]);
+            Assert.AreEqual(pluginContext.OrganizationName, telemetry.Properties["orgName"]);
+            Assert.AreEqual(pluginContext.PrimaryEntityId.ToString(), telemetry.Properties["entityId"]);
+            Assert.AreEqual(pluginContext.PrimaryEntityName, telemetry.Properties["entityName"]);
             
         }
 
