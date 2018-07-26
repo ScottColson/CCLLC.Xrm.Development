@@ -3,7 +3,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net452;net462;</TargetFrameworks>
-    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <EnableDefaultCompileItems>true</EnableDefaultCompileItems>
   </PropertyGroup>
   
   <PropertyGroup>
@@ -32,7 +32,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <IncludeSymbols>True</IncludeSymbols>
     <AssemblyOriginatorKeyFile>XrmBase.snk</AssemblyOriginatorKeyFile>    
-    <Version>8.0.0</Version>
+    <Version>8.1.0-alpha</Version>
     <Authors>Colson Code, LLC</Authors>
     <AssemblyVersion>8.0.0</AssemblyVersion>
     <Description>Provides base classes to simplify the creation of Xrm plugins and provide caching, configuration and telemetry services within those plugins.</Description>
@@ -43,7 +43,13 @@
     <PackageTags>Dynamics Crm Xrm Plugin Telemetry</PackageTags>
     <Product>CCLLC.Xrm.Sdk</Product>
     <FileVersion>8.0.0</FileVersion>
-  </PropertyGroup> 
+  </PropertyGroup>
+  
+    <ItemGroup>
+      <Compile Remove="Diagnostics\**" />
+      <EmbeddedResource Remove="Diagnostics\**" />
+      <None Remove="Diagnostics\**" />
+    </ItemGroup> 
   
   <ItemGroup>
     <Reference Include="System" />
@@ -71,49 +77,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="CacheFactory.cs" />
-    <Compile Include="Configuration\DefaultExtensionSettingsConfig.cs" />
-    <Compile Include="Context\InstrumentedPluginContext.cs" />
-    <Compile Include="Context\InstrumentedContext.cs" />
-    <Compile Include="InstrumentedPluginBase.cs" />
-    <Compile Include="Interfaces\Caching\ICacheFactory.cs" />
-    <Compile Include="Interfaces\Caching\IXrmCache.cs" />
-    <Compile Include="Caching\XrmPluginCache.cs" />
-    <Compile Include="Caching\XrmOrganizationCache.cs" />
-    <Compile Include="ConfigurationFactory.cs" />
-    <Compile Include="Configuration\XmlConfigurationResource.cs" />
-    <Compile Include="Configuration\ExtensionSettings.cs" />
-    <Compile Include="Interfaces\Configuration\IConfigurationFactory .cs" />
-    <Compile Include="Interfaces\Configuration\IExtensionSettingsConfig.cs" />
-    <Compile Include="Interfaces\Context\ILocalPluginContextFactory.cs" />
-    <Compile Include="Context\LocalContext.cs" />
-    <Compile Include="Interfaces\Context\ISupportContextInstrumentation.cs" />
-    <Compile Include="Interfaces\eMessageType.cs" />
-    <Compile Include="Interfaces\ISupportPluginInstrumentation.cs" />
-    <Compile Include="Interfaces\Utility\IPluginWebResponse.cs" />
-    <Compile Include="Interfaces\Utility\IPluginWebRequest.cs" />
-    <Compile Include="Interfaces\Utility\IPluginWebRequestFactory.cs" />
-    <Compile Include="LocalPluginContextFactory.cs" />
-    <Compile Include="Encryption\RijndaelEncryption.cs" />
-    <Compile Include="Interfaces\Encryption\IEncryption.cs" />
-    <Compile Include="Interfaces\Encryption\IRijndaelEncryption.cs" />
-    <Compile Include="ePluginStage.cs" />
-    <Compile Include="Interfaces\Configuration\IExtensionSettings.cs" />
-    <Compile Include="Interfaces\Configuration\IXmlConfigurationResource.cs" />
-    <Compile Include="Interfaces\Context\ILocalContext.cs" />
-    <Compile Include="Interfaces\Context\ILocalPluginContext.cs" />
-    <Compile Include="Context\LocalPluginContext.cs" />
-    <Compile Include="Interfaces\IEnhancedPlugin.cs" />
-    <Compile Include="MessageNames.cs" />
-    <Compile Include="PluginBase.cs" />
-    <Compile Include="PluginEvent.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utilities\PluginHttpWebRequest.cs" />
-    <Compile Include="Utilities\PluginHttpWebRequestFactory.cs" />
-    <Compile Include="Utilities\PluginHttpWebResponse.cs" />
-    <Compile Include="Utilities\XrmEntityExtensions.cs" />
-  </ItemGroup>
+
   
   <ItemGroup>    
     <None Include="XrmBase.snk" />

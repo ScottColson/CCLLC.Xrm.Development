@@ -8,6 +8,8 @@ namespace CCLLC.Xrm.Sdk
     {        
         void Trace(string message, params object[] args);
         void Trace(eMessageType type, string message, params object[] args);
+        void TrackException(Exception ex);
+        void TrackEvent(string name);
 
         IExecutionContext ExecutionContext { get; }
         IOrganizationServiceFactory OrganizationServiceFactory { get; }

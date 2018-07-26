@@ -136,6 +136,7 @@
     <Compile Include="PluginIoCContainerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PluginTelemetryTests.cs" />
+    <Compile Include="PluginExtensionSettingsTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

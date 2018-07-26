@@ -7,6 +7,6 @@ namespace CCLLC.Xrm.Sdk
         IComponentTelemetryClient TelemetryClient { get; }
         ITelemetryFactory TelemetryFactory { get; }
         void SetAlternateDataKey(string name, string value);
-        void TrackEvent(string name);
+        
     }
 }

@@ -76,7 +76,7 @@ namespace XrmSdkTests
         {
             var plugin = new InstrumentedPlugin(null, null, false); //do not override channel
             Assert.IsNotNull(plugin.Container);
-            Assert.AreEqual(19, plugin.Container.Count);
+            Assert.AreEqual(20, plugin.Container.Count);
 
             //verify expected concreate implementations for each registered interface.
             Assert.IsTrue(plugin.Container.IsRegisteredAs<ICacheFactory, CacheFactory>());
@@ -85,7 +85,8 @@ namespace XrmSdkTests
             Assert.IsTrue(plugin.Container.IsRegisteredAs<IRijndaelEncryption, RijndaelEncryption>());
             Assert.IsTrue(plugin.Container.IsRegisteredAs<IExtensionSettingsConfig, DefaultExtensionSettingsConfig>());
             Assert.IsTrue(plugin.Container.IsRegisteredAs<IPluginWebRequestFactory, PluginHttpWebRequestFactory>());
-
+            Assert.IsTrue(plugin.Container.IsRegisteredAs<IXrmTelemetryPropertyManager, CCLLC.Xrm.Sdk.Telemetry.ExecutionContextPropertyManager>(true));
+            
             //verify expected concrete implementation for telemetry support
             Assert.IsTrue(plugin.Container.IsRegisteredAs<IEventLogger,InertEventLogger>(true));
             Assert.IsTrue(plugin.Container.IsRegisteredAs<ITelemetryFactory,TelemetryFactory>(true));            

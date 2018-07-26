@@ -88,11 +88,21 @@ namespace CCLLC.Xrm.Sdk.Context
             }
         }
 
-        public virtual void TrackEvent(string name)
+        public override void TrackEvent(string name)
         {
+            base.TrackEvent(name);
             if(this.TelemetryFactory != null && this.TelemetryClient != null && !string.IsNullOrEmpty(name))
             {
                 this.TelemetryClient.Track(this.TelemetryFactory.BuildEventTelemetry(name));
+            }
+        }
+
+        public override void TrackException(Exception ex)
+        {
+            base.TrackException(ex);
+            if(this.TelemetryFactory != null && this.TelemetryClient !=null && ex != null)
+            {
+                this.TelemetryClient.Track(this.TelemetryFactory.BuildExceptionTelemetry(ex));
             }
         }
     }

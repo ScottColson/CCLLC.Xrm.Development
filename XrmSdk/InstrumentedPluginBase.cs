@@ -90,6 +90,7 @@ namespace CCLLC.Xrm.Sdk
             //setup the objects needed to create/capture telemetry items.
             Container.RegisterAsSingleInstance<ITelemetryFactory, TelemetryFactory>();  //ITelemetryFactory is used to create new telemetry items.
             Container.RegisterAsSingleInstance<ITelemetryClientFactory, TelemetryClientFactory>(); //ITelemetryClientFactory is used to create and configure a telemetry client.
+            Container.RegisterAsSingleInstance<IXrmTelemetryPropertyManager, Telemetry.ExecutionContextPropertyManager>(); //Plugin property manager.
             Container.Register<ITelemetryContext, TelemetryContext>(); //ITelemetryContext is a dependency for telemetry creation.
             Container.Register<ITelemetryInitializerChain, TelemetryInitializerChain>(); //ITelemetryInitializerChain is a dependency for building a telemetry client.
 
@@ -145,47 +146,32 @@ namespace CCLLC.Xrm.Sdk
             var telemetryFactory = Container.Resolve<ITelemetryFactory>();
             var telemetryClientFactory = Container.Resolve<ITelemetryClientFactory>();
 
+            //Create a dictionary of custom properties based on values in the execution context.
+            var propertyManager = Container.Resolve<IXrmTelemetryPropertyManager>();
+            var properties = propertyManager.CreateXrmPropertiesDictionary(this.GetType().ToString(), executionContext);
+            
             using (var telemetryClient = telemetryClientFactory.BuildClient(
                 this.GetType().ToString(),
                 this.TelemetrySink,
-                new Dictionary<string, string>{ //Add properties for CRM execution attributes that don't fit cleanly in context.
-                    { "crm-pluginclass", this.GetType().ToString() },
-                    { "crm-depth", executionContext.Depth.ToString() },
-                    { "crm-initiatinguser", executionContext.InitiatingUserId.ToString() },
-                    { "crm-isintransaction", executionContext.IsInTransaction.ToString() },
-                    { "crm-isolationmode", executionContext.IsolationMode.ToString() },
-                    { "crm-mode", executionContext.Mode.ToString() },
-                    { "crm-organizationid", executionContext.OrganizationId.ToString() },
-                    { "crm-requestid", executionContext.RequestId.ToString() },
-                    { "crm-stage", executionContext.Stage.ToString() },
-                    { "crm-userid", executionContext.UserId.ToString() }
-                }))
+                properties))
             {
 
                 #region Setup Telementry Context
-                
 
+                //capture execution context attributes that fit in telemetry context
                 telemetryClient.Context.Operation.Name = executionContext.MessageName;
                 telemetryClient.Context.Operation.CorrelationVector = executionContext.CorrelationId.ToString();
                 telemetryClient.Context.Operation.Id = executionContext.OperationId.ToString();
-
                 telemetryClient.Context.Session.Id = executionContext.CorrelationId.ToString();
 
-                //not all telemetry context providers support data context. In that case
-                //use custom properties.
+                //Capture data contexty if the telemetry provider supports data key context.
                 var asDataContext = telemetryClient.Context as ISupportDataKeyContext;
                 if (asDataContext != null)
                 {
                     asDataContext.Data.RecordSource = executionContext.OrganizationName;
                     asDataContext.Data.RecordType = executionContext.PrimaryEntityName;
                     asDataContext.Data.RecordId = executionContext.PrimaryEntityId.ToString();
-                }
-                else
-                {
-                    telemetryClient.Context.Properties.Add("crm-recordsource", executionContext.OrganizationName);
-                    telemetryClient.Context.Properties.Add("crm-primaryentityid", executionContext.PrimaryEntityId.ToString());
-                    telemetryClient.Context.Properties.Add("crm-primaryentityname", executionContext.PrimaryEntityName);
-                }
+                }                
 
                 #endregion
 
@@ -234,10 +220,15 @@ namespace CCLLC.Xrm.Sdk
                         } //using localContext
                     }
                 }
-                catch (Exception ex)
+                catch (InvalidPluginExecutionException ex)
                 {
                     tracingService.Trace(string.Format("Exception: {0}", ex.Message));
                     throw;
+                }
+                catch (Exception ex)
+                {
+                    tracingService.Trace(string.Format("Exception: {0}", ex.Message));
+                    throw new InvalidPluginExecutionException(string.Format("Unhandled Plugin Exception {0}", ex.Message), ex);
                 }
 
 

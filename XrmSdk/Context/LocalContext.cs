@@ -152,8 +152,10 @@ namespace CCLLC.Xrm.Sdk.Context
         {
             get
             {
-                if (this.ExecutionContext.InputParameters.Contains("Target"))
-                    return this.ExecutionContext.InputParameters["Target"] as EntityReference;
+                if (this.TargetEntity != null)
+                {
+                    return this.TargetEntity.ToEntityReference();
+                }                   
                 return null;
             }
         }
@@ -202,20 +204,47 @@ namespace CCLLC.Xrm.Sdk.Context
         protected abstract IOrganizationServiceFactory CreateOrganizationServiceFactory();
         protected abstract ITracingService CreateTracingService();
         
+        /// <summary>
+        /// Writes a message to the pluign trace log.
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="args"></param>
         public virtual void Trace(string message, params object[] args)
         {
             this.Trace(eMessageType.Information, message, args);
         }
 
+        /// <summary>
+        /// Writes a message to the plugin trace log.
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="message"></param>
+        /// <param name="args"></param>
         public virtual void Trace(eMessageType type, string message, params object[] args)
         {
             if (!string.IsNullOrEmpty(message))
             {
                 var msg = type.ToString() + ": " + message;
                 this.TracingService.Trace(msg, args);               
-            }
+            }        
+        }
 
-        
+        /// <summary>
+        /// Writes an exception entry to the plugin trace log.
+        /// </summary>
+        /// <param name="ex"></param>
+        public virtual void TrackException(Exception ex)
+        {
+            this.Trace(eMessageType.Error, "Exception: {0}", ex.Message);
+        }
+
+        /// <summary>
+        /// Writes an event to the plugin trace log.
+        /// </summary>
+        /// <param name="name"></param>
+        public virtual void TrackEvent(string name)
+        {
+            this.Trace(eMessageType.Information, "Event: {0}", name);
         }
     }
 }

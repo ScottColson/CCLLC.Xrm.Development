@@ -15,13 +15,8 @@ namespace XrmSdkTests
             //test basic telemetry
             localContext.Trace("Simple trace message.");
             localContext.Trace(eMessageType.Warning, "Warning message.");
-
-            //test enhanced telemetry
-            var asInstrumentedContext = localContext as ISupportContextInstrumentation;
-            if (asInstrumentedContext != null)
-            {
-                asInstrumentedContext.TrackEvent("My Event Name");
-            }
+            localContext.TrackEvent("My Event Name");
+            
         }
     }
 }

@@ -29,11 +29,22 @@ namespace CCLLC.Xrm.Sdk.Configuration
 
         public ExtensionSettings(IOrganizationService OrgService, IXrmCache cache, IEncryption encryption, IExtensionSettingsConfig config)
         {
-            this.config = config;
-            this.orgService = OrgService;
-            this.cache = cache;
-            this.encryption = encryption;
-            encryptionKey = !string.IsNullOrEmpty(config.EncryptionKey) ? config.EncryptionKey : DEFAULT_ENCRYPTION_KEY;
+            try
+            {
+                if (OrgService == null) { throw new ArgumentNullException("OrgService is required."); }
+                if (cache == null) { throw new ArgumentNullException("cache is required."); }
+                if (config == null) { throw new ArgumentNullException("config is required."); }
+                if (encryption == null) { throw new ArgumentNullException("encryption is required."); }
+                this.config = config;
+                this.orgService = OrgService;
+                this.cache = cache;
+                this.encryption = encryption;
+                encryptionKey = !string.IsNullOrEmpty(config.EncryptionKey) ? config.EncryptionKey : DEFAULT_ENCRYPTION_KEY;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(string.Format("Error constructing ExtensionSettings: {0}", ex.Message), ex);
+            }
         }
 
         private int GetCacheTimeout(Dictionary<string, string> entries)
@@ -68,12 +79,15 @@ namespace CCLLC.Xrm.Sdk.Configuration
                 //reload the cache
                 try
                 {
+                    if (this.orgService == null) { throw new Exception("OrganizationService is null."); }
+                    if (this.config == null) { throw new Exception("ExtensionSettingsConfig is null."); }
+
                     //query the system for all active extension settings
-                    QueryByAttribute qry = new QueryByAttribute(config.EntityName);
+                    var qry = new QueryByAttribute(config.EntityName);
                     qry.ColumnSet = new ColumnSet(new string[] { config.NameColumn, config.ValueColumn, config.EncryptionColumn });
                     qry.AddAttributeValue("statecode", 0);
 
-                    EntityCollection result = this.orgService.RetrieveMultiple(qry);
+                    var result = this.orgService.RetrieveMultiple(qry);
                     Dictionary<string, string> entries = new Dictionary<string, string>(result.Entities.Count);
 
                     foreach (Entity setting in result.Entities)

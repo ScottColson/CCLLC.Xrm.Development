@@ -150,10 +150,15 @@ namespace CCLLC.Xrm.Sdk
                     }
                 }
             }
-            catch (Exception ex)
+            catch(InvalidPluginExecutionException ex)
             {
                 tracingService.Trace(string.Format("Exception: {0}", ex.Message));
                 throw;
+            }
+            catch (Exception ex)
+            {
+                tracingService.Trace(string.Format("Exception: {0}", ex.Message));
+                throw new InvalidPluginExecutionException(string.Format("Unhandled Plugin Exception {0}", ex.Message), ex);
             }
 
             tracingService.Trace(string.Format(CultureInfo.InvariantCulture, "Exiting {0}.Execute()", this.GetType().ToString()));
