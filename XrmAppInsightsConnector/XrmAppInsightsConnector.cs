@@ -36,6 +36,7 @@ namespace CCLLC.Xrm.AppInsights
 
         protected virtual void RegisterContainerServices() {
 
+            Container.RegisterAsSingleInstance<IXrmTelemetryPropertyManager, DefaultPluginPropertyManager>();
             Container.RegisterAsSingleInstance<IEventLogger, InertEventLogger>();
 
             Container.RegisterAsSingleInstance<ITelemetryFactory, TelemetryFactory>();
@@ -56,46 +57,19 @@ namespace CCLLC.Xrm.AppInsights
 
         public IXrmAppInsightsClient BuildClient(string className, IExecutionContext executionContext, string instrumentationKey)
         {
-            var clientFactory = Container.Resolve<ITelemetryClientFactory>();
+            //Create a dictionary of custom properties based on values in the execution context.
+            var propertyManager = Container.Resolve<IXrmTelemetryPropertyManager>();
+            var properties = propertyManager.CreateXrmPropertiesDictionary(className, executionContext);
 
-            // create a new telemetry client and capture common xrm execution context properties that 
-            // don't fit in telemetry context as custom telemetry context properties.
-            var client = clientFactory.BuildClient(
-                className,
-                this.Sink,
-                new Dictionary<string, string>{
-                    { "crm-pluginclass", className },
-                    { "crm-depth", executionContext.Depth.ToString() },
-                    { "crm-initiatinguser", executionContext.InitiatingUserId.ToString() },
-                    { "crm-isintransaction", executionContext.IsInTransaction.ToString() },
-                    { "crm-isolationmode", executionContext.IsolationMode.ToString() },
-                    { "crm-mode", executionContext.Mode.ToString() },
-                    { "crm-organizationid", executionContext.OrganizationId.ToString() },
-                    { "crm-requestid", executionContext.RequestId.ToString() },
-                    { "crm-userid", executionContext.UserId.ToString() },
-                    { "crm-recordsource", executionContext.OrganizationName },
-                    { "crm-primaryentityid", executionContext.PrimaryEntityId.ToString() },
-                    { "crm-primaryentityname", executionContext.PrimaryEntityName }});
+            // create a new telemetry client populated with the execution context properties.
+            var clientFactory = Container.Resolve<ITelemetryClientFactory>();            
+            var client = clientFactory.BuildClient(className, this.Sink, properties);
 
-            //capture execution context attributes that do fit in telemetry context
+            //capture execution context attributes that fit in telemetry context
             client.Context.Operation.Name = executionContext.MessageName;
             client.Context.Operation.CorrelationVector = executionContext.CorrelationId.ToString();
             client.Context.Operation.Id = executionContext.OperationId.ToString();
-            client.Context.Session.Id = executionContext.CorrelationId.ToString();
-
-            //capture plugin execution context properties as telemetry ge as context properties. 
-            var asPluginExecutionContext = executionContext as IPluginExecutionContext;
-            if (asPluginExecutionContext != null)
-            {
-                client.Context.Properties.Add("crm-stage", asPluginExecutionContext.Stage.ToString());
-            }
-
-            //capture workflow context properties as telemetry context properties.
-            var asWorkflowExecutionContext = executionContext as IWorkflowContext;
-            if(asWorkflowExecutionContext != null)
-            {
-                client.Context.Properties.Add("crm-stagename", asWorkflowExecutionContext.StageName);
-            }
+            client.Context.Session.Id = executionContext.CorrelationId.ToString();            
 
             //set instrumentation key
             client.InstrumentationKey = instrumentationKey;

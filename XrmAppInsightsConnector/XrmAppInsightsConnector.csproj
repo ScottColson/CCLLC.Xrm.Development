@@ -31,7 +31,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <IncludeSymbols>True</IncludeSymbols>
     <AssemblyOriginatorKeyFile>CCLLCXrmAppInsightsPlatform.snk</AssemblyOriginatorKeyFile>
-    <Version>8.0.0-alpha4</Version>
+    <Version>8.1.0-alpha</Version>
     <Authors>Colson Code, LLC</Authors>
     <AssemblyVersion>8.0.0</AssemblyVersion>
     <Description>A connector to link existing plugins to ApplicationInsights.</Description>
