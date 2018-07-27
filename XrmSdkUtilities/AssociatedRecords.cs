@@ -22,12 +22,11 @@ namespace CCLLC.Xrm.Sdk.Utilities
         /// <param name="TargetRecord"></param>
         /// <param name="RelatedRecords"></param>
         /// <param name="RelationshipName"></param>
-        public void AssociateRecords(EntityReference TargetRecord, EntityReferenceCollection RelatedRecords, string RelationshipName)
+        public void AssociateRecords(EntityReference TargetRecord, EntityReferenceCollection RelatedRecords, Relationship Relationship)
         {
             try
-            {
-                Relationship relationship = new Relationship(RelationshipName);
-                OrganizationService.Associate(TargetRecord.LogicalName, TargetRecord.Id, relationship, RelatedRecords);
+            {                
+                OrganizationService.Associate(TargetRecord.LogicalName, TargetRecord.Id, Relationship, RelatedRecords);
             }
             catch (Exception ex)
             {
@@ -35,41 +34,69 @@ namespace CCLLC.Xrm.Sdk.Utilities
             }
         }
 
-        public void AssociateRecords(EntityReference TargetRecord, EntityReference RelatedRecord, string RelationshipName)
+        public void AssociateRecords(EntityReference TargetRecord, EntityReference RelatedRecord, Relationship Relationship)
         {
             EntityReferenceCollection relatedRecords = new EntityReferenceCollection();
             relatedRecords.Add(RelatedRecord);
-            this.AssociateRecords(TargetRecord, relatedRecords, RelationshipName);
+            this.AssociateRecords(TargetRecord, relatedRecords, Relationship);
         }
 
-
-        public List<EntityReference> GetAssociatedRecords(EntityReference TargetRecord, Relationship Relationship, string RelatedEntityLogicalName)
+        /// <summary>
+        /// Returns a list of records of the specified type that are related to the target record
+        /// via the specified relationshp.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="TargetRecord"></param>
+        /// <param name="Relationship"></param>
+        /// <param name="EntityLogicalName"></param>
+        /// <param name="columms"></param>
+        /// <returns></returns>
+        public IList<T> GetAssociatedRecords<T>(EntityReference TargetRecord, Relationship Relationship, string EntityLogicalName, ColumnSet columms = null) where T : Entity
         {
-            List<EntityReference> relatedItems = new List<EntityReference>();
-
-            QueryExpression qry = new QueryExpression();
-            qry.EntityName = RelatedEntityLogicalName;
-            qry.ColumnSet = new ColumnSet(new string[] { RelatedEntityLogicalName + "id" });
-
-            RelationshipQueryCollection relationshipQueryCollection = new RelationshipQueryCollection();
-            relationshipQueryCollection.Add(Relationship, qry);
-
-            RetrieveRequest retrieveRequest = new RetrieveRequest();
-            retrieveRequest.RelatedEntitiesQuery = relationshipQueryCollection;
-            retrieveRequest.ColumnSet = new ColumnSet(new string[] { TargetRecord.LogicalName + "id" });
-            retrieveRequest.Target = TargetRecord;
-
-            RetrieveResponse retrieveResponse = (RetrieveResponse)OrganizationService.Execute(retrieveRequest);
-
-            if (retrieveResponse.Entity.RelatedEntities.Contains(Relationship))
+            try
             {
-                foreach (Entity item in retrieveResponse.Entity.RelatedEntities[Relationship].Entities)
-                {
-                    relatedItems.Add(item.ToEntityReference());
-                }
-            }
+                if (TargetRecord == null) throw new ArgumentNullException("TargetRecord is required.");
+                if (Relationship == null) throw new ArgumentNullException("Relationship is required.");
+                if (string.IsNullOrEmpty(EntityLogicalName)) { throw new ArgumentNullException("EntityLogicalName is required."); }
 
-            return relatedItems;
+                if (columms == null)
+                {
+                    columms = new ColumnSet(EntityLogicalName + "id");
+                }
+
+                var associatedRecords = new List<T>();
+                
+                var qry = new QueryExpression
+                {
+                    EntityName = EntityLogicalName,
+                    ColumnSet = columms
+                };
+
+                var qryCollection = new RelationshipQueryCollection();
+                qryCollection.Add(Relationship, qry);
+
+                var req = new Microsoft.Xrm.Sdk.Messages.RetrieveRequest();
+                req.RelatedEntitiesQuery = qryCollection;
+                req.Target = TargetRecord;
+                req.ColumnSet = new ColumnSet(TargetRecord.LogicalName + "id");
+
+                var resp = (RetrieveResponse)OrganizationService.Execute(req);
+
+                if (resp.Entity.RelatedEntities.Contains(Relationship))
+                {
+                    foreach (var record in resp.Entity.RelatedEntities[Relationship].Entities)
+                    {                        
+                        associatedRecords.Add((T)record);
+                    }
+                }
+
+                return associatedRecords;
+               
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(string.Format("Error in GetAssociatedRecords: {0}", ex.Message), ex);
+            }
 
         }
 
