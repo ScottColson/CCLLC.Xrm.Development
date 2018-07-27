@@ -47,6 +47,7 @@ namespace CCLLC.Xrm.Sdk.Workflow
                 return _container;
             }
         }
+       
 
         /// <summary>
         /// Provides a <see cref="ITelemetrySink"/> to recieve and process various 
@@ -88,6 +89,7 @@ namespace CCLLC.Xrm.Sdk.Workflow
             //setup the objects needed to create/capture telemetry items.
             Container.RegisterAsSingleInstance<ITelemetryFactory, TelemetryFactory>();  //ITelemetryFactory is used to create new telemetry items.
             Container.RegisterAsSingleInstance<ITelemetryClientFactory, TelemetryClientFactory>(); //ITelemetryClientFactory is used to create and configure a telemetry client.
+            Container.RegisterAsSingleInstance<IXrmTelemetryPropertyManager, Telemetry.ExecutionContextPropertyManager>(); //Plugin property manager.
             Container.Register<ITelemetryContext, TelemetryContext>(); //ITelemetryContext is a dependency for telemetry creation.
             Container.Register<ITelemetryInitializerChain, TelemetryInitializerChain>(); //ITelemetryInitializerChain is a dependency for building a telemetry client.
 
@@ -102,20 +104,31 @@ namespace CCLLC.Xrm.Sdk.Workflow
             Container.Register<IContextTagKeys, AIContextTagKeys>(); //Defines context tags expected by Application Insights.
             Container.Register<ITelemetrySerializer, AITelemetrySerializer>(); //Serialize telemetry items into a compressed Gzip data.
             Container.Register<IJsonWriterFactory, JsonWriterFactory>(); //Factory to create JSON converters as needed.
-
         }
+
+        /// <summary>
+        /// Flag to capture execution execution performance metrics using request telemetry.
+        /// </summary>
+        public bool TrackExecutionPerformance { get; set; }
+
+        /// <summary>
+        /// Flag to force flushing the telementry sink buffer after handler execution completes.
+        /// </summary>
+        public bool FlushTelemetryAfterExecution { get; set; }
+
 
         public virtual bool ConfigureTelemetrySink(ILocalWorkflowActivityContext localContext)
         {
             if (localContext != null)
             {
                 var key = localContext.ExtensionSettings.Get<string>("Telemetry.InstrumentationKey");
+               
                 if (!string.IsNullOrEmpty(key))
                 {
                     localContext.TracingService.Trace("Retrieved Telemetry Instrumentation Key.");
                     TelemetrySink.ProcessChain.TelemetryProcessors.Add(new SequencePropertyProcessor());
                     TelemetrySink.ProcessChain.TelemetryProcessors.Add(new InstrumentationKeyPropertyProcessor(key));
-
+                    
                     return true; //telemetry sink is configured.
                 }
             }
@@ -127,6 +140,9 @@ namespace CCLLC.Xrm.Sdk.Workflow
         {
             if (codeActivityContext == null) { throw new ArgumentNullException("codeActivityContext"); }
 
+            var sw = System.Diagnostics.Stopwatch.StartNew();
+            var success = true;
+
             var tracingService = codeActivityContext.GetExtension<ITracingService>();
 
             tracingService.Trace(string.Format(CultureInfo.InvariantCulture, "Entered {0}.Execute()", this.GetType().ToString()));
@@ -136,28 +152,17 @@ namespace CCLLC.Xrm.Sdk.Workflow
 
             var executionContext = codeActivityContext.GetExtension<IWorkflowContext>();
 
+            //Create a dictionary of custom properties based on values in the execution context.
+            var propertyManager = Container.Resolve<IXrmTelemetryPropertyManager>();
+            var properties = propertyManager.CreateXrmPropertiesDictionary(this.GetType().ToString(), executionContext);
+
             //generate a telemetry client capturing all execution context information. Values
             //that do not map cleanly to telmentry context are kept in the custom properties
             //list.
             using (var telemetryClient = telemetryClientFactory.BuildClient(
                  this.GetType().ToString(),
                  this.TelemetrySink,
-                 new Dictionary<string, string>{
-                    { "crm-pluginclass", this.GetType().ToString() },
-                    { "crm-correlationid", executionContext.CorrelationId.ToString() },
-                    { "crm-depth", executionContext.Depth.ToString() },
-                    { "crm-initiatinguser", executionContext.InitiatingUserId.ToString() },
-                    { "crm-isintransaction", executionContext.IsInTransaction.ToString() },
-                    { "crm-isolationmode", executionContext.IsolationMode.ToString() },
-                    { "crm-messagename", executionContext.MessageName },
-                    { "crm-mode", executionContext.Mode.ToString() },
-                    { "crm-operationid", executionContext.OperationId.ToString()},
-                    { "crm-organizationid", executionContext.OrganizationId.ToString() },
-                    { "crm-orgname", executionContext.OrganizationName },
-                    { "crm-requestid", executionContext.RequestId.ToString() },
-                    { "crm-stagename", executionContext.StageName },
-                    { "crm-userid", executionContext.UserId.ToString() }
-                 }))
+                 properties))
             {
 
                 #region Setup Telementry Context
@@ -165,11 +170,9 @@ namespace CCLLC.Xrm.Sdk.Workflow
                 telemetryClient.Context.Operation.Name = executionContext.MessageName;
                 telemetryClient.Context.Operation.CorrelationVector = executionContext.CorrelationId.ToString();
                 telemetryClient.Context.Operation.Id = executionContext.OperationId.ToString();
-
                 telemetryClient.Context.Session.Id = executionContext.CorrelationId.ToString();
-
-                //not all telemetry context providers support data context. In that case
-                //use custom properties.
+                         
+                //use data context if supported.
                 var asDataContext = telemetryClient.Context as ISupportDataKeyContext;
                 if (asDataContext != null)
                 {
@@ -177,13 +180,7 @@ namespace CCLLC.Xrm.Sdk.Workflow
                     asDataContext.Data.RecordType = executionContext.PrimaryEntityName;
                     asDataContext.Data.RecordId = executionContext.PrimaryEntityId.ToString();
                 }
-                else
-                {
-                    telemetryClient.Context.Properties.Add("crm-recordsource", executionContext.OrganizationName);
-                    telemetryClient.Context.Properties.Add("crm-primaryentityid", executionContext.PrimaryEntityId.ToString());
-                    telemetryClient.Context.Properties.Add("crm-primaryentityname", executionContext.PrimaryEntityName);
-                }
-
+                
                 #endregion
 
                 try
@@ -203,6 +200,7 @@ namespace CCLLC.Xrm.Sdk.Workflow
                         }
                         catch (InvalidWorkflowException ex)
                         {
+                            success = false;
                             if (telemetryClient != null && telemetryFactory != null)
                             {
                                 telemetryClient.Track(telemetryFactory.BuildMessageTelemetry(ex.Message, eSeverityLevel.Error));
@@ -211,25 +209,55 @@ namespace CCLLC.Xrm.Sdk.Workflow
                         }
                         catch (Exception ex)
                         {
+                            success = false;
                             if (telemetryClient != null && telemetryFactory != null)
                             {
                                 telemetryClient.Track(telemetryFactory.BuildExceptionTelemetry(ex));
                             }
                             throw;
                         }
+                        finally
+                        {
+                            if (this.TrackExecutionPerformance && telemetryFactory != null && telemetryClient != null)
+                            {
+                                var r = telemetryFactory.BuildRequestTelemetry("WorkflowExecution", null, new Dictionary<string, string> { { "handlerName", "ExecuteInternal" } });
+                                r.Duration = sw.Elapsed;
+                                r.ResponseCode = "200";
+                                r.Success = success;
+
+                                telemetryClient.Track(r);
+                            }
+
+                            if (this.FlushTelemetryAfterExecution && telemetryClient != null)
+                            {
+                                telemetryClient.Flush();
+                            }
+
+                            sw.Stop();
+                        }
 
                     } //using localContext
                 }
+                catch (InvalidWorkflowException ex)
+                {
+                    success = false;
+                    tracingService.Trace(string.Format("Exception: {0}", ex.Message));
+                    throw;
+                }
                 catch (Exception ex)
                 {
+                    success = false;
                     if (tracingService != null)
                     {
                         tracingService.Trace(string.Format("Exception: {0}", ex.Message));
                     }
-                    throw;
-                }
+                    throw new InvalidWorkflowException(string.Format("Unhandled Workflow Exception {0}", ex.Message), ex);
+                }                
 
             } //using telemetryClient
+
+            sw.Stop();
+            sw = null;
         }
     }
 }

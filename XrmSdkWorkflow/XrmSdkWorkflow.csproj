@@ -31,9 +31,9 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <IncludeSymbols>True</IncludeSymbols>
     <AssemblyOriginatorKeyFile>XrmWorkflow.snk</AssemblyOriginatorKeyFile>
-    <Version>8.0.0-alpha</Version>
+    <Version>8.1.0-beta</Version>
     <Authors>Colson Code, LLC</Authors>
-    <AssemblyVersion>8.0.0</AssemblyVersion>
+    <AssemblyVersion>8.1.0</AssemblyVersion>
     <Description>Provides base classes to simplify the creation of Xrm workflow activities and provide caching, configuration and telemetry services within those activities.</Description>
     <PackageId>CCLLCXrmWorkflow</PackageId>
     <Title>CCLLC.Xrm.Sdk.Workflow</Title>
@@ -41,7 +41,8 @@
     <PackageProjectUrl>https://github.com/ScottColson/CCLLC.Xrm.Development</PackageProjectUrl>
     <PackageTags>Dynamics Crm Xrm Plugin Workflow Telemetry</PackageTags>
     <Product>CCLLC.Xrm.Sdk.Workflow</Product>
-    <FileVersion>8.0.0</FileVersion>
+    <FileVersion>8.1.0</FileVersion>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <ItemGroup>
@@ -69,7 +70,7 @@
   <ItemGroup>
     <PackageReference Include="CCLLCIoCContainer" Version="1.4.0" />
     <PackageReference Include="CCLLCTelemetry" Version="2.0.0" />
-    <PackageReference Include="CCLLCXrmSdk" Version="8.0.0" />
+    <PackageReference Include="CCLLCXrmSdk" Version="8.1.0-beta" />
     <PackageReference Include="Microsoft.CrmSdk.CoreAssemblies" Version="8.0.0" />
     <PackageReference Include="Microsoft.CrmSdk.Workflow" Version="8.0.0" />
   </ItemGroup> 
