@@ -8,6 +8,16 @@ namespace CCLLC.Xrm.Sdk
 
     public class PluginEvent
     {
+        private string _id;
+        /// <summary>
+        /// Identifing name for the handler. Used in logging events.
+        /// </summary>
+        public string Id
+        {
+            get { return _id ?? string.Empty; }
+            set { _id = value; }
+        }
+
         /// <summary>
         /// Execution pipeline stage that the plugin should be registered against.
         /// </summary>

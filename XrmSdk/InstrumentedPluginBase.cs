@@ -105,20 +105,29 @@ namespace CCLLC.Xrm.Sdk
             Container.Register<IContextTagKeys, AIContextTagKeys>(); //Defines context tags expected by Application Insights.
             Container.Register<ITelemetrySerializer, AITelemetrySerializer>(); //Serialize telemetry items into a compressed Gzip data.
             Container.Register<IJsonWriterFactory, JsonWriterFactory>(); //Factory to create JSON converters as needed.
-
-
         }
+
+        /// <summary>
+        /// Flag to capture execution execution performance metrics using request telemetry.
+        /// </summary>
+        public bool TrackExecutionPerformance { get; set; }
+
+        /// <summary>
+        /// Flag to force flushing the telementry sink buffer after handler execution completes.
+        /// </summary>
+        public bool FlushTelemetryAfterExecution { get; set; }
 
         public virtual bool ConfigureTelemetrySink(ILocalPluginContext localContext)
         {
             if (localContext != null)
             {
                 var key = localContext.ExtensionSettings.Get<string>("Telemetry.InstrumentationKey");
+               
                 if (!string.IsNullOrEmpty(key))
                 {
                     TelemetrySink.ProcessChain.TelemetryProcessors.Add(new SequencePropertyProcessor());
                     TelemetrySink.ProcessChain.TelemetryProcessors.Add(new InstrumentationKeyPropertyProcessor(key));
-
+                    
                     return true; //telemetry sink is configured.
                 }
             }
@@ -134,7 +143,10 @@ namespace CCLLC.Xrm.Sdk
         /// Microsoft CRM plugins must be thread-safe and stateless. 
         /// </remarks>
         public override void Execute(IServiceProvider serviceProvider)
-        {
+        {           
+            var sw = System.Diagnostics.Stopwatch.StartNew();
+            var success = true;            
+
             if (serviceProvider == null)
                 throw new ArgumentNullException("serviceProvider");
 
@@ -171,10 +183,10 @@ namespace CCLLC.Xrm.Sdk
                     asDataContext.Data.RecordSource = executionContext.OrganizationName;
                     asDataContext.Data.RecordType = executionContext.PrimaryEntityName;
                     asDataContext.Data.RecordId = executionContext.PrimaryEntityId.ToString();
-                }                
+                }
 
                 #endregion
-
+                               
                 try
                 {
                     var matchingHandlers = this.PluginEventHandlers
@@ -201,6 +213,7 @@ namespace CCLLC.Xrm.Sdk
                                 }
                                 catch (InvalidPluginExecutionException ex)
                                 {
+                                    success = false;
                                     if (telemetryClient != null && telemetryFactory != null)
                                     {
                                         telemetryClient.Track(telemetryFactory.BuildMessageTelemetry(ex.Message, eSeverityLevel.Error));
@@ -209,30 +222,53 @@ namespace CCLLC.Xrm.Sdk
                                 }
                                 catch (Exception ex)
                                 {
-
+                                    success = false;
                                     if (telemetryClient != null && telemetryFactory != null)
                                     {
                                         telemetryClient.Track(telemetryFactory.BuildExceptionTelemetry(ex));
                                     }
                                     throw;
                                 }
+                                finally
+                                {
+                                    if (this.TrackExecutionPerformance && telemetryFactory != null && telemetryClient != null)
+                                    {
+                                        var r = telemetryFactory.BuildRequestTelemetry("PluginExecution", null, new Dictionary<string, string> { { "handlerName", handler.Id } });
+                                        r.Duration = sw.Elapsed;
+                                        r.ResponseCode = "200";
+                                        r.Success = success;
+
+                                        telemetryClient.Track(r);
+                                    }
+
+                                    if (this.FlushTelemetryAfterExecution && telemetryClient != null)
+                                    {
+                                        telemetryClient.Flush();
+                                    }
+
+                                    sw.Restart();
+                                    
+                                }
                             }
                         } //using localContext
                     }
                 }
                 catch (InvalidPluginExecutionException ex)
-                {
+                {                    
                     tracingService.Trace(string.Format("Exception: {0}", ex.Message));
                     throw;
                 }
                 catch (Exception ex)
-                {
+                {                    
                     tracingService.Trace(string.Format("Exception: {0}", ex.Message));
                     throw new InvalidPluginExecutionException(string.Format("Unhandled Plugin Exception {0}", ex.Message), ex);
                 }
-
-
+                
+                
             } //using telemetryClient.
+
+            sw.Stop();
+            sw = null;
 
             tracingService.Trace(string.Format(CultureInfo.InvariantCulture, "Exiting {0}.Execute()", this.GetType().ToString()));
         }

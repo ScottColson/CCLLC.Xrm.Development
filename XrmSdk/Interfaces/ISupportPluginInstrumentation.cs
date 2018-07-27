@@ -7,5 +7,9 @@ namespace CCLLC.Xrm.Sdk
     {
         ITelemetrySink TelemetrySink { get; }
         bool ConfigureTelemetrySink(ILocalPluginContext localContext);
+
+        bool TrackExecutionPerformance { get; set; }
+
+        bool FlushTelemetryAfterExecution { get; set; }
     }
 }

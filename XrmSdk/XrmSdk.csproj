@@ -32,9 +32,9 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <IncludeSymbols>True</IncludeSymbols>
     <AssemblyOriginatorKeyFile>XrmBase.snk</AssemblyOriginatorKeyFile>    
-    <Version>8.1.0-alpha</Version>
+    <Version>8.1.0-beta</Version>
     <Authors>Colson Code, LLC</Authors>
-    <AssemblyVersion>8.0.0</AssemblyVersion>
+    <AssemblyVersion>8.1.0</AssemblyVersion>
     <Description>Provides base classes to simplify the creation of Xrm plugins and provide caching, configuration and telemetry services within those plugins.</Description>
     <PackageId>CCLLCXrmSdk</PackageId>
       <Title>CCLLC.Xrm.Sdk</Title>
@@ -42,7 +42,8 @@
     <PackageProjectUrl>https://github.com/ScottColson/CCLLC.Xrm.Development</PackageProjectUrl>
     <PackageTags>Dynamics Crm Xrm Plugin Telemetry</PackageTags>
     <Product>CCLLC.Xrm.Sdk</Product>
-    <FileVersion>8.0.0</FileVersion>
+    <FileVersion>8.1.0</FileVersion>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
   </PropertyGroup>
   
     <ItemGroup>

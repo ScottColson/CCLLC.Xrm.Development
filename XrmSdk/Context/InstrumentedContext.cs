@@ -89,8 +89,7 @@ namespace CCLLC.Xrm.Sdk.Context
         }
 
         public override void TrackEvent(string name)
-        {
-            base.TrackEvent(name);
+        {            
             if(this.TelemetryFactory != null && this.TelemetryClient != null && !string.IsNullOrEmpty(name))
             {
                 this.TelemetryClient.Track(this.TelemetryFactory.BuildEventTelemetry(name));
@@ -98,8 +97,7 @@ namespace CCLLC.Xrm.Sdk.Context
         }
 
         public override void TrackException(Exception ex)
-        {
-            base.TrackException(ex);
+        {            
             if(this.TelemetryFactory != null && this.TelemetryClient !=null && ex != null)
             {
                 this.TelemetryClient.Track(this.TelemetryFactory.BuildExceptionTelemetry(ex));
