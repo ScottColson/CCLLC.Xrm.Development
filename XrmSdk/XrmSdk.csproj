@@ -32,7 +32,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <IncludeSymbols>True</IncludeSymbols>
     <AssemblyOriginatorKeyFile>XrmBase.snk</AssemblyOriginatorKeyFile>    
-    <Version>8.1.0-beta</Version>
+    <Version>8.1.0</Version>
     <Authors>Colson Code, LLC</Authors>
     <AssemblyVersion>8.1.0</AssemblyVersion>
     <Description>Provides base classes to simplify the creation of Xrm plugins and provide caching, configuration and telemetry services within those plugins.</Description>
