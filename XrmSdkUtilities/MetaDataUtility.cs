@@ -5,11 +5,11 @@ using Microsoft.Xrm.Sdk.Metadata;
 
 namespace CCLLC.Xrm.Sdk.Utilities
 {
-    public class MetaData
+    public class MetaDataUtility
     {
         private IOrganizationService OrganizationService { get; set; }
 
-        public MetaData(IOrganizationService orgService)
+        public MetaDataUtility(IOrganizationService orgService)
         {
             this.OrganizationService = orgService;
         }
@@ -85,6 +85,27 @@ namespace CCLLC.Xrm.Sdk.Utilities
             }
 
             return returnLabel;
+        }
+
+       /// <summary>
+       /// Retrieve a dictionary of option set labels.
+       /// </summary>
+       /// <param name="entityLogicalName"></param>
+       /// <param name="attributeName"></param>
+       /// <returns></returns>
+        public IDictionary<int,string> GetOptionSetLabels(string entityLogicalName, string attributeName)
+        {
+            var output = new Dictionary<int, string>();
+            var optionsMetaData = this.RetrieveOptionSetMetaDataCollection(entityLogicalName, attributeName);
+            
+            foreach (var o in optionsMetaData)
+            {
+                if (o.Value.HasValue)
+                {
+                    output.Add(o.Value.Value, o.Label.UserLocalizedLabel.Label);
+                }
+            }
+            return output;
         }
 
         /// <summary>

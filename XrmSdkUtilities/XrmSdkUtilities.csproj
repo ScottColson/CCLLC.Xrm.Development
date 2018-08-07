@@ -32,7 +32,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <IncludeSymbols>True</IncludeSymbols>
     <AssemblyOriginatorKeyFile>XrmUtilities.snk</AssemblyOriginatorKeyFile>
-    <Version>8.1.0-alpha</Version>
+    <Version>8.1.0</Version>
     <Authors>Colson Code, LLC</Authors>
     <AssemblyVersion>8.1.0</AssemblyVersion>
     <Description>Provides reusable implementation utilities for plugin and workflow activity development.ces </Description>    
@@ -72,7 +72,7 @@
   </ItemGroup>
   
   <ItemGroup>
-    <PackageReference Include="CCLLCXrmSdk" Version="8.1.0-beta" />
+    <PackageReference Include="CCLLCXrmSdk" Version="8.1.0" />
   </ItemGroup>
 
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), 'Common.targets'))\Common.targets" />

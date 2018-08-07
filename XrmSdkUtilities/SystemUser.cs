@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
-using CCLLC.Xrm.Sdk.Caching;
+using System;
 
 namespace CCLLC.Xrm.Sdk.Utilities
 {      
@@ -16,10 +16,19 @@ namespace CCLLC.Xrm.Sdk.Utilities
             this.Cache = cache;
         }
 
+        public bool IsSystemUser(Guid userId)
+        {
+            return (userId == GetSystemUserId().Id);
+        }
 
         public bool IsSystemUser(EntityReference User)
         {
-            return (User.Id == GetSystemUserId().Id);
+            if (User == null)
+            {
+                return false;
+            }
+
+            return IsSystemUser(User.Id);
         }
 
         public EntityReference GetSystemUserId()
