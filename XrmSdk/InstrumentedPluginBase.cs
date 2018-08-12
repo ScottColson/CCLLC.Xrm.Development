@@ -15,69 +15,18 @@ namespace CCLLC.Xrm.Sdk
 {
     public abstract class InstrumentedPluginBase : PluginBase, ISupportPluginInstrumentation
     {
-        private static IIocContainer _container;
-        private static object _containerLock = new object();
-        private static ITelemetrySink _telemetrySink;
-        private static object _sinkLock = new object();
-
-        /// <summary>
-        /// Provides an <see cref="IIocContainer"/> instance to register all objects used by the
-        /// base plugin. This container uses a static implementation therefore all 
-        /// plugins that use this base share the same container and therefore
-        /// use the same concreate implementations registered in the container.
-        /// </summary>
-        /// <remarks>
-        /// Overrides BasePlugin implementation because telementry requires additional
-        /// dependencies that may not be in the BasePlugin container static member.
-        /// </remarks>
-        public override IIocContainer Container
-        {
-            get
-            {
-                if (_container == null)
-                {
-                    lock (_containerLock)
-                    {
-                        if (_container == null)
-                        {
-                            _container = new IocContainer();
-                            RegisterContainerServices();
-                        }
-                    }
-
-                }
-                return _container;
-            }
-        }
-
+               
         /// <summary>
         /// Provides a <see cref="ITelemetrySink"/> to recieve and process various 
         /// <see cref="ITelemetry"/> items generated during the execution of the 
-        /// Plugin. This sink uses a static implementation therefore all 
-        /// plugins that use this base share the same sink which is more
-        /// efficient than operating multiple sinks.
+        /// Plugin.
         /// </summary>
-        public virtual ITelemetrySink TelemetrySink
+        public virtual ITelemetrySink TelemetrySink { get; private set; }
+        
+        public InstrumentedPluginBase(string unsecureConfig, string secureConfig) 
+            : base(unsecureConfig, secureConfig)
         {
-            get
-            {
-                if (_telemetrySink == null)
-                {
-                    lock (_sinkLock)
-                    {
-                        if (_telemetrySink == null)
-                        {
-                            _telemetrySink = Container.Resolve<ITelemetrySink>();                            
-                        }
-                    }
-                }
-
-                return _telemetrySink;
-            }
-        }
-
-        public InstrumentedPluginBase(string unsecureConfig, string secureConfig) : base(unsecureConfig, secureConfig)
-        {
+            TelemetrySink = Container.Resolve<ITelemetrySink>();
         }
 
         public override void RegisterContainerServices()

@@ -16,64 +16,19 @@ using CCLLC.Telemetry.Sink;
 namespace CCLLC.Xrm.Sdk.Workflow
 {
     public abstract partial class InstrumentedWorkflowActivityBase : WorkflowActivityBase, ISupportWorkflowActivityInstrumentation
-    {
-        private static IIocContainer _container;
-        private static object _containerLock = new object();
-        private static ITelemetrySink _telemetrySink;
-        private static object _sinkLock = new object();
-
-        /// <summary>
-        /// Provides an <see cref="IIocContainer"/> instance to register all objects used by the
-        /// base workflow activity. This container uses a static implementation therefore all 
-        /// workflow activities that use this base share the same container and therefore
-        /// use the same concreate implementations registered in the container.
-        /// </summary>
-        public override IIocContainer Container
-        {
-            get
-            {
-                if (_container == null)
-                {
-                    lock (_containerLock)
-                    {
-                        if (_container == null)
-                        {
-                            _container = new IocContainer();
-                            RegisterContainerServices();
-                        }
-                    }
-                }
-
-                return _container;
-            }
-        }
-       
+    {       
 
         /// <summary>
         /// Provides a <see cref="ITelemetrySink"/> to recieve and process various 
         /// <see cref="ITelemetry"/> items generated during the execution of the 
-        /// WorkflowActivity. This sink uses a static implementation therefore all 
-        /// workflow activities that use this base share the same sink which is more
-        /// efficient than operating multiple sinks.
+        /// WorkflowActivity.
         /// </summary>
-        public virtual ITelemetrySink TelemetrySink
+        public virtual ITelemetrySink TelemetrySink { get; private set; }
+       
+        public InstrumentedWorkflowActivityBase()
+            : base()
         {
-            get
-            {
-                if (_telemetrySink == null)
-                {
-                    lock (_sinkLock)
-                    {
-                        if (_telemetrySink == null)
-                        {
-                            _telemetrySink = Container.Resolve<ITelemetrySink>();
-                        }
-                    }
-
-                }
-
-                return _telemetrySink;
-            }
+            this.TelemetrySink = Container.Resolve<ITelemetrySink>();
         }
 
         /// <summary>

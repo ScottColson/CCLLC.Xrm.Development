@@ -18,33 +18,7 @@ namespace XrmSdkWorkflowTests
 {
     [TestClass]
     public class PluginIoCContainerTests
-    {    
-        [TestMethod]
-        public void WFA_Container_IsSingleton()
-        {
-            var wfa1 = new WFA();
-            var wfa2 = new WFA();
-            
-            Assert.IsNotNull(wfa1.Container);
-            Assert.IsNotNull(wfa2.Container);
-
-            Assert.AreSame(wfa1.Container, wfa2.Container);
-
-        }
-
-        [TestMethod]
-        public void InstrumentedWFA_Container_IsSingleton()
-        {
-            var wfa1 = new InstrumentedWFA();
-            var wfa2 = new InstrumentedWFA();
-            
-            Assert.IsNotNull(wfa1.Container);
-            Assert.IsNotNull(wfa2.Container);
-
-            Assert.AreSame(wfa1.Container, wfa2.Container);
-
-        }
-
+    {   
         [TestMethod]
         public void InstrumentedWFA_Container_IsNot_WFA_Container()
         {
@@ -79,9 +53,9 @@ namespace XrmSdkWorkflowTests
         {
             var plugin = new InstrumentedWFA();
             Assert.IsNotNull(plugin.Container);
-            Assert.AreEqual(19, plugin.Container.Count);
+            Assert.AreEqual(20, plugin.Container.Count);
 
-            //verify expected concreate implementations for each registered interface.
+            //verify expected concreate implementations for each registered dependency.
             Assert.IsTrue(plugin.Container.IsRegisteredAs<ICacheFactory, CacheFactory>());
             Assert.IsTrue(plugin.Container.IsRegisteredAs<IConfigurationFactory, ConfigurationFactory>());
             Assert.IsTrue(plugin.Container.IsRegisteredAs<ILocalWorkflowActivityContextFactory, LocalWorkflowActivityContextFactory>());
@@ -91,6 +65,7 @@ namespace XrmSdkWorkflowTests
 
             //verify expected concrete implementation for telemetry support
             Assert.IsTrue(plugin.Container.IsRegisteredAs<IEventLogger,InertEventLogger>(true));
+            Assert.IsTrue(plugin.Container.IsRegisteredAs<IXrmTelemetryPropertyManager, CCLLC.Xrm.Sdk.Workflow.Telemetry.ExecutionContextPropertyManager>(true));
             Assert.IsTrue(plugin.Container.IsRegisteredAs<ITelemetryFactory,TelemetryFactory>(true));            
             Assert.IsTrue(plugin.Container.IsRegisteredAs<ITelemetryClientFactory,TelemetryClientFactory>(true));            
             Assert.IsTrue(plugin.Container.IsRegisteredAs<ITelemetryContext, TelemetryContext>());

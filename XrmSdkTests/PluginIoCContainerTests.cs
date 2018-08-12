@@ -15,33 +15,7 @@ namespace XrmSdkTests
 {
     [TestClass]
     public class PluginIoCContainerTests
-    {    
-        [TestMethod]
-        public void Plugin_Container_IsSingleton()
-        {
-            var plugin1 = new Plugin(null, null);
-            var plugin2 = new Plugin(null, null);
-            
-            Assert.IsNotNull(plugin1.Container);
-            Assert.IsNotNull(plugin2.Container);
-
-            Assert.AreSame(plugin1.Container, plugin2.Container);
-
-        }
-
-        [TestMethod]
-        public void InstrumentedPlugin_Container_IsSingleton()
-        {
-            var plugin1 = new InstrumentedPlugin(null, null,false);
-            var plugin2 = new InstrumentedPlugin(null, null,false);
-            
-            Assert.IsNotNull(plugin1.Container);
-            Assert.IsNotNull(plugin2.Container);
-
-            Assert.AreSame(plugin1.Container, plugin2.Container);
-
-        }
-
+    {          
         [TestMethod]
         public void InstrumentedPlugin_Container_IsNot_Plugin_Container()
         {

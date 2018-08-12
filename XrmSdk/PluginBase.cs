@@ -12,9 +12,6 @@ namespace CCLLC.Xrm.Sdk
 {
     public abstract class PluginBase : IPlugin, IEnhancedPlugin
     {
-        private static IIocContainer _container;
-        private static object _containerLock = new object();
-
         private Collection<PluginEvent> events = new Collection<PluginEvent>();
 
         /// <summary>
@@ -33,29 +30,10 @@ namespace CCLLC.Xrm.Sdk
 
         /// <summary>
         /// Provides an <see cref="IIocContainer"/> instance to register all objects used by the
-        /// base plugin. This container uses a static implementation therefore all 
-        /// plugins that use this base share the same container and therefore
-        /// use the same concreate implementations registered in the container.
+        /// base plugin. 
         /// </summary>
-        public virtual IIocContainer Container
-        {
-            get
-            {
-                if (_container == null)
-                {
-                    lock (_containerLock)
-                    {
-                        if (_container == null)
-                        {
-                            _container = new IocContainer();
-                            RegisterContainerServices();
-                        }
-                    }
-
-                }
-                return _container;
-            }
-        }
+        public virtual IIocContainer Container { get; private set; }
+        
 
 
         /// <summary>
@@ -77,6 +55,8 @@ namespace CCLLC.Xrm.Sdk
         {
             this.UnsecureConfig = unsecureConfig;
             this.SecureConfig = secureConfig;
+            this.Container = new IocContainer();
+            RegisterContainerServices();
         }
 
         /// <summary>

@@ -11,34 +11,16 @@ namespace CCLLC.Xrm.Sdk.Workflow
 {    
     public abstract partial class WorkflowActivityBase : CodeActivity, IWorkflowActivity
     {
-        private static IIocContainer _container;
-        private static object _containerLock = new object();
-
         /// <summary>
         /// Provides an <see cref="IIocContainer"/> instance to register all objects used by
-        /// <see cref="WorkflowActivityBase"/>. This container uses a thread-safe singleton 
-        /// implementation. Therefore all workflow activities that use this base share the 
-        /// same <see cref="IIocContainer"/> within a given process space and will therefore 
-        /// use the same concreate implementations for registered dependencies. 
+        /// <see cref="WorkflowActivityBase"/>.
         /// </summary>
-        public virtual IIocContainer Container
+        public virtual IIocContainer Container { get; private set; }
+        
+        public WorkflowActivityBase()
         {
-            get
-            {
-                if (_container == null)
-                {
-                    lock (_containerLock)
-                    {
-                        if (_container == null)
-                        {
-                            _container = new IocContainer();
-                            RegisterContainerServices();
-                        }
-                    }
-                }
-
-                return _container;
-            }
+            this.Container = new IocContainer();
+            RegisterContainerServices();
         }
 
         /// <summary>
