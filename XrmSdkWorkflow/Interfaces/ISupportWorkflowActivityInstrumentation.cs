@@ -7,6 +7,10 @@ namespace CCLLC.Xrm.Sdk.Workflow
     {
         ITelemetrySink TelemetrySink { get; }
         bool ConfigureTelemetrySink(ILocalWorkflowActivityContext localContext);
+
+        bool TrackExecutionPerformance { get; set; }
+
+        bool FlushTelemetryAfterExecution { get; set; }
     }
 }
 
