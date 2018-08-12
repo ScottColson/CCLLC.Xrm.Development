@@ -1,67 +1,37 @@
 ﻿using System;
 using CCLLC.Xrm.Sdk;
-using CCLLC.Telemetry;
 
 
 namespace UsingXrmSdkWithTelemetry
-{       
+{
     /// <summary>
-    /// This is an example of an plugin base class that provides an alternate
-    /// TelemetrySink configuration from that provided by the <see cref="InstrumentedPluginBase"/>.
+    /// This is an example of an plugin base class derived from
+    /// <see cref="InstrumentedPluginBase"/>. This new base class 
+    /// implements an alternate TelemetrySink configuration that uses
+    /// an Telemetry Processor defined in this code base.
     /// </summary>
     public abstract class AltPluginBase : InstrumentedPluginBase
     {
-        // all plugins that inherit from InstrumentedPluginBase use a single telmetry
-        // sink. Since this alternate base class uses an alternate configuration for
-        // the telemetry sink it cannot share the sink provided by InstrumentedPluginBase
-        // so it must override the TelementrySink implementation. The sink is
-        // implemented as a singleton so it survives as long a the plugin survives.
-        private static ITelemetrySink _telemetrySink;
-        private static object _sinkLock = new object();        
-        public override ITelemetrySink TelemetrySink
+        public AltPluginBase(string unsecureConfig, string secureConfig) 
+            : base(unsecureConfig, secureConfig)
         {
-            get
-            {
-                if (_telemetrySink == null)
-                {
-                    lock (_sinkLock)
-                    {
-                        if (_telemetrySink == null)
-                        {
-                            _telemetrySink = Container.Resolve<ITelemetrySink>(); 
-                        }
-                    }
-                }
-
-                return _telemetrySink;
-            }
-        }
-
-
-        public AltPluginBase(string unsecureConfig, string secureConfig) : base(unsecureConfig, secureConfig)
-        {
+            //Turn on performance tracking for all plugins derived from
+            //this base. This will write execution time metrics to AI using
+            //Request Telemetry.
+            base.TrackExecutionPerformance = true;
         }
 
         // Override ConfigureTelemetrySink to include a new custom TelemetryProcessor 
-        // in addition to the two processors that the InstrumentedPluginBase uses.
-        // With the exception of adding the new CustomPluginPropertyProcessor, this
-        // is the same code used in InstrumentedPluginBase.
         public override bool ConfigureTelemetrySink(ILocalPluginContext localContext)
         {
-            if (localContext != null)
+            if (base.ConfigureTelemetrySink(localContext))
             {
-                var key = localContext.ExtensionSettings.Get<string>("Telemetry.InstrumentationKey");
-                if (!string.IsNullOrEmpty(key))
-                {
-                    TelemetrySink.ProcessChain.TelemetryProcessors.Add(new CCLLC.Telemetry.Sink.SequencePropertyProcessor());
-                    TelemetrySink.ProcessChain.TelemetryProcessors.Add(new CCLLC.Telemetry.Sink.InstrumentationKeyPropertyProcessor(key));
+                //Add our custom telemetry processor which will stamp each telemetry 
+                //item with datetime of when the sink was first configured.
+                TelemetrySink.ProcessChain.TelemetryProcessors.Add(new Telemetry.CustomPluginPropertyProcessor("sink-config-time", DateTime.UtcNow.ToString()));
 
-                    //this telemetry processor will stamp each telemetry item with datetime of when the sink was first configured.
-                    TelemetrySink.ProcessChain.TelemetryProcessors.Add(new Telemetry.CustomPluginPropertyProcessor("sink-config-time", DateTime.UtcNow.ToString()));
-
-                    return true; //telemetry sink is configured.
-                }
-            }
+                return true;
+            }            
 
             return false; //telmetry sink is not configured.
         }       

@@ -33,7 +33,10 @@ namespace UsingXrmSdkWithTelemetry
         {
             // This line will write to Plugin Trace Log as well as Application Insights
             localContext.Trace("Entered MyUpdateEventHandler");
-
+            
+            //Track an event.
+            localContext.TrackEvent("MyEventName");
+            
             // To gain access to additional telemetry functions that are not part of the
             // ILocalPluginContext interface we need to cast into the interface that
             // provides the advanced telemetry support.             
@@ -47,8 +50,7 @@ namespace UsingXrmSdkWithTelemetry
                 // just uses a random guid.
                 asInstrumentedContext.SetAlternateDataKey("MySystemName", Guid.NewGuid().ToString());
 
-                //Track an event.
-                asInstrumentedContext.TrackEvent("MyEventName");
+               
                 
                 // access the TelementryFactory and TelemetryClient directly to send a message
                 // to AppInsights with a severity level. Using this method you can access anything 
