@@ -1,19 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace CCLLC.Xrm.Sdk
 {
+    /// <summary>
+    /// Defines settings passed in during the creation of <see cref="CCLLC.Xrm.Sdk.Configuration.ExtensionSettings"/>.
+    /// </summary>
     public interface IExtensionSettingsConfig
     {
-        int DefaultTimeout { get; set; }
-        string EncryptionKey { get; set; }
-
-        string EntityName { get; set; }
-        string NameColumn { get; set; }
-        string ValueColumn { get; set; }
-        string EncryptionColumn { get; set; }
+        /// <summary>
+        /// Defines the setting cache timeout in seconds.
+        /// </summary>
+        int DefaultTimeout { get;  }
+        /// <summary>
+        /// Defines the ecryption key used when encrypting setting values.
+        /// </summary>
+        string EncryptionKey { get;  }
+        /// <summary>
+        /// Defines the name of the entity that contains extension settings.
+        /// </summary>
+        string EntityName { get;  }
+        /// <summary>
+        /// Defines the name of the column that contains the setting name.
+        /// </summary>
+        string NameColumn { get;  }
+        /// <summary>
+        /// Defines the name of the column that contains the setting value.
+        /// </summary>
+        string ValueColumn { get;  }
+        /// <summary>
+        /// Defines the name of the column that indicates the value is encrypted.
+        /// </summary>
+        string EncryptionColumn { get; }
     }
 }
