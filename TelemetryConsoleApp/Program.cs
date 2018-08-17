@@ -10,6 +10,11 @@ using CCLLC.Telemetry.Sink;
 
 namespace TelemetryConsoleApp
 {
+    /// <summary>
+    /// Demonstrates how to use CCLLC.Telemetry system to send telemetry to Application Insights. To use this sample
+    /// program you will need to setup an Azure Application Insights service and provide the instrumentation key for 
+    /// that service when executing the program.
+    /// </summary>
     class Program
     {
         static void Main(string[] args)

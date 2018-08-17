@@ -7,7 +7,8 @@ namespace UsingXrmSdkWithTelemetry
     /// <summary>
     /// This is an example of an plugin base class derived from
     /// <see cref="InstrumentedPluginBase"/>. This new base class 
-    /// implements an alternate TelemetrySink configuration that uses
+    /// implements an alternate extension settings entity configuration
+    /// and an alternate TelemetrySink configuration that uses
     /// an Telemetry Processor defined in this code base.
     /// </summary>
     public abstract class AltPluginBase : InstrumentedPluginBase
@@ -19,6 +20,14 @@ namespace UsingXrmSdkWithTelemetry
             //this base. This will write execution time metrics to AI using
             //Request Telemetry.
             base.TrackExecutionPerformance = true;
+        }
+
+        public override void RegisterContainerServices()
+        {
+            base.RegisterContainerServices();
+
+            //register local override for the extension settings configuation.
+            this.Container.Register<IExtensionSettingsConfig, XrmOverrides.ExtensionSettingsConfig>();
         }
 
         // Override ConfigureTelemetrySink to include a new custom TelemetryProcessor 

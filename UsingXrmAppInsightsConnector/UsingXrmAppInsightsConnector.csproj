@@ -38,8 +38,8 @@
     <Reference Include="CCLLCTelemetry, Version=2.0.0.0, Culture=neutral, PublicKeyToken=4ebf07474c8930b9, processorArchitecture=MSIL">
       <HintPath>..\packages\CCLLCTelemetry.2.0.0\lib\net452\CCLLCTelemetry.dll</HintPath>
     </Reference>
-    <Reference Include="CCLLCXrmAppInsightsConnector, Version=8.0.0.0, Culture=neutral, PublicKeyToken=524c732e3e8c3bcb, processorArchitecture=MSIL">
-      <HintPath>..\packages\CCLLCXrmAppInsightsConnector.8.0.0-alpha3\lib\net452\CCLLCXrmAppInsightsConnector.dll</HintPath>
+    <Reference Include="CCLLCXrmAppInsightsConnector, Version=8.1.0.0, Culture=neutral, PublicKeyToken=524c732e3e8c3bcb, processorArchitecture=MSIL">
+      <HintPath>..\packages\CCLLCXrmAppInsightsConnector.8.1.0-beta\lib\net452\CCLLCXrmAppInsightsConnector.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Crm.Sdk.Proxy, Version=8.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CrmSdk.CoreAssemblies.8.0.0\lib\net45\Microsoft.Crm.Sdk.Proxy.dll</HintPath>
