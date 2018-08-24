@@ -96,6 +96,7 @@ namespace CCLLC.Xrm.Sdk.Workflow
 
             var sw = System.Diagnostics.Stopwatch.StartNew();
             var success = true;
+            var responseCode = "200";
 
             var tracingService = codeActivityContext.GetExtension<ITracingService>();
 
@@ -155,6 +156,17 @@ namespace CCLLC.Xrm.Sdk.Workflow
                         catch (InvalidWorkflowException ex)
                         {
                             success = false;
+                            responseCode = "400"; //business rule exception
+                            if (telemetryClient != null && telemetryFactory != null)
+                            {
+                                telemetryClient.Track(telemetryFactory.BuildMessageTelemetry(ex.Message, eSeverityLevel.Error));
+                            }
+                            throw;
+                        }
+                        catch (InvalidPluginExecutionException ex)
+                        {
+                            success = false;
+                            responseCode = "400"; //business rule exception
                             if (telemetryClient != null && telemetryFactory != null)
                             {
                                 telemetryClient.Track(telemetryFactory.BuildMessageTelemetry(ex.Message, eSeverityLevel.Error));
@@ -164,6 +176,7 @@ namespace CCLLC.Xrm.Sdk.Workflow
                         catch (Exception ex)
                         {
                             success = false;
+                            responseCode = "500"; //Unexpected exception.
                             if (telemetryClient != null && telemetryFactory != null)
                             {
                                 telemetryClient.Track(telemetryFactory.BuildExceptionTelemetry(ex));
@@ -176,7 +189,7 @@ namespace CCLLC.Xrm.Sdk.Workflow
                             {
                                 var r = telemetryFactory.BuildRequestTelemetry("WorkflowExecution", null, new Dictionary<string, string> { { "handlerName", "ExecuteInternal" } });
                                 r.Duration = sw.Elapsed;
-                                r.ResponseCode = "200";
+                                r.ResponseCode = responseCode;
                                 r.Success = success;
 
                                 telemetryClient.Track(r);
