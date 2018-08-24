@@ -63,7 +63,7 @@ namespace CCLLC.Xrm.Sdk.Workflow
                     ExecuteInternal(localContext);
                 } 
             }
-            catch (Exception ex)
+            catch (InvalidPluginExecutionException ex)
             {
                 if (tracingService != null)
                 {
@@ -71,6 +71,23 @@ namespace CCLLC.Xrm.Sdk.Workflow
                 }
                 throw;
             }
+            catch (InvalidWorkflowException ex)
+            {
+                if (tracingService != null)
+                {
+                    tracingService.Trace(string.Format("Exception: {0}", ex.Message));
+                }
+                throw new InvalidPluginExecutionException(ex.Message,ex);
+            }
+            catch (Exception ex)
+            {
+                if (tracingService != null)
+                {
+                    tracingService.Trace(string.Format("Unhandled Exception: {0}", ex.Message));
+                }
+                throw new InvalidPluginExecutionException(string.Format("Unhandled Workflow Exception {0}", ex.Message), ex);
+            }
+
         }
         
         /// <summary>

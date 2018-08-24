@@ -205,20 +205,28 @@ namespace CCLLC.Xrm.Sdk.Workflow
 
                     } //using localContext
                 }
-                catch (InvalidWorkflowException ex)
+                catch (InvalidPluginExecutionException ex)
                 {
-                    success = false;
-                    tracingService.Trace(string.Format("Exception: {0}", ex.Message));
-                    throw;
-                }
-                catch (Exception ex)
-                {
-                    success = false;
                     if (tracingService != null)
                     {
                         tracingService.Trace(string.Format("Exception: {0}", ex.Message));
                     }
-                    throw new InvalidWorkflowException(string.Format("Unhandled Workflow Exception {0}", ex.Message), ex);
+                    throw;
+                }
+                catch (InvalidWorkflowException ex)
+                {   if (tracingService != null)
+                    {
+                        tracingService.Trace(string.Format("Exception: {0}", ex.Message));
+                    }
+                    throw new InvalidPluginExecutionException(ex.Message, ex); //wrap the invalid workflow exception in an invalid plugin execution exception.
+                }
+                catch (Exception ex)
+                {                    
+                    if (tracingService != null)
+                    {
+                        tracingService.Trace(string.Format("Exception: {0}", ex.Message));
+                    }
+                    throw new InvalidPluginExecutionException(string.Format("Unhandled Workflow Exception {0}", ex.Message), ex);
                 }                
 
             } //using telemetryClient
