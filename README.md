@@ -8,7 +8,7 @@ The code is written in C# using VS2017 however many of the newer language featur
 ### Built for Extensibility
 A key design principle of this project is extensibility. It should be easy to modify or enhance plugins that inherit from the objects created in this project without having to change the code. To that end, the code for this project adheres to the concepts of coding to an interface and inversion of control. 
 
-If you the implementation for an class doesn't meet your needs, you can change it either through inheritance and overrides, or by writing a completely different implementation for the defined interface. Either way, register your new implementation in the plugin or WFA IoC container and your done. Simple.
+If the implementation for a class doesn't meet your needs, you can change it either through inheritance and overrides, or by writing a completely different implementation for the defined interface. Either way, register your new implementation in the plugin or WFA IoC container and your done. Simple.
 
 ### Assemblies
 
