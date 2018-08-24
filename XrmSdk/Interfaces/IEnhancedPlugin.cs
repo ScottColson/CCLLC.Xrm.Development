@@ -16,7 +16,7 @@ namespace CCLLC.Xrm.Sdk
         string UnsecureConfig { get; }
         string SecureConfig { get; }
 
-        void RegisterEventHandler(string entityName, string messageName, ePluginStage stage, Action<ILocalPluginContext> handler);
+        void RegisterEventHandler(string entityName, string messageName, ePluginStage stage, Action<ILocalPluginContext> handler, string id = "");
 
         void RegisterContainerServices();
 

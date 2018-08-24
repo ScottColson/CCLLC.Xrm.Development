@@ -10,14 +10,18 @@ using CCLLC.Xrm.Sdk.Configuration;
 
 namespace CCLLC.Xrm.Sdk
 {
+    /// <summary>
+    /// Base plugin class for plugins using <see cref="IEnhancedPlugin"/> functionality. This class does not provide
+    /// telemetry logging outside of Dynamics 365. For external telemetry use <see cref="InstrumentedPluginBase"/>."/>
+    /// </summary>
     public abstract class PluginBase : IPlugin, IEnhancedPlugin
     {
         private Collection<PluginEvent> events = new Collection<PluginEvent>();
 
         /// <summary>
-        /// Provides of list of <see cref="PluginEvent{E}"/> items that define the 
+        /// Provides of list of <see cref="PluginEvent"/> items that define the 
         /// events the plugin can operate against. Add items to the list using the 
-        /// <see cref="RegisterEventHandler(string, string, ePluginStage, Action{ILocalContext{E}})"/> method.
+        /// <see cref="RegisterEventHandler(string, string, ePluginStage, Action{ILocalPluginContext}, string)"/> method.
         /// </summary>
         public IReadOnlyList<PluginEvent> PluginEventHandlers
         {
@@ -32,8 +36,7 @@ namespace CCLLC.Xrm.Sdk
         /// Provides an <see cref="IIocContainer"/> instance to register all objects used by the
         /// base plugin. 
         /// </summary>
-        public virtual IIocContainer Container { get; private set; }
-        
+        public virtual IIocContainer Container { get; private set; }        
 
 
         /// <summary>
@@ -48,7 +51,7 @@ namespace CCLLC.Xrm.Sdk
 
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PluginBase{E}"/> class 
+        /// Initializes a new instance of the <see cref="PluginBase"/> class 
         /// with configuration information.
         /// </summary>
         public PluginBase(string unsecureConfig, string secureConfig)
@@ -66,14 +69,15 @@ namespace CCLLC.Xrm.Sdk
         /// <param name="messageName"></param>
         /// <param name="stage"></param>
         /// <param name="handler"></param>
-        public virtual void RegisterEventHandler(string entityName, string messageName, ePluginStage stage, Action<ILocalPluginContext> handler)
+        public virtual void RegisterEventHandler(string entityName, string messageName, ePluginStage stage, Action<ILocalPluginContext> handler, string id="")
         {
             events.Add(new PluginEvent
             {
                 EntityName = entityName,
                 MessageName = messageName,
                 Stage = stage,
-                PluginAction = handler
+                PluginAction = handler,
+                Id = id
             });
         }
 
@@ -90,7 +94,6 @@ namespace CCLLC.Xrm.Sdk
             Container.Register<IExtensionSettingsConfig, DefaultExtensionSettingsConfig>();
             Container.Register<IPluginWebRequestFactory, CCLLC.Xrm.Sdk.Utilities.PluginHttpWebRequestFactory>();
         }
-
 
 
         /// <summary>
@@ -143,8 +146,5 @@ namespace CCLLC.Xrm.Sdk
 
             tracingService.Trace(string.Format(CultureInfo.InvariantCulture, "Exiting {0}.Execute()", this.GetType().ToString()));
         }
-
-
-
     }
 }
