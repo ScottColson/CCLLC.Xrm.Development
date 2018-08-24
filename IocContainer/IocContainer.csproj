@@ -31,7 +31,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <IncludeSymbols>True</IncludeSymbols>
     <AssemblyOriginatorKeyFile>CCLCCIoCContainer.snk</AssemblyOriginatorKeyFile>    
-    <Version>1.4.0</Version>
+    <Version>1.5.0-alpha</Version>
     <Authors>Colson Code, LLC</Authors>
     <AssemblyVersion>1.4.0.0</AssemblyVersion>
     <Description>A light IoC container implementation to register and resolve dependencies at runtime.</Description>

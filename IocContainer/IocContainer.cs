@@ -35,7 +35,7 @@ namespace CCLLC.Core
         /// </summary>
         /// <typeparam name="TContract">The type of the interface contract.</typeparam>
         /// <typeparam name="TImplementation">The type of the implementation.</typeparam>
-        [Obsolete("Use Implement<TContract>().Using<TImplementation>() fluent registration builder which prevents accidental overwrite on an existing implementation. Use .WithOverwrite() to overwrite an existing implementation.")]
+        [Obsolete("Deprecated in v1.5.0. Use Implement<TContract>().Using<TImplementation>() fluent registration builder which prevents accidental overwrite on an existing implementation. Use .WithOverwrite() to overwrite an existing implementation.")]
         public void Register<TContract, TImplementation>() where TImplementation : TContract
         {
             RegisterImplementation(typeof(TContract), typeof(TImplementation), false);            
@@ -49,7 +49,7 @@ namespace CCLLC.Core
         /// </summary>
         /// <typeparam name="TContract">The type of the interface contract.</typeparam>
         /// <typeparam name="TImplementation">The type of the implementation.</typeparam>
-        [Obsolete("Use Implement<TContract>().Using<TImplementation>().AsSingleInstance() fluent registration builder which prevents accidental overwrite on an existing implementation. Use .WithOverwrite() to overwrite an existing implementation.")]
+        [Obsolete("Deprecated in v1.5.0. Use Implement<TContract>().Using<TImplementation>().AsSingleInstance() fluent registration builder which prevents accidental overwrite on an existing implementation. Use .WithOverwrite() to overwrite an existing implementation.")]
         public void RegisterAsSingleInstance<TContract, TImplementation>() where TImplementation : TContract
         {
             RegisterImplementation(typeof(TContract), typeof(TImplementation), true);
