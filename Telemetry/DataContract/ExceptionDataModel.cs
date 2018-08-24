@@ -1,10 +1,9 @@
-﻿using System;
+﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
+using CCLLC.Telemetry.Implementation;
 
 namespace CCLLC.Telemetry.DataContract
-{
-    using Implementation;
-    using System.Collections.Concurrent;
+{   
 
     public class ExceptionDataModel : IExceptionDataModel
     {

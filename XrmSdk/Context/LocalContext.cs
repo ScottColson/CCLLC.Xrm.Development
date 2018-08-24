@@ -1,15 +1,9 @@
 ﻿using System;
 using Microsoft.Xrm.Sdk;
 using CCLLC.Core;
-using CCLLC.Telemetry;
 
 namespace CCLLC.Xrm.Sdk.Context
-{
-    using Caching;
-    using Configuration;
-    using Encryption;
-
-
+{  
     public abstract class LocalContext : ILocalContext 
     {
         public IIocContainer Container { get; private set; }

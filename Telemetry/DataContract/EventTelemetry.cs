@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using CCLLC.Telemetry.Implementation;
 
-
 namespace CCLLC.Telemetry.DataContract
 {
-
     public class EventTelemetry : TelemetryBase<IEventDataModel>, IEventTelemetry
     {
         public const int MaxEventNameLength = 512;

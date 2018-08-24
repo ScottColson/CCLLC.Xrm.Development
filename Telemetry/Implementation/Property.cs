@@ -6,9 +6,6 @@ using System.Collections.Generic;
 
 namespace CCLLC.Telemetry.Implementation
 {
- 
-    
-
     /// <summary>
     /// A helper class for implementing properties of telemetry and context classes.
     /// </summary>

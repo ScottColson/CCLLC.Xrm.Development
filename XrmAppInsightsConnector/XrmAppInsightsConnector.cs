@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xrm.Sdk;
-using Microsoft.Xrm.Sdk.Workflow;
+﻿using Microsoft.Xrm.Sdk;
 using CCLLC.Core;
 using CCLLC.Telemetry;
 using CCLLC.Telemetry.EventLogger;
@@ -8,7 +6,6 @@ using CCLLC.Telemetry.Context;
 using CCLLC.Telemetry.Client;
 using CCLLC.Telemetry.Sink;
 using CCLLC.Telemetry.Serializer;
-
 
 namespace CCLLC.Xrm.AppInsights
 {

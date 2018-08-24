@@ -2,14 +2,9 @@
 using System.Collections.Generic;
 using Microsoft.Xrm.Sdk;
 using CCLLC.Core;
-using CCLLC.Telemetry;
 
 namespace CCLLC.Xrm.Sdk
 {
-
-    using Context;
-  
-
     public interface IEnhancedPlugin : IPlugin
     {
         /// <summary>

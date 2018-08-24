@@ -6,7 +6,6 @@ namespace CCLLC.Xrm.Sdk
 
     public interface ILocalPluginContext : ILocalContext
     {
-
         IServiceProvider ServiceProvider { get; }      
         ePluginStage Stage { get; }
         IPluginExecutionContext PluginExecutionContext { get; }

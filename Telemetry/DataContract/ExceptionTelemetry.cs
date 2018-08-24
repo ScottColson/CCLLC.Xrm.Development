@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using CCLLC.Telemetry.Implementation;
 
 namespace CCLLC.Telemetry.DataContract
 {
-    using Implementation;
-    using System.Globalization;
-
     public class ExceptionTelemetry : TelemetryBase<IExceptionDataModel>, IExceptionTelemetry, ISupportProperties, ISupportMetrics, ISupportSampling
     {
         private Exception exception;

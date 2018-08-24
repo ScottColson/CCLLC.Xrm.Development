@@ -1,9 +1,7 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Xrm.Sdk;
 
 namespace CCLLC.Xrm.AppInsights
-
 {
     public interface IXrmTelemetryPropertyManager
     {

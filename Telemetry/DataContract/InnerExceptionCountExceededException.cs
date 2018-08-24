@@ -1,9 +1,8 @@
+using System;
+using System.Runtime.Serialization;
+
 namespace CCLLC.Telemetry.DataContract
-{
-    using System;
-    using System.Runtime.Serialization;
-
-
+{   
     /// <summary>
     /// This exception is used to notify the user that the set of inner exceptions has been trimmed because it exceeded our allowed send limit.
     /// </summary>

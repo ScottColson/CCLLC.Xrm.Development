@@ -6,10 +6,8 @@ using System.IO.Compression;
 using System.Text;
 using CCLLC.Telemetry.Implementation;
 
-
 namespace CCLLC.Telemetry.Serializer
-{  
-    
+{      
     public class AITelemetrySerializer : ITelemetrySerializer
     {
         private IContextTagKeys _contextTagKeys;

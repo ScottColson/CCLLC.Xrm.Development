@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Workflow;
-using CCLLC.Core;
 using CCLLC.Telemetry;
 using CCLLC.Telemetry.Client;
 using CCLLC.Telemetry.Context;

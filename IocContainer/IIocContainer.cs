@@ -1,5 +1,4 @@
-﻿
-namespace CCLLC.Core
+﻿namespace CCLLC.Core
 {
     /// <summary>
     /// Defines a standard interface for registering interface implementations and resolving

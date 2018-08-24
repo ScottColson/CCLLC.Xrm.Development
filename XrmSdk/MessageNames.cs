@@ -1,5 +1,4 @@
-﻿
-namespace CCLLC.Xrm.Sdk
+﻿namespace CCLLC.Xrm.Sdk
 {
     public class MessageNames
     {

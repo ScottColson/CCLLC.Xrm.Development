@@ -2,10 +2,10 @@
 using System.Linq;
 using Microsoft.Xrm.Sdk;
 using CCLLC.Core;
+using CCLLC.Xrm.Sdk.Utilities;
 
 namespace CCLLC.Xrm.Sdk.Context
 {
-    using Utilities;
 
     public class LocalPluginContext : LocalContext, IDisposable, ILocalPluginContext
     {

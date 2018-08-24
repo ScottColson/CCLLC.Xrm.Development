@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using CCLLC.Telemetry.Implementation;
 
-
 namespace CCLLC.Telemetry.Client
 { 
     public class OperationTelemetryClient<T> : TelemetryClientBase, IOperationalTelemetryClient<T> where T : IOperationalTelemetry

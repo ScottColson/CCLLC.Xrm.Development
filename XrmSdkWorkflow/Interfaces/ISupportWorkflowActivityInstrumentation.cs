@@ -1,5 +1,4 @@
-﻿using Microsoft.Xrm.Sdk;
-using CCLLC.Telemetry;
+﻿using CCLLC.Telemetry;
 
 namespace CCLLC.Xrm.Sdk.Workflow
 {

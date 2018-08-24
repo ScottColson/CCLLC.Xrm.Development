@@ -1,11 +1,10 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
+using CCLLC.Telemetry.Implementation;
 
 namespace CCLLC.Telemetry.DataContract
 {
-    using Implementation;
-
-    public class EventDataModel : IEventDataModel
+     public class EventDataModel : IEventDataModel
     {
         public int ver { get; set; }
         public IDictionary<string, string> properties { get; set; }
