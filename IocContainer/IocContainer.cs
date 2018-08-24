@@ -12,22 +12,33 @@ namespace CCLLC.Core
     {
         private static object lockObject = new object();
         private readonly IDictionary<Type, ImplementationParameters> registeredTypes = new Dictionary<Type, ImplementationParameters>();
-        private readonly IDictionary<Type, object> instances = new Dictionary<Type, object>();
-            
+        private readonly IDictionary<Type, object> instances = new Dictionary<Type, object>();        
+        
         /// <summary>
         /// The number of items registered in the container.
         /// </summary>
         public int Count { get { return registeredTypes.Count; } }
 
         /// <summary>
+        /// Register 
+        /// </summary>
+        /// <typeparam name="TContract"></typeparam>
+        /// <returns></returns>
+        public IContainerContract<TContract> Implement<TContract>()
+        {
+            IContainerContract<TContract> contract = new ContainerContract<TContract>(this);
+            return contract;
+        }
+
+        /// <summary>
         /// Register an implementation for a given interface contract.
         /// </summary>
         /// <typeparam name="TContract">The type of the interface contract.</typeparam>
         /// <typeparam name="TImplementation">The type of the implementation.</typeparam>
+        [Obsolete("Use Implement<TContract>().Using<TImplementation>() fluent registration builder which prevents accidental overwrite on an existing implementation. Use .WithOverwrite() to overwrite an existing implementation.")]
         public void Register<TContract, TImplementation>() where TImplementation : TContract
         {
-            var implementation = new ImplementationParameters { Type = typeof(TImplementation), SingleInstance = false };
-            registeredTypes[typeof(TContract)] = implementation;
+            RegisterImplementation(typeof(TContract), typeof(TImplementation), false);            
         }
 
         /// <summary>
@@ -38,10 +49,10 @@ namespace CCLLC.Core
         /// </summary>
         /// <typeparam name="TContract">The type of the interface contract.</typeparam>
         /// <typeparam name="TImplementation">The type of the implementation.</typeparam>
+        [Obsolete("Use Implement<TContract>().Using<TImplementation>().AsSingleInstance() fluent registration builder which prevents accidental overwrite on an existing implementation. Use .WithOverwrite() to overwrite an existing implementation.")]
         public void RegisterAsSingleInstance<TContract, TImplementation>() where TImplementation : TContract
         {
-            var implementation = new ImplementationParameters { Type = typeof(TImplementation), SingleInstance = true };
-            registeredTypes[typeof(TContract)] = implementation;
+            RegisterImplementation(typeof(TContract), typeof(TImplementation), true);
         }
 
         /// <summary>
@@ -69,6 +80,17 @@ namespace CCLLC.Core
             return registeredTypes.ContainsKey(contract);
         }
 
+        internal void RegisterImplementation(Type contract, Type implementation, bool singleInstance)
+        {
+            var implementationParam = new ImplementationParameters { Type = implementation, SingleInstance = singleInstance };
+            registeredTypes[contract] = implementationParam;
+
+            //if this implementation has been rendered for a single instance then clear that instance now.
+            if (instances.ContainsKey(implementation))
+            {
+                instances.Remove(implementation);
+            }
+        }
 
         private object Resolve(Type contract)
         {
