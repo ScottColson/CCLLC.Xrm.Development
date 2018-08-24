@@ -93,7 +93,8 @@ namespace CCLLC.Xrm.Sdk
         public override void Execute(IServiceProvider serviceProvider)
         {           
             var sw = System.Diagnostics.Stopwatch.StartNew();
-            var success = true;            
+            var success = true;
+            var responseCode = "200";
 
             if (serviceProvider == null)
                 throw new ArgumentNullException("serviceProvider");
@@ -162,6 +163,7 @@ namespace CCLLC.Xrm.Sdk
                                 catch (InvalidPluginExecutionException ex)
                                 {
                                     success = false;
+                                    responseCode = "400"; //indicates a business rule error
                                     if (telemetryClient != null && telemetryFactory != null)
                                     {
                                         telemetryClient.Track(telemetryFactory.BuildMessageTelemetry(ex.Message, eSeverityLevel.Error));
@@ -171,6 +173,7 @@ namespace CCLLC.Xrm.Sdk
                                 catch (Exception ex)
                                 {
                                     success = false;
+                                    responseCode = "500"; //indicates a server error
                                     if (telemetryClient != null && telemetryFactory != null)
                                     {
                                         telemetryClient.Track(telemetryFactory.BuildExceptionTelemetry(ex));
@@ -183,7 +186,7 @@ namespace CCLLC.Xrm.Sdk
                                     {
                                         var r = telemetryFactory.BuildRequestTelemetry("PluginExecution", null, new Dictionary<string, string> { { "handlerName", handler.Id } });
                                         r.Duration = sw.Elapsed;
-                                        r.ResponseCode = "200";
+                                        r.ResponseCode = responseCode;
                                         r.Success = success;
 
                                         telemetryClient.Track(r);
