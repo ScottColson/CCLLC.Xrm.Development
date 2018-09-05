@@ -88,13 +88,11 @@ namespace CCLLC.Xrm.Sdk.Utilities
                     {
                         dependencyTelemetry.ResultCode = pluginWebResponse.StatusCode.ToString();                        
                     }
-                    response.Close();
-
+                    
                     //signals completion of the request operation for telemetry tracking.
                     if (dependencyClient != null)
                     {
-                        dependencyClient.CompleteOperation(pluginWebResponse.Success);
-                        dependencyClient.Dispose();
+                        dependencyClient.CompleteOperation(pluginWebResponse.Success);                   
                     }
 
                     return pluginWebResponse;
@@ -176,15 +174,12 @@ namespace CCLLC.Xrm.Sdk.Utilities
                     {
                         dependencyTelemetry.ResultCode = pluginWebResponse.StatusCode.ToString();                       
                     }
-                    response.Close();
-
+                 
                     //signals completion of the request operation for telemetry tracking.
                     if (dependencyClient != null)
                     {
-                        dependencyClient.CompleteOperation(pluginWebResponse.Success);
-                        dependencyClient.Dispose();
+                        dependencyClient.CompleteOperation(pluginWebResponse.Success);                       
                     }
-
 
                     return pluginWebResponse;
                 }                
