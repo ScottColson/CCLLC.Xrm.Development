@@ -69,6 +69,7 @@ namespace CCLLC.Xrm.Sdk
         /// <param name="messageName"></param>
         /// <param name="stage"></param>
         /// <param name="handler"></param>
+        /// <param name="id"></param>
         public virtual void RegisterEventHandler(string entityName, string messageName, ePluginStage stage, Action<ILocalPluginContext> handler, string id="")
         {
             events.Add(new PluginEvent
@@ -86,13 +87,13 @@ namespace CCLLC.Xrm.Sdk
         /// </summary>
         public virtual void RegisterContainerServices()
         {
-            //Xrm component registration
-            Container.Register<ICacheFactory, CacheFactory>();
-            Container.Register<IConfigurationFactory, ConfigurationFactory>();
-            Container.Register<ILocalPluginContextFactory, LocalPluginContextFactory>();
-            Container.Register<IRijndaelEncryption, RijndaelEncryption>();
-            Container.Register<IExtensionSettingsConfig, DefaultExtensionSettingsConfig>();
-            Container.Register<IPluginWebRequestFactory, CCLLC.Xrm.Sdk.Utilities.PluginHttpWebRequestFactory>();
+            //Xrm component registration    
+            Container.Implement<ICacheFactory>().Using<CacheFactory>();
+            Container.Implement<IConfigurationFactory>().Using<ConfigurationFactory>();
+            Container.Implement<ILocalPluginContextFactory>().Using<LocalPluginContextFactory>();
+            Container.Implement<IRijndaelEncryption>().Using<RijndaelEncryption>();
+            Container.Implement<IExtensionSettingsConfig>().Using<DefaultExtensionSettingsConfig>();
+            Container.Implement<IPluginWebRequestFactory>().Using<CCLLC.Xrm.Sdk.Utilities.PluginHttpWebRequestFactory>();
         }
 
 

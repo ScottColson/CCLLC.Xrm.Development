@@ -12,6 +12,10 @@ using Microsoft.Xrm.Sdk;
 
 namespace CCLLC.Xrm.Sdk
 {
+    /// <summary>
+    /// Base plugin class for plugins using <see cref="IEnhancedPlugin"/> functionality with telemetry logging outside 
+    /// of Dynamics 365. For external telemetry use <see cref="InstrumentedPluginBase"/>."/>
+    /// </summary>
     public abstract class InstrumentedPluginBase : PluginBase, ISupportPluginInstrumentation
     {
                
@@ -22,37 +26,45 @@ namespace CCLLC.Xrm.Sdk
         /// </summary>
         public virtual ITelemetrySink TelemetrySink { get; private set; }
         
+        /// <summary>
+        /// Constructor for <see cref="InstrumentedPluginBase"/>.
+        /// </summary>
+        /// <param name="unsecureConfig"></param>
+        /// <param name="secureConfig"></param>
         public InstrumentedPluginBase(string unsecureConfig, string secureConfig) 
             : base(unsecureConfig, secureConfig)
         {
             TelemetrySink = Container.Resolve<ITelemetrySink>();
         }
 
+        /// <summary>
+        /// Registration of services used by base plugin.
+        /// </summary>
         public override void RegisterContainerServices()
         {
             base.RegisterContainerServices();
 
             //Telemetry issue event logger
-            Container.RegisterAsSingleInstance<IEventLogger, InertEventLogger>();
+            Container.Implement<IEventLogger>().Using<InertEventLogger>().AsSingleInstance();
 
             //setup the objects needed to create/capture telemetry items.
-            Container.RegisterAsSingleInstance<ITelemetryFactory, TelemetryFactory>();  //ITelemetryFactory is used to create new telemetry items.
-            Container.RegisterAsSingleInstance<ITelemetryClientFactory, TelemetryClientFactory>(); //ITelemetryClientFactory is used to create and configure a telemetry client.
-            Container.RegisterAsSingleInstance<IXrmTelemetryPropertyManager, Telemetry.ExecutionContextPropertyManager>(); //Plugin property manager.
-            Container.Register<ITelemetryContext, TelemetryContext>(); //ITelemetryContext is a dependency for telemetry creation.
-            Container.Register<ITelemetryInitializerChain, TelemetryInitializerChain>(); //ITelemetryInitializerChain is a dependency for building a telemetry client.
+            Container.Implement<ITelemetryFactory>().Using<TelemetryFactory>().AsSingleInstance();  //ITelemetryFactory is used to create new telemetry items.
+            Container.Implement<ITelemetryClientFactory>().Using<TelemetryClientFactory>().AsSingleInstance(); //ITelemetryClientFactory is used to create and configure a telemetry client.
+            Container.Implement<IXrmTelemetryPropertyManager>().Using<Telemetry.ExecutionContextPropertyManager>().AsSingleInstance(); //Plugin property manager.
+            Container.Implement<ITelemetryContext>().Using<TelemetryContext>(); //ITelemetryContext is a dependency for telemetry creation.
+            Container.Implement<ITelemetryInitializerChain>().Using<TelemetryInitializerChain>(); //ITelemetryInitializerChain is a dependency for building a telemetry client.
 
             //setup the objects needed to buffer and send telemetry to Application Insights.
-            Container.Register<ITelemetrySink, TelemetrySink>(); //ITelemetrySink receives telemetry from one or more telemetry clients, processes it, buffers it, and transmits it.
-            Container.Register<ITelemetryProcessChain, TelemetryProcessChain>(); //ITelemetryProcessChain holds 0 or more processors that can modify the telemetry prior to transmission.
-            Container.Register<ITelemetryChannel, SyncMemoryChannel>(); //ITelemetryChannel provides the buffering and transmission. There is a sync and an asynch channel.
-            Container.Register<ITelemetryBuffer, TelemetryBuffer>(); //ITelemetryBuffer is used the channel
-            Container.Register<ITelemetryTransmitter, AITelemetryTransmitter>(); //ITelemetryTransmitter transmits a block of telemetry to Applicatoin Insights.
+            Container.Implement<ITelemetrySink>().Using<TelemetrySink>(); //ITelemetrySink receives telemetry from one or more telemetry clients, processes it, buffers it, and transmits it.
+            Container.Implement<ITelemetryProcessChain>().Using<TelemetryProcessChain>(); //ITelemetryProcessChain holds 0 or more processors that can modify the telemetry prior to transmission.
+            Container.Implement<ITelemetryChannel>().Using<SyncMemoryChannel>(); //ITelemetryChannel provides the buffering and transmission. There is a sync and an asynch channel.
+            Container.Implement<ITelemetryBuffer>().Using<TelemetryBuffer>(); //ITelemetryBuffer is used the channel
+            Container.Implement<ITelemetryTransmitter>().Using<AITelemetryTransmitter>(); //ITelemetryTransmitter transmits a block of telemetry to Applicatoin Insights.
 
             //setup the objects needed to serialize telemetry as part of transmission.
-            Container.Register<IContextTagKeys, AIContextTagKeys>(); //Defines context tags expected by Application Insights.
-            Container.Register<ITelemetrySerializer, AITelemetrySerializer>(); //Serialize telemetry items into a compressed Gzip data.
-            Container.Register<IJsonWriterFactory, JsonWriterFactory>(); //Factory to create JSON converters as needed.
+            Container.Implement<IContextTagKeys>().Using<AIContextTagKeys>(); //Defines context tags expected by Application Insights.
+            Container.Implement<ITelemetrySerializer>().Using<AITelemetrySerializer>(); //Serialize telemetry items into a compressed Gzip data.
+            Container.Implement<IJsonWriterFactory>().Using<JsonWriterFactory>(); //Factory to create JSON converters as needed.
         }
 
         /// <summary>
@@ -65,6 +77,11 @@ namespace CCLLC.Xrm.Sdk
         /// </summary>
         public bool FlushTelemetryAfterExecution { get; set; }
 
+        /// <summary>
+        /// Telememetry Sink that gathers and transmits telemetry.
+        /// </summary>
+        /// <param name="localContext"></param>
+        /// <returns></returns>
         public virtual bool ConfigureTelemetrySink(ILocalPluginContext localContext)
         {
             if (localContext != null)
