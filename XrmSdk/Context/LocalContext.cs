@@ -191,9 +191,29 @@ namespace CCLLC.Xrm.Sdk.Context
             return this.WebRequestFactory.BuildPluginWebRequest(address, dependencyName);
         }
 
-        public virtual void Dispose()
-        {            
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }     
+
+        protected virtual void Dispose(bool dispossing)
+        {
+            if (dispossing)
+            {
+                this.Container = null;
+                this.elevatedOrganizationService = null;
+                this.ExecutionContext = null;
+                this.extensionSettings = null;
+                this.organizationCache = null;
+                this.organizationService = null;
+                this.organizationServiceFactory = null;
+                this.pluginCache = null;
+                this.tracingService = null;
+                this.xmlConfigurationResources = null;
+                this._webRequestFactory = null;
+            }          
+        }
 
         protected abstract IOrganizationServiceFactory CreateOrganizationServiceFactory();
         protected abstract ITracingService CreateTracingService();

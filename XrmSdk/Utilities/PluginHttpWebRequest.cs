@@ -41,14 +41,18 @@ namespace CCLLC.Xrm.Sdk.Utilities
             
         public void Dispose()
         {
+            Dispose(true);            
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
             _address = null;
             _dependencyName = null;
             _telemetryClient = null;
             _telemetryFactory = null;
             this.Credentials = null;
             this.Headers = null;
-            
-            GC.SuppressFinalize(this);
         }
 
         public virtual IPluginWebResponse Get()

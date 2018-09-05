@@ -7,7 +7,7 @@ using CCLLC.Xrm.Sdk.Utilities;
 
 namespace CCLLC.Xrm.Sdk.Context
 {
-    public class InstrumentedPluginContext : InstrumentedContext, IDisposable, ILocalPluginContext
+    public class InstrumentedPluginContext : InstrumentedContext, ILocalPluginContext
     {
         public IServiceProvider ServiceProvider { get; private set; }
 
@@ -72,6 +72,17 @@ namespace CCLLC.Xrm.Sdk.Context
             : base(executionContext, container, telemetryClient)
         {
             this.ServiceProvider = serviceProvider;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                this._preMergedTarget = null;
+                this.ServiceProvider = null;
+            }
+            
+            base.Dispose(disposing);
         }
 
         protected override IOrganizationServiceFactory CreateOrganizationServiceFactory()

@@ -33,18 +33,25 @@ namespace CCLLC.Xrm.Sdk.Context
             return WebRequestFactory.BuildPluginWebRequest(address, dependencyName,  this.TelemetryFactory, this.TelemetryClient);
         }
 
-        public override void Dispose()
-        {            
-            if (this.TelemetryClient != null)
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
             {
-                if (this.TelemetryClient.TelemetrySink != null)
+                if (this.TelemetryClient != null)
                 {
-                    this.TelemetryClient.TelemetrySink.OnConfigure = null;
+                    if (this.TelemetryClient.TelemetrySink != null)
+                    {
+                        this.TelemetryClient.TelemetrySink.OnConfigure = null;
+                    }
+                    this.TelemetryClient.Dispose();
+
+                    this.TelemetryClient = null;
+                    this._telemetryFactory = null;
                 }
-                this.TelemetryClient.Dispose();
             }
 
-            base.Dispose();
+            base.Dispose(disposing);
+
         }
                
         public virtual void SetAlternateDataKey(string name, string value)

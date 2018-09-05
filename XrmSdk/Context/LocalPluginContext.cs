@@ -7,7 +7,7 @@ using CCLLC.Xrm.Sdk.Utilities;
 namespace CCLLC.Xrm.Sdk.Context
 {
 
-    public class LocalPluginContext : LocalContext, IDisposable, ILocalPluginContext
+    public class LocalPluginContext : LocalContext, ILocalPluginContext
     {
         public IServiceProvider ServiceProvider { get; private set; }
 
@@ -73,6 +73,17 @@ namespace CCLLC.Xrm.Sdk.Context
             : base(executionContext, container)
         {
             this.ServiceProvider = serviceProvider;
+        }
+
+        protected override void Dispose(bool dispossing)
+        {
+            if (dispossing)
+            {
+                this._preMergedTarget = null;
+                this.ServiceProvider = null;
+            }
+
+            base.Dispose(dispossing);
         }
 
         protected override IOrganizationServiceFactory CreateOrganizationServiceFactory()
