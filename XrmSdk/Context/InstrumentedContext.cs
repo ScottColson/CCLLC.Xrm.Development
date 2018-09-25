@@ -22,7 +22,7 @@ namespace CCLLC.Xrm.Sdk.Context
             }
         }
 
-        public InstrumentedContext(IExecutionContext executionContext, IIocContainer container, IComponentTelemetryClient telemetryClient) : base(executionContext, container)
+        protected internal InstrumentedContext(IExecutionContext executionContext, IIocContainer container, IComponentTelemetryClient telemetryClient) : base(executionContext, container)
         {
             if(telemetryClient == null) { throw new ArgumentNullException("telemetryClient"); }
             this.TelemetryClient = telemetryClient;

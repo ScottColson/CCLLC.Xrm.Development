@@ -177,7 +177,7 @@ namespace CCLLC.Xrm.Sdk.Context
             }
         }
 
-        public LocalContext(IExecutionContext executionContext, IIocContainer container)
+        protected internal LocalContext(IExecutionContext executionContext, IIocContainer container)
         {
             if (container == null) throw new ArgumentNullException("container");
             this.Container = container;

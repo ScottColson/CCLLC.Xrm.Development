@@ -15,8 +15,6 @@ namespace CCLLC.Xrm.Sdk.Caching
         }
     }
 
-
-
     public class XrmPluginCache : IXrmCache
     {
         const int DEFAULT_CACHE_TIMEOUT = 300; //5 minutes
@@ -27,7 +25,7 @@ namespace CCLLC.Xrm.Sdk.Caching
         private static object syncRoot = new object();
         private static volatile Dictionary<string, CacheItem> _cache;
 
-        internal XrmPluginCache()
+        protected internal XrmPluginCache()
         {
             _cache = new Dictionary<string, CacheItem>();
         }

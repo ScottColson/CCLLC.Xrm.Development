@@ -32,7 +32,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <IncludeSymbols>True</IncludeSymbols>
     <AssemblyOriginatorKeyFile>XrmBase.snk</AssemblyOriginatorKeyFile>    
-    <Version>8.1.1-alpha2</Version>
+    <Version>8.1.1</Version>
     <Authors>Colson Code, LLC</Authors>
     <AssemblyVersion>8.1.1</AssemblyVersion>
     <Description>Provides base classes to simplify the creation of Xrm plugins and provide caching, configuration and telemetry services within those plugins.</Description>
@@ -85,7 +85,7 @@
   </ItemGroup>
   
   <ItemGroup>
-    <PackageReference Include="CCLLCIoCContainer" Version="1.4.0" />
+    <PackageReference Include="CCLLCIoCContainer" Version="1.5.0" />
     <PackageReference Include="CCLLCTelemetry" Version="2.0.0" />
     <PackageReference Include="Microsoft.CrmSdk.CoreAssemblies" Version="8.0.0" />
   </ItemGroup>

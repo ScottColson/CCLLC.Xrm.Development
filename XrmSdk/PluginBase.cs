@@ -16,7 +16,8 @@ namespace CCLLC.Xrm.Sdk
     /// </summary>
     public abstract class PluginBase : IPlugin, IEnhancedPlugin
     {
-        private Collection<PluginEvent> events = new Collection<PluginEvent>();
+        private Collection<PluginEvent> _events = new Collection<PluginEvent>();
+        private IIocContainer _container = null;
 
         /// <summary>
         /// Provides of list of <see cref="PluginEvent"/> items that define the 
@@ -27,7 +28,7 @@ namespace CCLLC.Xrm.Sdk
         {
             get
             {
-                return this.events;
+                return this._events;
             }
         }
 
@@ -36,18 +37,25 @@ namespace CCLLC.Xrm.Sdk
         /// Provides an <see cref="IIocContainer"/> instance to register all objects used by the
         /// base plugin. 
         /// </summary>
-        public virtual IIocContainer Container { get; private set; }        
+        public virtual IIocContainer Container
+        {
+            get
+            {                
+                if (_container == null) { _container = new IocContainer(); }
+                return _container;
+            }
+        }
 
 
         /// <summary>
         /// Unsecure configuration specified during the registration of the plugin step
         /// </summary>
-        public string UnsecureConfig { get; private set; }
+        public string UnsecureConfig { get; }
 
         /// <summary>
         /// Secure configuration specified during the registration of the plugin step
         /// </summary>
-        public string SecureConfig { get; private set; }
+        public string SecureConfig { get; }
 
 
         /// <summary>
@@ -58,7 +66,6 @@ namespace CCLLC.Xrm.Sdk
         {
             this.UnsecureConfig = unsecureConfig;
             this.SecureConfig = secureConfig;
-            this.Container = new IocContainer();
             RegisterContainerServices();
         }
 
@@ -72,7 +79,7 @@ namespace CCLLC.Xrm.Sdk
         /// <param name="id"></param>
         public virtual void RegisterEventHandler(string entityName, string messageName, ePluginStage stage, Action<ILocalPluginContext> handler, string id="")
         {
-            events.Add(new PluginEvent
+            this._events.Add(new PluginEvent
             {
                 EntityName = entityName,
                 MessageName = messageName,
@@ -93,7 +100,7 @@ namespace CCLLC.Xrm.Sdk
             Container.Implement<ILocalPluginContextFactory>().Using<LocalPluginContextFactory>();
             Container.Implement<IRijndaelEncryption>().Using<RijndaelEncryption>();
             Container.Implement<IExtensionSettingsConfig>().Using<DefaultExtensionSettingsConfig>();
-            Container.Implement<IPluginWebRequestFactory>().Using<CCLLC.Xrm.Sdk.Utilities.PluginHttpWebRequestFactory>();
+            Container.Implement<IPluginWebRequestFactory>().Using<Utilities.PluginHttpWebRequestFactory>();
         }
 
 

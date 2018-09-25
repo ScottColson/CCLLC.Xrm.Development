@@ -69,7 +69,7 @@ namespace CCLLC.Xrm.Sdk.Context
             }
         }
 
-        internal LocalPluginContext(IServiceProvider serviceProvider, IIocContainer container, IPluginExecutionContext executionContext)
+        protected internal LocalPluginContext(IServiceProvider serviceProvider, IIocContainer container, IPluginExecutionContext executionContext)
             : base(executionContext, container)
         {
             this.ServiceProvider = serviceProvider;

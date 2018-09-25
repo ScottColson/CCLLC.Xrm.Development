@@ -11,14 +11,14 @@ namespace CCLLC.Xrm.Sdk.Context
     {
         public IServiceProvider ServiceProvider { get; private set; }
 
-        public IPluginExecutionContext PluginExecutionContext { get { return (IPluginExecutionContext)base.ExecutionContext; } }
+        public virtual IPluginExecutionContext PluginExecutionContext { get { return (IPluginExecutionContext)base.ExecutionContext; } }
 
-        public ePluginStage Stage { get { return (ePluginStage)this.PluginExecutionContext.Stage; } }
+        public virtual ePluginStage Stage { get { return (ePluginStage)this.PluginExecutionContext.Stage; } }
 
         /// <summary>
         /// Returns the first registered 'Pre' image for the pipeline execution
         /// </summary>
-        public Entity PreImage
+        public virtual Entity PreImage
         {
             get
             {
@@ -33,7 +33,7 @@ namespace CCLLC.Xrm.Sdk.Context
         /// <summary>
         /// Returns the first registered 'Post' image for the pipeline execution
         /// </summary>
-        public Entity PostImage
+        public virtual Entity PostImage
         {
             get
             {
@@ -52,7 +52,7 @@ namespace CCLLC.Xrm.Sdk.Context
         /// return the same entity object and will not reflect changes made to that Target since initial
         /// request.
         /// </summary>
-        public Entity PreMergedTarget
+        public virtual Entity PreMergedTarget
         {
             get
             {
@@ -68,7 +68,7 @@ namespace CCLLC.Xrm.Sdk.Context
             }
         }
 
-        internal InstrumentedPluginContext(IServiceProvider serviceProvider, IIocContainer container, IPluginExecutionContext executionContext, IComponentTelemetryClient telemetryClient)
+        protected internal InstrumentedPluginContext(IServiceProvider serviceProvider, IIocContainer container, IPluginExecutionContext executionContext, IComponentTelemetryClient telemetryClient)
             : base(executionContext, container, telemetryClient)
         {
             this.ServiceProvider = serviceProvider;

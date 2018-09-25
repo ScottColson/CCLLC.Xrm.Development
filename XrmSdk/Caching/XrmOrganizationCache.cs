@@ -18,7 +18,7 @@ namespace CCLLC.Xrm.Sdk.Caching
         public Guid OrganizationId { get; private set; }
 
 
-        internal XrmOrganizationCache(Guid OrganizationId)
+        protected internal XrmOrganizationCache(Guid OrganizationId)
         {
             this.OrganizationId = OrganizationId;
         }
