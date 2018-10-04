@@ -28,7 +28,7 @@ namespace XrmSdkTests
             if (_overrideChannel)
             {
                 //replace standard channel with the mock
-                base.Container.Register<ITelemetryChannel, TestHelpers.MockChannel>();
+                base.Container.Implement<ITelemetryChannel>().Using<TestHelpers.MockChannel>().WithOverwrite();
             }
         }
 
