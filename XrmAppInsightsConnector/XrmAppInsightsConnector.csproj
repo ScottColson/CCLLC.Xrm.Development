@@ -72,7 +72,7 @@
     <None Include="CCLLCXrmAppInsightsPlatform.snk" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CCLLCIoCContainer" Version="1.4.0" />
+    <PackageReference Include="CCLLCIoCContainer" Version="1.5.0" />
     <PackageReference Include="CCLLCTelemetry" Version="2.0.0" />
     <PackageReference Include="Microsoft.CrmSdk.CoreAssemblies" Version="8.0.0" />
     <PackageReference Include="Microsoft.CrmSdk.Workflow" Version="8.0.0" />
