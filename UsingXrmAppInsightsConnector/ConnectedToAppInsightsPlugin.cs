@@ -51,7 +51,7 @@ namespace UsingXrmAppInsightsConnector
             {
                 // Capture tracing information in Application Insights.
                 insightsClient.Trace("Write an info message to Application Insights.");
-                insightsClient.Trace(eSeverityLevel.Error, "Write an error message to Application Insights.");
+                insightsClient.Trace(eMessageType.Error, "Write an error message to Application Insights.");
 
                 // Track an event in Application Insights. Events are more visible than trace
                 // messages so this can be good for documenting user intent based on message type 

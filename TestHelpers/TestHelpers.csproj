@@ -38,8 +38,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CCLLCIoCContainer, Version=1.4.0.0, Culture=neutral, PublicKeyToken=506847acdbcda1d9, processorArchitecture=MSIL">
-      <HintPath>..\packages\CCLLCIoCContainer.1.4.0\lib\net452\CCLLCIoCContainer.dll</HintPath>
+    <Reference Include="CCLLCIoCContainer, Version=1.5.0.0, Culture=neutral, PublicKeyToken=506847acdbcda1d9, processorArchitecture=MSIL">
+      <HintPath>..\packages\CCLLCIoCContainer.1.5.0\lib\net452\CCLLCIoCContainer.dll</HintPath>
     </Reference>
     <Reference Include="CCLLCTelemetry, Version=2.0.0.0, Culture=neutral, PublicKeyToken=4ebf07474c8930b9, processorArchitecture=MSIL">
       <HintPath>..\packages\CCLLCTelemetry.2.0.0\lib\net452\CCLLCTelemetry.dll</HintPath>
