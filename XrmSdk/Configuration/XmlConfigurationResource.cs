@@ -1,9 +1,10 @@
 ﻿using System;
-using System.Text;
 using System.Collections.Generic;
+using System.IO;
+using System.Xml.Linq;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
-using System.Xml.Linq;
+
 
 namespace CCLLC.Xrm.Sdk.Configuration
 {
@@ -145,47 +146,49 @@ namespace CCLLC.Xrm.Sdk.Configuration
 
             //convert the web resource from its native Base64 string format to xml.
             Entity resource = results.Entities[0];
-            byte[] b = Convert.FromBase64String(resource.Attributes["content"].ToString());
-            string xml = UnicodeEncoding.UTF8.GetString(b, 0, b.Length);
-
-            //create an XDocument by parsing the xml.
-            XDocument doc = XDocument.Parse(xml);
-
-            if (!disableCache)
+            byte[] bytes = Convert.FromBase64String(resource.Attributes["content"].ToString());
+            
+            XDocument doc;
+            using (MemoryStream stream = new MemoryStream(bytes))
             {
-                //calculate the cache timeout for this item. If the web resource has a cache timeout attribue, use it.
-                int cacheTimeOut = DEFAULT_CACHE_TIMEOUT;
-                if (doc.Root.Attribute(CACHE_TIMEOUT_ATTRIBUTE_NAME) != null)
-                {
-                    cacheTimeOut = int.Parse(doc.Root.Attribute(CACHE_TIMEOUT_ATTRIBUTE_NAME).Value);
-                    if (cacheTimeOut < MIN_CACHE_TIMEOUT)
-                    {
-                        cacheTimeOut = MIN_CACHE_TIMEOUT;
-                    }
-                    else if (cacheTimeOut > MAX_CACHE_TIMEOUT)
-                    {
-                        cacheTimeOut = MAX_CACHE_TIMEOUT;
-                    }
-                }
-
-                //make sure only one thread writes to the cache dictionary at any one time.
-                lock (syncRoot)
-                {
-                    //add an attribute to the Xdoc to set the expiration for the configuration data.
-                    DateTime expirationDate = DateTime.UtcNow.AddSeconds(cacheTimeOut);
-                    doc.Root.SetAttributeValue(CACHE_EXPIRATION_DATE_ATTRIBUTE_NAME, expirationDate);
-
-                    //add the Xdoc to the cache
-                    if (_values.ContainsKey(resourceName))
-                    {
-                        _values[resourceName] = doc;
-                    }
-                    else
-                    {
-                        _values.Add(resourceName, doc);
-                    }
-                }
+                doc = XDocument.Load(stream);
             }
+
+                if (!disableCache)
+                {
+                    //calculate the cache timeout for this item. If the web resource has a cache timeout attribue, use it.
+                    int cacheTimeOut = DEFAULT_CACHE_TIMEOUT;
+                    if (doc.Root.Attribute(CACHE_TIMEOUT_ATTRIBUTE_NAME) != null)
+                    {
+                        cacheTimeOut = int.Parse(doc.Root.Attribute(CACHE_TIMEOUT_ATTRIBUTE_NAME).Value);
+                        if (cacheTimeOut < MIN_CACHE_TIMEOUT)
+                        {
+                            cacheTimeOut = MIN_CACHE_TIMEOUT;
+                        }
+                        else if (cacheTimeOut > MAX_CACHE_TIMEOUT)
+                        {
+                            cacheTimeOut = MAX_CACHE_TIMEOUT;
+                        }
+                    }
+
+                    //make sure only one thread writes to the cache dictionary at any one time.
+                    lock (syncRoot)
+                    {
+                        //add an attribute to the Xdoc to set the expiration for the configuration data.
+                        DateTime expirationDate = DateTime.UtcNow.AddSeconds(cacheTimeOut);
+                        doc.Root.SetAttributeValue(CACHE_EXPIRATION_DATE_ATTRIBUTE_NAME, expirationDate);
+
+                        //add the Xdoc to the cache
+                        if (_values.ContainsKey(resourceName))
+                        {
+                            _values[resourceName] = doc;
+                        }
+                        else
+                        {
+                            _values.Add(resourceName, doc);
+                        }
+                    }
+                }
 
             //return the Xdoc.
             return doc;

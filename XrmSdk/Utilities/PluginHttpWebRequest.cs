@@ -41,8 +41,8 @@ namespace CCLLC.Xrm.Sdk.Utilities
             
         public void Dispose()
         {
-            Dispose(true);            
             GC.SuppressFinalize(this);
+            Dispose(true);
         }
 
         protected virtual void Dispose(bool disposing)
@@ -126,7 +126,7 @@ namespace CCLLC.Xrm.Sdk.Utilities
         }
       
 
-        public virtual IPluginWebResponse Post(byte[] data, string contentType, string contentEncoding = null)             
+        public virtual IPluginWebResponse Post(byte[] data, string contentType = null, string contentEncoding = null)             
         {
             IDependencyTelemetry dependencyTelemetry = null;
             IOperationalTelemetryClient<IDependencyTelemetry> dependencyClient = null;            
@@ -150,7 +150,10 @@ namespace CCLLC.Xrm.Sdk.Utilities
                     request.Credentials = this.Credentials;
                 }
                 request.Headers = this.Headers;
-                request.ContentType = contentType;
+                if (contentType != null)
+                {
+                    request.ContentType = contentType;
+                }
 
                 if (!string.IsNullOrEmpty(contentEncoding))
                 {
@@ -210,5 +213,89 @@ namespace CCLLC.Xrm.Sdk.Utilities
             }
 
         }
+
+        public virtual IPluginWebResponse Put(string data, string contentType = null)
+        {
+            IDependencyTelemetry dependencyTelemetry = null;
+            IOperationalTelemetryClient<IDependencyTelemetry> dependencyClient = null;
+
+            if (_telemetryClient != null && _telemetryFactory != null)
+            {
+                dependencyTelemetry = _telemetryFactory.BuildDependencyTelemetry(
+                    "Web",
+                    _address.ToString(),
+                    _dependencyName != null ? _dependencyName : "PluginWebRequest",
+                    null);
+                dependencyClient = _telemetryClient.StartOperation<IDependencyTelemetry>(dependencyTelemetry);
+            }
+
+            try
+            {
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(_address);
+                request.Method = "PUT";
+                if (this.Credentials != null)
+                {
+                    request.Credentials = this.Credentials;
+                }
+                request.Headers = this.Headers;
+                if (contentType != null)
+                {
+                    request.ContentType = contentType;
+                }                
+
+                request.Timeout = (int)this.Timeout.TotalMilliseconds;
+
+                if (!string.IsNullOrEmpty(data) && data.Length > 0)
+                {
+                    using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+                    {
+                        streamWriter.Write(data);
+                    }
+                }
+
+                using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
+                {
+                    var pluginWebResponse = new PluginHttpWebResponse(response);
+                    if (dependencyTelemetry != null)
+                    {
+                        dependencyTelemetry.ResultCode = pluginWebResponse.StatusCode.ToString();
+                    }
+
+                    //signals completion of the request operation for telemetry tracking.
+                    if (dependencyClient != null)
+                    {
+                        dependencyClient.CompleteOperation(pluginWebResponse.Success);
+                    }
+
+                    return pluginWebResponse;
+                }
+
+            }
+            catch (WebException ex)
+            {
+                string str = string.Empty;
+                if (ex.Response != null)
+                {
+                    using (StreamReader reader = new StreamReader(ex.Response.GetResponseStream()))
+                    {
+                        str = reader.ReadToEnd();
+                    }
+                    ex.Response.Close();
+                }
+                if (ex.Status == WebExceptionStatus.Timeout)
+                {
+                    throw new Exception("Plugin Web Request Timeout occurred.", ex);
+                }
+                throw new Exception(String.Format(CultureInfo.InvariantCulture,
+                    "A Web exception occurred while attempting to issue the request. {0}: {1}",
+                    ex.Message, str), ex);
+            }
+            finally
+            {
+                if (dependencyClient != null) { dependencyClient.Dispose(); }
+            }
+
+        }
+
     }
 }
