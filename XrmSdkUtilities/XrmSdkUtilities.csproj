@@ -32,7 +32,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <IncludeSymbols>True</IncludeSymbols>
     <AssemblyOriginatorKeyFile>XrmUtilities.snk</AssemblyOriginatorKeyFile>
-    <Version>8.1.0</Version>
+    <Version>8.1.2</Version>
     <Authors>Colson Code, LLC</Authors>
     <AssemblyVersion>8.1.0</AssemblyVersion>
     <Description>Provides reusable implementation utilities for plugin and workflow activity development.ces </Description>    
